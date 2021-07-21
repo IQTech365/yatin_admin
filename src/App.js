@@ -2,7 +2,8 @@ import "./App.css";
 import "./Colors.css";
 import "./Responsive.css";
 import "./Scrollbar.css";
-import React from "react";
+import React, { useEffect }from "react";
+import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
 import history from "./Utils/History";
@@ -38,6 +39,11 @@ import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum'
 function App() {
+  useEffect(() => {
+    ReactGa.initialize('UA-201872924-1')
+    ReactGa.pageview(window.location.pathname + window.location.search)
+  }, []
+  )
   const Auth = useSelector((state) => state.Auth);
   if (Auth.isLoggedIn === false) {
     return (
