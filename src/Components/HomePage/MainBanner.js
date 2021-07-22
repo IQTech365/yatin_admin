@@ -7,21 +7,20 @@ import { reactLocalStorage } from "reactjs-localstorage";
 import history from "../../Utils/History";
 import { loginuser } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import LoginSignup from "../Auth/LoginSignup";
-import Swiper, {Autoplay} from "react-id-swiper";
+import Swiper, { Autoplay } from "react-id-swiper";
 import SecondSlide from "../../Assets/SecondSlide.png";
 import DancingImg from "../../Assets/DancingImg.jpg";
 import DarkLogo from "../../Assets/DarkLogo.png";
+import { Provider, LikeButton } from "@lyket/react";
 
 export default function MainBanner() {
-
   const loop = {
     loop: true,
     autoplay: {
       delay: 3000,
-      disableOnInteraction: false
-    }
-
-  }
+      disableOnInteraction: false,
+    },
+  };
 
   const [showPopup, toggleShowPopup] = useState(false);
   const Auth = useSelector((state) => state.Auth);
@@ -68,17 +67,23 @@ export default function MainBanner() {
               type="number"
               placeholder="+91"
               className="phonenumber_text"
-
             />
           </Row>
           <Row style={{ marginTop: 13 }}>
-            <Button variant="primary mobile_numberbtn" onClick={() => {
+            <Button
+              variant="primary mobile_numberbtn"
+              onClick={() => {
                 toggleShowPopup(true);
-              }}>Try Now</Button>
+              }}
+            >
+              Try Now
+            </Button>
           </Row>
           <Row>
-        
-          <div className="addthis_inline_share_toolbox"></div>
+            <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
+              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+            </Provider>
+            <div className="addthis_inline_share_toolbox"></div>
           </Row>
           <Row className="alignthat_btnh">
             <Button
@@ -106,7 +111,6 @@ export default function MainBanner() {
           </Col>
         </Row>
         <Container className="header_slidertwo">
-
           <Row>
             <h3 className="secondslide_heading">
               Multiple <br />
@@ -126,19 +130,24 @@ export default function MainBanner() {
               type="number"
               placeholder="+91"
               className="phonenumber_text"
-
             />
           </Row>
           <Row>
-            <Button variant="primary slide_numberbtn" onClick={() => {
-              toggleShowPopup(true);
-            }}>Try Now</Button>
+            <Button
+              variant="primary slide_numberbtn"
+              onClick={() => {
+                toggleShowPopup(true);
+              }}
+            >
+              Try Now
+            </Button>
           </Row>
-          
+
           <Row>
-         
-          <div className="addthis_inline_share_toolbox"></div>
-         
+          <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
+              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+            </Provider>
+            <div className="addthis_inline_share_toolbox"></div>
           </Row>
           <Row className="alignthat_btnh">
             <Button
@@ -167,18 +176,20 @@ export default function MainBanner() {
         </Row>
         <Container style={{ float: "right" }}>
           <Row>
-            <h3 className="secondslide_heading">Video <br />Invitation</h3>
+            <h3 className="secondslide_heading">
+              Video <br />
+              Invitation
+            </h3>
           </Row>
           <Row>
             <p className="secondslide_par">
-              Invite people to celebrate your occasion online
-              via Zoom or Meet
+              Invite people to celebrate your occasion online via Zoom or Meet
             </p>
-
           </Row>
-          <Row> <p className="thirdslide_extra">
-            Unlimited Timeless Conferencing*
-          </p></Row>
+          <Row>
+            {" "}
+            <p className="thirdslide_extra">Unlimited Timeless Conferencing*</p>
+          </Row>
 
           <Row style={{ marginTop: 20 }}>
             <Form.Control
@@ -188,13 +199,20 @@ export default function MainBanner() {
             />
           </Row>
           <Row>
-            <Button variant="primary slide_numberbtn" onClick={() => {
-              toggleShowPopup(true);
-            }}>Try Now</Button>
+            <Button
+              variant="primary slide_numberbtn"
+              onClick={() => {
+                toggleShowPopup(true);
+              }}
+            >
+              Try Now
+            </Button>
           </Row>
           <Row>
-        
-          <div className="addthis_inline_share_toolbox"></div>
+          <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
+              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+            </Provider>
+            <div className="addthis_inline_share_toolbox"></div>
           </Row>
 
           <Row className="alignthat_btnh">
@@ -208,7 +226,6 @@ export default function MainBanner() {
             </Button>
           </Row>
         </Container>
-
       </Container>
     </Swiper>
   );
