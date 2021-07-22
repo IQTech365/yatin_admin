@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Popup from "../Popups/Popup";
 import UserProfile from "../../UserPorfile/UserProfile";
 import Entercode from "../../Entercode/Entercode";
+
 const useStyles = makeStyles((theme) => ({
   text: {
     padding: theme.spacing(2, 2, 0),
@@ -63,7 +64,7 @@ export default function FootMenu(props) {
             if (Auth.Name === "" || Auth.Name === undefined) {
               setuserInfopopup(true);
             } else {
-              toggleShowPopup(true);
+              history.push("MyEvents/add-event");
             }
           }}
         >
@@ -101,12 +102,12 @@ export default function FootMenu(props) {
         showPopup={useiinfopopup}
         url={"MyEvents/add-event"}
       />
-      <Popup
+      {/* <Popup
         toggleShowPopup={toggleShowPopup}
         showPopup={showPopup}
         component={Entercode}
         url={"MyEvents/add-event"}
-      />
+      /> */}
     </AppBar>
   );
 }

@@ -7,7 +7,14 @@ import { uploadString } from "../../Utils/FileUpload_Download";
 import { useSelector, useDispatch } from "react-redux";
 import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import { BiMale, BiFemale } from "react-icons/bi";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+
 export default function UserProfile(props) {
   const [showerror, setshowerror] = useState(false);
   const [Name, setName] = useState("");
@@ -53,22 +60,25 @@ export default function UserProfile(props) {
   };
 
   return (
-    <Grid container spacing={0} style={{ padding: '15px' }}>
+    <Grid container spacing={0} style={{ padding: "15px" }}>
       <Grid item xs={12} {...getRootProps()}>
-        <input {...getInputProps()} /><center>
-          {Image == "" ? <img src={male} className="Profile" /> : <img src={Image} className="Profile" />}
+        <input {...getInputProps()} />
+        <center>
+          {Image == "" ? (
+            <img src={male} className="Profile" />
+          ) : (
+            <img src={Image} className="Profile" />
+          )}
         </center>
-
       </Grid>
 
       <Grid item xs={6}>
-
         <center
           onClick={() => {
             setGender("M");
           }}
         >
-          <img
+          <BiMale
             src={Gender === "M" && Image !== "" ? Image : male}
             className={
               Image === ""
@@ -77,17 +87,18 @@ export default function UserProfile(props) {
                   : " Profile"
                 : "Profile"
             }
-          />
+          />{" "}
+          Male
         </center>
       </Grid>
 
-      <Grid item xs={6} >
+      <Grid item xs={6}>
         <center
           onClick={() => {
             setGender("F");
           }}
         >
-          <img
+          <BiFemale
             src={Gender === "F" && Image !== "" ? Image : female}
             className={
               Image === ""
@@ -97,8 +108,10 @@ export default function UserProfile(props) {
                 : "Profile"
             }
           />
+          Female
         </center>
       </Grid>
+
       <Grid item xs={12}>
         <span>Name</span>
         <br />
@@ -126,11 +139,37 @@ export default function UserProfile(props) {
           error={showerror === true && DOB === "" ? true : false}
         />
       </Grid>
+{/*       <FormControl component="fieldset">
+        <FormLabel component="legend">Gender</FormLabel>
+        <RadioGroup
+          row
+          aria-label="position"
+          name="position"
+          defaultValue="top"
+        >
+          <FormControlLabel
+            value="gender_selection"
+            control={<Radio color="primary" />}
+            label="Male"
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            value="gender_selection"
+            control={<Radio color="primary" />}
+            label="Female"
+            labelPlacement="start"
+          />
+        </RadioGroup>
+      </FormControl> */}
       <Grid item xs={12}>
         <Button
           variant="contained"
           color="primary"
-          style={{ backgroundColor: '#3897F1', borderRadius: 25, marginTop: 10 }}
+          style={{
+            backgroundColor: "#3897F1",
+            borderRadius: 25,
+            marginTop: 10,
+          }}
           className="w-100 m-b-5px"
           onClick={() => {
             save();
@@ -140,5 +179,6 @@ export default function UserProfile(props) {
         </Button>
       </Grid>
     </Grid>
+    
   );
 }

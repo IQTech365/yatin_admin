@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Button, Form, Image, Col } from "react-bootstrap";
 import Logo from "../../Assets/LightLogo.png";
+
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
@@ -13,13 +14,16 @@ import DancingImg from "../../Assets/DancingImg.jpg";
 import DarkLogo from "../../Assets/DarkLogo.png";
 import { Provider, LikeButton } from "@lyket/react";
 
+
 export default function MainBanner() {
   const loop = {
     loop: true,
-    autoplay: {
+    Autoplay: {
       delay: 3000,
-      disableOnInteraction: false,
+      slidesPerView:1,
+      autoplayDisableOnInteraction: false
     },
+   
   };
 
   const [showPopup, toggleShowPopup] = useState(false);
@@ -65,8 +69,9 @@ export default function MainBanner() {
           >
             <Form.Control
               type="number"
-              placeholder="+91"
+              placeholder="Working on it"
               className="phonenumber_text"
+              disabled
             />
           </Row>
           <Row style={{ marginTop: 13 }}>
@@ -79,11 +84,12 @@ export default function MainBanner() {
               Try Now
             </Button>
           </Row>
-          <Row>
+          <Row className="row_down">
             <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
               <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>
-            <div className="addthis_inline_share_toolbox"></div>
+            <div className="addthis_inline_share_toolbox">
+            </div>
           </Row>
           <Row className="alignthat_btnh">
             <Button
@@ -106,7 +112,7 @@ export default function MainBanner() {
           component={LoginSignup}
         />
         <Row>
-          <Col>
+          <Col style={{display: 'flex', justifyContent: "center"}}>
             <img src={DarkLogo} style={{ margin: "auto" }} />
           </Col>
         </Row>
@@ -128,8 +134,9 @@ export default function MainBanner() {
           <Row style={{ marginTop: 20 }}>
             <Form.Control
               type="number"
-              placeholder="+91"
+              placeholder="Working on it"
               className="phonenumber_text"
+              disabled
             />
           </Row>
           <Row>
@@ -143,7 +150,7 @@ export default function MainBanner() {
             </Button>
           </Row>
 
-          <Row>
+          <Row className="row_down">
           <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
               <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>
@@ -170,7 +177,7 @@ export default function MainBanner() {
           component={LoginSignup}
         />
         <Row>
-          <Col>
+        <Col style={{display: 'flex', justifyContent: "center"}}>
             <img src={DarkLogo} style={{ margin: "auto" }} />
           </Col>
         </Row>
@@ -194,8 +201,9 @@ export default function MainBanner() {
           <Row style={{ marginTop: 20 }}>
             <Form.Control
               type="number"
-              placeholder="+91"
+              placeholder="Working on it"
               className="phonenumber_text"
+              disabled
             />
           </Row>
           <Row>
@@ -208,7 +216,7 @@ export default function MainBanner() {
               Try Now
             </Button>
           </Row>
-          <Row>
+          <Row className="row_down">
           <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
               <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>

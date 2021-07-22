@@ -14,8 +14,9 @@ class HomePage extends React.Component {
     return (
       <>
 
-        <ChatWidget />
+        
         <MainBanner />
+        <ChatWidget />
         <Features />
         <AboutBanner />
         <Additionals />

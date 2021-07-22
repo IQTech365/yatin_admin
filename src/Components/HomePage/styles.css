@@ -396,6 +396,9 @@
   .addthis_inline_share_toolbox{
     margin-left:auto;
   }
+  .row_down{
+    margin-top: 30px;
+  }
 }
 
 .secondslide_btnn {
@@ -448,18 +451,25 @@ a.blantershow-chat i {
 
 
 .css-117jsss-Simple {
-    margin-left: .5em;
-    color: #292929;
+    margin-left: -0.8em!important;
+    color: #ffffff!important;
+    z-index: 202;
     font-family: inherit;
     font-weight: bold;
 }
 
 .css-x3nz81-Simple{
-  background-color: #71f9ff!important;
+  background-color: #0d6efd!important;
 }
 .css-19ddtml-Simple {
   height: 1.3em!important;
   display: block;
   margin: 0 auto;
-  fill: #131313!important;
+  fill: #ffffff!important;
+}
+.css-iyjp1g-Simple{
+  background: #0d6efd!important;
+}
+.row_down{
+  column-gap: 10px;
 }

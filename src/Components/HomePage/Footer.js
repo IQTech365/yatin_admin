@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="row">
           <div className="col-md-5 text-md-left text-center mb-2 mb-md-0">
             <p className="text-white mb-0">
-              Copyright @ 2020, All Rights Reserved for minvitd.com
+              Copyright @ 2021, All Rights Reserved for Mobilly Invite
             </p>
           </div>
           <div className="col-md-2 text-center">
@@ -26,15 +26,15 @@ export default function Footer() {
           <div className="col-md-3 text-center">
             {" "}
             <a href="#" className="text-white">
-              Privacy &amp; policy
+              Privacy &amp; Policy
             </a>{" "}
           </div>
           <div className="col-md-2 text-right">
             <div className="justify-content-center justify-content-md-end d-flex flex-row">
-              <a href="#" className="ml-3 text-white">
+              <a href="https://www.facebook.com/Minvitd/" className="ml-3 text-white">
                 <FaFacebookF size='20' />
               </a>
-              <a href="#" className="ml-3 text-white">
+   {/*            <a href="#" className="ml-3 text-white">
                 <FaTwitter size='20' />
               </a>
               <a href="#" className="ml-3 text-white">
@@ -42,7 +42,7 @@ export default function Footer() {
               </a>
               <a href="#" className="ml-3 text-white">
                 <FaInstagram size='20' />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

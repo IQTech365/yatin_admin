@@ -11,8 +11,9 @@ import CalendarIcon from "../../../Assets/Calender.png";
 import { GrSync } from "react-icons/gr"
 import LIKE from "../../../Assets/LIKE.png";
 import RSVP from "../../../Assets/RSVP.png";
+import {HiHome} from "react-icons/hi"
 import { GoCalendar, GoLocation } from "react-icons/go"
-
+import {AiFillHome} from "react-icons/ai"
 import Carousel from "react-bootstrap/Carousel";
 import CommentIcon from "../../../Assets/comment-dot.png";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
@@ -113,10 +114,10 @@ export default function InvitaionMain(props) {
                     marginBottom: 10,
                   }}
                 >
-                  <p style={{ fontWeight: "bold", fontSize: 20, color: "white" }}>
-                    <IoArrowBackCircleOutline
-                      style={{ backgroundColor: '#313131', borderRadius: '50px' }}
-                      size={40}
+                  <p style={{  color: "black" }}>
+                    <HiHome
+                      style={{ backgroundColor: 'white', borderRadius: '50px' }}
+                      size={30}
                       onClick={() => {
                         history.push("/" + props.base);
                       }}
