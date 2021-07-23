@@ -72,7 +72,7 @@
   margin-top: 10px;
 }
 .fullimagemain {
-  height: 50vh;
+  height: 60vh;
   object-fit: cover;
   width: 100%;
 }
@@ -220,6 +220,6 @@
 
 @media (max-width: 320px) {
   .fullimagemain {
-    height: 50vh!;
+    height: 50vh!important;
   }
 }

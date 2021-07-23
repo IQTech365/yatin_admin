@@ -7,8 +7,7 @@ import { uploadString } from "../../Utils/FileUpload_Download";
 import { useSelector, useDispatch } from "react-redux";
 import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import { BiMale, BiFemale } from "react-icons/bi";
+
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -72,21 +71,12 @@ export default function UserProfile(props) {
         </center>
       </Grid>
 
-      <Grid item xs={6}>
+      {/*       <Grid item xs={6}>
         <center
-          onClick={() => {
-            setGender("M");
-          }}
+         
         >
           <BiMale
-            src={Gender === "M" && Image !== "" ? Image : male}
-            className={
-              Image === ""
-                ? showerror === true
-                  ? "no-proifle "
-                  : " Profile"
-                : "Profile"
-            }
+           
           />{" "}
           Male
         </center>
@@ -94,23 +84,14 @@ export default function UserProfile(props) {
 
       <Grid item xs={6}>
         <center
-          onClick={() => {
-            setGender("F");
-          }}
+        
         >
           <BiFemale
-            src={Gender === "F" && Image !== "" ? Image : female}
-            className={
-              Image === ""
-                ? showerror === true
-                  ? "no-proifle "
-                  : " Profile"
-                : "Profile"
-            }
+            
           />
           Female
         </center>
-      </Grid>
+      </Grid> */}
 
       <Grid item xs={12}>
         <span>Name</span>
@@ -139,7 +120,7 @@ export default function UserProfile(props) {
           error={showerror === true && DOB === "" ? true : false}
         />
       </Grid>
-{/*       <FormControl component="fieldset">
+      <FormControl component="fieldset">
         <FormLabel component="legend">Gender</FormLabel>
         <RadioGroup
           row
@@ -148,19 +129,41 @@ export default function UserProfile(props) {
           defaultValue="top"
         >
           <FormControlLabel
-            value="gender_selection"
+            value="male"
+            src={Gender === "M" && Image !== "" ? Image : male}
+            className={
+              Image === ""
+                ? showerror === true
+                  ? "no-proifle "
+                  : " Profile"
+                : "Profile"
+            }
             control={<Radio color="primary" />}
             label="Male"
+            onClick={() => {
+              setGender("M");
+            }}
             labelPlacement="start"
           />
           <FormControlLabel
-            value="gender_selection"
+            value="female"
             control={<Radio color="primary" />}
+            onClick={() => {
+              setGender("F");
+            }}
             label="Female"
+            src={Gender === "F" && Image !== "" ? Image : female}
+            className={
+              Image === ""
+                ? showerror === true
+                  ? "no-proifle "
+                  : " Profile"
+                : "Profile"
+            }
             labelPlacement="start"
           />
         </RadioGroup>
-      </FormControl> */}
+      </FormControl>
       <Grid item xs={12}>
         <Button
           variant="contained"
@@ -179,6 +182,5 @@ export default function UserProfile(props) {
         </Button>
       </Grid>
     </Grid>
-    
   );
 }

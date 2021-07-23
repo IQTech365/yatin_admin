@@ -2,12 +2,12 @@
   border: solid red;
   border-radius: 20px;
 }
-.Profile {
+/* .Profile {
   height: 60px;
   width: 50px;
   object-fit: contain;
   color: rgb(84, 141, 248);
-}
+} */
 
 .MuiOutlinedInput-root {
   border-radius: 20px !important;
