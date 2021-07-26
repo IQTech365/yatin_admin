@@ -36,7 +36,7 @@ export default function Hoxinvitation(props) {
     debugger
     if (Auth.isLoggedIn === false) {
       if (props.match.params.maincode !== undefined && props.match.params.Code !== "") {
-        await dispatch(addEvent(props.match.params.maincode, props.match.params.Code))
+        await dispatch(addEvent(props.match.params.Code, props.match.params.maincode))
         // await dispatch(GetInvitations());
         // history.push("/");
       }
