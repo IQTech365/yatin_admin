@@ -2,7 +2,7 @@ import "./App.css";
 import "./Colors.css";
 import "./Responsive.css";
 import "./Scrollbar.css";
-import React, { useEffect }from "react";
+import React, { useEffect } from "react";
 import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
@@ -57,7 +57,7 @@ function App() {
             />
             <Route
               exact
-              path="/MyInvitations/:maincode/:Name/:Code"
+              path="/MyInvitations/:maincode/:Code"
               component={Hoxinvitation}
             />
 
@@ -79,7 +79,7 @@ function App() {
             />
             <Route
               exact
-              path="/MyInvitations/:maincode/:Name/:Code"
+              path="/MyInvitations/:maincode/:Code"
               component={Hoxinvitation}
             />
             <Route exact path="/MyEvents/eventpage/chat/:id" component={Chat} />
