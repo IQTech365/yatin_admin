@@ -20,8 +20,8 @@ export default function Home(props) {
   const CodeEvent = useSelector(state => state.CodeEvent)
   const EventState = useSelector((state) => state.Eventdata);
   useEffect(async () => {
-    if (CodeEvent.Name !== "") {
-      await dispatch(addme(CodeEvent.Code, CodeEvent.Name));
+    if (CodeEvent.Maincode !== "") {
+      await dispatch(addme(CodeEvent.Code, CodeEvent.Maincode));
     }
 
     dispatch(GetEvents());

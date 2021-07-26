@@ -28,11 +28,11 @@ export function saveEvent(edata) {
     });
   };
 }
-export function addme(code, Name) {
+export function addme(code, maincode) {
   return (dispatch) => {
     console.log(code);
     axios
-      .post(url + "event/addme", { code: code, Name: Name })
+      .post(url + "event/addme", { code: code, maincode: maincode })
       .then(async (res) => {
 
         if (res.data.status === 'status') {

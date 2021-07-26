@@ -191,7 +191,7 @@ export default function EventAdmin(props) {
                 className="tac m-b-25px clipboard"
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    "https://mobillyinvite.com/MyInvitations/" + Eventdata.MainCode + "/" + Eventdata.Name + "/" + Eventdata.code
+                    "https://mobillyinvite.com/MyInvitations/" + Eventdata.MainCode + "/" + Eventdata.code
                   );
                 }}
               >

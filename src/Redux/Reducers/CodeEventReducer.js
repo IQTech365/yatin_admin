@@ -1,5 +1,5 @@
 const initialState = {
-    Name: "",
+    Maincode: "",
     Code: ""
 };
 

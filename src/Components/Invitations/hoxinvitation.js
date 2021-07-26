@@ -35,8 +35,8 @@ export default function Hoxinvitation(props) {
   useEffect(async () => {
     debugger
     if (Auth.isLoggedIn === false) {
-      if (props.match.params.Name !== undefined && props.match.params.Code !== "") {
-        await dispatch(addEvent(props.match.params.Name, props.match.params.Code))
+      if (props.match.params.maincode !== undefined && props.match.params.Code !== "") {
+        await dispatch(addEvent(props.match.params.maincode, props.match.params.Code))
         // await dispatch(GetInvitations());
         // history.push("/");
       }
@@ -73,13 +73,13 @@ export default function Hoxinvitation(props) {
     } else {
       await axios
         .post(url + "event/viewEvent", {
-          Name: props.match.params.Name,
+          maincode: props.match.params.maincode,
           Code: props.match.params.Code
         })
         .then(async (res) => {
           debugger;
           if (res.data.Status === "success") {
-            await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].Name))
+            await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             setInvitations(res.data.Events);
           }
         })

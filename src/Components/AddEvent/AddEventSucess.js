@@ -40,12 +40,12 @@ export default function AddEventSucess(props) {
         if (res.data.Events[0].EntryWay === 'Code') {
 
 
-          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].Name + "/" + res.data.Events[0].code)
+          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
           await setWatsapp(
             "Hi there ! You have been invited by " + Auth.Name + " to " + res.data.Events[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].Name + "/" + res.data.Events[0].code)
+            " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
         } else {
-          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].Name + "/" + res.data.Events[0].code)
+          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
           await setWatsapp(
             "Hi there ! You have been invited by " + Auth.Name + " to " + res.data.Events[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
             " https://mobillyinvite.com/MyInvitations/" +
