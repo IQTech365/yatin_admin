@@ -29,3 +29,23 @@
 .time_notification {
   font-size: 10px;
 }
+
+.mobilebar_text {
+  text-decoration: none;
+  font-size: 10px;
+  margin-bottom: inherit;
+  text-align: center;
+}
+
+.mobilebar_text_notif {
+  text-decoration: none;
+  font-size: 10px;
+  margin-bottom: inherit;
+  margin-right: -5px;
+}
+
+@media (max-width: 351px) {
+  .navigation_mobile {
+    column-gap: 15px !important;
+  }
+}

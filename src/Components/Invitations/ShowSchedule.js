@@ -76,7 +76,7 @@ export default function ShowSchedule(props) {
             <>
               {Eventdata.map((eve, index) => (<>
                 <Grid item xs={false} md={2} />
-                <Grid item xs={12} md={8} className="card-shadow m-b-10 p-15px m-5px" style={{ borderRadius: '2px' }}>
+                <Grid item xs={12} md={8} className="card-shadow m-b-10 p-15px m-5px schedule_main" style={{ borderRadius: '13px' }}>
                   <Grid container spacing={0}>
                     <>
                       <Grid
@@ -97,7 +97,7 @@ export default function ShowSchedule(props) {
                             " " +
                             eve.datetime.split("T")[1]}
                         </Grid>
-                        <Grid item xs={12} className="mt-10px" style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll', background: '#e2ffff' }}>
+                        <Grid item xs={12} className="mt-10px" style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll' }}>
                           {eve.description}
                         </Grid>
                       </Grid>

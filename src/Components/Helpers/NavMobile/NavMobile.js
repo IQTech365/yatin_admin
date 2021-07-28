@@ -3,7 +3,8 @@ import { Navbar, Nav } from "react-bootstrap";
 import { MdEvent } from "react-icons/md";
 import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
 import { GoBook } from "react-icons/go";
-import { BiNews } from "react-icons/bi";
+import { GrGallery } from "react-icons/gr";
+import { BiNews, BiHomeAlt, BiPhotoAlbum } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import "./NavMobile.css";
@@ -35,49 +36,71 @@ export default function NavMobile(props) {
       <Navbar
         bg="light"
         variant="light"
-        style={{ position: "fixed", left: 0, bottom: 0, width: "100vw", zIndex: 255 }}
+        style={{
+          position: "fixed",
+          left: 0,
+          bottom: 0,
+          width: "100vw",
+          zIndex: 255
+
+        }}
         className="deskhide-nav"
       >
-        <Nav style={{ margin: "auto" }}>
+        <Nav
+          style={{
+            margin: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            columnGap: "23px",
+            height: '4.5vh'
+          }}
+          className="navigation_mobile"
+        >
           <Nav.Link
             onClick={() => {
               history.push("/" + props.base + '/eventpage/' + props.id);
             }}
-            style={{ marginRight: "4vh" }}
+            style={{ textDecoration: "none" }}
           >
-            <MdEvent size={30} />
+            <BiHomeAlt size={25} className="reacticons_align" />
+            <p className="mobilebar_text">Home</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {
               history.push("/" + props.base + '/albums/' + props.id);
             }}
-            style={{ marginRight: "4vh" }}
+            style={{ textDecoration: "none" }}
           >
-            <IoImagesSharp size={25} />
+            <BiPhotoAlbum size={25} />
+            <p className="mobilebar_text">Gallery</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {
               history.push("/" + props.base + '/eventpage/' + "feed/" + props.id);
             }}
-            style={{ marginRight: "4vh" }}
+            style={{ textDecoration: "none" }}
           >
             <BiNews size={25} />
+            <p className="mobilebar_text">Feed</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {
               setshow(true);
             }}
-            style={{ marginRight: "4vh" }}
+            style={{ textDecoration: "none" }}
           >
             <AiOutlineBell size={25} />
+            <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {
               history.push("/" + props.base + "/more/" + props.id);
             }}
-            style={{ marginRight: "-1vh" }}
+            style={{ textDecoration: "none" }}
           >
             <BsThreeDots size={25} />
+            <p className="mobilebar_text">More</p>
           </Nav.Link>
         </Nav>
       </Navbar>

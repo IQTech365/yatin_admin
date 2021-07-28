@@ -33,7 +33,7 @@ export default function Invitation(props) {
   }
 
   return (
-    <Grid container spacing={0} className="mb-100">
+    <Grid container spacing={0} className="mb-100 invitation_mobile" style={{ marginTop: '7vh' }}>
       <Popup
         component={UserProfile}
         setuserInfopopup={setuserInfopopup}
@@ -57,6 +57,7 @@ export default function Invitation(props) {
           sm={6}
           className="InvitationCard"
           key={"InvitationCard" + index}
+
         >
           {inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
             src={inv[0].file}

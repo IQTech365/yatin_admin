@@ -47,10 +47,15 @@
   left: 1vw;
 }
 
-@media (min-width: 1000px){
-  .contain-main{
+@media (min-width: 1000px) {
+  .contain-main {
     max-width: 70%;
-    margin : auto;
+    margin: auto;
   }
 }
 
+@media (max-width: 360px) {
+  .invitation_mobile {
+    margin-top: 9.4vh !important;
+  }
+}

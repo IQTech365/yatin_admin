@@ -69,7 +69,7 @@ export default function ShowStory(props) {
                                                     </h4>
                                                     <p
                                                         className="card-text ourstory_text"
-                                                        style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll', background: '#e2ffff' }}
+                                                        style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll' }}
                                                     >
                                                         {stry.description}
                                                     </p>

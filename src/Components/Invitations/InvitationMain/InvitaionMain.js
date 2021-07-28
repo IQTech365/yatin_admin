@@ -8,22 +8,24 @@ import SendIcon from "../../../Assets/ic-send.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CalendarIcon from "../../../Assets/Calender.png";
-import { GrSync } from "react-icons/gr"
+import { GrSync } from "react-icons/gr";
 import LIKE from "../../../Assets/LIKE.png";
 import RSVP from "../../../Assets/RSVP.png";
-import {HiHome} from "react-icons/hi"
-import { GoCalendar, GoLocation } from "react-icons/go"
-import {AiFillHome} from "react-icons/ai"
+import { HiHome } from "react-icons/hi";
+import { GoCalendar, GoLocation } from "react-icons/go";
+import { AiFillHome } from "react-icons/ai";
 import Carousel from "react-bootstrap/Carousel";
 import CommentIcon from "../../../Assets/comment-dot.png";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
 import Location from "../../../Assets/Location.png";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { AiOutlineLike, AiOutlineSync } from "react-icons/ai"
+import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import {
   like_event,
-  comment_event, GetInvitations, GetEvents
+  comment_event,
+  GetInvitations,
+  GetEvents,
 } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import history from "../../../Utils/History";
 import NavMobile from "../../Helpers/NavMobile/NavMobile";
@@ -61,7 +63,7 @@ export default function InvitaionMain(props) {
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
-      await setmaincode(props.Eventdata[0].MainCode)
+      await setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
       for (let i = 0; i < props.Eventdata.length; i++) {
@@ -84,7 +86,7 @@ export default function InvitaionMain(props) {
       console.log(countarray);
       setlikeCount(countarray);
     }
-    setcommentcountplus(0)
+    setcommentcountplus(0);
   }, [props.Eventdata]);
 
   return (
@@ -114,9 +116,9 @@ export default function InvitaionMain(props) {
                     marginBottom: 10,
                   }}
                 >
-                  <p style={{  color: "black" }}>
+                  <p style={{ color: "black" }}>
                     <HiHome
-                      style={{ backgroundColor: 'white', borderRadius: '50px' }}
+                      style={{ backgroundColor: "white", borderRadius: "50px" }}
                       size={30}
                       onClick={() => {
                         history.push("/" + props.base);
@@ -153,25 +155,25 @@ export default function InvitaionMain(props) {
                     muted
                     type="video/mp4"
                     autoPlay={true}
-                    src={
-                      eve.file
-                    }
-
+                    src={eve.file}
                     preload="none"
-                    className='w-100'
+                    className="w-100"
                   />
                 )}
                 <Container
                   className="box-event"
                   fluid
                   style={{ marginTop: "5vh" }}
-                ><div style={{ position: 'relative', left: '10px', top: '3px' }}>
+                >
+                  <div
+                    style={{ position: "relative", left: "10px", top: "3px" }}
+                  >
                     <UserDataUrl
                       Phone={eve.Host[0]}
                       showIcon={true}
                       className="m-10px"
-
-                    /></div>
+                    />
+                  </div>
                   <div
                     className="event-chat-buttons"
                     style={{ marginTop: "1vh" }}
@@ -236,25 +238,29 @@ export default function InvitaionMain(props) {
                             ? likeCount[index].count
                             : 0}
                         </span>
-                        <AiOutlineLike size="25" className="info-icon"
+                        <AiOutlineLike
+                          size="25"
+                          className="info-icon"
                           style={{ color: "#4e4e4e" }}
                           onClick={() => {
                             checkiflike(index);
                             dispatch(like_event(eve._id));
-                          }} />
-
+                          }}
+                        />
                       </center>
                     </Col>
-                    <Col onClick={() => {
-                      history.push(
-                        "/" + props.base + "/rsvp/" + props.id
-                      );
-                    }}>
+                    <Col
+                      onClick={() => {
+                        history.push("/" + props.base + "/rsvp/" + props.id);
+                      }}
+                    >
                       <center>
                         <div>
                           <IsRsvp RSVPList={eve.RSVPList} />
-                          <AiOutlineSync size="25"
-                            style={{ color: "#4e4e4e" }} />
+                          <AiOutlineSync
+                            size="25"
+                            style={{ color: "#4e4e4e" }}
+                          />
                           {/* <Image
                             src={RSVP}
 
@@ -310,7 +316,9 @@ export default function InvitaionMain(props) {
                   <h2 className="event-date">{eve.Name}</h2>
                   <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
                   <p className="event-des">{eve.Description}</p>
-                  <a href="#" className="invitationmain_link">Read More</a>
+                  <a href="#" className="invitationmain_link">
+                    Read More
+                  </a>
                 </Container>
               </Container>
             </Carousel.Item>
