@@ -90,7 +90,7 @@ export default function NavMobile(props) {
             }}
             style={{ textDecoration: "none" }}
           >
-            <AiOutlineBell size={25} />
+            <AiOutlineBell size={25} style={{marginLeft:'8px'}} />
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link>
           <Nav.Link

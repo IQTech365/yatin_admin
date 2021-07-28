@@ -230,7 +230,7 @@ export default function EventAdmin(props) {
 
           </Col>
         </Row>
-        <Row className="messageboard">
+        {/* <Row className="messageboard">
           <h3 className="messageboard-txt">Message Board</h3>
         </Row>
         <Row style={{ justifyContent: "center" }}>
@@ -254,7 +254,7 @@ export default function EventAdmin(props) {
           >
             Send
           </Button>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

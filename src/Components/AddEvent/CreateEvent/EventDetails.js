@@ -634,6 +634,7 @@ export default function EventDetails(props) {
           rows={2}
         />
       </Grid>
+      
       {/* <Grid item xs={8} className="talc fs-bold m-b-25px label">
         Guest can Invite (max 3)
       </Grid>
@@ -652,7 +653,12 @@ export default function EventDetails(props) {
           }}
         />
       </Grid> */}
-      <Grid
+
+
+{/* Album, Schdedule and Story Commented Below */}
+
+
+ {/*      <Grid
         item
         xs={props.SelectedEvent === 0 ? 4 : 12}
         md={props.SelectedEvent === 0 ? 4 : 12}
@@ -790,7 +796,7 @@ export default function EventDetails(props) {
         </>
       ) : (
         <></>
-      )}
+      )} */}
 
       <Grid item xs={12}>
         <button

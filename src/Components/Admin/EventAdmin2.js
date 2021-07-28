@@ -178,7 +178,7 @@ export default function EventAdmin2() {
                         Manage Guest
                     </Button>
                 </Row>
-                <Row className="messageboard">
+             {/*    <Row className="messageboard">
                     <h3 className="messageboard-txt">Message Board</h3>
                 </Row>
                 <Row style={{ justifyContent: "center" }}>
@@ -202,7 +202,7 @@ export default function EventAdmin2() {
                     >
                         Send
                     </Button>
-                </Row>
+                </Row> */}
             </Container>
         </>
     );

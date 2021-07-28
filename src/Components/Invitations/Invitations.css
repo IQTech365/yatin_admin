@@ -3,6 +3,8 @@
   width: 90%;
   margin: 5%;
 }
+
+
 /* .card {
   margin-left: auto;
   align-self: center;
@@ -97,7 +99,7 @@
 
 @media (max-width: 360px) {
   .contain-main {
-    margin-top: 9.4vh !important;
+    margin-top: 1.5vh !important;
   }
 }
 
