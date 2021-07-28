@@ -33,7 +33,7 @@ export default function Invitation(props) {
   }
 
   return (
-    <Grid container spacing={0} className="mb-100 invitation_mobile" style={{ marginTop: '7vh' }}>
+    <Grid container spacing={0} className="mb-100 invitation_mobile" >
       <Popup
         component={UserProfile}
         setuserInfopopup={setuserInfopopup}

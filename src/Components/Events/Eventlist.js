@@ -23,7 +23,7 @@ export default function EventList(props) {
     return <img src={NoInv} className="nodata" />;
   }
   return (
-    <Grid container className="mb-100 contain-main" style={{ marginTop: '7vh' }}>
+    <Grid container className="mb-100 contain-main" >
       <Popup
         component={Notifications}
         toggleShowPopup={setshow}
