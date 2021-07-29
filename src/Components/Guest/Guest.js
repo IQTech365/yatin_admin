@@ -204,7 +204,7 @@ export default function Guest(props) {
                           <span
                             className={
                               "status " + guest.Status === "Accept"
-                                ? "user-accept "
+                                ? "user-accept"
                                 : guest.Status === "Decline"
                                   ? "user-decline"
                                   : guest.Status === "May Be"
