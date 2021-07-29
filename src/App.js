@@ -39,6 +39,17 @@ import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum'
 function App() {
+
+  window.OneSignal = window.OneSignal || [];
+  const OneSignal = window.OneSignal;
+  useEffect(() => {
+    OneSignal.push(() => {
+      OneSignal.init({
+        appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
+      })
+    });
+   },[]);
+
   useEffect(() => {
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
