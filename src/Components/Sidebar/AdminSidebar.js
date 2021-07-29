@@ -32,9 +32,16 @@ export default function AdminSidebar(props) {
       <Container className="guestlist-box" style={{ padding: "25px" }}>
         <Row>
           <Col>
-            <p style={{ fontWeight: 700, fontSize: 23 }}>
+            <p style={{
+                fontWeight: 600,
+                fontSize: 20,
+                paddingLeft: "10px",
+                marginBottom: 20,
+                marginTop: 20,
+            
+              }}>
               <IoArrowBackCircleOutline
-                size={40}
+                size={30}
                 onClick={() => {
                   history.goBack();
                 }}
@@ -54,7 +61,7 @@ export default function AdminSidebar(props) {
               }}
             >
               <Row className="sidebar-rows">
-                <Col>{eventdata.Name}</Col>
+                <Col style={{ margin: "auto", padding: "10px" }}>{eventdata.Name}</Col>
                 <Col>
                   <RiArrowRightSLine size={20} className="arrow-iconcs" />
                 </Col>

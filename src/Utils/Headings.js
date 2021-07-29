@@ -1,6 +1,7 @@
 // import React, { useEffect, useState } from "react";
 import Logo from "../Assets/Logo.svg";
 import history from "./History";
+import MobileLogo from "../Assets/MobileLogo.png"
 export default function Headings(props) {
   // const [url, seturl] = useState("");
   // useEffect(() => {
@@ -11,9 +12,11 @@ export default function Headings(props) {
   return (
     <span className="black-t title-name">
       <img
-        src={Logo}
+        src={MobileLogo}
         className="Logo"
         alt="logo"
+        width="30"
+                height="30"
         onClick={() => history.push("/home")}
       />
     </span>

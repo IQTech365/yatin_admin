@@ -162,8 +162,11 @@ export default function ShowAlbum(props) {
                 </Row>
                 <br />
                 {images.length === 0 ? <> <img src={BlankSchedule} className="blank-img" />
+                
                     <br />
-                    <h3 className="tac">Album not Added yet </h3></>
+                    <h3 className="tac">Add Albums😍 Now!</h3>
+                
+                    </>
                     :
                     <Swiper {...params}>
                         {images.map(img => (
