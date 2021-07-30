@@ -570,12 +570,14 @@ export default function EventDetails(props) {
           }
         >
           {isEditLocation === true ? (
-            <SaveIcon
-              onClick={() => {
-                setisEditLocation(false);
-              }}
-              style={{ position: "relative", top: "30px", color: "green" }}
-            />
+
+            <p style={{display:'flex',justifyContent: 'left'}}>   <SaveIcon
+            onClick={() => {
+              setisEditLocation(false);
+            }}
+            style={{ position: "relative", color: "green" }}
+          />Save</p>
+         
           ) : (
             <></>
           )}

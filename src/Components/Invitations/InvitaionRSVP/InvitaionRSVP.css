@@ -23,17 +23,17 @@
 }
 .carousel {
   width: 70%;
-  height: 90vh;
+  height: 100vh;
   margin: auto;
   object-fit: fill;
 }
 .fullimage {
   width: 100%;
-  object-fit: contain;
-  height: 75vh;
+  object-fit: cover;
+  height: 100vh;
 }
 .carousel-inner {
-  height: 92vh !important;
+  height: 100vh !important;
   overflow: scroll;
 }
 .carousel-indicators {

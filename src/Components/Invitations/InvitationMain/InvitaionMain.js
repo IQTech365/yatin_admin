@@ -124,7 +124,6 @@ export default function InvitaionMain(props) {
                         history.push("/" + props.base);
                       }}
                     />
-
                   </p>
                   <Col></Col>
                   <FaUserFriends
@@ -226,6 +225,7 @@ export default function InvitaionMain(props) {
                       width: "auto",
                       height: "20px",
                       marginLeft: "60px",
+                      boxShadow: "none"
                     }}
                   />
 

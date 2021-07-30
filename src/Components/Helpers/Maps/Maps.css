@@ -12,7 +12,7 @@
   font-size: 14px;
   padding-left: 10px;
   position: relative;
-  bottom: 5px;
+  bottom: 9px;
 }
 .locationSearch:focus {
   outline: none !important ;
