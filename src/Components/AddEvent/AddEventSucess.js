@@ -19,6 +19,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
+import Lottie from "react-lottie";
+import celebration from "../Animations/celebrations.json"
+
+
+const defaultOptions = {
+  loop: 2,
+  autoplay: true,
+  animationData: celebration,
+  rendererSettings: {
+    // preserveAspectRatio: "xMidYMid slice"
+  }
+};
 
 export default function AddEventSucess(props) {
   const Auth = useSelector(state => state.Auth)
@@ -156,6 +168,7 @@ export default function AddEventSucess(props) {
           <Grid item xs={12} className="tac">
             Note: Only those who have invite can access.
           </Grid>
+            <Lottie options={defaultOptions} height={400} style={{position: 'absolute', margin:'auto', width:'auto'}}/>
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
@@ -165,8 +178,10 @@ export default function AddEventSucess(props) {
             >
               Done
             </button>
+          
           </Grid>
         </Grid>
+      
       </Grid>
       <Menu
         id="simple-menu"
