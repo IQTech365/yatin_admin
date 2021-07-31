@@ -12,7 +12,7 @@ import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector } from "react-redux";
 import UserProfile from "../UserPorfile/UserProfile";
-
+import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 export default function Invitation(props) {
   const [data, setData] = useState(props.data);
   const [show, setshow] = useState(false);
@@ -108,7 +108,7 @@ export default function Invitation(props) {
                     {inv[0].Name}
                   </Grid>
                   <Grid item xs={12} className="fs-small t-white ">
-                    {inv[0].Date} {inv[0].Time}
+                    <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
                   </Grid>
                 </Grid>
               </Grid>

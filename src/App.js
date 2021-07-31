@@ -37,7 +37,8 @@ import EditEvent from "./Components/EditEvent/EditEvent";
 import HomePage from "./Components/HomePage/HomePage";
 import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
-import ShowAlbum from './Components/Invitations/ShowAlbum'
+import ShowAlbum from './Components/Invitations/ShowAlbum';
+
 function App() {
 
   window.OneSignal = window.OneSignal || [];
@@ -83,6 +84,11 @@ function App() {
       <Router history={history}>
         <div className="App">
           <Switch>
+            {/* <Route
+              exact
+              path="/Profile"
+              component={UserProfile}
+            /> */}
             <Route
               exact
               path="/MyInvitations/:maincode"

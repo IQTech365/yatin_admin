@@ -17,7 +17,8 @@ import { logout } from "../../../Redux/DispatchFuncitons/AuthFunctions";
 import { useDispatch } from "react-redux";
 import Notification from "../../Notifications/Notification";
 import Popup from "../Popups/Popup";
-
+import history from '../../../Utils/History'
+import UserProfile from "../../../Components/UserPorfile/UserProfile";
 export default function Header(props) {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,6 +26,7 @@ export default function Header(props) {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const Auth = useSelector((state) => state.Auth);
+  const [useiinfopopup, setuserInfopopup] = useState(false);
   const [showPopup, toggleShowPopup] = useState(false);
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,10 +80,15 @@ export default function Header(props) {
           aria-label="show 4 new mails"
           color="inherit"
           className="p-0"
+          onClick={() => { setuserInfopopup(true); }}
         >
-          <InfoOutlinedIcon />
+          {Auth.Profile === "" ? (
+            <AccountCircle />
+          ) : (
+            <Avatar alt="Profile Picture" src={Auth.Profile} />
+          )}
         </IconButton>
-        <span className="menu-option">Info</span>
+        <span className="menu-option">Profile</span>
       </MenuItem>
       {props.showextra === true ? (
         <MenuItem
@@ -130,6 +137,12 @@ export default function Header(props) {
 
   return (
     <div className={props.ismobile !== undefined ? props.ismobile : "grow"}>
+      <Popup
+        component={UserProfile}
+        toggleShowPopup={setuserInfopopup}
+        showPopup={useiinfopopup}
+
+      />
       <AppBar position="static" color="default">
         <Toolbar>
           <IconButton
@@ -155,35 +168,16 @@ export default function Header(props) {
             </IconButton> */}
             {Auth.isLoggedIn === true ? (
               <>
-                <IconButton
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                  className="Nav-icon"
-                >
-                  <InfoOutlinedIcon color="primary" />
-                </IconButton>
-                {props.showextra === true ? (
-                  <IconButton
-                    aria-label="show 4 new mails"
-                    color="inherit"
-                    className="Nav-icon"
-                    onClick={() => {
-                      toggleShowPopup(true);
-                    }}
-                  >
-                    <NotificationsIcon color="default" />
-                  </IconButton>
-                ) : (
-                  <></>
-                )}
+
+
                 <IconButton
                   edge="end"
                   aria-label="account of current user"
                   aria-controls={menuId}
                   aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
                   color="inherit"
                   className="Nav-icon"
+                  onClick={() => { setuserInfopopup(true); }}
                 >
                   {Auth.Profile === "" ? (
                     <AccountCircle />

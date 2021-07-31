@@ -77,6 +77,7 @@ export default function Feed(props) {
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id]);
+        await getposts()
         await setbase("MyEvents");
         await setadmins(MyEvents[props.match.params.id][0].Host);
         await guestlist([...MyEvents[props.match.params.id][0].Participants, ...MyEvents[props.match.params.id][0].Host]);
@@ -86,11 +87,12 @@ export default function Feed(props) {
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id]);
+        await getposts()
         await setbase("inv");
         await setadmins(myInvitations[props.match.params.id][0].Host);
         await guestlist([...myInvitations[props.match.params.id][0].Participants, ...myInvitations[props.match.params.id][0].Host]);
       }
-      await getposts()
+
     }
   }, [MyEvents, myInvitations]);
 
