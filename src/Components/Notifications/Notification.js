@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import NoNotfcations from '../../Assets/NoNotifications.svg'
+import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 export default function Notification(props) {
   const Notifications = useSelector((state) => state.Notifications);
   const Auth = useSelector((state) => state.Auth);
@@ -40,7 +41,7 @@ export default function Notification(props) {
                   <h5 className="mt-0 font-weight-bold small">
                     {note.Notification}
                   </h5>
-                  <p className="text-secondary time_notification">{note.date.split('T')[0] + ' ' + ' ' + note.date.split('T')[1].substring(0, 5)}</p>
+                  <p className="text-secondary time_notification"><Dateformatter Date={note.date.split('T')[0] + ' ' + note.date.split('T')[1].substring(0, 5)} /></p>
                 </div>
               </div> : <></>)
           )}

@@ -8,6 +8,7 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
 import history from "../../Utils/History";
+import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 export default function EventList(props) {
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
@@ -80,7 +81,7 @@ export default function EventList(props) {
                     {inv[0].Name}
                   </Grid>
                   <Grid item xs={12} className="fs-small t-white ">
-                    {inv[0].Date} {inv[0].Time}
+                    <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
                   </Grid>
                 </Grid>
               </Grid>
