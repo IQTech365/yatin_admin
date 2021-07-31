@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./AlbumStyle.css";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { IconButton } from "@material-ui/core";
+import ImageGallery from 'react-image-gallery';
 import Header from "../Helpers/Header/Header"
 import MobileNav from "../Helpers/NavMobile/NavMobile.js";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav.js";
@@ -10,8 +12,11 @@ import BlankSchedule from "../../Assets/NOAlbums.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
+import { useDropzone } from "react-dropzone";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { uploadfiletoalbum } from '../../Redux/DispatchFuncitons/Eventfunctions'
+import SaveIcon from '@material-ui/icons/Save';
+import Popup from "../Helpers/Popups/Popup";
 import Addtoalbum from './Addtoalbum'
 import Swiper from "react-id-swiper";
 
@@ -54,6 +59,7 @@ export default function ShowAlbum(props) {
 
 
     useEffect(async () => {
+        debugger
         if (MyEvents.length === 0 && myInvitations.length === 0) {
             await dispatch(GetEvents());
             await dispatch(GetInvitations());
@@ -156,11 +162,11 @@ export default function ShowAlbum(props) {
                 </Row>
                 <br />
                 {images.length === 0 ? <> <img src={BlankSchedule} className="blank-img" />
-
+                
                     <br />
                     <h3 className="tac">Add Albums😍 Now!</h3>
-
-                </>
+                
+                    </>
                     :
                     <Swiper {...params}>
                         {images.map(img => (

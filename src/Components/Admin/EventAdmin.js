@@ -30,6 +30,7 @@ export default function EventAdmin(props) {
   );
 
   useEffect(async () => {
+    debugger
     if (MyEvents && MyEvents.length > 0) {
       let Rsvplistcpy = []
       let accept = [];

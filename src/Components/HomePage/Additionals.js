@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import PictureIcon from "../../Assets/PictureIcon.png"
 import EngageIcon from "../../Assets/EngageIcon.png"
@@ -10,10 +10,15 @@ import EasyIcon from "../../Assets/EasyIcon.png"
 import DestinIcon from "../../Assets/DestinIcon.png"
 import MobilePro from "../../Assets/MobilePro.png"
 import Popup from "../Helpers/Popups/Popup";
+import { useSelector, useDispatch } from "react-redux";
+import { reactLocalStorage } from "reactjs-localstorage";
+import history from "../../Utils/History";
+import { loginuser } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import LoginSignup from "../Auth/LoginSignup";
+
 export default function Additionals() {
   const [showPopup, toggleShowPopup] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <div className="additional_part py-75">
       <Popup

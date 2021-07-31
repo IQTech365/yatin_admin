@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
+import check from "../../Assets/check-circle.1.png";
 import history from "../../Utils/History";
 import eventimage from "../../Assets/eventimage.png";
 import { useDispatch } from "react-redux";
-
+import { addme } from "../../Redux/DispatchFuncitons/Eventfunctions";
 export default function Entercode(props) {
   const [code, setcode] = useState("");
   const [iserror, setiserror] = useState(false);

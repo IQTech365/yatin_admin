@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Helpers/Header/Header.js";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import Toggler from "../Helpers/EventInvitoggler/Toggler.js";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "./EventAdmin.css";
 import Chart from "react-apexcharts";
@@ -8,8 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import { url } from "../../Utils/Config";
 import axios from "axios";
+import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 
 export default function EventAdmin2() {
+    const dispatch = useDispatch();
     const [options, setoptions] = useState({
         labels: ["Yes", "No", "Maybe/Not Decided"],
         colors: ["#008744", "#E74D5F", "#FFA700"],
@@ -33,6 +36,7 @@ export default function EventAdmin2() {
             let maybe = [];
             let Participants = []
             await setEventdata(MyEvents[props.match.params.id][props.match.params.id])
+            await setRsvplist(MyEvents[props.match.params.id][props.match.params.id])
             await setRsvplist(MyEvents[props.match.params.id][props.match.params.id].RSVPList)
             Rsvplistcpy = [...MyEvents[props.match.params.id][props.match.params.id].RSVPList]
             Participants = MyEvents[props.match.params.id][props.match.params.id].Participants;
@@ -174,7 +178,7 @@ export default function EventAdmin2() {
                         Manage Guest
                     </Button>
                 </Row>
-                {/*    <Row className="messageboard">
+             {/*    <Row className="messageboard">
                     <h3 className="messageboard-txt">Message Board</h3>
                 </Row>
                 <Row style={{ justifyContent: "center" }}>

@@ -8,6 +8,7 @@ import BackNavBar from "../../Helpers/BackNavbar/BackNavBar";
 import AddSchedule from "../Extras/Schedule";
 import Album from "../Extras/Album";
 import Story from "../Extras/Story";
+import history from "../../../Utils/History";
 export default function AddDetails(props) {
   const [Name, SetName] = useState(props.Name);
 

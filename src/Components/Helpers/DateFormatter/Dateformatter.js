@@ -5,7 +5,7 @@ export default function Dateformatter(props) {
     const [Months, setMonths] = useState(['NIL', 'Jan', 'Feb', 'March'
         , 'April', 'May', 'June', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec'])
     useEffect(() => {
-
+        debugger
         if (props.Date !== "") {
             //  2021 - 07 - 23 21: 06
             let type = "am"

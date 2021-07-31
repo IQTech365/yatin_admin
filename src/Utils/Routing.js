@@ -15,6 +15,8 @@ export default function Redirector() {
   const Auth = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
   useEffect(async () => {
+    debugger
+
     let ischeck = await reactLocalStorage.get("isLoggedIn");
     let Phone = await reactLocalStorage.get("Phone");
     let Token = reactLocalStorage.get("Token", true);
@@ -28,6 +30,7 @@ export default function Redirector() {
   }, [])
   useEffect(async () => {
     if (Auth.isLoggedIn === true) {
+      debugger
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
       await dispatch(getNotification());

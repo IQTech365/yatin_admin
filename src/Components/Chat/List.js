@@ -3,7 +3,9 @@ import { Grid, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import history from "../../Utils/History";
 import {
   Paper,
   InputBase,
@@ -14,6 +16,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useSelector } from "react-redux";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import Popup from "../Helpers/Popups/Popup";
 import SelectParticipant from "./SelectParticipant";

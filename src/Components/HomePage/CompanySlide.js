@@ -2,6 +2,7 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import BrandImage from "../../Assets/resources/brand-1-1.png";
 import './styles.css'
+import ZoomIcon from "../../Assets/logo_zoom.png";
 
 
 export default function CompanySlide() {

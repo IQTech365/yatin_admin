@@ -3,6 +3,7 @@ import Header from "../Helpers/Header/Header.js";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Comments/Comments.css";
+import CommentAvt from "../../Assets/CommentAvt.png";
 import { FcLike } from "react-icons/fc";
 import { IoMdSend } from "react-icons/io";
 import axios from "axios";
@@ -10,6 +11,7 @@ import { url } from "../../Utils/Config";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { useSelector, useDispatch } from "react-redux";
+import { FaUserFriends } from "react-icons/fa";
 import history from "../../Utils/History";
 import { likecomment } from '../../Redux/DispatchFuncitons/postfunctions'
 import { comment_event } from '../../Redux/DispatchFuncitons/Eventfunctions'

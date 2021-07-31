@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import PeopleIcon from "../../Assets/PeopleIcon.png"
 import RSVPIcon from "../../Assets/RSVPIcon.png"
 import LocationIcon from "../../Assets/LocationIcon.png"
 import MobileIcon from "../../Assets/MobileIcon.png"
+import { Container } from "react-bootstrap"
 import LoginSignup from "../Auth/LoginSignup";
 import Popup from "../Helpers/Popups/Popup";
+import { useSelector, useDispatch } from "react-redux";
 export default function Features() {
   const [showPopup, toggleShowPopup] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <div className="container" style={{ marginTop: 25 }}>
       <Popup

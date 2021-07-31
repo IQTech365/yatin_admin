@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { BiNews } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
 import history from "../../../Utils/History";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
-import { IoImagesSharp } from "react-icons/io5";
+import { GoBook } from "react-icons/go";
+import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
 export default function DesktopNav(props) {
   const Auth = useSelector((state) => state.Auth);
   const useStyles = makeStyles({});
@@ -15,6 +17,7 @@ export default function DesktopNav(props) {
   const [show, setshow] = useState(false);
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
+      debugger
       console.log(props.Eventdata)
       var Host = props.Eventdata[0].InvId.Host;
       for (var i = 0; i < Host.length; i++) {
@@ -43,7 +46,7 @@ export default function DesktopNav(props) {
           md={2}
           className="tac"
           onClick={() => {
-            history.push("./feed/" + props.id + '/' + props.MainCode);
+            history.push("./feed/" + props.id);
           }}
         >
           <BiNews size={30} />

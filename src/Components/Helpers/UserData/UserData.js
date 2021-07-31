@@ -3,7 +3,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Avatar from "@material-ui/core/Avatar";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { getuserdata } from "../../../Redux/DispatchFuncitons/AuthFunctions";
 import { url } from "../../../Utils/Config";
+import { Grid } from "@material-ui/core";
 export default function UserData(props) {
   const [User, setUser] = useState({});
   const dispatch = useDispatch();
@@ -15,6 +17,7 @@ export default function UserData(props) {
         .then((res) => {
           if (res.data.user) {
             console.log(res.data.user);
+
             setUser(res.data.user);
           }
         })

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export default function EventNameBox(props) {
   const handleClick = (index) => {

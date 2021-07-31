@@ -16,6 +16,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import { formatRelative } from "date-fns";
 import "./Maps.css";
 import "@reach/combobox/styles.css";
 import Geocode from "react-geocode";
@@ -366,6 +367,7 @@ function Search(props) {
     clearSuggestions();
 
     try {
+      debugger
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       props.panTo({ lat, lng });

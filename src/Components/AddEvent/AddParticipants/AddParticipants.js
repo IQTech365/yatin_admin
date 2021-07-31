@@ -9,6 +9,12 @@ import { uploadString } from "../../../Utils/FileUpload_Download";
 import EventNameBox from "../CreateEvent/EventNameBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import AddCode from "./AddCode";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,6 +110,7 @@ export default function AddParticipants(props) {
   };
 
   const create_event = async () => {
+    debugger
     await Setsave(true);
     let uniqueurl =
       props.Type + Math.floor(100000 + Math.random() * 900000) + "/";

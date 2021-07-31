@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import ContactImg from "../../Assets/ContactImg.png";
 import { db } from "./Firebase";

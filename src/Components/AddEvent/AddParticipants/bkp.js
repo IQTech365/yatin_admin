@@ -1,10 +1,23 @@
 
 import React, { useEffect, useState } from "react";
+import Access from "../../../Assets/AddAccess.svg";
 import "../AddEvent.css";
+import { Grid, Switch } from "@material-ui/core";
+import readXlsxFile from "read-excel-file";
 import { useDispatch, useSelector } from "react-redux";
 import { saveEvent } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { uploadString } from "../../../Utils/FileUpload_Download";
+import EventNameBox from "../CreateEvent/EventNameBox";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import AddCode from "./AddCode";
+import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
 import {
     Container,
     Row,
@@ -12,12 +25,15 @@ import {
     ListGroup,
     Tabs,
     Tab,
+    Col,
     Spinner,
 } from "react-bootstrap";
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { FaArrowRight } from "react-icons/fa";
 import * as XLSX from "xlsx";
+import { json } from "body-parser";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
@@ -89,7 +105,7 @@ export default function AddParticipants(props) {
     };
 
     const readExcel = (file) => {
-
+        debugger;
         const promise = new Promise((resolve, reject) => {
             const fileReader = new FileReader();
             fileReader.readAsArrayBuffer(file);
@@ -171,7 +187,7 @@ export default function AddParticipants(props) {
     };
 
     const save = async () => {
-
+        debugger;
         setisSaving(true);
         let EventCpy = [...props.Events];
         if (particpants.length === 0) {
@@ -192,7 +208,7 @@ export default function AddParticipants(props) {
         await create_event();
     };
     const create_event = async () => {
-
+        debugger;
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];

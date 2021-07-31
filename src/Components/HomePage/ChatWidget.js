@@ -1,5 +1,6 @@
 import React from 'react';
 import "./styles.css"
+import { FaWhatsapp } from 'react-icons/fa'
 
 export default function ChatWidget() {
     return (

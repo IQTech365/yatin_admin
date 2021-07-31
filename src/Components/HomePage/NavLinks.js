@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 
 const NavLinks = () => {
