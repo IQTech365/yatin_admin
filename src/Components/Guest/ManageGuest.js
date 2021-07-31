@@ -109,7 +109,6 @@ export default function ManageGuest(props) {
   };
 
   useEffect(async () => {
-    debugger;
     let Listcpy = [];
     let accept = [];
     let decline = [];

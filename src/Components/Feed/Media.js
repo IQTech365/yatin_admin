@@ -8,7 +8,6 @@ export default function Media(props) {
     const [currentmedia, setcurrentmedia] = useState(0);
     const [allmedia, setallmedia] = useState([]);
     useEffect(async () => {
-        debugger
         let isselected = false;
         for (let i = 0; i < props.currentPosts.length; i++) {
             if (isselected === false) {

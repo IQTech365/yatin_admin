@@ -77,7 +77,7 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              history.push("/" + props.base + '/eventpage/' + "feed/" + props.id);
+              history.push("/" + props.base + '/eventpage/' + "feed/" + props.id + "/" + props.MainCode);
             }}
             style={{ textDecoration: "none" }}
           >
@@ -90,7 +90,7 @@ export default function NavMobile(props) {
             }}
             style={{ textDecoration: "none" }}
           >
-            <AiOutlineBell size={25} style={{marginLeft:'8px'}} />
+            <AiOutlineBell size={25} style={{ marginLeft: '8px' }} />
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link>
           <Nav.Link

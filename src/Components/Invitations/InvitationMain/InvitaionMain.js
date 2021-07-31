@@ -313,7 +313,7 @@ export default function InvitaionMain(props) {
                     </Col>
                   </Row>
                   <br />
-                  
+
                   <h2 className="event-date">{eve.Name}</h2>
                   <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
                   <p className="event-des">{eve.Description}</p>
@@ -339,7 +339,6 @@ export function IsRsvp(props) {
   const Auth = useSelector((state) => state.Auth);
   const [showicon, setshowicon] = useState("");
   useEffect(() => {
-    debugger;
     for (let i = 0; i < props.RSVPList.length; i++) {
       if (
         props.RSVPList[i].By === Auth.Phone &&

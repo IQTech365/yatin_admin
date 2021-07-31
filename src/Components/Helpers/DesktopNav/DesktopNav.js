@@ -17,7 +17,6 @@ export default function DesktopNav(props) {
   const [show, setshow] = useState(false);
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
-      debugger
       console.log(props.Eventdata)
       var Host = props.Eventdata[0].InvId.Host;
       for (var i = 0; i < Host.length; i++) {
@@ -46,7 +45,7 @@ export default function DesktopNav(props) {
           md={2}
           className="tac"
           onClick={() => {
-            history.push("./feed/" + props.id);
+            history.push("./feed/" + props.id + "/" + props.MainCode);
           }}
         >
           <BiNews size={30} />

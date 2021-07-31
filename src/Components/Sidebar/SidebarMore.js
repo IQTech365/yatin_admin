@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import DancingImg from "../../Assets/DancingImg.png";
 import { GoBook } from "react-icons/go";
-import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
+import { IoImagesSharp, IoPowerSharp, IoTrashOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import {
   GetEvents,
@@ -72,7 +72,7 @@ export default function SidebarMore(props) {
                 paddingLeft: "10px",
                 marginBottom: 20,
                 marginTop: 20,
-                
+
               }}
             >
               <IoArrowBackCircleOutline
@@ -107,17 +107,17 @@ export default function SidebarMore(props) {
           </Row>
         </a>
 
-        {/* <a
+        <a
           className="linkto-rows"
-          onClick={() => {
-            history.push("../" + "albums/" + props.match.params.id);
-          }}
+        // onClick={() => {
+        //   history.push("../" + "albums/" + props.match.params.id);
+        // }}
         >
           <Row className="sidebar-rows">
             <Col>
               <p style={{ margin: "auto", padding: "15px" }}>
                 {" "}
-                <IoImagesSharp size="25" /> Albums
+                <IoTrashOutline size="25" /> Delete Invite
               </p>
             </Col>
             <Col>
@@ -127,7 +127,7 @@ export default function SidebarMore(props) {
               </p>
             </Col>
           </Row>
-        </a> */}
+        </a>
         {ishost === true ? (
           <a
             className="linkto-rows"

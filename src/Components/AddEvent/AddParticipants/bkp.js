@@ -105,7 +105,6 @@ export default function AddParticipants(props) {
     };
 
     const readExcel = (file) => {
-        debugger;
         const promise = new Promise((resolve, reject) => {
             const fileReader = new FileReader();
             fileReader.readAsArrayBuffer(file);
@@ -187,7 +186,6 @@ export default function AddParticipants(props) {
     };
 
     const save = async () => {
-        debugger;
         setisSaving(true);
         let EventCpy = [...props.Events];
         if (particpants.length === 0) {
@@ -208,7 +206,6 @@ export default function AddParticipants(props) {
         await create_event();
     };
     const create_event = async () => {
-        debugger;
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];

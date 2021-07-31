@@ -61,7 +61,6 @@ export default function EventDetails(props) {
     }
   }, []);
   useEffect(() => {
-    debugger;
     props.setDisablesave(false);
     if (props.Events[props.SelectedEvent] !== undefined) {
       SetCurrentEventDetails(props.Events[props.SelectedEvent]);
@@ -571,13 +570,13 @@ export default function EventDetails(props) {
         >
           {isEditLocation === true ? (
 
-            <p style={{display:'flex',justifyContent: 'left'}}>   <SaveIcon
-            onClick={() => {
-              setisEditLocation(false);
-            }}
-            style={{ position: "relative", color: "green" }}
-          />Save</p>
-         
+            <p style={{ display: 'flex', justifyContent: 'left' }}>   <SaveIcon
+              onClick={() => {
+                setisEditLocation(false);
+              }}
+              style={{ position: "relative", color: "green" }}
+            />Save</p>
+
           ) : (
             <></>
           )}
@@ -636,7 +635,7 @@ export default function EventDetails(props) {
           rows={2}
         />
       </Grid>
-      
+
       {/* <Grid item xs={8} className="talc fs-bold m-b-25px label">
         Guest can Invite (max 3)
       </Grid>
@@ -657,10 +656,10 @@ export default function EventDetails(props) {
       </Grid> */}
 
 
-{/* Album, Schdedule and Story Commented Below */}
+      {/* Album, Schdedule and Story Commented Below */}
 
 
- {/*      <Grid
+      {/*      <Grid
         item
         xs={props.SelectedEvent === 0 ? 4 : 12}
         md={props.SelectedEvent === 0 ? 4 : 12}

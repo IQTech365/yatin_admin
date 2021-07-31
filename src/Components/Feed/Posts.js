@@ -127,7 +127,7 @@ export default function Postrender(props) {
                                             LikeList={post.LikeList}
                                             _id={post._id}
                                             getposts={props.getposts}
-                                            maincode={props.Eventdata[0].MainCode}
+                                            maincode={props.Maincode}
                                         />
                                     </a>
                                 </center>
@@ -165,7 +165,7 @@ export default function Postrender(props) {
                                     id={post._id}
                                     getposts={props.getposts}
                                     data={post.CommentList}
-                                    maincode={props.Eventdata[0].MainCode}
+                                    maincode={props.MainCode}
                                     post={post}
                                 />
                             ) : (

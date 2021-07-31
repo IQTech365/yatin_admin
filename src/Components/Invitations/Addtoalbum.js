@@ -15,7 +15,6 @@ export default function Addtoalbum(props) {
     const dispatch = useDispatch();
     const [album, setAlbum] = useState();
     const onDrop = useCallback(async (acceptedFiles) => {
-        debugger
         let bkpalbum = [];
         let filetype = [];
 
@@ -56,7 +55,6 @@ export default function Addtoalbum(props) {
         setAlbum([...albumcpy]);
     };
     const save = async () => {
-        debugger
         let albumcopy = [...props.images]
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/" + "Album/";

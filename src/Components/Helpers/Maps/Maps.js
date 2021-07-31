@@ -367,7 +367,6 @@ function Search(props) {
     clearSuggestions();
 
     try {
-      debugger
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       props.panTo({ lat, lng });

@@ -59,7 +59,6 @@ export default function ShowAlbum(props) {
 
 
     useEffect(async () => {
-        debugger
         if (MyEvents.length === 0 && myInvitations.length === 0) {
             await dispatch(GetEvents());
             await dispatch(GetInvitations());
@@ -162,11 +161,11 @@ export default function ShowAlbum(props) {
                 </Row>
                 <br />
                 {images.length === 0 ? <> <img src={BlankSchedule} className="blank-img" />
-                
+
                     <br />
                     <h3 className="tac">Add Albums😍 Now!</h3>
-                
-                    </>
+
+                </>
                     :
                     <Swiper {...params}>
                         {images.map(img => (

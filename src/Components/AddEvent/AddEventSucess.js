@@ -41,7 +41,6 @@ export default function AddEventSucess(props) {
   const [Watsapp, setWatsapp] = useState("");
 
   useEffect(() => {
-    debugger
     axios
       .post(url + "event/viewinvitation", {
         MainCode: props.match.params.id,
@@ -168,7 +167,7 @@ export default function AddEventSucess(props) {
           <Grid item xs={12} className="tac">
             Note: Only those who have invite can access.
           </Grid>
-            <Lottie options={defaultOptions} height={400} style={{position: 'absolute', margin:'auto', width:'auto'}}/>
+          <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} />
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
@@ -178,10 +177,10 @@ export default function AddEventSucess(props) {
             >
               Done
             </button>
-          
+
           </Grid>
         </Grid>
-      
+
       </Grid>
       <Menu
         id="simple-menu"

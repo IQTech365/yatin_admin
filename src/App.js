@@ -49,7 +49,7 @@ function App() {
         appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
       })
     });
-   },[]);
+  }, []);
 
   useEffect(() => {
     ReactGa.initialize('UA-201872924-1')
@@ -139,7 +139,7 @@ function App() {
               path="/MyEvents/eventpage/:id"
               component={InvitaionviewToggler}
             />
-            <Route exact path="/MyEvents/eventpage/feed/:id" component={Feed} />
+            <Route exact path="/MyEvents/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/MyEvents/comments/:id/:_id" component={Comment} />
             <Route
               exact
@@ -178,7 +178,7 @@ function App() {
             /> */}
             <Route exact path="/inv/More/:id" component={SidebarMore} />
             <Route exact path="/inv/comments/:id/:_id" component={Comment} />
-            <Route exact path="/inv/eventpage/feed/:id" component={Feed} />
+            <Route exact path="/inv/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/inv/videoconf/:id/" component={Jitsi} />
             <Route exact path="/inv/eventpage/chat/:id" component={Chat} />
             <Route

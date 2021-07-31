@@ -33,7 +33,6 @@ export default function Hoxinvitation(props) {
 
   const dispatch = useDispatch();
   useEffect(async () => {
-    debugger
     if (Auth.isLoggedIn === false) {
       if (props.match.params.maincode !== undefined && props.match.params.Code !== "") {
         await dispatch(addEvent(props.match.params.Code, props.match.params.maincode))
@@ -77,7 +76,6 @@ export default function Hoxinvitation(props) {
           Code: props.match.params.Code
         })
         .then(async (res) => {
-          debugger;
           if (res.data.Status === "success") {
             await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             setInvitations(res.data.Events);

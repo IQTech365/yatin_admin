@@ -27,7 +27,6 @@ export default function Guest(props) {
     (state) => state.Eventdata.myInvitations
   );
   useEffect(async () => {
-    debugger;
     let RSVPList = []
     let Participants = []
     if (MyEvents.length === 0 && myInvitations.length === 0) {
@@ -97,7 +96,7 @@ export default function Guest(props) {
       });
 
       let all = [];
-      debugger;
+
 
 
       let allrsvp = accept.concat(decline);

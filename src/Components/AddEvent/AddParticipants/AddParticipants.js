@@ -110,7 +110,6 @@ export default function AddParticipants(props) {
   };
 
   const create_event = async () => {
-    debugger
     await Setsave(true);
     let uniqueurl =
       props.Type + Math.floor(100000 + Math.random() * 900000) + "/";

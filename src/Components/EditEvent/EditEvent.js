@@ -66,7 +66,7 @@ export default function EditEvent(props) {
 
   const [uniqueurl, setuniqueurl] = useState("")
   const checkIfEventEmpty = async () => {
-    debugger;
+
     if (Type === "") {
       setisError(true);
       return 0;
@@ -258,7 +258,6 @@ export default function EditEvent(props) {
   const save = async () => {
     // console.log(Eventdata);
     // console.log(changedfiles);
-    debugger
     await preserve(selectedEvent);
     let ischecked = await checkIfEventEmpty();
     if (ischecked === 0) {
@@ -341,7 +340,7 @@ export default function EditEvent(props) {
     await reader.readAsDataURL(acceptedFiles[0]);
   }, []);
   async function uploadfile(fileurl, type, selectedEvent) {
-    debugger
+
     let changedfilescpy = [...changedfiles];
     console.log(selectedEvent);
     if (fileurl.includes("https://firebasestorage") || fileurl === "") {
@@ -373,7 +372,6 @@ export default function EditEvent(props) {
     accept: "image/jpeg, image/png, image/jpg, video/mp4 ",
   });
   async function grabUrsl(eventdata) {
-    debugger
     let urlscpy = [];
     let fileurl = ""
     let unuls = ""

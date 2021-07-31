@@ -65,7 +65,7 @@ export default function Feed(props) {
   const [showcommmentforpost, setshowcommmentforpost] = useState(null);
 
   useEffect(async () => {
-    debugger
+    await getposts()
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
@@ -73,21 +73,21 @@ export default function Feed(props) {
       await setfilter('All')
       if (
         props.location.pathname ===
-        "/MyEvents/eventpage/feed/" + props.match.params.id &&
+        "/MyEvents/eventpage/feed/" + props.match.params.id + "/" + props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id]);
-        await getposts()
+
         await setbase("MyEvents");
         await setadmins(MyEvents[props.match.params.id][0].Host);
         await guestlist([...MyEvents[props.match.params.id][0].Participants, ...MyEvents[props.match.params.id][0].Host]);
       } else if (
         props.location.pathname ===
-        "/inv/eventpage/feed/" + props.match.params.id &&
+        "/inv/eventpage/feed/" + props.match.params.id + "/" + props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id]);
-        await getposts()
+
         await setbase("inv");
         await setadmins(myInvitations[props.match.params.id][0].Host);
         await guestlist([...myInvitations[props.match.params.id][0].Participants, ...myInvitations[props.match.params.id][0].Host]);
@@ -114,7 +114,6 @@ export default function Feed(props) {
     await settype("");
     await setTags([]);
     await setisSubmit(false);
-    await getposts();
   };
 
   const onDrop = useCallback(async (acceptedFiles) => {
@@ -142,9 +141,9 @@ export default function Feed(props) {
   });
 
   const getposts = async () => {
-    if (Eventdata !== undefined && Eventdata.length > 0 && Eventdata[0].MainCode !== "") {
+    if (props.match.params.id !== undefined && props.match.params.id !== "") {
       axios
-        .post(url + "post/getposts", { maincode: Eventdata[0].MainCode })
+        .post(url + "post/getposts", { maincode: props.match.params.MainCode })
         .then(async function (response) {
           toggleisloaded(true);
           if (response.data.Posts.length !== 0) {
@@ -174,9 +173,7 @@ export default function Feed(props) {
 
 
   const guestlist = async (Participants) => {
-    debugger
     var ParticipantsCPY = [];
-
     for (let i = 0; i < Participants.length; i++) {
       var Phone = "";
       if (Participants[i] !== Auth.Phone) {
@@ -220,7 +217,7 @@ export default function Feed(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       getposts();
-    }, 30000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [Eventdata]);
 
@@ -360,7 +357,7 @@ export default function Feed(props) {
         </center>
       ) : (
         <Postrender data={currentPosts} filter={filter} filterdata={currentfilteredPosts} getposts={getposts}
-          Eventdata={Eventdata} showcommmentforpost={showcommmentforpost} showcommment={showcommment}
+          Eventdata={Eventdata} showcommmentforpost={showcommmentforpost} showcommment={showcommment} Maincode={props.match.params.Maincode}
           setshowcommmentforpost={setshowcommmentforpost}
           setshowcommment={setshowcommment} />
       )}

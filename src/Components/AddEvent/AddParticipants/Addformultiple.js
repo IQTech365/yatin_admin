@@ -23,7 +23,6 @@ export default function Addformultiple(props) {
         await setwidth(100 / props.Events.length + "vw")
     }, [props.participants])
     const readExcel = async (file) => {
-        debugger;
         const fileReader = new FileReader();
         await fileReader.readAsArrayBuffer(file);
         fileReader.onload = async (e) => {

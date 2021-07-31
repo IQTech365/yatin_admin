@@ -69,7 +69,6 @@ export default function NewAddParticipants(props) {
 
 
     const readExcel = async (file) => {
-        debugger;
         const fileReader = new FileReader();
         await fileReader.readAsArrayBuffer(file);
         fileReader.onload = async (e) => {
@@ -86,7 +85,6 @@ export default function NewAddParticipants(props) {
     };
 
     const saveparticipantsfromexcel = async (d) => {
-        debugger
         let result = d.map((cdata) => {
             if (cdata.Contact) {
                 return cdata.Contact
@@ -145,7 +143,6 @@ export default function NewAddParticipants(props) {
         await setParticipants([...particpantscpy]);
     };
     const save = async () => {
-        debugger;
         setisSaving(true);
         let EventCpy = [...props.Events];
         if (participants.length === 0 && EntryWay !== 'Code') {

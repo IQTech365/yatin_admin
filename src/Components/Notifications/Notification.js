@@ -12,13 +12,6 @@ export default function Notification(props) {
   const Notifications = useSelector((state) => state.Notifications);
   const Auth = useSelector((state) => state.Auth);
 
-  useEffect(() => {
-    console.log(props)
-    Notifications.map(notes => {
-      console.log(notes.MainCode)
-    })
-  }, [])
-
   return (
     <>
       <div className="Notificationportion-strt p-2 ">
