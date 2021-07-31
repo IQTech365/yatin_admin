@@ -13,7 +13,7 @@ import { IoImagesSharp, IoPowerSharp, IoTrashOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import {
   GetEvents,
-  GetInvitations,
+  GetInvitations, deleteInvite
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import { logout } from '../../Redux/DispatchFuncitons/AuthFunctions'
 export default function SidebarMore(props) {
@@ -34,7 +34,7 @@ export default function SidebarMore(props) {
         await setEventdata(MyEvents[props.match.params.id])
         await setbase("MyEvents");
         console.log(Eventdata)
-        var Host = MyEvents[props.match.params.id][0].InvId.Host;
+        var Host = MyEvents[props.match.params.id][0].Host;
         for (var i = 0; i < Host.length; i++) {
           if (Host[i] === Auth.Phone) {
             await setishost(true);
@@ -46,7 +46,7 @@ export default function SidebarMore(props) {
         await setEventdata(myInvitations[props.match.params.id])
         await setbase("inv");
         console.log(Eventdata)
-        var Host = myInvitations[props.match.params.id][0].InvId.Host;
+        var Host = myInvitations[props.match.params.id][0].Host;
         for (var i = 0; i < Host.length; i++) {
           if (Host[i] === Auth.Phone) {
             await setishost(true);
@@ -109,12 +109,12 @@ export default function SidebarMore(props) {
 
         <a
           className="linkto-rows"
-        // onClick={() => {
-        //   history.push("../" + "albums/" + props.match.params.id);
-        // }}
+          onClick={() => {
+            dispatch(deleteInvite(Eventdata[0].MainCode))
+          }}
         >
           <Row className="sidebar-rows">
-            <Col>
+            <Col xs={8}>
               <p style={{ margin: "auto", padding: "15px" }}>
                 {" "}
                 <IoTrashOutline size="25" /> Delete Invite

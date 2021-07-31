@@ -30,18 +30,16 @@ export function saveEvent(edata) {
 }
 export function addme(code, maincode) {
   return (dispatch) => {
-    console.log(code);
     axios
       .post(url + "event/addme", { code: code, maincode: maincode })
       .then(async (res) => {
 
-        if (res.data.status === 'status') {
+        if (res.data.status === 'success') {
           await dispatch(deleteEvent());
           await dispatch(GetEvents());
           await dispatch(GetInvitations());
-          alert("Event added");
-        }
 
+        }
       })
       .catch((err) => {
         return 0;
@@ -196,6 +194,21 @@ export function uploadfiletoalbum(Album, MainCode) {
       .then((res) => {
         dispatch(GetInvitations());
         dispatch(GetEvents());
+        console.log(res);
+      });
+  };
+}
+export function deleteInvite(MainCode) {
+
+  return (dispatch) => {
+    axios
+      .post(url + "event/delete", {
+        maincode: MainCode,
+      })
+      .then(async (res) => {
+        dispatch(GetInvitations());
+        dispatch(GetEvents());
+        history.push('/inv')
         console.log(res);
       });
   };

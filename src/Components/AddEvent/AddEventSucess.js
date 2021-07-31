@@ -78,7 +78,7 @@ export default function AddEventSucess(props) {
     await setcodesharelink(" https://mobily-invited-server.herokuapp.com/MyInvitations/" + maincode + "/" + data)
     await setWatsapp(
       "Hi there ! You have been invited by " + Auth.Name + " to " + allevents[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobily-invited-server.herokuapp.com/MyInvitations/" + maincode + "/" + allevents[0].Name + "/" + allevents[0].code)
+      " https://mobily-invited-server.herokuapp.com/MyInvitations/" + maincode + "/" + allevents[0].code)
     setAnchorEl(null);
 
   };
@@ -190,7 +190,7 @@ export default function AddEventSucess(props) {
 
       >
         {allevents && allevents.map(eve => (
-          <MenuItem onClick={() => handleClose(eve.Name + "/" + eve.code)}>{"Event Name: " + eve.Name + ", EventCode :" + eve.code}</MenuItem>
+          <MenuItem onClick={() => handleClose("/" + eve.code)}>{"Event Name: " + eve.Name + ", EventCode :" + eve.code}</MenuItem>
         ))}
 
       </Menu>

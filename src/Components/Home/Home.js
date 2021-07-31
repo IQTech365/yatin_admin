@@ -20,7 +20,7 @@ export default function Home(props) {
   const CodeEvent = useSelector(state => state.CodeEvent)
   const EventState = useSelector((state) => state.Eventdata);
   useEffect(async () => {
-    if (CodeEvent.Name !== "") {
+    if (CodeEvent.Code !== "") {
       await dispatch(addme(CodeEvent.Code, CodeEvent.Name));
     }
 
@@ -48,7 +48,7 @@ export default function Home(props) {
       dispatch(getNotification());
       dispatch(getChats());
     }, 30000);
-    return () => clearInterval(interval);
+
   }, []);
 
   return (

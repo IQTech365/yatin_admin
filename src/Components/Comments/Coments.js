@@ -47,9 +47,10 @@ export default function Coments(props) {
       });
   }
   useEffect(() => {
+    getcomments()
     const interval = setInterval(() => {
       getcomments();
-    }, 30000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [])
 

@@ -10,7 +10,10 @@ import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
 import { GoBook } from "react-icons/go";
 import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
+import { deleteInvite } from '../../../Redux/DispatchFuncitons/Eventfunctions'
+
 export default function DesktopNav(props) {
+  const dispatch = useDispatch();
   const Auth = useSelector((state) => state.Auth);
   const useStyles = makeStyles({});
   const [ishost, setishost] = useState(false);
@@ -18,7 +21,7 @@ export default function DesktopNav(props) {
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
       console.log(props.Eventdata)
-      var Host = props.Eventdata[0].InvId.Host;
+      var Host = props.Eventdata[0].Host;
       for (var i = 0; i < Host.length; i++) {
         if (Host[i] === Auth.Phone) {
           setishost(true);
@@ -79,7 +82,16 @@ export default function DesktopNav(props) {
             >
               Albums
             </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              onClick={() => {
+                dispatch(deleteInvite(props.Eventdata[0].MainCode))
+              }}
+            >
+              Delete Invite
+            </Dropdown.Item>
             {ishost === true ? (
+
               <Dropdown.Item
                 as="button"
                 onClick={() => {

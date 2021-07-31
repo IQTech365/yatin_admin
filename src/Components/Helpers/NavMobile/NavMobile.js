@@ -23,12 +23,12 @@ export default function NavMobile(props) {
 
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
-      props.Eventdata[0].InvId.Host.map((host) => {
+      props.Eventdata[0].Host.map((host) => {
         if (host === Auth.Phone) {
           setishost(true);
         }
       });
-      console.log(props.Eventdata[0].InvId.Host);
+      console.log(props.Eventdata[0].Host);
     }
   }, [props.Eventdata]);
   return (

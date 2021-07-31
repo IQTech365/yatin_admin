@@ -42,6 +42,7 @@ export default function InvitaionMain(props) {
   const [likeCount, setlikeCount] = useState([]);
   const [MainCode, setmaincode] = useState();
   const [commentcountplus, setcommentcountplus] = useState(0);
+  const [showfulldescription, setshowfulldescription] = useState(false)
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
     let likeCountCopy = [...likeCount];
@@ -316,10 +317,11 @@ export default function InvitaionMain(props) {
 
                   <h2 className="event-date">{eve.Name}</h2>
                   <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
-                  <p className="event-des">{eve.Description}</p>
-                  <a href="#" className="invitationmain_link">
-                    Read More
-                  </a>
+                  <p className="event-des">{showfulldescription === false ? eve.Description.slice(0, 50) + '...' : eve.Description}</p>
+                  {eve.Description.length > 50 ?
+                    <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>
+                      {showfulldescription === false ? 'Show More' : 'Show Less'}
+                    </a> : <></>}
                 </Container>
               </Container>
             </Carousel.Item>

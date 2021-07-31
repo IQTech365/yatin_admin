@@ -16,7 +16,7 @@ export default function Headings(props) {
         className="Logo"
         alt="logo"
         width="30"
-                height="30"
+        height="30"
         onClick={() => history.push("/home")}
       />
     </span>
