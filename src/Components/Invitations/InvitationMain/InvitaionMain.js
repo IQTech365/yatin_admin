@@ -313,6 +313,7 @@ export default function InvitaionMain(props) {
                     </Col>
                   </Row>
                   <br />
+                  
                   <h2 className="event-date">{eve.Name}</h2>
                   <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
                   <p className="event-des">{eve.Description}</p>

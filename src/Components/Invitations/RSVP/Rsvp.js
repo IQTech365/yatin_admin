@@ -61,11 +61,11 @@ export default function Rsvp(props) {
 
   return (
     <>
-      <div className="w-100 desktop-only ">
+     {/*  <div className="w-100 desktop-only ">
         <Header />
       </div>
       <DesktopNav />
-      <Toggler />
+      <Toggler /> */}
       <Carousel
         controls={false}
         direction={direction}

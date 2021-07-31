@@ -40,11 +40,11 @@ export default function InvitaionRSVP(props) {
 
   return (
     <>
-      <div className="desktop-only w-100" >
+     {/*  <div className="desktop-only w-100" >
         <Header className="desktop-only" />
       </div>
       <DesktopNav id={props.id} base={props.base} />
-      <Toggler id={props.id} />
+      <Toggler id={props.id} /> */}
       <Carousel
         controls={false}
         direction={direction}
