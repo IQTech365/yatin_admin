@@ -4,11 +4,8 @@ import {
   Container,
   Row,
   Col,
-  Dropdown,
-  DropdownButton,
   Image,
   Form,
-  Buttonm,
 } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Comments/Comments.css";

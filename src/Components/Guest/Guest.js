@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Tab, Tabs } from "react-bootstrap";
+import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
@@ -27,7 +27,6 @@ export default function Guest(props) {
     (state) => state.Eventdata.myInvitations
   );
   useEffect(async () => {
-    debugger;
     let RSVPList = []
     let Participants = []
     if (MyEvents.length === 0 && myInvitations.length === 0) {
@@ -97,9 +96,6 @@ export default function Guest(props) {
       });
 
       let all = [];
-      debugger;
-
-
       let allrsvp = accept.concat(decline);
       allrsvp = allrsvp.concat(maybe);
       let Status = "Invited";

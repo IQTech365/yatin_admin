@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import NavLinks from "./NavLinks";
-
 import LogoImage from "../../Assets/logo-1-1.png";
 
-const HeaderMain= (props) => {
+const HeaderMain = (props) => {
   const [sticky, setSticky] = useState(false);
 
   const handleScroll = () => {
@@ -45,9 +44,8 @@ const HeaderMain= (props) => {
 
   return (
     <header
-      className={`site-header-one stricky  ${props.extraClassName} ${
-        sticky === true ? "stricky-fixed stricked-menu" : " "
-      }`}
+      className={`site-header-one stricky  ${props.extraClassName} ${sticky === true ? "stricky-fixed stricked-menu" : " "
+        }`}
     >
       <div className="container-fluid">
         <div className="site-header-one__logo">
@@ -64,7 +62,7 @@ const HeaderMain= (props) => {
         <div className="main-nav__right">
           <a
             className={`thm-btn ${props.btnClass}`}
-            
+
           >
             <span>SignUp/Login</span>
           </a>

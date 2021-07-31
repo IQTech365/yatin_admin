@@ -1,12 +1,8 @@
-import React, { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import Gallery from "../../../Assets/ChooseFromGallery.svg";
+import React, { useState } from "react";
 import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import LocationOnRoundedIcon from "@material-ui/icons/LocationOnRounded";
-import ControlPointIcon from "@material-ui/icons/ControlPoint";
 import CreateIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";

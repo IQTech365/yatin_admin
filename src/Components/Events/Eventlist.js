@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import NoInv from "../../Assets/NoInvitation.svg";
 import "./Eventlist.css";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LanguageIcon from "@material-ui/icons/Language";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
 import history from "../../Utils/History";
-import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
+import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 export default function EventList(props) {
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
@@ -24,7 +22,7 @@ export default function EventList(props) {
     return <img src={NoInv} className="nodata" />;
   }
   return (
-    <Grid container className="mb-100 contain-main" >
+    <Grid container className="mb-100 contain-main">
       <Popup
         component={Notifications}
         toggleShowPopup={setshow}
@@ -40,29 +38,28 @@ export default function EventList(props) {
           sm={6}
           className="InvitationCard"
           key={"invContainer" + index}
-
-
         >
-
-          {inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
-            src={inv[0].file}
-            className="inv-img"
-            onClick={() => {
-              history.push("/MyEvents/eventpage/" + index);
-            }}
-          />) : (
+          {inv[0].filetype === "png" ||
+            inv[0].filetype === "jpg" ||
+            inv[0].filetype === "jpeg" ? (
+            <img
+              src={inv[0].file}
+              className="inv-img"
+              onClick={() => {
+                history.push("/MyEvents/eventpage/" + index);
+              }}
+            />
+          ) : (
             <video
               muted
               type="video/mp4"
               autoPlay={true}
-              src={
-                inv[0].file
-              }
+              src={inv[0].file}
               onClick={() => {
                 history.push("/MyEvents/eventpage/" + index);
               }}
               preload="none"
-              className='w-100 inv-img'
+              className="w-100 inv-img"
             />
           )}
           <NotificationsNoneIcon
@@ -90,7 +87,6 @@ export default function EventList(props) {
           </div>
         </Grid>
       ))}
-
     </Grid>
   );
 }

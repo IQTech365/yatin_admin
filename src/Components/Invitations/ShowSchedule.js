@@ -4,7 +4,6 @@ import "./Invitations.css"
 import Header from "../Helpers/Header/Header";
 import BlankSchedule from "../../Assets/BlankSchedule.svg";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import history from "../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";

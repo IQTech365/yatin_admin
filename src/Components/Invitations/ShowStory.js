@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./OurStory.css";
 import Header from "../Helpers/Header/Header";
 import MobileNav from "../Helpers/NavMobile/NavMobile";
-import { Container, Card, Button, Row, Col, Figure } from "react-bootstrap";
-import { FcCalendar, FcLike } from "react-icons/fc";
+import { Container, Row, Col } from "react-bootstrap";
+import { FcCalendar } from "react-icons/fc";
 import BlankSchedule from "../../Assets/NoStory.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,7 +19,6 @@ export default function ShowStory(props) {
 
     let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
     useEffect(async () => {
-        debugger;
         if (MyEvents.length === 0 && myInvitations.length === 0) {
             await dispatch(GetEvents());
             await dispatch(GetInvitations());

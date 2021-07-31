@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./EditEvent.css";
-import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, MenuItem } from "@material-ui/core";
@@ -8,15 +7,14 @@ import { useDropzone } from "react-dropzone";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Map from "../Helpers/Maps/Places";
 import AddImg from "../../Assets/AddImage.svg";
-import { Grid, InputLabel, Select, FormControl } from "@material-ui/core";
+import { Grid, Select, FormControl } from "@material-ui/core";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
 import Eventnamebox from "../AddEvent/CreateEvent/EventNameBox";
 import history from "../../Utils/History";
-import { json } from "body-parser";
 import { update_events } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { deletefile, uploadString } from "../../Utils/FileUpload_Download";
+import { uploadString } from "../../Utils/FileUpload_Download";
 export default function EditEvent(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -66,7 +64,6 @@ export default function EditEvent(props) {
 
   const [uniqueurl, setuniqueurl] = useState("")
   const checkIfEventEmpty = async () => {
-    debugger;
     if (Type === "") {
       setisError(true);
       return 0;
@@ -258,7 +255,6 @@ export default function EditEvent(props) {
   const save = async () => {
     // console.log(Eventdata);
     // console.log(changedfiles);
-    debugger
     await preserve(selectedEvent);
     let ischecked = await checkIfEventEmpty();
     if (ischecked === 0) {
@@ -341,7 +337,6 @@ export default function EditEvent(props) {
     await reader.readAsDataURL(acceptedFiles[0]);
   }, []);
   async function uploadfile(fileurl, type, selectedEvent) {
-    debugger
     let changedfilescpy = [...changedfiles];
     console.log(selectedEvent);
     if (fileurl.includes("https://firebasestorage") || fileurl === "") {
@@ -373,7 +368,6 @@ export default function EditEvent(props) {
     accept: "image/jpeg, image/png, image/jpg, video/mp4 ",
   });
   async function grabUrsl(eventdata) {
-    debugger
     let urlscpy = [];
     let fileurl = ""
     let unuls = ""

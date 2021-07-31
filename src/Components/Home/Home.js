@@ -10,7 +10,6 @@ import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { getposts } from "../../Redux/DispatchFuncitons/postfunctions";
 import { getNotification } from "../../Redux/DispatchFuncitons/NotificationFunctions";
 import { getChats } from "../../Redux/DispatchFuncitons/Chatgroupfunctions";
 import { addme } from "../../Redux/DispatchFuncitons/Eventfunctions";
@@ -55,7 +54,6 @@ export default function Home(props) {
     <><div className="w-100" >
       <Header url={props.location.pathname} />
     </div>
-      {/* <MobileHeader /> */}
       <Grid container spacing={0}>
         <Grid item xs={12} sm={12} md={12}>
           {Menu === 0 ? (

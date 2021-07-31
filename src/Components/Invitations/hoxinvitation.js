@@ -12,10 +12,7 @@ import { AiOutlineLike, AiOutlineSync } from "react-icons/ai"
 import { GoCalendar, GoLocation } from "react-icons/go"
 import CommentIcon from "../../Assets/comment-dot.png";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
-import Location from "../../Assets/Location.png";
 import history from "../../Utils/History";
-import LIKE from "../../Assets/LIKE.png";
-import RSVP from "../../Assets/RSVP.png";
 import LoginSignup from "../Auth/LoginSignup";
 import { FaUserFriends } from "react-icons/fa";
 import Popup from "../Helpers/Popups/Popup";
@@ -33,7 +30,6 @@ export default function Hoxinvitation(props) {
 
   const dispatch = useDispatch();
   useEffect(async () => {
-    debugger
     if (Auth.isLoggedIn === false) {
       if (props.match.params.maincode !== undefined && props.match.params.Code !== "") {
         await dispatch(addEvent(props.match.params.Code, props.match.params.maincode))
@@ -77,7 +73,6 @@ export default function Hoxinvitation(props) {
           Code: props.match.params.Code
         })
         .then(async (res) => {
-          debugger;
           if (res.data.Status === "success") {
             await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             setInvitations(res.data.Events);

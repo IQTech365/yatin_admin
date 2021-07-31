@@ -11,14 +11,7 @@ import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 export default function Notification(props) {
   const Notifications = useSelector((state) => state.Notifications);
   const Auth = useSelector((state) => state.Auth);
-
-  useEffect(() => {
-    console.log(props)
-    Notifications.map(notes => {
-      console.log(notes.MainCode)
-    })
-  }, [])
-
+  console.log(props)
   return (
     <>
       <div className="Notificationportion-strt p-2 ">
@@ -34,7 +27,7 @@ export default function Notification(props) {
       {Notifications.length > 0 ? (
         <div className="ofh " style={{ marginTop: "13px", height: '40vh' }}>
           {Notifications.map((note, index) =>
-            note.by === Auth.Phone ? <></> : (props.MainCode && note.MainCode === props.MainCode ?
+            note.by === Auth.Phone ? <></> : (props.MainCode && (note.MainCode === props.MainCode) ?
               <div className="media  mb-3">
                 <Avatar className="mr-3" src={note.img} alt="img" style={{ top: '4px' }} />
                 <div className="media-body">

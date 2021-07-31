@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Button, Form, Image, Col } from "react-bootstrap";
 import Logo from "../../Assets/LightLogo.png";
-
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
@@ -20,10 +19,10 @@ export default function MainBanner() {
     loop: true,
     Autoplay: {
       delay: 3000,
-      slidesPerView:1,
+      slidesPerView: 1,
       autoplayDisableOnInteraction: false
     },
-   
+
   };
 
   const [showPopup, toggleShowPopup] = useState(false);
@@ -86,7 +85,7 @@ export default function MainBanner() {
           </Row>
           <Row className="row_down">
             <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
-              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+              <LikeButton namespace="testing-react" id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>
             <div className="addthis_inline_share_toolbox">
             </div>
@@ -112,7 +111,7 @@ export default function MainBanner() {
           component={LoginSignup}
         />
         <Row>
-          <Col style={{display: 'flex', justifyContent: "center"}}>
+          <Col style={{ display: 'flex', justifyContent: "center" }}>
             <img src={DarkLogo} style={{ margin: "auto" }} />
           </Col>
         </Row>
@@ -151,8 +150,8 @@ export default function MainBanner() {
           </Row>
 
           <Row className="row_down">
-          <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
-              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+            <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
+              <LikeButton namespace="testing-react" id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>
             <div className="addthis_inline_share_toolbox"></div>
           </Row>
@@ -177,7 +176,7 @@ export default function MainBanner() {
           component={LoginSignup}
         />
         <Row>
-        <Col style={{display: 'flex', justifyContent: "center"}}>
+          <Col style={{ display: 'flex', justifyContent: "center" }}>
             <img src={DarkLogo} style={{ margin: "auto" }} />
           </Col>
         </Row>
@@ -217,8 +216,8 @@ export default function MainBanner() {
             </Button>
           </Row>
           <Row className="row_down">
-          <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
-              <LikeButton namespace="testing-react"  id="how-to-reduce-footprint" totalLikes="number" />
+            <Provider apiKey="acc0dbccce8e557db5ebbe6d605aaa">
+              <LikeButton namespace="testing-react" id="how-to-reduce-footprint" totalLikes="number" />
             </Provider>
             <div className="addthis_inline_share_toolbox"></div>
           </Row>

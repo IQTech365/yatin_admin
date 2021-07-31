@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 export default function AddCode(props) {
   const [show, setShow] = useState(false);
@@ -63,7 +62,7 @@ export default function AddCode(props) {
                 <Col xs={5} md={3} className="m-0 mt-5px">
                   {code.Name + ":"}
                 </Col>
-                <Col xs={7} md={9} className="m-0 mt-5px"  style={{paddingBottom: '10px'}}>
+                <Col xs={7} md={9} className="m-0 mt-5px" style={{ paddingBottom: '10px' }}>
                   <Form.Control
                     disabled={true}
                     type="email"

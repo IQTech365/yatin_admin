@@ -3,18 +3,16 @@ import "./styles.css";
 import MainBanner from "./MainBanner";
 import Contact from "./ContactUs";
 import Footer from "./Footer";
-import Testimonials from "./Testimonials";
 import Features from "./Features";
 import Additionals from "./Additionals";
 import AboutBanner from "./AboutBanner";
-import CompanySlide from "./CompanySlide";
 import ChatWidget from "./ChatWidget";
 class HomePage extends React.Component {
   render() {
     return (
       <>
 
-        
+
         <MainBanner />
         <ChatWidget />
         <Features />

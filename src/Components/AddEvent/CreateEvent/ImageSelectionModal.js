@@ -9,9 +9,6 @@ export default function ImageSelectionModal(props) {
       alert("Max file size 10 mb");
       return false;
     }
-
-    console.log(props.data);
-
     let EventsCpy = await { ...props.CurrentEventDetails };
     let type = acceptedFiles[0].type.split("/");
     EventsCpy.filetype = type[1];

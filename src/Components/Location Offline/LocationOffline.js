@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -7,14 +7,13 @@ import {
 } from "@react-google-maps/api";
 import "@reach/combobox/styles.css";
 import Geocode from "react-geocode";
-import { Accordion, Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Accordion, Card, Col } from "react-bootstrap";
 import Header from "../Helpers/Header/Header.js";
 import "../Location Offline/LocationOffline.css";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import VideocamIcon from "@material-ui/icons/Videocam";
-import { useSelector, useDispatch } from "react-redux";
-import { json } from "body-parser";
+import { useSelector } from "react-redux";
 import vcimage from "../../Assets/videocall.png";
 import history from "../../Utils/History";
 import { GoogleMapsAPI } from "../../Utils/Config";

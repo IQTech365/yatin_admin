@@ -7,7 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { Avatar } from "@material-ui/core";
 import "./Header.css";
 import Headings from "../../../Utils/Headings";
@@ -17,7 +16,6 @@ import { logout } from "../../../Redux/DispatchFuncitons/AuthFunctions";
 import { useDispatch } from "react-redux";
 import Notification from "../../Notifications/Notification";
 import Popup from "../Popups/Popup";
-import history from '../../../Utils/History'
 import UserProfile from "../../../Components/UserPorfile/UserProfile";
 export default function Header(props) {
   const dispatch = useDispatch();

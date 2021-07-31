@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Header from "../../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 // import "../EventInfo/EventInfo.css";
 import { Carousel, Button } from "react-bootstrap";
-import eventimg from "../../../Assets/eventimg.png";
 import CheckIcon from "@material-ui/icons/Check";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ErrorIcon from "@material-ui/icons/Error";
 import { rsvp_event, GetInvitations, GetEvents } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import history from "../../../Utils/History";
-import NavMobile from "../../Helpers/NavMobile/NavMobile";
-import DesktopNav from "../../Helpers/DesktopNav/DesktopNav";
-import Toggler from "../../Helpers/EventInvitoggler/Toggler";
 import "./Rsvp.css";
 import { getNotification } from '../../../Redux/DispatchFuncitons/NotificationFunctions'
 export default function Rsvp(props) {
@@ -35,7 +30,7 @@ export default function Rsvp(props) {
     }
   }, []);
   const Next = async (i) => {
-    debugger;
+
     if (Eventdata && Eventdata.length > 0) {
       console.log(i, Eventdata.length);
       if (i < Eventdata.length) {
@@ -61,7 +56,7 @@ export default function Rsvp(props) {
 
   return (
     <>
-     {/*  <div className="w-100 desktop-only ">
+      {/*  <div className="w-100 desktop-only ">
         <Header />
       </div>
       <DesktopNav />

@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { MdEvent } from "react-icons/md";
-import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
-import { GoBook } from "react-icons/go";
-import { GrGallery } from "react-icons/gr";
 import { BiNews, BiHomeAlt, BiPhotoAlbum } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import "./NavMobile.css";
-import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
-import { BiChevronDown } from "react-icons/bi";
 import history from "../../../Utils/History";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
 export default function NavMobile(props) {
@@ -77,7 +71,7 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              history.push("/" + props.base + '/eventpage/' + "feed/" + props.id);
+              history.push("/" + props.base + '/eventpage/' + "feed/" + props.id + '/' + props.MainCode);
             }}
             style={{ textDecoration: "none" }}
           >
@@ -90,7 +84,7 @@ export default function NavMobile(props) {
             }}
             style={{ textDecoration: "none" }}
           >
-            <AiOutlineBell size={25} style={{marginLeft:'8px'}} />
+            <AiOutlineBell size={25} style={{ marginLeft: '8px' }} />
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link>
           <Nav.Link

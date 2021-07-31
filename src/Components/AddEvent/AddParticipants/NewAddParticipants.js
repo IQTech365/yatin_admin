@@ -2,36 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Access from "../../../Assets/AddAccess.svg";
 import "../AddEvent.css";
-import { Grid, Switch, Modal } from "@material-ui/core";
-import readXlsxFile from "read-excel-file";
+import { Grid, Modal } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { saveEvent } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { uploadString } from "../../../Utils/FileUpload_Download";
-import EventNameBox from "../CreateEvent/EventNameBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import AddCode from "./AddCode";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
-import {
-    Container,
-    Row,
-    Button,
-    ListGroup,
-    Tabs,
-    Tab,
-    Col,
-    Spinner,
-} from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-
 import * as XLSX from "xlsx";
-import { json } from "body-parser";
 import Addformultiple from './Addformultiple'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,7 +47,6 @@ export default function NewAddParticipants(props) {
 
 
     const readExcel = async (file) => {
-        debugger;
         const fileReader = new FileReader();
         await fileReader.readAsArrayBuffer(file);
         fileReader.onload = async (e) => {
@@ -86,7 +63,6 @@ export default function NewAddParticipants(props) {
     };
 
     const saveparticipantsfromexcel = async (d) => {
-        debugger
         let result = d.map((cdata) => {
             if (cdata.Contact) {
                 return cdata.Contact
@@ -145,7 +121,6 @@ export default function NewAddParticipants(props) {
         await setParticipants([...particpantscpy]);
     };
     const save = async () => {
-        debugger;
         setisSaving(true);
         let EventCpy = [...props.Events];
         if (participants.length === 0 && EntryWay !== 'Code') {

@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Avatar, IconButton } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { Avatar } from "@material-ui/core";
 import axios from "axios";
-import { getuserdata } from "../../../Redux/DispatchFuncitons/AuthFunctions";
 import { url } from "../../../Utils/Config";
-import { Grid } from "@material-ui/core";
 export default function UserDataUrl(props) {
   const [User, setUser] = useState({});
-  const dispatch = useDispatch();
   useEffect(() => {
     if (props.Phone !== "") {
       axios

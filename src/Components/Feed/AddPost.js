@@ -1,40 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import "../Feed/Feed.css";
-import Header from "../Helpers/Header/Header.js";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { useSelector, useDispatch } from "react-redux";
-import zoomicon from "../../Assets/zoomicon.png";
+import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import UserData from "../Helpers/UserData/UserData";
-import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { IoCameraOutline } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
-import axios from "axios";
-import { addpost, likepost } from "../../Redux/DispatchFuncitons/postfunctions";
-import { uploadString } from "../../Utils/FileUpload_Download";
 import { useDropzone } from "react-dropzone";
-import { InputTags } from "react-bootstrap-tagsinput";
 import "react-bootstrap-tagsinput/dist/index.css";
-import { FcLike } from "react-icons/fc";
-import { FaRegCommentDots } from "react-icons/fa";
-import { IoMdSend } from "react-icons/io";
-import { FcLikePlaceholder } from "react-icons/fc";
-import history from "../../Utils/History";
-import FeedComments from "./FeedComments";
-import { url } from "../../Utils/Config";
-import { Modal } from "@material-ui/core";
-import Media from "./Media";
-import NavMobile from "../Helpers/NavMobile/NavMobile";
-import Badge from "react-bootstrap/Badge";
-import { Multiselect } from "multiselect-react-dropdown";
 import SendIcon from "@material-ui/icons/Send";
 import { IconButton } from "@material-ui/core";
-import AddTags from "./AddTags";
-import Popup from "../Helpers/Popups/Popup";
-import {
-    GetEvents,
-    GetInvitations,
-} from "../../Redux/DispatchFuncitons/Eventfunctions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function AddPost(props) {
@@ -47,7 +21,7 @@ export default function AddPost(props) {
         }
         let url = "";
         let ftype = acceptedFiles[0].type.split("/");
-        console.log(ftype)
+        console.log(ftype);
         props.settype(ftype[0]);
         var reader = await new FileReader();
         reader.onload = async function () {
@@ -162,10 +136,9 @@ export default function AddPost(props) {
                         </center>
                     </Row>
                 )
-
             ) : (
                 <></>
             )}
         </Container>
-    )
+    );
 }

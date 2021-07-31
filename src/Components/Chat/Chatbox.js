@@ -12,7 +12,7 @@ import {
   IconButton,
   ListItemAvatar,
 } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { url } from "../../Utils/Config";
 import { makeStyles } from "@material-ui/core/styles";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
@@ -22,7 +22,6 @@ import { useDropzone } from "react-dropzone";
 import UserDatajustUrl from "../Helpers/UserData/UserDatajustUrl";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import axios from "axios";
-import { getChats } from "../../Redux/DispatchFuncitons/Chatgroupfunctions";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",

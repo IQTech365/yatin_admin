@@ -7,30 +7,20 @@ import Form from "react-bootstrap/Form";
 import SendIcon from "../../../Assets/ic-send.png";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import CalendarIcon from "../../../Assets/Calender.png";
-import { GrSync } from "react-icons/gr";
-import LIKE from "../../../Assets/LIKE.png";
-import RSVP from "../../../Assets/RSVP.png";
 import { HiHome } from "react-icons/hi";
 import { GoCalendar, GoLocation } from "react-icons/go";
-import { AiFillHome } from "react-icons/ai";
 import Carousel from "react-bootstrap/Carousel";
 import CommentIcon from "../../../Assets/comment-dot.png";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
-import Location from "../../../Assets/Location.png";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import {
   like_event,
   comment_event,
-  GetInvitations,
-  GetEvents,
 } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import history from "../../../Utils/History";
 import NavMobile from "../../Helpers/NavMobile/NavMobile";
 import DesktopNav from "../../Helpers/DesktopNav/DesktopNav";
-import Toggler from "../../Helpers/EventInvitoggler/Toggler";
 import { FaUserFriends } from "react-icons/fa";
 import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -313,7 +303,7 @@ export default function InvitaionMain(props) {
                     </Col>
                   </Row>
                   <br />
-                  
+
                   <h2 className="event-date">{eve.Name}</h2>
                   <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
                   <p className="event-des">{eve.Description}</p>
@@ -339,7 +329,7 @@ export function IsRsvp(props) {
   const Auth = useSelector((state) => state.Auth);
   const [showicon, setshowicon] = useState("");
   useEffect(() => {
-    debugger;
+
     for (let i = 0; i < props.RSVPList.length; i++) {
       if (
         props.RSVPList[i].By === Auth.Phone &&

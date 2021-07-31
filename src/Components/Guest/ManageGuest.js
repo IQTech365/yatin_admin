@@ -3,15 +3,11 @@ import {
   Container,
   Row,
   Col,
-  Image,
-  Tab,
-  Tabs,
   Button,
   ListGroup,
   Modal,
 } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import readXlsxFile from "read-excel-file";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,11 +15,9 @@ import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import {
-  change_event,
   update_participants,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import * as XLSX from "xlsx";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
 export default function ManageGuest(props) {
   const dispatch = useDispatch();
   const [isDisable, setDisabled] = useState(true);
@@ -109,7 +103,6 @@ export default function ManageGuest(props) {
   };
 
   useEffect(async () => {
-    debugger;
     let Listcpy = [];
     let accept = [];
     let decline = [];
