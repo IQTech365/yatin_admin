@@ -5,3 +5,26 @@
 .image-gallery-image {
   height: 55vh !important;
 }
+.blank-album {
+  height: 50vh !important;
+  width: 100vw !important;
+
+  margin-top: 5vh !important;
+  object-fit: contain;
+}
+
+.addalbums_btn{
+  border-radius: 20px;
+  border-color: #fb587f;
+  background-color: #fc587f;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  .addalbums_btn{
+    width: 50vw;
+  }
+  .albumedit_btn{
+    width: 40vw!important;
+  }
+}

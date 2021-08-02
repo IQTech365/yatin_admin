@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./InvitaionMain.css";
 import Header from "../../Helpers/Header/Header";
+
+import Icon from "../../../Assets/comment.png";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -18,10 +20,11 @@ import Carousel from "react-bootstrap/Carousel";
 import CommentIcon from "../../../Assets/comment-dot.png";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
 import Location from "../../../Assets/Location.png";
+import { IoSendSharp } from "react-icons/io5";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-import Dateformatter from '../../Helpers/DateFormatter/Dateformatter'
+import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 import {
   like_event,
   comment_event,
@@ -43,7 +46,7 @@ export default function InvitaionMain(props) {
   const [likeCount, setlikeCount] = useState([]);
   const [MainCode, setmaincode] = useState();
   const [commentcountplus, setcommentcountplus] = useState(0);
-  const [showfulldescription, setshowfulldescription] = useState(false)
+  const [showfulldescription, setshowfulldescription] = useState(false);
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
     let likeCountCopy = [...likeCount];
@@ -101,7 +104,6 @@ export default function InvitaionMain(props) {
         MainCode={MainCode}
         base={props.base}
         Eventdata={props.Eventdata}
-
       />
       {/*  <Toggler /> */}
 
@@ -139,19 +141,22 @@ export default function InvitaionMain(props) {
                     onClick={() => {
                       history.push(
                         "/" +
-                        props.base +
-                        "/guestlist/" +
-                        props.id +
-                        "/" +
-                        index
+                          props.base +
+                          "/guestlist/" +
+                          props.id +
+                          "/" +
+                          index
                       );
                     }}
                   />
                 </Row>
               </Container>
               <Container className="container-event">
-                {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (
-                  <Image src={eve.file} className="fullimagemain" />) : (
+                {eve.filetype === "png" ||
+                eve.filetype === "jpg" ||
+                eve.filetype === "jpeg" ? (
+                  <Image src={eve.file} className="fullimagemain" />
+                ) : (
                   <video
                     muted
                     type="video/mp4"
@@ -179,9 +184,7 @@ export default function InvitaionMain(props) {
                     className="event-chat-buttons"
                     style={{ marginTop: "1vh" }}
                   >
-
-                    <Image
-                      src={SendIcon}
+                    <IoSendSharp
                       style={{
                         height: "20px",
                         width: "20px",
@@ -192,24 +195,32 @@ export default function InvitaionMain(props) {
                           await dispatch(comment_event(eve._id, comment));
                           setcomment("");
 
-                          await setcommentcountplus(commentcountplus + 1)
+                          await setcommentcountplus(commentcountplus + 1);
                         }
                       }}
-                    /><>
+                    />
+
+                    <>
                       <span className="Like-count comment_like">
                         {eve.CommentList
                           ? eve.CommentList.length + commentcountplus
                           : 0 + commentcountplus}
                       </span>
                       <Image
-                        src={CommentIcon}
+                        src={Icon}
                         className="go-chat"
                         onClick={() => {
                           history.push(
-                            "/" + props.base + "/comments/" + props.id + "/" + eve._id
+                            "/" +
+                              props.base +
+                              "/comments/" +
+                              props.id +
+                              "/" +
+                              eve._id
                           );
                         }}
-                      /></>
+                      />
+                    </>
                   </div>
                   <h4 className="avatar-name">
                     <UserDataUrl Phone={eve.Host[0]} showName={true} />
@@ -227,7 +238,7 @@ export default function InvitaionMain(props) {
                       width: "auto",
                       height: "20px",
                       marginLeft: "60px",
-                      boxShadow: "none"
+                      boxShadow: "none",
                     }}
                   />
 
@@ -279,13 +290,14 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                              props.base +
-                              "/schedule/" +
-                              props.id +
-                              "/" +
-                              index
+                                props.base +
+                                "/schedule/" +
+                                props.id +
+                                "/" +
+                                index
                             );
-                          }} />
+                          }}
+                        />
                         {/*  <Image
                           src={CalendarIcon}
                           
@@ -300,13 +312,14 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                              props.base +
-                              "/location/" +
-                              props.id +
-                              "/" +
-                              index
+                                props.base +
+                                "/location/" +
+                                props.id +
+                                "/" +
+                                index
                             );
-                          }} />
+                          }}
+                        />
                         {/*  <Image
                           src={Location}
                           
@@ -317,12 +330,29 @@ export default function InvitaionMain(props) {
                   <br />
 
                   <h2 className="event-date">{eve.Name}</h2>
-                  <h3 className="event-date"><Dateformatter Date={eve.Date + " " + eve.Time} /></h3>
-                  <p className="event-des">{showfulldescription === false ? eve.Description.slice(0, 50) + '...' : eve.Description}</p>
-                  {eve.Description.length > 50 ?
-                    <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>
-                      {showfulldescription === false ? 'Show More' : 'Show Less'}
-                    </a> : <></>}
+                  <h3 className="event-date">
+                    <Dateformatter Date={eve.Date + " " + eve.Time} />
+                  </h3>
+                  <p className="event-des">
+                    {showfulldescription === false
+                      ? eve.Description.slice(0, 50) + "..."
+                      : eve.Description}
+                  </p>
+                  {eve.Description.length > 50 ? (
+                    <a
+                      href="#"
+                      className="invitationmain_link"
+                      onClick={() => {
+                        setshowfulldescription(!showfulldescription);
+                      }}
+                    >
+                      {showfulldescription === false
+                        ? "Show More"
+                        : "Show Less"}
+                    </a>
+                  ) : (
+                    <></>
+                  )}
                 </Container>
               </Container>
             </Carousel.Item>

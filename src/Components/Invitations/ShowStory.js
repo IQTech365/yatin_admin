@@ -60,7 +60,7 @@ export default function ShowStory(props) {
                                     <div className="card-horizontal">
                                         <div className="card-body">
                                             <Row>
-                                                <Col xs={4} style={{ margin: "auto" }}>
+                                                <Col xs={4} style={{ margin: "auto", padding:"inherit"}}>
                                                     <img src={stry.file} className="w-100 card_image" />
                                                 </Col>
                                                 <Col xs={8}>

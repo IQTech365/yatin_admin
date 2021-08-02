@@ -78,11 +78,11 @@
 }
 .go-chat {
   color: grey;
-  width: 37px;
-  height: 37px;
-  background: #3897f1;
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
   border-radius: 50%;
-  padding: 7px;
+  padding: 1px;
 }
 .event-des {
   color: black;

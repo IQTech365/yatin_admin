@@ -4,7 +4,7 @@ import { MdEvent } from "react-icons/md";
 import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
 import { GoBook } from "react-icons/go";
 import { GrGallery } from "react-icons/gr";
-import { BiNews, BiHomeAlt, BiPhotoAlbum } from "react-icons/bi";
+import { BiNews, BiHomeAlt, BiPhotoAlbum, BiCalendarEvent } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import "./NavMobile.css";
@@ -63,8 +63,8 @@ export default function NavMobile(props) {
             }}
             style={{ textDecoration: "none" }}
           >
-            <BiHomeAlt size={25} className="reacticons_align" />
-            <p className="mobilebar_text">Home</p>
+            <BiCalendarEvent size={25} className="reacticons_align" />
+            <p className="mobilebar_text">Invites</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {
