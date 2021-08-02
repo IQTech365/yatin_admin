@@ -21,6 +21,7 @@ import { FaUserFriends } from "react-icons/fa";
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import './Invitations.css'
 import './InvitationMain/InvitaionMain.css'
@@ -202,7 +203,7 @@ export default function Hoxinvitation(props) {
                   </Row>
                   <br />
 
-                  <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
+                  <h3 className="event-date"><Dateformatter Date={eve.Date + " " + eve.Time} /></h3>
                   <p className="event-des">{eve.Description}</p>
                   <a href="#" className="invitationmain_link">Read More</a>
                 </Container>

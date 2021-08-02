@@ -9,6 +9,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import history from "../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
 import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 export default function ShowSchedule(props) {
   const dispatch = useDispatch();
   const [Eventdata, setEventdata] = useState([])
@@ -93,9 +94,7 @@ export default function ShowSchedule(props) {
                           {eve.Venue}
                         </Grid>
                         <Grid item xs={12} className="dtime l-blue-t" style={{ fontWeight: 'bold' }}>
-                          {eve.datetime.split("T")[0] +
-                            " " +
-                            eve.datetime.split("T")[1]}
+                          <Dateformatter Date={eve.datetime} />
                         </Grid>
                         <Grid item xs={12} className="mt-10px" style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll' }}>
                           {eve.description}

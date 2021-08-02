@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SAVESTORY, DELETESTORY } from "../../../Redux/Actions/EventActions";
 import CreateIcon from "@material-ui/icons/Create";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 export default function Story(props) {
   const dispatch = useDispatch();
 
@@ -238,7 +239,7 @@ export default function Story(props) {
                       />
                     </form>
                   ) : (
-                    eve.datetime
+                    <Dateformatter Date={eve.datetime} />
                   )}
                 </Grid>
               </Grid>

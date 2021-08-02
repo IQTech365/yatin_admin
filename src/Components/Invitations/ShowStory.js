@@ -10,6 +10,7 @@ import {
     GetEvents,
     GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 export default function ShowStory(props) {
     const [Eventdata, setEventdata] = useState([]);
     const [base, setbase] = useState("");
@@ -74,7 +75,8 @@ export default function ShowStory(props) {
                                                     </p>
                                                     {/* <p className="card-text"><FcLike size="30" /> 20</p> */}
                                                     <p className="card-text ourstory_date" style={{ color: '#007bff' }}>
-                                                        <FcCalendar size="20" /> {stry.datetime}
+                                                        <FcCalendar size="20" />
+                                                        <Dateformatter Date={stry.datetime} />
                                                     </p>
                                                 </Col>
                                             </Row>

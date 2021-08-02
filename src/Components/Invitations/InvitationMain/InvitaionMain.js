@@ -21,6 +21,7 @@ import Location from "../../../Assets/Location.png";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
+import Dateformatter from '../../Helpers/DateFormatter/Dateformatter'
 import {
   like_event,
   comment_event,
@@ -316,7 +317,7 @@ export default function InvitaionMain(props) {
                   <br />
 
                   <h2 className="event-date">{eve.Name}</h2>
-                  <h3 className="event-date">{eve.Date + " " + eve.Time}</h3>
+                  <h3 className="event-date"><Dateformatter Date={eve.Date + " " + eve.Time} /></h3>
                   <p className="event-des">{showfulldescription === false ? eve.Description.slice(0, 50) + '...' : eve.Description}</p>
                   {eve.Description.length > 50 ?
                     <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>

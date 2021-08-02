@@ -14,6 +14,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -161,9 +162,7 @@ export default function AddSchedule(props) {
                         {eve.Venue}
                       </Grid>
                       <Grid item xs={12} className="dtime">
-                        {eve.datetime.split("T")[0] +
-                          " " +
-                          eve.datetime.split("T")[1]}
+                        <Dateformatter Date={eve.datetime} />
                       </Grid>
                       {/* <Grid item xs={12} className="mt-10px">
                         {eve.description}
