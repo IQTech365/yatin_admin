@@ -149,25 +149,25 @@ export default function ShowAlbum(props) {
         Type={Type}
         MainCode={MainCode}
       />
-      
+
       <DesktopNav id={props.match.params.id} base={base} />
       <MobileNav id={props.match.params.id} base={base} />
-      
+
       <Container style={{ margin: 0, padding: 0, marginTop: 0 }} fluid>
-        <Row className="p-0" style={{ marginTop: 10 }}>
+        <Row className="p-0 m-0">
           <Col xs={6}>
             {" "}
             <h3 className="p-5px"> Albums</h3>
-   
           </Col>
           <Col xs={6}>
             {IsAdmin === true ? (
-       
-              <Button variant="secondary" style={{width: '30%', float: 'right', borderRadius:'20px'}} className="albumedit_btn">
+              <Button
+                variant="secondary"
+                style={{ width: "30%", float: "right", borderRadius: "20px" }}
+                className="albumedit_btn"
+              >
                 <AddPhotoAlternateIcon /> Edit
               </Button>
-          
-              
             ) : (
               <></>
             )}
@@ -179,45 +179,63 @@ export default function ShowAlbum(props) {
             {" "}
             <img src={AlbumsNone} className="blank-album" />
             <br />
-            
             <h3 className="tac">Add Albums😍 Now!</h3>
-            <p style={{textAlign: "center"}}>Share with your friends the final pictures of event any time</p>
-            <div style={{display: "flex", justifyContent: "center"}}>
-              
-              <Button variant="primary" className="addalbums_btn" onClick={() => {
+            <p style={{ textAlign: "center" }}>
+              Share with your friends the final pictures of event any time
+            </p>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                variant="primary"
+                className="addalbums_btn"
+                onClick={() => {
                   setshow(true);
-                }}>
+                }}
+              >
                 Add Albums
               </Button>
             </div>
           </>
         ) : (
           <>
-          <Swiper {...params}>
-            {images.map((img) => (
-              <div>
-                <Image
-                  alt="img"
-                  src={img.file}
-                  fluid
-                  className="image-gallery-image"
-                />
-              </div>
-            ))}
+            <Swiper {...params}>
+              {images.map((img) => (
+                <div>
+                  <Image
+                    alt="img"
+                    src={img.file}
+                    fluid
+                    className="image-gallery-image"
+                  />
+                </div>
+              ))}
+            </Swiper>
+            {IsAdmin === true ? (
+              <>
+              <h3 className="tac">Add Albums😍 Now!</h3>
+            <p style={{ textAlign: "center" }}>
+              Share with your friends the final pictures of event any time
+            </p>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                variant="primary"
+                className="addalbums_btn"
+                onClick={() => {
+                  setshow(true);
+                }}
+              >
+                Add Albums
+              </Button>
+            </div>
+              </>
+           
+            ) : (
+              <></>
+            )}
+
+           
             
-          </Swiper> <h3 className="tac">Add Albums😍 Now!</h3>
-          <p style={{textAlign: "center"}}>Share with your friends the final pictures of event any time</p>
-               <div style={{display: "flex", justifyContent: "center"}}>
-              
-               <Button variant="primary" className="addalbums_btn" onClick={() => {
-                   setshow(true);
-                 }}>
-                 Add Albums
-               </Button>
-             </div>
-             </>
+          </>
         )}
-                 
       </Container>
     </div>
   );
