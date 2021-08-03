@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -13,7 +13,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import BlankSchedule from "../../../Assets/BlankSchedule.svg";
 import { UpdateSchedules } from '../../../Redux/DispatchFuncitons/Eventfunctions'
 import { useDispatch } from "react-redux";
-
+import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -34,7 +34,9 @@ export default function AddSchedule(props) {
   const [datetime, setdatetime] = useState("");
   const [description, setdescription] = useState("");
   const [isError, setError] = useState(false);
-
+  useEffect(() => {
+    setSubevent([...props.CurrentEventDetails]);
+  }, [props.CurrentEventDetails])
   const save = async () => {
     if (subname !== "" && datetime !== "" && description !== "") {
       let data = {
@@ -122,7 +124,7 @@ export default function AddSchedule(props) {
                             id="datetime-local"
                             label="Schedule timing"
                             type="datetime-local"
-                            defaultValue="2017-05-24T10:30"
+                            defaultValue="2017-05-24 T 10:30"
                             InputLabelProps={{
                               shrink: true,
                             }}
@@ -151,7 +153,7 @@ export default function AddSchedule(props) {
                             {eve.Venue}
                           </Grid>
                           <Grid item xs={12} className="dtime">
-                            {eve.datetime}
+                            <Dateformatter Date={eve.datetime.split("T")[0] + " " + eve.datetime.split("T")[1]} />
                           </Grid>
                         </Grid>
                       </>
@@ -222,12 +224,12 @@ export default function AddSchedule(props) {
                         id="panel1a-header"
                       >
                         <Typography className={classes.heading}>
-                          {eve.description.substring(0, 155)}...
+                          Description
                         </Typography>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <Typography className="p-10px">
-                          {eve.description.substring(155, 10000000000000)}
+                        <Typography className="p-0">
+                          {eve.description.substring(0, 10000000000000)}
                         </Typography>
                       </AccordionDetails>
                     </Accordion>{" "}
