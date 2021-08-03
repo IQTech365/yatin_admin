@@ -80,3 +80,7 @@
   border-radius: 20px;
   padding: 10px;
 }
+.Link {
+  color: #3897f1;
+  text-decoration: underline;
+}

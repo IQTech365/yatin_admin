@@ -33,7 +33,9 @@ export default function AddSchedule(props) {
   const [venue, setvenue] = useState("");
   const [datetime, setdatetime] = useState("");
   const [description, setdescription] = useState("");
+  const [link, setlink] = useState("");
   const [isError, setError] = useState(false);
+  const [showfulldescription, setshowfulldescription] = useState(false)
   useEffect(() => {
     setSubevent([...props.CurrentEventDetails]);
   }, [props.CurrentEventDetails])
@@ -43,7 +45,7 @@ export default function AddSchedule(props) {
         Name: subname,
         datetime: datetime,
         description: description,
-        Venue: venue,
+        link: link
       };
       console.log([...subEvent, data]);
 
@@ -62,7 +64,7 @@ export default function AddSchedule(props) {
         Name: subname,
         datetime: datetime,
         description: description,
-        Venue: venue,
+        link: link
       };
       let subEventcpy = [...subEvent];
       subEventcpy[editselected] = data;
@@ -82,6 +84,7 @@ export default function AddSchedule(props) {
     setdatetime("");
     setdescription("");
     setvenue("");
+    setshowfulldescription(false)
   };
 
   const Deleteone = async (i) => {
@@ -136,6 +139,25 @@ export default function AddSchedule(props) {
                             value={datetime}
                           />
                         </form>
+
+                        <TextField
+                          className="w-100 m-7px"
+                          size="small"
+                          label="Link"
+                          onChange={(e) => {
+                            setlink(e.target.value);
+                          }}
+                          value={link}
+                        />
+                        <TextField
+                          className="w-100 m-7px"
+                          size="small"
+                          label="Description"
+                          onChange={(e) => {
+                            setdescription(e.target.value);
+                          }}
+                          value={description}
+                        />
                       </>
                     ) : (
                       <>
@@ -154,6 +176,20 @@ export default function AddSchedule(props) {
                           </Grid>
                           <Grid item xs={12} className="dtime">
                             <Dateformatter Date={eve.datetime.split("T")[0] + " " + eve.datetime.split("T")[1]} />
+                          </Grid>
+                          <Grid item xs={12} onClick={() => {
+                            window.open(eve.link)
+
+                          }} className="Link">
+                            {eve.link}
+                          </Grid><br />
+                          <Grid item xs={12}>
+                            <p className="event-des">{showfulldescription === false ? eve.description.slice(0, 50) + '...' : eve.description}</p>
+                            {eve.description.length > 50 ?
+                              <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>
+                                {showfulldescription === false ? 'Show More' : 'Show Less'}
+                              </a> : <></>}
+
                           </Grid>
                         </Grid>
                       </>
@@ -181,6 +217,7 @@ export default function AddSchedule(props) {
                       <center>
                         <IconButton
                           onClick={() => {
+                            setshowfulldescription(false)
                             setsubname(eve.Name);
                             setdatetime(eve.datetime);
                             setdescription(eve.description);
@@ -195,6 +232,7 @@ export default function AddSchedule(props) {
                         <IconButton
                           onClick={() => {
                             Deleteone(index);
+                            setshowfulldescription(false)
                           }}
                         >
                           <DeleteForeverIcon color="error" />
@@ -205,36 +243,6 @@ export default function AddSchedule(props) {
                   <Grid item xs={8} md={10}></Grid>
                   <Grid item xs={4} md={2}></Grid>
                 </Grid>
-                {edit === true && editselected === index ? (
-                  <TextField
-                    className="w-100 m-7px"
-                    size="small"
-                    label="Sub-Event description"
-                    onChange={(e) => {
-                      setdescription(e.target.value);
-                    }}
-                    value={description}
-                  />
-                ) : (
-                  <>
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography className={classes.heading}>
-                          Description
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography className="p-0">
-                          {eve.description.substring(0, 10000000000000)}
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>{" "}
-                  </>
-                )}
               </Grid>
             ))}
           </>
