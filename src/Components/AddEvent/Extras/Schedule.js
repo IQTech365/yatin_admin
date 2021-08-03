@@ -178,7 +178,7 @@ export default function AddSchedule(props) {
                             <Dateformatter Date={eve.datetime.split("T")[0] + " " + eve.datetime.split("T")[1]} />
                           </Grid>
                           <Grid item xs={12} onClick={() => {
-                            window.open(eve.link)
+                            window.open('http://' + eve.link)
 
                           }} className="Link">
                             {eve.link}
@@ -289,6 +289,19 @@ export default function AddSchedule(props) {
                   value={datetime}
                 />
               </form>
+              <TextField
+                className="w-100 m-7px"
+                variant="standard"
+                InputProps={{
+                  className: "nounder",
+                }}
+                size="small"
+                label="Link"
+                onChange={(e) => {
+                  setlink(e.target.value);
+                }}
+                value={link}
+              />
               <TextField
                 className="w-100 m-7px"
                 variant="standard"
