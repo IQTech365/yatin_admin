@@ -10,11 +10,13 @@ import history from "../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
 import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
+import AddSchedule from '../AddEvent/Extras/Schedule'
 export default function ShowSchedule(props) {
   const dispatch = useDispatch();
   const [Eventdata, setEventdata] = useState([])
   const [base, setbase] = useState("")
-
+  const [Id, setId] = useState("")
+  const [isadmin, setisadmin] = useState(false)
   let MyEvents = useSelector(
     (state) => state.Eventdata.myEvents
   );
@@ -36,9 +38,13 @@ export default function ShowSchedule(props) {
       ) {
         await setEventdata(MyEvents[props.match.params.id][props.match.params.event].Schedule);
         await setbase("MyEvents");
+        await setId(MyEvents[props.match.params.id][props.match.params.event]._id)
+        await setisadmin(true)
       } else {
         await setEventdata(myInvitations[props.match.params.id][props.match.params.event].Schedule);
+        await setId(myInvitations[props.match.params.id][props.match.params.event]._id)
         await setbase("inv");
+        await setisadmin(false)
       }
     }
   }, [])
@@ -73,44 +79,9 @@ export default function ShowSchedule(props) {
         </Grid>
 
         <Grid item xs={12} style={{ padding: '18px' }}>
-          {Eventdata.length > 0 ? (
-            <>
-              {Eventdata.map((eve, index) => (<>
-                <Grid item xs={false} md={2} />
-                <Grid item xs={12} md={8} className="card-shadow m-b-10 p-15px m-5px schedule_main" style={{ borderRadius: '13px' }}>
-                  <Grid container spacing={0}>
-                    <>
-                      <Grid
-                        container
-                        spacing={0}
-                        className="padding-left-7 p-10-p "
-                      >
-                        <Grid item xs={12}>
-                          <div className="ScheduleName l-black-t m-0">
-                            {eve.Name}
-                          </div>
-                        </Grid>
-                        <Grid item xs={12}>
-                          {eve.Venue}
-                        </Grid>
-                        <Grid item xs={12} className="dtime l-blue-t" style={{ fontWeight: 'bold' }}>
-                          <Dateformatter Date={eve.datetime} />
-                        </Grid>
-                        <Grid item xs={12} className="mt-10px" style={{ fontSize: 13, color: 'grey', height: '32px', overflow: 'scroll' }}>
-                          {eve.description}
-                        </Grid>
-                      </Grid>
-                    </>
-                  </Grid>
-                </Grid>
-                <Grid item xs={false} md={2} />
-              </>
-              ))}
-            </>
-          ) : (
-            <img src={BlankSchedule} className="blank-img" />
-          )}
+          <AddSchedule CurrentEventDetails={Eventdata} IsAdmin={isadmin} Eid={Id} />
         </Grid>
+
       </Grid>
     </>
   );

@@ -213,3 +213,44 @@ export function deleteInvite(MainCode) {
       });
   };
 }
+export function UpdateSchedules(eid, Schedule) {
+
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateSchedule", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
+export function UpdateAlbum(eid, Schedule) {
+
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateAlbum", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
+export function UpdateStory(eid, Schedule) {
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateStory", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
