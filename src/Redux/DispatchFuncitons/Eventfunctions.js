@@ -213,3 +213,61 @@ export function deleteInvite(MainCode) {
       });
   };
 }
+export function UpdateSchedules(eid, Schedule) {
+
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateSchedule", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
+export function UpdateAlbum(eid, Schedule) {
+
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateAlbum", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
+export function UpdateStory(eid, Schedule) {
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateStory", {
+        eid: eid, Schedule: Schedule,
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}
+export function addCohost(eid, newHost) {
+  return (dispatch) => {
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    axios
+      .post(url + "event/addHost", {
+        _id: eid, newHost: newHost, date: dateTime
+      })
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
+
+      });
+  };
+}

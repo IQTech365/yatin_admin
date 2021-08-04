@@ -8,9 +8,13 @@ import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import { useSelector, useDispatch } from "react-redux";
 import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import StarsIcon from '@material-ui/icons/Stars';
+import { addCohost } from '../../Redux/DispatchFuncitons/Eventfunctions'
 export default function Guest(props) {
   const [Events, setEvents] = useState([]);
+  const [eid, seteid] = useState("");
   const [guestList, setguestList] = useState([]);
+  const [Hosts, setHosts] = useState([]);
   const [guestListaccept, setguestListaccept] = useState([]);
   const [guestListdecline, setguestListdecline] = useState([]);
   const [guestListmaybe, setguestListmaybe] = useState([]);
@@ -27,8 +31,10 @@ export default function Guest(props) {
     (state) => state.Eventdata.myInvitations
   );
   useEffect(async () => {
+    debugger
     let RSVPList = []
     let Participants = []
+    let data = []
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
@@ -43,16 +49,18 @@ export default function Guest(props) {
         await setEventdata(MyEvents[props.match.params.id]);
         await setbase("MyEvents");
         await setEvents(Eventdata);
-        console.log(MyEvents[props.match.params.id][props.match.params.invno].RSVPList);
-        await setguestList([...MyEvents[props.match.params.id][props.match.params.invno].RSVPList,
-        ...MyEvents[props.match.params.id][props.match.params.invno].Host]);
-        RSVPList = MyEvents[props.match.params.id][props.match.params.invno].RSVPList;
-        if (MyEvents[props.match.params.id][props.match.params.invno].Host.includes(Auth.Phone)) {
+        data = MyEvents[props.match.params.id][props.match.params.invno]
+        console.log(data.RSVPList);
+        await setguestList([...data.RSVPList,
+        ...data.Host]);
+        await setHosts(data.Host)
+        await seteid(data._id)
+        RSVPList = data.RSVPList;
+        if (data.Host.includes(Auth.Phone)) {
           setisAdmin(true);
         } else {
           setisAdmin(false);
         }
-        let data = MyEvents[props.match.params.id][props.match.params.invno]
         Participants = [...data.Participants,
         ...data.Host];
       } else if (
@@ -62,18 +70,21 @@ export default function Guest(props) {
         "/" +
         props.match.params.invno && myInvitations.length > 0
       ) {
+        data = myInvitations[props.match.params.id][props.match.params.invno]
         await setEventdata(myInvitations[props.match.params.id]);
         await setbase("inv");
         await setEvents(Eventdata);
-        await setguestList([...myInvitations[props.match.params.id][props.match.params.invno].RSVPList,
-        ...myInvitations[props.match.params.id][props.match.params.invno].Host]);
-        RSVPList = myInvitations[props.match.params.id][props.match.params.invno].RSVPList;
-        if (myInvitations[props.match.params.id][props.match.params.invno].Host.includes(Auth.Phone)) {
+
+        await setguestList([...data.RSVPList,
+        ...data.Host]);
+        RSVPList = data.RSVPList;
+        await setHosts(data.Host)
+        if (data.Host.includes(Auth.Phone)) {
           setisAdmin(true);
         } else {
           setisAdmin(false);
         }
-        let data = myInvitations[props.match.params.id][props.match.params.invno]
+        await seteid(data._id)
         Participants = [...data.Participants,
         ...data.Host];
 
@@ -195,7 +206,7 @@ export default function Guest(props) {
                       <Col xs={2} md={1}>
                         <Userdataurl showIcon={true} Phone={guest.By} />
                       </Col>
-                      <Col>
+                      <Col xs={6}>
                         <Row className="m-0 ">
                           <Userdataurl showName={true} Phone={guest.By} />
                         </Row>
@@ -214,6 +225,11 @@ export default function Guest(props) {
                             {guest.Status}
                           </span>
                         </Row>
+                      </Col>
+                      <Col xs={4}>
+                        {Hosts.includes(guest.By) === false ? <>
+                          <button className="addHostButton" onClick={() => { dispatch(addCohost(eid, guest.By)) }}>Add Co-Host</button>
+                        </> : <center><StarsIcon /></center>}
                       </Col>
                     </Row>
                   </Container>

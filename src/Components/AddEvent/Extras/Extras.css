@@ -46,12 +46,14 @@
 }
 .dtime {
   font-size: 10px;
+  padding-top: 3px;
+  padding-bottom: 7px;
 }
 .padding-left-7 {
   padding-left: 7% !important;
 }
 .schedule-details {
-  min-height: 200px;
+  min-height: 150px;
   height: auto;
 }
 
@@ -77,4 +79,8 @@
 .card-shadow {
   border-radius: 20px;
   padding: 10px;
+}
+.Link {
+  color: #3897f1;
+  text-decoration: underline;
 }

@@ -95,7 +95,7 @@
   }
   .add-button {
     font-size: 60px !important;
-    bottom: 15vh !important;
+    bottom: 5vh !important;
     position: fixed !important;
     z-index: 2222 !important;
     left: 75vw !important;

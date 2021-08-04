@@ -80,7 +80,15 @@
 .nav-tabs .nav-link {
   text-decoration: none;
 }
-
+.addHostButton {
+  background: #3897f1;
+  color: white;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 12px;
+  padding: 5px;
+}
 @media (max-width: 340px) {
   .nav-tabs .nav-link {
     font-size: 13px;
