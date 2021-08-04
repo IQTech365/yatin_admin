@@ -73,7 +73,7 @@ export default function NavMobile(props) {
             style={{ textDecoration: "none" }}
           >
             <BiPhotoAlbum size={25} />
-            <p className="mobilebar_text">Gallery</p>
+            <p className="mobilebar_text">Albums</p>
           </Nav.Link>
           <Nav.Link
             onClick={() => {

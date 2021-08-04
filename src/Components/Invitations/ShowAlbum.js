@@ -153,8 +153,8 @@ export default function ShowAlbum(props) {
       <DesktopNav id={props.match.params.id} base={base} />
       <MobileNav id={props.match.params.id} base={base} />
 
-      <Container style={{ margin: 0, padding: 0, marginTop: 0 }} fluid>
-        <Row className="p-0 m-0">
+      <Container style={{ margin: 0, padding: 0, marginTop: 10}} fluid>
+        <Row className="p-0 m-0" >
           <Col xs={6}>
             {" "}
             <h3 className="p-5px"> Albums</h3>

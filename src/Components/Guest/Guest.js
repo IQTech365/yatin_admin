@@ -204,11 +204,11 @@ export default function Guest(props) {
                   <Container className="p-5px">
                     <Row className="m-0 ">
                       <Col xs={2} md={1}>
-                        <Userdataurl showIcon={true} Phone={guest.By} />
+                        <Userdataurl showIcon={true} Phone={guest.By}/>
                       </Col>
                       <Col xs={6}>
                         <Row className="m-0 ">
-                          <Userdataurl showName={true} Phone={guest.By} />
+                          <Userdataurl showName={true} Phone={guest.By}/>
                         </Row>
                         <Row className="m-0 ">
                           <span
@@ -221,6 +221,7 @@ export default function Guest(props) {
                                     ? "user-maybe"
                                     : "user-invited"
                             }
+                          
                           >
                             {guest.Status}
                           </span>

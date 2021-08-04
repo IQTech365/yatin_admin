@@ -156,10 +156,10 @@ export default function Header(props) {
 
           <Headings url={props.url} />
 
-          <InputBase
+        {/*   <InputBase
             className="inputRoot inputInput"
             inputProps={{ "aria-label": "search" }}
-          />
+          /> */}
 
           <div className="grow" />
           <div className="sectionDesktop">

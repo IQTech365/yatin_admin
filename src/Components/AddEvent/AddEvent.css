@@ -201,7 +201,7 @@
 
 @media only screen and (max-width: 489px) {
   .addcontacts_btn {
-    width: auto !important;
+    width: 100%;
   }
   .listitems_box {
     overflow: auto !important;

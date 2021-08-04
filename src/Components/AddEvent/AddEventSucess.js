@@ -21,7 +21,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Lottie from "react-lottie";
 import celebration from "../Animations/celebrations.json"
-
+import WhatsIcon from "../../Assets/WhatsIcon.png"
 
 const defaultOptions = {
   loop: 2,
@@ -160,7 +160,7 @@ export default function AddEventSucess(props) {
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={Share} className="" />
+                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px'}}/>
               </WhatsappShareButton>
             </center>
           </Grid>

@@ -73,7 +73,7 @@ export default function AddPost(props) {
             fluid
         >
             <Row className="commentinp">
-                <Col xs={2} md={1}>
+                <Col xs={2} md={1} style={{margin: 'auto'}}>
                     <UserData Phone={Auth.Phone} showIcon={true} />
                 </Col>
                 <Col xs={8} md={10}>
@@ -86,7 +86,7 @@ export default function AddPost(props) {
                         variant="outlined"
                         size="small"
                         className="w-100"
-                        placeholder="Add comment"
+                        placeholder="Add a Post"
                         style={{
                             width: "100%",
                             outline: "none",

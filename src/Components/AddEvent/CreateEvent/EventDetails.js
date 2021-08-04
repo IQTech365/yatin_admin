@@ -557,7 +557,7 @@ export default function EventDetails(props) {
             Please add Location
           </span>
         </Grid>
-        <Grid
+        {/* <Grid
           item
           xs={isEditLocation === true ? 1 : false}
           sm={isEditLocation === true ? 1 : false}
@@ -580,7 +580,7 @@ export default function EventDetails(props) {
           ) : (
             <></>
           )}
-        </Grid>
+        </Grid> */}
       </>
 
       <Grid item xs={12}>
@@ -799,7 +799,7 @@ export default function EventDetails(props) {
         <></>
       )} */}
 
-      <Grid item xs={12}>
+      <Grid item xs={12} >
         <button
           className={
             props.disablesave === false
@@ -811,6 +811,7 @@ export default function EventDetails(props) {
               save();
             }
           }}
+          style={{marginTop: '20px'}}
         >
           Next
         </button>
