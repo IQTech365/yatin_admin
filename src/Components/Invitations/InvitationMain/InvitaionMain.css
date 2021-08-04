@@ -150,6 +150,8 @@
   .event-des {
     font-size: 15px;
     line-height: 1.43;
+    width: 40vh;
+
   }
   .Like-count {
     position: relative;

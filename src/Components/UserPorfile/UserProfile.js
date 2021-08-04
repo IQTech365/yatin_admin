@@ -7,6 +7,7 @@ import { uploadString } from "../../Utils/FileUpload_Download";
 import { useSelector, useDispatch } from "react-redux";
 import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
+import ProfilePic from "../../Assets/ProfilePic.png"
 
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -64,34 +65,14 @@ export default function UserProfile(props) {
         <input {...getInputProps()} />
         <center>
           {Image == "" ? (
-            <img src={male} className="Profile" />
+            <img src={ProfilePic} className="Profile" style={{height: "130px"}}/>
           ) : (
-            <img src={Image} className="Profile" />
+            <img src={Image} className="Profile" style={{height: "130px", borderRadius:'50%'}}/>
           )}
         </center>
       </Grid>
 
-      {/*       <Grid item xs={6}>
-        <center
-         
-        >
-          <BiMale
-           
-          />{" "}
-          Male
-        </center>
-      </Grid>
-
-      <Grid item xs={6}>
-        <center
-        
-        >
-          <BiFemale
-            
-          />
-          Female
-        </center>
-      </Grid> */}
+     
 
       <Grid item xs={12}>
         <span>Name</span>

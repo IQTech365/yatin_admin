@@ -195,7 +195,7 @@ export default function AddSchedule(props) {
                       </>
                     )}
                   </Grid>
-                  <Grid item xs={4} md={2}>
+                  <Grid item xs={4} md={2} >
                     {edit === true && editselected === index ? (
                       <center>
                         <IconButton
