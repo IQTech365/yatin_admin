@@ -67,7 +67,7 @@ export default function UserProfile(props) {
           {Image == "" ? (
             <img src={ProfilePic} className="Profile" style={{height: "130px"}}/>
           ) : (
-            <img src={Image} className="Profile" style={{height: "130px", borderRadius:'50%'}}/>
+            <img src={Image} className="Profile" style={{height: "130px", borderRadius:'50%', height:"130px"}}/>
           )}
         </center>
       </Grid>
