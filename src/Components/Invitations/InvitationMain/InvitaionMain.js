@@ -107,7 +107,7 @@ export default function InvitaionMain(props) {
       />
       {/*  <Toggler /> */}
 
-      <Carousel controls={false} interval={99999999999999} className="mb-10">
+      <Carousel controls={false} interval={99999999999999} className="mb-10 invitation_carousel">
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>

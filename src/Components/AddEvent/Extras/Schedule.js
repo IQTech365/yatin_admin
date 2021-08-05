@@ -1,3 +1,4 @@
+import "./Extras.css"
 import React, { useState, useEffect } from "react";
 import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
@@ -184,7 +185,7 @@ export default function AddSchedule(props) {
                             {eve.link}
                           </Grid><br />
                           <Grid item xs={12}>
-                            <p className="event-des">{showfulldescription === false ? eve.description.slice(0, 50) + '...' : eve.description}</p>
+                            <p className="event-des schedule_des">{showfulldescription === false ? eve.description.slice(0, 50) + '...' : eve.description}</p>
                             {eve.description.length > 50 ?
                               <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>
                                 {showfulldescription === false ? 'Show More' : 'Show Less'}

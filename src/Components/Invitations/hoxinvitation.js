@@ -3,11 +3,13 @@ import { url } from "../../Utils/Config";
 import "./InvitationMain/InvitaionMain.css"
 import { Container, Row, Col, Carousel, Form } from "react-bootstrap";
 import Header from "../Helpers/Header/Header"
+import Icon from "../../Assets/comment.png";
 import NavMobile from "../Helpers/NavMobile/NavMobile";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
 import SendIcon from "../../Assets/ic-send.png";
+import { HiHome } from "react-icons/hi";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai"
 import { GoCalendar, GoLocation } from "react-icons/go"
 import CommentIcon from "../../Assets/comment-dot.png";
@@ -22,12 +24,13 @@ import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { IoArrowBackCircleOutline, IoSendSharp } from "react-icons/io5";
 import './Invitations.css'
 import './InvitationMain/InvitaionMain.css'
 import { addEvent } from '../../Redux/DispatchFuncitons/CodeFunctions'
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
+  const [showfulldescription, setshowfulldescription] = useState(false);
   const [show, setshow] = useState(false);
   const Auth = useSelector((state) => state.Auth);
   const myInvitations = useSelector((state) => state.Eventdata.myInvitations);
@@ -101,7 +104,7 @@ export default function Hoxinvitation(props) {
         toggleShowPopup={setshow}
         showPopup={show}
       />
-      <Carousel controls={false} interval={99999999999999} className="mb-10">
+      <Carousel controls={false} interval={99999999999999} className="mb-10 invitation_carousel">
         {Invitations &&
           Invitations.map((eve, index) => (
             <Carousel.Item
@@ -118,10 +121,12 @@ export default function Hoxinvitation(props) {
                     marginBottom: 10,
                   }}
                 >
-                  <p style={{ fontWeight: "bold", fontSize: 20, color: "white" }}>
-                    <IoArrowBackCircleOutline
-                      style={{ backgroundColor: '#313131', borderRadius: '50px' }}
-                      size={40} />
+                   <p style={{ color: "black" }}>
+                    <HiHome
+                      style={{ backgroundColor: "white", borderRadius: "50px" }}
+                      size={30}
+                      
+                    />
                   </p>
                   <Col></Col>
                   <FaUserFriends
@@ -144,13 +149,13 @@ export default function Hoxinvitation(props) {
                     className="m-10px"
                   />
                   <div style={{ position: "relative", float: "right" }}>
-                    <Image src={SendIcon} style={{
+                    <IoSendSharp style={{
                       height: "20px",
                       width: "20px",
                       marginRight: "1.5vh",
                     }} />
 
-                    <Image src={CommentIcon} className="go-chat" />
+                    <Image src={Icon} className="go-chat" />
                   </div>
                   <h4 className="avatar-name">
                     <UserDataUrl Phone={eve.Host[0]} showName={true} />
@@ -204,8 +209,26 @@ export default function Hoxinvitation(props) {
                   <br />
 
                   <h3 className="event-date"><Dateformatter Date={eve.Date + " " + eve.Time} /></h3>
-                  <p className="event-des">{eve.Description}</p>
-                  <a href="#" className="invitationmain_link">Read More</a>
+                  <p className="event-des">
+                    {showfulldescription === false
+                      ? eve.Description.slice(0, 50) + "..."
+                      : eve.Description}
+                  </p>
+                  {eve.Description.length > 50 ? (
+                    <a
+                      href="#"
+                      className="invitationmain_link"
+                      onClick={() => {
+                        setshowfulldescription(!showfulldescription);
+                      }}
+                    >
+                      {showfulldescription === false
+                        ? "Show More"
+                        : "Show Less"}
+                    </a>
+                  ) : (
+                    <></>
+                  )}
                 </Container>
               </Container>
             </Carousel.Item>

@@ -84,3 +84,8 @@
   color: #3897f1;
   text-decoration: underline;
 }
+@media (max-width: 991px) {
+  .schedule_des{
+    width:35vh;
+  }
+}
