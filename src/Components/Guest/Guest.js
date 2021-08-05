@@ -246,7 +246,7 @@ export default function Guest(props) {
                                     dispatch(removeCohost(eid, guest.By));
                                   }}
                                 >
-                                  Cancel
+                                  Remove
                                 </button>
                               </center> : <center><StarsIcon /></center>
                           )
