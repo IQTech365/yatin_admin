@@ -7,9 +7,13 @@ import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import { useSelector, useDispatch } from "react-redux";
-import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import StarsIcon from '@material-ui/icons/Stars';
-import { addCohost } from '../../Redux/DispatchFuncitons/Eventfunctions'
+import {
+  GetEvents,
+  GetInvitations,
+} from "../../Redux/DispatchFuncitons/Eventfunctions";
+import StarsIcon from "@material-ui/icons/Stars";
+import { addCohost, removeCohost } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import _ from 'lodash'
 export default function Guest(props) {
   const [Events, setEvents] = useState([]);
   const [eid, seteid] = useState("");
@@ -23,18 +27,13 @@ export default function Guest(props) {
   const [Eventdata, setEventdata] = useState([]);
   const [base, setbase] = useState("");
   const Auth = useSelector((state) => state.Auth);
-  let MyEvents = useSelector(
-    (state) => state.Eventdata.myEvents
-  );
+  let MyEvents = useSelector((state) => state.Eventdata.myEvents);
+  let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
 
-  let myInvitations = useSelector(
-    (state) => state.Eventdata.myInvitations
-  );
   useEffect(async () => {
-    debugger
-    let RSVPList = []
-    let Participants = []
-    let data = []
+    let RSVPList = [];
+    let Participants = [];
+    let data = [];
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
@@ -44,50 +43,47 @@ export default function Guest(props) {
         "/MyEvents/guestlist/" +
         props.match.params.id +
         "/" +
-        props.match.params.invno && MyEvents.length > 0
+        props.match.params.invno &&
+        MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id]);
         await setbase("MyEvents");
         await setEvents(Eventdata);
-        data = MyEvents[props.match.params.id][props.match.params.invno]
+        data = MyEvents[props.match.params.id][props.match.params.invno];
         console.log(data.RSVPList);
-        await setguestList([...data.RSVPList,
-        ...data.Host]);
-        await setHosts(data.Host)
-        await seteid(data._id)
+        await setguestList([...data.RSVPList, ...data.Host]);
+        await setHosts(data.Host);
+        await seteid(data._id);
         RSVPList = data.RSVPList;
         if (data.Host.includes(Auth.Phone)) {
           setisAdmin(true);
         } else {
           setisAdmin(false);
         }
-        Participants = [...data.Participants,
-        ...data.Host];
+        Participants = [...data.Participants, ...data.Host];
       } else if (
         props.location.pathname ===
         "/inv/guestlist/" +
         props.match.params.id +
         "/" +
-        props.match.params.invno && myInvitations.length > 0
+        props.match.params.invno &&
+        myInvitations.length > 0
       ) {
-        data = myInvitations[props.match.params.id][props.match.params.invno]
+        data = myInvitations[props.match.params.id][props.match.params.invno];
         await setEventdata(myInvitations[props.match.params.id]);
         await setbase("inv");
         await setEvents(Eventdata);
 
-        await setguestList([...data.RSVPList,
-        ...data.Host]);
+        await setguestList([...data.RSVPList, ...data.Host]);
         RSVPList = data.RSVPList;
-        await setHosts(data.Host)
+        await setHosts(data.Host);
         if (data.Host.includes(Auth.Phone)) {
           setisAdmin(true);
         } else {
           setisAdmin(false);
         }
-        await seteid(data._id)
-        Participants = [...data.Participants,
-        ...data.Host];
-
+        await seteid(data._id);
+        Participants = [...data.Participants, ...data.Host];
       }
 
       let accept = [];
@@ -107,8 +103,6 @@ export default function Guest(props) {
       });
 
       let all = [];
-
-
 
       let allrsvp = accept.concat(decline);
       allrsvp = allrsvp.concat(maybe);
@@ -136,6 +130,10 @@ export default function Guest(props) {
         }
         found = false;
       }
+      all = _.uniqBy(all, 'By');
+      accept = _.uniqBy(accept, 'By');
+      decline = _.uniqBy(decline, 'By');
+      maybe = _.uniqBy(maybe, 'By');
       setguestList(all);
       setguestListaccept(accept);
       setguestListdecline(decline);
@@ -145,7 +143,7 @@ export default function Guest(props) {
 
   return (
     <>
-      <div className="desktop-only w-100" >
+      <div className="desktop-only w-100">
         <Header className="desktop-only" />
       </div>
       <Container className="guest-box">
@@ -204,11 +202,11 @@ export default function Guest(props) {
                   <Container className="p-5px">
                     <Row className="m-0 ">
                       <Col xs={2} md={1}>
-                        <Userdataurl showIcon={true} Phone={guest.By}/>
+                        <Userdataurl showIcon={true} Phone={guest.By} />
                       </Col>
                       <Col xs={6}>
                         <Row className="m-0 ">
-                          <Userdataurl showName={true} Phone={guest.By}/>
+                          <Userdataurl showName={true} Phone={guest.By} />
                         </Row>
                         <Row className="m-0 ">
                           <span
@@ -221,16 +219,40 @@ export default function Guest(props) {
                                     ? "user-maybe"
                                     : "user-invited"
                             }
-                          
                           >
                             {guest.Status}
                           </span>
                         </Row>
                       </Col>
                       <Col xs={4}>
-                        {Hosts.includes(guest.By) === false ? <>
-                          <button className="addHostButton" onClick={() => { dispatch(addCohost(eid, guest.By)) }}>Add Co-Host</button>
-                        </> : <center><StarsIcon /></center>}
+                        {isAdmin === true ? (
+                          Hosts.includes(guest.By) === false ? (
+                            <>
+                              <button
+                                className="addHostButton"
+                                onClick={() => {
+                                  dispatch(addCohost(eid, guest.By));
+                                }}
+                              >
+                                Add Co-Host
+                              </button>
+                            </>
+                          ) : (
+                            guest.By !== Auth.Phone ?
+                              <center>
+                                <button
+                                  className="removeHostButton"
+                                  onClick={() => {
+                                    dispatch(removeCohost(eid, guest.By));
+                                  }}
+                                >
+                                  Remove
+                                </button>
+                              </center> : <center><StarsIcon /></center>
+                          )
+                        ) : (
+                          <></>
+                        )}
                       </Col>
                     </Row>
                   </Container>
