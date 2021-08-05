@@ -58,37 +58,46 @@ export default function ShowAlbum(props) {
   };
 
   useEffect(async () => {
+    debugger
+    let data = []
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
     } else {
       if (
         props.location.pathname ===
-          "/MyEvents/albums/" + props.match.params.id &&
+        "/MyEvents/albums/" + props.match.params.id &&
         MyEvents.length > 0
       ) {
         console.log(MyEvents[0]);
-        await setEventdata(MyEvents[props.match.params.id][0].InvId.Album);
+        data = MyEvents[props.match.params.id][0]
+        await setEventdata(data.InvId.Album);
         await setbase("MyEvents");
-        await setType(MyEvents[props.match.params.id][0].InvId.Type);
-        await setName(MyEvents[props.match.params.id][0].Name);
-        await setMainCode(MyEvents[props.match.params.id][0].MainCode);
-        await setIsAdmin(
-          MyEvents[props.match.params.id][0].Host.includes(Auth.Phone)
-        );
+        await setType(data.InvId.Type);
+        await setName(data.Name);
+        await setMainCode(data.MainCode);
+        if (data.Host.includes(Auth.Phone)) {
+          await setIsAdmin(true);
+        } else {
+          await setIsAdmin(false);
+        }
+
       } else if (
         props.location.pathname === "/inv/albums/" + props.match.params.id &&
         myInvitations.length > 0
       ) {
+        data = myInvitations[props.match.params.id][0]
         console.log(myInvitations[0]);
-        await setEventdata(myInvitations[props.match.params.id][0].InvId.Album);
+        await setEventdata(data.InvId.Album);
         await setbase("inv");
-        await setType(myInvitations[props.match.params.id][0].InvId.Type);
-        await setName(myInvitations[props.match.params.id][0].Name);
-        await setMainCode(myInvitations[props.match.params.id][0].MainCode);
-        await setIsAdmin(
-          myInvitations[props.match.params.id][0].Host.includes(Auth.Phone)
-        );
+        await setType(data.InvId.Type);
+        await setName(data.Name);
+        await setMainCode(data.MainCode);
+        if (data.Host.includes(Auth.Phone)) {
+          await setIsAdmin(true);
+        } else {
+          await setIsAdmin(false);
+        }
       }
       console.log(Eventdata);
     }
@@ -153,7 +162,7 @@ export default function ShowAlbum(props) {
       <DesktopNav id={props.match.params.id} base={base} />
       <MobileNav id={props.match.params.id} base={base} />
 
-      <Container style={{ margin: 0, padding: 0, marginTop: 10}} fluid>
+      <Container style={{ margin: 0, padding: 0, marginTop: 10 }} fluid>
         <Row className="p-0 m-0" >
           <Col xs={6}>
             {" "}
@@ -176,24 +185,27 @@ export default function ShowAlbum(props) {
         <br />
         {images.length === 0 ? (
           <>
-            {" "}
-            <img src={AlbumsNone} className="blank-album" />
-            <br />
-            <h3 className="tac">Add Albums😍 Now!</h3>
-            <p style={{ textAlign: "center" }}>
-              Share with your friends the final pictures of event any time
-            </p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant="primary"
-                className="addalbums_btn"
-                onClick={() => {
-                  setshow(true);
-                }}
-              >
-                Add Albums
-              </Button>
-            </div>
+
+            {IsAdmin === true ? <>  {" "}
+              <img src={AlbumsNone} className="blank-album" />
+              <br />
+              <h3 className="tac">Add Albums😍 Now!</h3>
+              <p style={{ textAlign: "center" }}>
+                Share with your friends the final pictures of event any time
+              </p><div style={{ display: "flex", justifyContent: "center" }}>
+                <Button
+                  variant="primary"
+                  className="addalbums_btn"
+                  onClick={() => {
+                    setshow(true);
+                  }}
+                >
+                  Add Albums
+                </Button>
+              </div></> : <>  <img src={AlbumsNone} className="blank-album" /> <br />
+              <h3 className="tac">No Albums😍 Yet!</h3>
+            </>}
+
           </>
         ) : (
           <>
@@ -211,29 +223,29 @@ export default function ShowAlbum(props) {
             </Swiper>
             {IsAdmin === true ? (
               <>
-              <h3 className="tac">Add Albums😍 Now!</h3>
-            <p style={{ textAlign: "center" }}>
-              Share with your friends the final pictures of event any time
-            </p>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant="primary"
-                className="addalbums_btn"
-                onClick={() => {
-                  setshow(true);
-                }}
-              >
-                Add Albums
-              </Button>
-            </div>
+                <h3 className="tac">Add Albums😍 Now!</h3>
+                <p style={{ textAlign: "center" }}>
+                  Share with your friends the final pictures of event any time
+                </p>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Button
+                    variant="primary"
+                    className="addalbums_btn"
+                    onClick={() => {
+                      setshow(true);
+                    }}
+                  >
+                    Add Albums
+                  </Button>
+                </div>
               </>
-           
+
             ) : (
               <></>
             )}
 
-           
-            
+
+
           </>
         )}
       </Container>
