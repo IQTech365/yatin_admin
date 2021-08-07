@@ -75,12 +75,12 @@ export default function Header(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem onClick={() => { setuserInfopopup(true); }}>
         <IconButton
           aria-label="show 4 new mails"
           color="inherit"
           className="p-0"
-          onClick={() => { setuserInfopopup(true); }}
+
         >
           {Auth.Profile === "" ? (
             <AccountCircle />
@@ -156,7 +156,7 @@ export default function Header(props) {
 
           <Headings url={props.url} />
 
-        {/*   <InputBase
+          {/*   <InputBase
             className="inputRoot inputInput"
             inputProps={{ "aria-label": "search" }}
           /> */}

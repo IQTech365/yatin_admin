@@ -243,9 +243,6 @@ export default function ShowAlbum(props) {
             ) : (
               <></>
             )}
-
-
-
           </>
         )}
       </Container>

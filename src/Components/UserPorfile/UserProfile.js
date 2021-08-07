@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
 import ProfilePic from "../../Assets/ProfilePic.png"
-
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,12 +15,13 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
 export default function UserProfile(props) {
-  const [showerror, setshowerror] = useState(false);
-  const [Name, setName] = useState("");
-  const [DOB, setDOB] = useState("");
-  const [Gender, setGender] = useState("");
-  const [Image, setImage] = useState("");
   const Auth = useSelector((state) => state.Auth);
+  const [showerror, setshowerror] = useState(false);
+  const [Name, setName] = useState(Auth.Name);
+  const [DOB, setDOB] = useState(Auth.DOB);
+  const [Gender, setGender] = useState(Auth.Gender);
+  const [Image, setImage] = useState(Auth.Profile);
+
   const dispatch = useDispatch();
   const onDrop = useCallback(async (acceptedFiles) => {
     if (acceptedFiles[0].size > 5259265) {
@@ -32,11 +32,7 @@ export default function UserProfile(props) {
     type = type[1];
     var reader = await new FileReader();
     reader.onload = async function () {
-      let url = await uploadString(
-        reader.result,
-        "Profile/" + Auth.Phone + "." + type
-      );
-      await setImage(url);
+      await setImage(reader.result)
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -49,30 +45,42 @@ export default function UserProfile(props) {
     multiple: false,
     accept: "image/jpeg, image/png, image/jpg",
   });
-  const save = () => {
+  const save = async () => {
+    debugger
+    console.log(Image)
     if (Name === "" || DOB === "" || Gender === "") {
       setshowerror(true);
     } else {
-      dispatch(saveuserinfo(Name, Gender, DOB, Image, props.url));
+      let url = Image
+      if (!Image.includes("Profile%2F")) {
+        url = await uploadString(
+          Image,
+          "Profile/" + Auth.Phone
+        );
+      }
+
+      await dispatch(saveuserinfo(Name, Gender, DOB, url, props.url));
       setshowerror(false);
       props.hide(false);
     }
   };
-
+  const handleChange = (event) => {
+    setGender(event.target.value);
+  };
   return (
     <Grid container spacing={0} style={{ padding: "15px" }}>
       <Grid item xs={12} {...getRootProps()}>
         <input {...getInputProps()} />
         <center>
           {Image == "" ? (
-            <img src={ProfilePic} className="Profile" style={{height: "130px"}}/>
+            <img src={ProfilePic} className="Profile" style={{ height: "130px" }} />
           ) : (
-            <img src={Image} className="Profile" style={{height: "130px", borderRadius:'50%', height:"130px"}}/>
+            <img src={Image} className="Profile" style={{ height: "130px", borderRadius: '50%', height: "130px" }} />
           )}
         </center>
       </Grid>
 
-     
+
 
       <Grid item xs={12}>
         <span>Name</span>
@@ -101,13 +109,14 @@ export default function UserProfile(props) {
           error={showerror === true && DOB === "" ? true : false}
         />
       </Grid>
-      <FormControl component="fieldset">
+      {/* <FormControl component="fieldset">
         <FormLabel component="legend">Gender</FormLabel>
         <RadioGroup
           row
           aria-label="position"
           name="position"
-          defaultValue="top"
+          defaultValue={"M"}
+          value={Gender}
         >
           <FormControlLabel
             value="male"
@@ -144,8 +153,33 @@ export default function UserProfile(props) {
             labelPlacement="start"
           />
         </RadioGroup>
-      </FormControl>
+      </FormControl> */}
       <Grid item xs={12}>
+        Male
+        <Radio
+          checked={Gender === 'M'}
+          onChange={handleChange}
+          value="M"
+          name="radio-button-demo"
+          inputProps={{ 'aria-label': 'M' }}
+        />Female
+        <Radio
+          checked={Gender === 'F'}
+          onChange={handleChange}
+          value="F"
+          name="radio-button-demo"
+          inputProps={{ 'aria-label': 'F' }}
+        /> Other
+        <Radio
+          checked={Gender === 'O'}
+          onChange={handleChange}
+          value="O"
+          name="radio-button-demo"
+          inputProps={{ 'aria-label': '0' }}
+        />
+      </Grid>
+
+      <Grid item xs={5}>
         <Button
           variant="contained"
           color="primary"
@@ -160,6 +194,24 @@ export default function UserProfile(props) {
           }}
         >
           Save
+        </Button>
+      </Grid>
+      <Grid item xs={2} />
+      <Grid item xs={5}>
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{
+            backgroundColor: "red",
+            borderRadius: 25,
+            marginTop: 10,
+          }}
+          className="w-100 m-b-5px"
+          onClick={() => {
+            props.hide(false)
+          }}
+        >
+          skip
         </Button>
       </Grid>
     </Grid>
