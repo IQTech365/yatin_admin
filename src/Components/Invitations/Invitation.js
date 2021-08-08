@@ -54,7 +54,7 @@ export default function Invitation(props) {
         <Grid
           item
           xs={12}
-          sm={6}
+          sm={window.innerHeight / window.innerWidth > 0.9 ? 12 : 6}
           className="InvitationCard"
           key={"InvitationCard" + index}
 
