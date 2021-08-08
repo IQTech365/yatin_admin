@@ -37,7 +37,7 @@ export default function EventList(props) {
         <Grid
           item
           xs={12}
-          sm={6}
+          sm={window.innerHeight / window.innerWidth > 0.9 ? 12 : 6}
           className="InvitationCard"
           key={"invContainer" + index}
 
