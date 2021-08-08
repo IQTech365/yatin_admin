@@ -57,9 +57,7 @@
   background-color: black;
   background-color: rgba(70, 70, 70, 0.25);
 }
-.carousel-inner {
-  height: 100vh;
-}
+
 .event-chat-buttons {
   position: relative;
   bottom: 5vh;
@@ -225,3 +223,4 @@
     height: 50vh!important;
   }
 }
+
