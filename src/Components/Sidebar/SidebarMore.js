@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Sidebar/Sidebar.css";
 import { IoArrowBackCircleOutline, IoCall } from "react-icons/io5";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { Component } from "react";
 import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,7 +15,11 @@ import {
   GetEvents,
   GetInvitations, deleteInvite
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
+
 import { logout } from '../../Redux/DispatchFuncitons/AuthFunctions'
+import { Modal } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import { IconButton } from "@material-ui/core";
 export default function SidebarMore(props) {
   const [base, setbase] = useState("");
   const [ishost, setishost] = useState(false);
@@ -24,7 +28,7 @@ export default function SidebarMore(props) {
   const [Eventdata, setEventdata] = useState([]);
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
-
+  const [showPopup, toggleShowPopup] = useState(false)
   useEffect(async () => {
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
@@ -59,6 +63,36 @@ export default function SidebarMore(props) {
   }, [myInvitations, MyEvents]);
   return (
     <>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className="modal"
+        open={showPopup}
+      >
+        <div className="modal-card">
+          <IconButton
+            className="popup-close"
+            onClick={() => {
+              toggleShowPopup(false);
+            }}
+          >
+            <CancelIcon color="secondary" fontSize="large" />
+          </IconButton>
+          <Row><center><h3>
+            Do you want to delete this invite?</h3></center>
+          </Row>
+          <Row>
+            <Col><Button variant="danger" className="w-100" onClick={() => {
+              dispatch(deleteInvite(Eventdata[0].MainCode))
+            }} >yes</Button>
+            </Col>
+            <Col><Button variant="secondary" className="w-100 l-blue" onClick={() => {
+              toggleShowPopup(false);
+            }}>No</Button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
       <div className="w-100 desktop-only ">
         <Header />
       </div>
@@ -110,7 +144,8 @@ export default function SidebarMore(props) {
         <a
           className="linkto-rows"
           onClick={() => {
-            dispatch(deleteInvite(Eventdata[0].MainCode))
+            toggleShowPopup(true)
+            // dispatch(deleteInvite(Eventdata[0].MainCode))
           }}
         >
           <Row className="sidebar-rows">

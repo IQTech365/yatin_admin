@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { BiNews } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
-import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
+import { Container, Row, Col, Dropdown, DropdownButton, Button } from "react-bootstrap";
 import history from "../../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
 import Popup from "../Popups/Popup";
@@ -11,13 +11,16 @@ import Notifications from "../../Notifications/Notification";
 import { GoBook } from "react-icons/go";
 import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
 import { deleteInvite } from '../../../Redux/DispatchFuncitons/Eventfunctions'
-
+import { Modal } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import { IconButton } from "@material-ui/core";
 export default function DesktopNav(props) {
   const dispatch = useDispatch();
   const Auth = useSelector((state) => state.Auth);
   const useStyles = makeStyles({});
   const [ishost, setishost] = useState(false);
   const [show, setshow] = useState(false);
+  const [showPopup, toggleShowPopup] = useState(false)
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
       console.log(props.Eventdata)
@@ -33,6 +36,36 @@ export default function DesktopNav(props) {
 
   return (
     <Container className="navigation-box" fluid>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className="modal"
+        open={showPopup}
+      >
+        <div className="modal-card">
+          <IconButton
+            className="popup-close"
+            onClick={() => {
+              toggleShowPopup(false);
+            }}
+          >
+            <CancelIcon color="secondary" fontSize="large" />
+          </IconButton>
+          <Row className="m-0"><center><h3>
+            Do you want to delete this invite?</h3></center>
+          </Row>
+          <Row className="m-0">
+            <Col><Button variant="danger" className="w-100" onClick={() => {
+              dispatch(deleteInvite(props.Eventdata[0].MainCode))
+            }}>yes</Button>
+            </Col>
+            <Col><Button variant="secondary" className="w-100 l-blue" onClick={() => {
+              toggleShowPopup(false);
+            }}>No</Button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
       <Row>
         <Col
           md={2}
@@ -85,7 +118,8 @@ export default function DesktopNav(props) {
             <Dropdown.Item
               as="button"
               onClick={() => {
-                dispatch(deleteInvite(props.Eventdata[0].MainCode))
+                toggleShowPopup(true)
+                // dispatch(deleteInvite(Eventdata[0].MainCode))
               }}
             >
               Delete Invite
