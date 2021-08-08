@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import DancingImg from "../../Assets/DancingImg.png";
 import { GoBook } from "react-icons/go";
-import { IoImagesSharp, IoPowerSharp, IoTrashOutline } from "react-icons/io5";
+import { IoImagesSharp, IoPowerSharp, IoTrashOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import {
   GetEvents,
@@ -140,7 +140,27 @@ export default function SidebarMore(props) {
             </Col>
           </Row>
         </a>
-
+        <a
+          className="linkto-rows"
+          onClick={() => {
+            history.push("/MyEvents/" + 'event-create-success/' + Eventdata[0].MainCode + '/Share');
+          }}
+        >
+          <Row className="sidebar-rows">
+            <Col xs={8}>
+              <p style={{ margin: "auto", padding: "15px" }}>
+                {" "}
+                <IoShareSocialOutline size="25" /> Share
+              </p>
+            </Col>
+            <Col>
+              <p>
+                {" "}
+                <RiArrowRightSLine size={20} className="arrow-iconcs" />
+              </p>
+            </Col>
+          </Row>
+        </a>
         <a
           className="linkto-rows"
           onClick={() => {

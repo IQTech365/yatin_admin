@@ -27,7 +27,7 @@ export default function Home(props) {
     dispatch(GetEvents());
     dispatch(GetInvitations());
     dispatch(getNotification());
-    dispatch(getChats());
+    // dispatch(getChats());
 
     if (
       props.location.pathname === "/inv" ||

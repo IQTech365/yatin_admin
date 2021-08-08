@@ -8,20 +8,20 @@ import Share from "../../Assets/Shareon.svg";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import axios from "axios";
 import { url } from "../../Utils/Config";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
-import { WhatsappShareButton } from 'react-share'
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
+import { WhatsappShareButton } from "react-share";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
 import Lottie from "react-lottie";
-import celebration from "../Animations/celebrations.json"
-import WhatsIcon from "../../Assets/WhatsIcon.png"
+import celebration from "../Animations/celebrations.json";
+import WhatsIcon from "../../Assets/WhatsIcon.png";
 
 const defaultOptions = {
   loop: 2,
@@ -29,11 +29,11 @@ const defaultOptions = {
   animationData: celebration,
   rendererSettings: {
     // preserveAspectRatio: "xMidYMid slice"
-  }
+  },
 };
 
 export default function AddEventSucess(props) {
-  const Auth = useSelector(state => state.Auth)
+  const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
   const [mode, setmode] = useState();
@@ -46,27 +46,46 @@ export default function AddEventSucess(props) {
         MainCode: props.match.params.id,
       })
       .then(async (res) => {
-
-        await setallevents(res.data.Events)
-        if (res.data.Events[0].EntryWay === 'Code') {
-
-
-          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
-          await setWatsapp(
-            "Hi there ! You have been invited by " + Auth.Name + " to " + res.data.Events[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
-        } else {
-          setcodesharelink(" https://mobillyinvite.com/MyInvitations/" + maincode + "/" + res.data.Events[0].code)
-          await setWatsapp(
-            "Hi there ! You have been invited by " + Auth.Name + " to " + res.data.Events[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+        await setallevents(res.data.Events);
+        if (res.data.Events[0].EntryWay === "Code") {
+          setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode)
+            maincode +
+            "/" +
+            res.data.Events[0].code
+          );
+          await setWatsapp(
+            "Hi there ! You have been invited by " +
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode +
+            "/" +
+            res.data.Events[0].code
+          );
+        } else {
+          setcodesharelink(
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode +
+            "/" +
+            res.data.Events[0].code
+          );
+          await setWatsapp(
+            "Hi there ! You have been invited by " +
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode
+          );
         }
 
-        await setmode(res.data.Events[0].EntryWay)
+        await setmode(res.data.Events[0].EntryWay);
       });
-  }, [])
-
+  }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -75,12 +94,28 @@ export default function AddEventSucess(props) {
   };
 
   const handleClose = async (data) => {
-    await setcodesharelink(" https://mobily-invited-server.herokuapp.com/MyInvitations/" + maincode + "/" + data)
+    navigator.clipboard.writeText(" https://mobily-invited-server.herokuapp.com/MyInvitations/" +
+      maincode +
+      "/" +
+      data);
+    await setcodesharelink(
+      " https://mobily-invited-server.herokuapp.com/MyInvitations/" +
+      maincode +
+      "/" +
+      data
+    );
     await setWatsapp(
-      "Hi there ! You have been invited by " + Auth.Name + " to " + allevents[0].Name + ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobily-invited-server.herokuapp.com/MyInvitations/" + maincode + "/" + allevents[0].code)
+      "Hi there ! You have been invited by " +
+      Auth.Name +
+      " to " +
+      allevents[0].Name +
+      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+      " https://mobily-invited-server.herokuapp.com/MyInvitations/" +
+      maincode +
+      "/" +
+      allevents[0].code
+    );
     setAnchorEl(null);
-
   };
   return (
     <Grid container spacing={0}>
@@ -105,94 +140,118 @@ export default function AddEventSucess(props) {
             <p className="w-100 tac"> Click on the Link to copy</p>
           </Grid>
 
-          {allevents && allevents.length > 0 && allevents[0].EntryWay === "Code" ? <>
+          {allevents &&
+            allevents.length > 0 &&
+            allevents[0].EntryWay === "Code" ? (
+            <>
+              {allevents &&
+                allevents.map((eve) => (
+                  <Grid item xs={12} className="tac m-b-25px clipboard" onClick={(e) => {
+                    handleClose(eve.code);
+                  }}>
+                    <Grid container spacing={0}>
+                      <Grid
+                        item
+                        xs={10}
+                        md={11}
+                        className="link"
 
-
-            <Grid
-              item
-              xs={12}
-              className="tac m-b-25px clipboard"
-
-            >
-              <Grid container spacing={0}>
-                <Grid item xs={10} md={11} className="link" onClick={(e) => { handleClick(e) }}>
-                  {sharelink.substr(0, 40)}
-
+                      >
+                        {"Event Name: " + eve.Name + ", EventCode :" + eve.code}
+                      </Grid>
+                      <Grid item xs={2} md={1} className="p-t-10">
+                        <FileCopyIcon
+                          className="v-t"
+                          onClick={() => {
+                            navigator.clipboard.writeText(sharelink);
+                          }}
+                        />
+                      </Grid>{" "}
+                    </Grid>
+                  </Grid>
+                ))}
+            </>
+          ) : (
+            <>
+              {" "}
+              <Grid
+                item
+                xs={12}
+                className="tac m-b-25px clipboard"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    "https://mobily-invited-server.herokuapp.com/MyInvitations/" +
+                    maincode
+                  );
+                }}
+              >
+                <Grid container spacing={0}>
+                  <Grid item xs={10} md={11} className="link">
+                    {"https://mobily-invited-server.herokuapp.com/xxxxx"}
+                  </Grid>
+                  <Grid item xs={2} md={1} className="p-t-10">
+                    <FileCopyIcon className="v-t" />
+                  </Grid>
                 </Grid>
-                <Grid item xs={2} md={1} className="p-t-10">
-                  <FileCopyIcon className="v-t" onClick={() => {
-                    navigator.clipboard.writeText(sharelink);
-                  }} />
-                </Grid>
               </Grid>
-            </Grid>
-
-          </> : <> <Grid
-            item
-            xs={12}
-            className="tac m-b-25px clipboard"
-            onClick={() => {
-              navigator.clipboard.writeText(
-                "https://mobily-invited-server.herokuapp.com/MyInvitations/" +
-                maincode
-              );
-            }}
-          >
-            <Grid container spacing={0}>
-              <Grid item xs={10} md={11} className="link">
-                {"https://mobily-invited-server.herokuapp.com/xxxxx"}
-              </Grid>
-              <Grid item xs={2} md={1} className="p-t-10">
-                <FileCopyIcon className="v-t" />
-              </Grid>
-            </Grid>
-          </Grid></>}
+            </>
+          )}
           <Grid item xs={12} className="w-100 tac">
             Share on
           </Grid>
           <Grid item xs={12} className="tac m-b-25px">
             <center>
-
               <WhatsappShareButton
                 url={" "}
                 title={Watsapp}
-
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px'}}/>
+                <img
+                  src={WhatsIcon}
+                  className=""
+                  style={{ height: "30px", width: "30px" }}
+                />
               </WhatsappShareButton>
             </center>
           </Grid>
           <Grid item xs={12} className="tac">
             Note: Only those who have invite can access.
           </Grid>
-          <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} />
+          {/* <Lottie
+            options={defaultOptions}
+            height={400}
+            style={{ position: "absolute", margin: "auto", width: "auto" }}
+          /> */}
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
               onClick={() => {
-                history.push("/");
+                if (props.match.params.Share !== undefined) {
+                  history.goBack()
+                } else {
+                  history.push("/");
+                }
+
               }}
             >
-              Done
+              {props.match.params.Share !== undefined ? 'Back' : 'Done'}
             </button>
-
           </Grid>
         </Grid>
-
       </Grid>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-
       >
-        {allevents && allevents.map(eve => (
-          <MenuItem onClick={() => handleClose("/" + eve.code)}>{"Event Name: " + eve.Name + ", EventCode :" + eve.code}</MenuItem>
-        ))}
-
+        {allevents &&
+          allevents.map((eve) => (
+            <MenuItem onClick={() => handleClose("/" + eve.code)}>
+              {"Event Name: " + eve.Name + ", EventCode :" + eve.code}
+            </MenuItem>
+          ))}
       </Menu>
     </Grid>
   );
