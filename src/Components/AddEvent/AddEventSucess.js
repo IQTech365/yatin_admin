@@ -156,11 +156,11 @@ export default function AddEventSucess(props) {
               <WhatsappShareButton
                 url={" "}
                 title={Watsapp}
-
+                
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px'}}/>
+                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px', zIndex:'300'}}/>
               </WhatsappShareButton>
             </center>
           </Grid>
