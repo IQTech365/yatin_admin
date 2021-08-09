@@ -44,8 +44,3 @@
   margin-right: -5px;
 }
 
-@media (max-width: 351px) {
-  .navigation_mobile {
-    column-gap: 15px !important;
-  }
-}

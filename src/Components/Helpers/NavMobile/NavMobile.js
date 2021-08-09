@@ -46,18 +46,21 @@ export default function NavMobile(props) {
         }}
         className="deskhide-nav"
       >
+        
         <Nav
           style={{
             margin: "auto",
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "space-around",
             alignItems: "center",
-            columnGap: "23px",
+          
+            width: "100vw",
             height: '4.5vh'
           }}
-          className="navigation_mobile"
+          
         >
           <Nav.Link
+            
             onClick={() => {
               history.push("/" + props.base + '/eventpage/' + props.id);
             }}
