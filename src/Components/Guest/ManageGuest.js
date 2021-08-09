@@ -339,7 +339,7 @@ export default function ManageGuest(props) {
             </>
           </Col>
         </Row>
-        <Row style={{ marginLeft: "auto" }}>
+        <Row>
           <Col>
             <ListGroup className="list-data">
               {guestList.map((guest, index) => (
@@ -352,9 +352,9 @@ export default function ManageGuest(props) {
                         key={index}
                       />
                     </Col>
-                    <Col xs={8} md={10}>
-                      <Row className="m-0 ">
-                        <Userdataurl showName={true} Phone={guest.By} />
+                    <Col>
+                      <Row className="m-0" style={{ fontSize:'14px', fontWeight:'600' }}>
+                        <Userdataurl showName={true} Phone={guest.By}/>
                       </Row>
                       <Row className="m-0 ">
                         <span
@@ -410,6 +410,7 @@ export default function ManageGuest(props) {
           <></>
         ) : (
           <>
+          
             <Button
               variant="danger"
               size="lg"

@@ -217,7 +217,7 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ marginLeft: "auto" }}>
+        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto"  }}>
           <Col>
             <Tabs defaultActiveKey="All">
               <Tab eventKey="All" title="All">
