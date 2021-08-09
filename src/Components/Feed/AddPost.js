@@ -15,28 +15,10 @@ import { uploadString } from "../../Utils/FileUpload_Download";
 import { useDropzone } from "react-dropzone";
 import { InputTags } from "react-bootstrap-tagsinput";
 import "react-bootstrap-tagsinput/dist/index.css";
-import { FcLike } from "react-icons/fc";
-import { FaRegCommentDots } from "react-icons/fa";
-import { IoMdSend } from "react-icons/io";
-import { FcLikePlaceholder } from "react-icons/fc";
-import history from "../../Utils/History";
-import FeedComments from "./FeedComments";
-import { url } from "../../Utils/Config";
-import { Modal } from "@material-ui/core";
-import Media from "./Media";
-import NavMobile from "../Helpers/NavMobile/NavMobile";
-import Badge from "react-bootstrap/Badge";
-import { Multiselect } from "multiselect-react-dropdown";
 import SendIcon from "@material-ui/icons/Send";
 import { IconButton } from "@material-ui/core";
-import AddTags from "./AddTags";
-import Popup from "../Helpers/Popups/Popup";
-import {
-    GetEvents,
-    GetInvitations,
-} from "../../Redux/DispatchFuncitons/Eventfunctions";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { Grid } from '@material-ui/core'
 export default function AddPost(props) {
     const Auth = useSelector((state) => state.Auth);
 
@@ -72,11 +54,11 @@ export default function AddPost(props) {
             style={{ marginTop: 10, marginBottom: 10 }}
             fluid
         >
-            <Row className="commentinp">
-                <Col xs={2} md={1} style={{margin: 'auto'}}>
+            <Grid container spacing={0} className="commentinp">
+                <Grid item xs={2} md={1} style={{ margin: 'auto' }}>
                     <UserData Phone={Auth.Phone} showIcon={true} />
-                </Col>
-                <Col xs={8} md={10}>
+                </Grid>
+                <Grid item xs={8} md={10}>
                     <input
                         type="text"
                         onChange={(e) => {
@@ -96,8 +78,8 @@ export default function AddPost(props) {
                             fontSize: 14,
                         }}
                     />
-                </Col>
-                <Col xs={2} md={1}>
+                </Grid>
+                <Grid item xs={2} md={1}>
                     {props.isSubmit === false ? (
                         <IconButton
                             onClick={() => {
@@ -111,8 +93,8 @@ export default function AddPost(props) {
                             <CircularProgress style={{ color: "black" }} />
                         </IconButton>
                     )}
-                </Col>
-            </Row>
+                </Grid>
+            </Grid>
 
             <Row className="addmedia-tag" style={{ marginTop: 20 }}>
                 <Col className="btn t-blue ll-blue btn-rnd m-5px" {...getRootProps()}>
