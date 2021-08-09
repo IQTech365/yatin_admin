@@ -187,7 +187,7 @@
 }
 
 .carousel-indicators {
-  visibility: visible;
+  visibility: hidden;
 }
 
 .carousel-indicators li {

@@ -51,15 +51,21 @@ export default function DesktopNav(props) {
           >
             <CancelIcon color="secondary" fontSize="large" />
           </IconButton>
-          <Row className="m-0"><center><h3>
+          <Row className="m-0"><center><h3
+          style={{fontSize:20, textAlign: 'center', fontWeight: 400}}
+          >
             Do you want to delete this invite?</h3></center>
           </Row>
-          <Row className="m-0">
-            <Col><Button variant="danger" className="w-100" onClick={() => {
+          <Row className="m-0"  style={{paddingTop:20}}>
+            <Col><Button variant="danger" 
+            style={{borderRadius:20}}
+            className="w-100" onClick={() => {
               dispatch(deleteInvite(props.Eventdata[0].MainCode))
-            }}>yes</Button>
+            }}>Yes</Button>
             </Col>
-            <Col><Button variant="secondary" className="w-100 l-blue" onClick={() => {
+            <Col><Button variant="primary" className="w-100"
+            style={{borderRadius:20}}
+            onClick={() => {
               toggleShowPopup(false);
             }}>No</Button>
             </Col>
