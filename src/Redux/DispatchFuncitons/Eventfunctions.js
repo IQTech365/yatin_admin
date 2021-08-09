@@ -30,20 +30,38 @@ export function saveEvent(edata) {
 }
 export function addme(code, maincode) {
   return (dispatch) => {
-    axios
-      .post(url + "event/addme", { code: code, maincode: maincode })
-      .then(async (res) => {
+    if (code === 'All') {
+      axios
+        .post(url + "event/addmetoall", { maincode: maincode })
+        .then(async (res) => {
 
-        if (res.data.status === 'success') {
-          await dispatch(deleteEvent());
-          await dispatch(GetEvents());
-          await dispatch(GetInvitations());
+          if (res.data.status === 'success') {
+            await dispatch(deleteEvent());
+            await dispatch(GetEvents());
+            await dispatch(GetInvitations());
 
-        }
-      })
-      .catch((err) => {
-        return 0;
-      });
+          }
+        })
+        .catch((err) => {
+          return 0;
+        });
+    } else {
+      axios
+        .post(url + "event/addme", { code: code, maincode: maincode })
+        .then(async (res) => {
+
+          if (res.data.status === 'success') {
+            await dispatch(deleteEvent());
+            await dispatch(GetEvents());
+            await dispatch(GetInvitations());
+
+          }
+        })
+        .catch((err) => {
+          return 0;
+        });
+    }
+
   };
 }
 export function GetEvents() {

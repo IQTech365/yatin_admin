@@ -21,7 +21,7 @@ export default function Home(props) {
   const EventState = useSelector((state) => state.Eventdata);
   useEffect(async () => {
     if (CodeEvent.Code !== "") {
-      await dispatch(addme(CodeEvent.Code, CodeEvent.Name));
+      await dispatch(addme(CodeEvent.Code, CodeEvent.Maincode));
     }
 
     dispatch(GetEvents());

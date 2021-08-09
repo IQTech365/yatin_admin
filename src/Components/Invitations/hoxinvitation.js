@@ -37,11 +37,14 @@ export default function Hoxinvitation(props) {
 
   const dispatch = useDispatch();
   useEffect(async () => {
+    debugger
     if (Auth.isLoggedIn === false) {
-      if (props.match.params.maincode !== undefined && props.match.params.Code !== "") {
+      if (props.match.params.maincode !== "" && props.match.params.Code !== "" && props.match.params.Code !== undefined) {
         await dispatch(addEvent(props.match.params.Code, props.match.params.maincode))
         // await dispatch(GetInvitations());
         // history.push("/");
+      } else if (props.match.params.Code === undefined && props.match.params.maincode !== "") {
+        await dispatch(addEvent("All", props.match.params.maincode))
       }
     }
     else {
@@ -81,7 +84,7 @@ export default function Hoxinvitation(props) {
         })
         .then(async (res) => {
           if (res.data.Status === "success") {
-            await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
+            //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             setInvitations(res.data.Events);
           }
         })
@@ -121,11 +124,11 @@ export default function Hoxinvitation(props) {
                     marginBottom: 10,
                   }}
                 >
-                   <p style={{ color: "black" }}>
+                  <p style={{ color: "black" }}>
                     <HiHome
                       style={{ backgroundColor: "white", borderRadius: "50px" }}
                       size={30}
-                      
+
                     />
                   </p>
                   <Col></Col>

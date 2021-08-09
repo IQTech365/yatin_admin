@@ -39,7 +39,7 @@ export default function AddEventSucess(props) {
   const [mode, setmode] = useState();
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
-
+  const [SelectedCode, setSelectedCode] = useState("");
   useEffect(() => {
     axios
       .post(url + "event/viewinvitation", {
@@ -48,6 +48,10 @@ export default function AddEventSucess(props) {
       .then(async (res) => {
         await setallevents(res.data.Events);
         if (res.data.Events[0].EntryWay === "Code") {
+          setSelectedCode(
+            res.data.Events[0].Name + " code: " + res.data.Events[0].code
+          );
+
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
             maincode +
@@ -93,16 +97,10 @@ export default function AddEventSucess(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = async (data) => {
-    navigator.clipboard.writeText(" https://mobily-invited-server.herokuapp.com/MyInvitations/" +
-      maincode +
-      "/" +
-      data);
+  const handleClose = async (data, Name) => {
+    await setSelectedCode(Name)
     await setcodesharelink(
-      " https://mobily-invited-server.herokuapp.com/MyInvitations/" +
-      maincode +
-      "/" +
-      data
+      " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
     );
     await setWatsapp(
       "Hi there ! You have been invited by " +
@@ -110,7 +108,7 @@ export default function AddEventSucess(props) {
       " to " +
       allevents[0].Name +
       ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobily-invited-server.herokuapp.com/MyInvitations/" +
+      " https://mobillyinvite.com/MyInvitations/" +
       maincode +
       "/" +
       allevents[0].code
@@ -140,60 +138,56 @@ export default function AddEventSucess(props) {
             <p className="w-100 tac"> Click on the Link to copy</p>
           </Grid>
 
+          <Grid
+            item
+            xs={12}
+            className="tac m-b-25px clipboard"
+            onClick={() => {
+              navigator.clipboard.writeText(
+                "https://mobillyinvite.com/MyInvitations/" + maincode
+              );
+            }}
+          >
+            <Grid container spacing={0}>
+              <Grid item xs={10} md={11} className="link p-t-5">
+                {"https://mobillyinvite.com/xxxxx"}
+              </Grid>
+              <Grid item xs={2} md={1} className="p-t-10">
+                <FileCopyIcon className="v-t" />
+              </Grid>
+            </Grid>
+          </Grid>
           {allevents &&
             allevents.length > 0 &&
             allevents[0].EntryWay === "Code" ? (
             <>
-              {allevents &&
-                allevents.map((eve) => (
-                  <Grid item xs={12} className="tac m-b-25px clipboard" onClick={(e) => {
-                    handleClose(eve.code);
-                  }}>
-                    <Grid container spacing={0}>
-                      <Grid
-                        item
-                        xs={10}
-                        md={11}
-                        className="link"
-
-                      >
-                        {"Event Name: " + eve.Name + ", EventCode :" + eve.code}
-                      </Grid>
-                      <Grid item xs={2} md={1} className="p-t-10">
-                        <FileCopyIcon
-                          className="v-t"
-                          onClick={() => {
-                            navigator.clipboard.writeText(sharelink);
-                          }}
-                        />
-                      </Grid>{" "}
-                    </Grid>
-                  </Grid>
-                ))}
-            </>
-          ) : (
-            <>
-              {" "}
-              <Grid
-                item
-                xs={12}
-                className="tac m-b-25px clipboard"
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    "https://mobily-invited-server.herokuapp.com/MyInvitations/" +
-                    maincode
-                  );
-                }}
-              >
+              <Grid item xs={12} className="tac m-b-25px clipboard grey">
                 <Grid container spacing={0}>
-                  <Grid item xs={10} md={11} className="link">
-                    {"https://mobily-invited-server.herokuapp.com/xxxxx"}
+                  <Grid
+                    item
+                    xs={10}
+                    md={11}
+                    className="link p-t-5"
+                    onClick={(e) => {
+                      handleClick(e);
+                    }}
+                  >
+                    {SelectedCode}
                   </Grid>
                   <Grid item xs={2} md={1} className="p-t-10">
-                    <FileCopyIcon className="v-t" />
+                    <FileCopyIcon
+                      className="v-t"
+                      onClick={() => {
+                        navigator.clipboard.writeText(sharelink);
+                      }}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
+            </>
+          ) : (
+            <>
+
             </>
           )}
           <Grid item xs={12} className="w-100 tac">
@@ -204,35 +198,34 @@ export default function AddEventSucess(props) {
               <WhatsappShareButton
                 url={" "}
                 title={Watsapp}
-
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{ height: '30px', width: '30px', zIndex: '300' }} />
+                <img
+                  src={WhatsIcon}
+                  className=""
+                  style={{ height: "30px", width: "30px", zIndex: "300" }}
+                />
               </WhatsappShareButton>
             </center>
           </Grid>
           <Grid item xs={12} className="tac">
             Note: Only those who have invite can access.
           </Grid>
-          {/* <Lottie
-            options={defaultOptions}
-            height={400}
-            style={{ position: "absolute", margin: "auto", width: "auto" }}
-          /> */}
+          {/* <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} /> */}
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
               onClick={() => {
-                if (props.match.params.Share !== undefined) {
-                  history.goBack()
-                } else {
+                if (props.match.params.Share === undefined) {
                   history.push("/");
+                } else {
+                  history.goBack();
                 }
 
               }}
             >
-              {props.match.params.Share !== undefined ? 'Back' : 'Done'}
+              {props.match.params.Share === undefined ? 'Done' : 'Back'}
             </button>
           </Grid>
         </Grid>
@@ -245,8 +238,12 @@ export default function AddEventSucess(props) {
       >
         {allevents &&
           allevents.map((eve) => (
-            <MenuItem onClick={() => handleClose("/" + eve.code)}>
-              {"Event Name: " + eve.Name + ", EventCode :" + eve.code}
+            <MenuItem
+              onClick={() =>
+                handleClose(eve.code, eve.Name + "Code :" + eve.code)
+              }
+            >
+              {eve.Name + "Code :" + eve.code}
             </MenuItem>
           ))}
       </Menu>
