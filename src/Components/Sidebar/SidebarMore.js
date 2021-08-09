@@ -30,6 +30,7 @@ export default function SidebarMore(props) {
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
   const [showPopup, toggleShowPopup] = useState(false)
   useEffect(async () => {
+    debugger
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
@@ -78,20 +79,20 @@ export default function SidebarMore(props) {
           >
             <CancelIcon color="secondary" fontSize="large" />
           </IconButton>
-          <Row className="m-0"><center><h3 style={{fontSize:20, textAlign: 'center', fontWeight: 400}}>
+          <Row className="m-0"><center><h3 style={{ fontSize: 20, textAlign: 'center', fontWeight: 400 }}>
             Do you want to delete this invite?</h3></center>
           </Row>
-          <Row className="m-0"  style={{paddingTop:20}}>
-            <Col><Button variant="danger" 
-            style={{borderRadius:20}}
-            className="w-100" onClick={() => {
-              dispatch(deleteInvite(Eventdata[0].MainCode))
-            }} >Yes</Button>
+          <Row className="m-0" style={{ paddingTop: 20 }}>
+            <Col><Button variant="danger"
+              style={{ borderRadius: 20 }}
+              className="w-100" onClick={() => {
+                dispatch(deleteInvite(Eventdata[0].MainCode))
+              }} >Yes</Button>
             </Col>
-            <Col><Button variant="primary" 
-            style={{borderRadius:20}} className="w-100" onClick={() => {
-              toggleShowPopup(false);
-            }}>No</Button>
+            <Col><Button variant="primary"
+              style={{ borderRadius: 20 }} className="w-100" onClick={() => {
+                toggleShowPopup(false);
+              }}>No</Button>
             </Col>
           </Row>
         </div>
@@ -143,27 +144,26 @@ export default function SidebarMore(props) {
             </Col>
           </Row>
         </a>
-        <a
-          className="linkto-rows"
-          onClick={() => {
-            history.push("/MyEvents/" + 'event-create-success/' + Eventdata[0].MainCode + '/Share');
-          }}
-        >
-          <Row className="sidebar-rows">
-            <Col xs={8}>
-              <p style={{ margin: "auto", padding: "15px" }}>
-                {" "}
-                <IoShareSocialOutline size="25" /> Share
-              </p>
-            </Col>
-            <Col>
-              <p>
-                {" "}
-                <RiArrowRightSLine size={20} className="arrow-iconcs" />
-              </p>
-            </Col>
-          </Row>
-        </a>
+        {ishost === true ? (
+          <a
+            className="linkto-rows"
+            onClick={() => {
+              history.push("/MyEvents/" + 'event-create-success/' + Eventdata[0].MainCode + '/Share');
+            }}
+          >
+            <Row className="sidebar-rows">
+              <Col xs={8}>
+                <p style={{ margin: "auto", padding: "15px" }}>
+                  <IoShareSocialOutline size="25" /> Share
+                </p>
+              </Col>
+              <Col>
+                <p>
+                  <RiArrowRightSLine size={20} className="arrow-iconcs" />
+                </p>
+              </Col>
+            </Row>
+          </a>) : <></>}
         <a
           className="linkto-rows"
           onClick={() => {
@@ -210,7 +210,7 @@ export default function SidebarMore(props) {
         ) : (
           <></>
         )}
-       
+
 
         <a className="linkto-rows">
           <Row className="sidebar-rows">
