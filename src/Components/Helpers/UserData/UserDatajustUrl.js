@@ -10,7 +10,8 @@ export default function UserDataUrl(props) {
   const [User, setUser] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
-    if (props.Phone !== "") {
+    if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
+
       axios
         .post(url + "auth/getuserdetails", { Phone: props.Phone })
         .then((res) => {
@@ -25,7 +26,8 @@ export default function UserDataUrl(props) {
     }
   }, []);
   useEffect(() => {
-    if (props.Phone !== "") {
+    if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
+
       axios
         .post(url + "auth/getuserdetails", { Phone: props.Phone })
         .then((res) => {

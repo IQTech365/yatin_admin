@@ -11,7 +11,7 @@ export default function UserData(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     console.log(props.Phone);
-    if (props.Phone !== "") {
+    if (props.Phone !== "" || props.Phone === undefined) {
       axios
         .post(url + "auth/getuserdetails", { Phone: props.Phone })
         .then((res) => {

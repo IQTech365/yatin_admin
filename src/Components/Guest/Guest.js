@@ -11,11 +11,15 @@ import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import { Grid } from '@material-ui/core'
 import StarsIcon from "@material-ui/icons/Stars";
 import { addCohost, removeCohost } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import _ from 'lodash'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import _ from 'lodash';
+import Backdrop from '@material-ui/core/Backdrop';
 export default function Guest(props) {
   const [Events, setEvents] = useState([]);
+  const [shouldchange, setshouldchange] = useState(false);
   const [eid, seteid] = useState("");
   const [guestList, setguestList] = useState([]);
   const [Hosts, setHosts] = useState([]);
@@ -31,6 +35,7 @@ export default function Guest(props) {
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
 
   useEffect(async () => {
+    // if (shouldchange === false) {
     let RSVPList = [];
     let Participants = [];
     let data = [];
@@ -51,7 +56,6 @@ export default function Guest(props) {
         await setEvents(Eventdata);
         data = MyEvents[props.match.params.id][props.match.params.invno];
         console.log(data.RSVPList);
-        await setguestList([...data.RSVPList, ...data.Host]);
         await setHosts(data.Host);
         await seteid(data._id);
         RSVPList = data.RSVPList;
@@ -61,6 +65,8 @@ export default function Guest(props) {
           setisAdmin(false);
         }
         Participants = [...data.Participants, ...data.Host];
+        await setguestList(Participants);
+
       } else if (
         props.location.pathname ===
         "/inv/guestlist/" +
@@ -73,8 +79,6 @@ export default function Guest(props) {
         await setEventdata(myInvitations[props.match.params.id]);
         await setbase("inv");
         await setEvents(Eventdata);
-
-        await setguestList([...data.RSVPList, ...data.Host]);
         RSVPList = data.RSVPList;
         await setHosts(data.Host);
         if (data.Host.includes(Auth.Phone)) {
@@ -84,6 +88,8 @@ export default function Guest(props) {
         }
         await seteid(data._id);
         Participants = [...data.Participants, ...data.Host];
+        await setguestList(Participants);
+
       }
 
       let accept = [];
@@ -103,7 +109,6 @@ export default function Guest(props) {
       });
 
       let all = [];
-
       let allrsvp = accept.concat(decline);
       allrsvp = allrsvp.concat(maybe);
       let Status = "Invited";
@@ -139,10 +144,28 @@ export default function Guest(props) {
       setguestListdecline(decline);
       setguestListmaybe(maybe);
     }
+    //   if (Participants.length > 0) {
+    //     await setshouldchange(true)
+    //   }
+    // }
   }, [myInvitations, MyEvents]);
 
+  useEffect(() => {
+    if (shouldchange === false) {
+      setTimeout(() => setshouldchange(true), 3000);
+    }
+  }, [shouldchange])
   return (
     <>
+      <Backdrop style={{
+        display: shouldchange === false ? 'block' : 'none',
+
+      }} open={shouldchange} >
+        <CircularProgress style={{
+          position: 'fixed', left: '45vw', top: '45vh',
+        }} />
+      </Backdrop>
+
       <div className="desktop-only w-100">
         <Header className="desktop-only" />
       </div>
@@ -199,63 +222,70 @@ export default function Guest(props) {
             <Tabs defaultActiveKey="All">
               <Tab eventKey="All" title="All">
                 {guestList.map((guest) => (
-                  <Container className="p-5px">
-                    <Row className="m-0 ">
-                      <Col xs={2} md={1}>
-                        <Userdataurl showIcon={true} Phone={guest.By} />
-                      </Col>
-                      <Col xs={6}>
-                        <Row className="m-0 ">
-                          <Userdataurl showName={true} Phone={guest.By} />
-                        </Row>
-                        <Row className="m-0 ">
-                          <span
-                            className={
-                              "status " + guest.Status === "Accept"
-                                ? "user-accept"
-                                : guest.Status === "Decline"
-                                  ? "user-decline"
-                                  : guest.Status === "May Be"
-                                    ? "user-maybe"
-                                    : "user-invited"
-                            }
-                          >
-                            {guest.Status}
-                          </span>
-                        </Row>
-                      </Col>
-                      <Col xs={4}>
-                        {isAdmin === true ? (
-                          Hosts.includes(guest.By) === false ? (
-                            <>
-                              <button
-                                className="addHostButton"
-                                onClick={() => {
-                                  dispatch(addCohost(eid, guest.By));
-                                }}
-                              >
-                                Add Co-Host
-                              </button>
-                            </>
-                          ) : (
-                            guest.By !== Auth.Phone ?
-                              <center>
-                                <button
-                                  className="removeHostButton"
-                                  onClick={() => {
-                                    dispatch(removeCohost(eid, guest.By));
-                                  }}
-                                >
-                                  Remove
-                                </button>
-                              </center> : <center><StarsIcon /></center>
-                          )
+                  <Grid className="p-5px" container spacing={0}>
+
+                    <Grid item xs={2} md={1}>
+                      <Userdataurl showIcon={true} Phone={guest.By} />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Grid item xs={12} className="m-0 ">
+                        <Userdataurl showName={true} Phone={guest.By} />
+                      </Grid>
+                      <Grid item xs={12} className="m-0 ">
+                        <span
+                          className={
+                            "status " + guest.Status === "Accept"
+                              ? "user-accept"
+                              : guest.Status === "Decline"
+                                ? "user-decline"
+                                : guest.Status === "May Be"
+                                  ? "user-maybe"
+                                  : "user-invited"
+                          }
+                        >
+                          {guest.Status}
+                        </span>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={4}>
+                      {isAdmin === true ? (
+                        Hosts.includes(guest.By) === false ? (
+                          <>
+                            <button
+                              className="addHostButton"
+                              onClick={async () => {
+                                setshouldchange(false)
+                                await dispatch(addCohost(eid, guest.By));
+
+                              }}
+
+                            >
+                              {shouldchange === false ? <>...</> :
+                                <>  <StarsIcon /> Add Co-Host</>}
+                            </button>
+                          </>
                         ) : (
-                          <></>
-                        )}
-                      </Col>
-                    </Row>
-                  </Container>
+                          guest.By !== Auth.Phone ?
+                            <center>
+                              <button
+                                className="removeHostButton"
+                                onClick={async () => {
+                                  setshouldchange(false)
+                                  await dispatch(removeCohost(eid, guest.By));
+                                }}
+
+                              >
+                                {shouldchange === false ? <>...</> :
+                                  <>  <StarsIcon /> Remove</>}
+                              </button>
+                            </center> : <center><StarsIcon /></center>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </Grid>
+
+                  </Grid>
                 ))}
               </Tab>
 

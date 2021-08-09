@@ -211,6 +211,11 @@ function App() {
               path="/MyEvents/event-create-success/:id"
               component={AddEventSucess}
             />
+            <Route
+              exact
+              path="/MyEvents/event-create-success/:id/:Share"
+              component={AddEventSucess}
+            />
             <Route exact path="/MyEvents/add-event" component={AddEvent} />
             <Route exact path="/add-event" component={AddEvent} />
             <Route exact path="/user-profile" component={AddEvent} />

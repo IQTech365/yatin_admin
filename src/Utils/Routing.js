@@ -33,7 +33,7 @@ export default function Redirector() {
       await dispatch(GetInvitations());
       await dispatch(getNotification());
       await dispatch(getposts());
-      await dispatch(getChats());
+      // await dispatch(getChats());
       //  await history.goBack();
     }
   }, [Auth.isLoggedIn])
