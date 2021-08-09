@@ -17,8 +17,9 @@ import { logout } from "../../../Redux/DispatchFuncitons/AuthFunctions";
 import { useDispatch } from "react-redux";
 import Notification from "../../Notifications/Notification";
 import Popup from "../Popups/Popup";
-import history from '../../../Utils/History'
+import history from "../../../Utils/History";
 import UserProfile from "../../../Components/UserPorfile/UserProfile";
+
 export default function Header(props) {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -31,6 +32,8 @@ export default function Header(props) {
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -75,12 +78,15 @@ export default function Header(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={() => { setuserInfopopup(true); }}>
+      <MenuItem
+        onClick={() => {
+          setuserInfopopup(true);
+        }}
+      >
         <IconButton
           aria-label="show 4 new mails"
           color="inherit"
           className="p-0"
-
         >
           {Auth.Profile === "" ? (
             <AccountCircle />
@@ -141,7 +147,6 @@ export default function Header(props) {
         component={UserProfile}
         toggleShowPopup={setuserInfopopup}
         showPopup={useiinfopopup}
-
       />
       <AppBar position="static" color="default">
         <Toolbar>
@@ -150,26 +155,14 @@ export default function Header(props) {
             className="menuButton"
             color="inherit"
             aria-label="open drawer"
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
+          ></IconButton>
 
           <Headings url={props.url} />
 
-          {/*   <InputBase
-            className="inputRoot inputInput"
-            inputProps={{ "aria-label": "search" }}
-          /> */}
-
           <div className="grow" />
           <div className="sectionDesktop">
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <SearchIcon className="search-button" />
-            </IconButton> */}
             {Auth.isLoggedIn === true ? (
               <>
-
-
                 <IconButton
                   edge="end"
                   aria-label="account of current user"
@@ -177,7 +170,9 @@ export default function Header(props) {
                   aria-haspopup="true"
                   color="inherit"
                   className="Nav-icon"
-                  onClick={() => { setuserInfopopup(true); }}
+                  onClick={() => {
+                    setuserInfopopup(true);
+                  }}
                 >
                   {Auth.Profile === "" ? (
                     <AccountCircle />
@@ -202,6 +197,7 @@ export default function Header(props) {
           </div>
           <div className="sectionMobile">
             <IconButton
+              style={{ padding: "inherit" }}
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"

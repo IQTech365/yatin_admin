@@ -187,33 +187,7 @@ export default function SidebarMore(props) {
         ) : (
           <></>
         )}
-        {/* 
-        <a className="linkto-rows">
-          <Row className="sidebar-rows">
-            <Col>Templates</Col>
-            <Col>
-              <RiArrowRightSLine size={20} className="arrow-iconcs" />
-            </Col>
-          </Row>
-        </a> */}
-
-        {/*  <a className="linkto-rows">
-          <Row className="sidebar-rows">
-            <Col>Articles</Col>
-            <Col>
-              <RiArrowRightSLine size={20} className="arrow-iconcs" />
-            </Col>
-          </Row>
-        </a> */}
-
-        {/*  <a className="linkto-rows">
-          <Row className="sidebar-rows">
-            <Col>About Us</Col>
-            <Col>
-              <RiArrowRightSLine size={20} className="arrow-iconcs" />
-            </Col>
-          </Row>
-        </a> */}
+       
 
         <a className="linkto-rows">
           <Row className="sidebar-rows">

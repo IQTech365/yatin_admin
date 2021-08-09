@@ -150,22 +150,22 @@ export default function AddEventSucess(props) {
           <Grid item xs={12} className="w-100 tac">
             Share on
           </Grid>
-          <Grid item xs={12} className="tac m-b-25px">
+          <Grid item xs={12} className="tac m-b-25px"  style={{zIndex:'33333'}}>
             <center>
 
               <WhatsappShareButton
                 url={" "}
                 title={Watsapp}
-                
+               
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px', zIndex:'300'}}/>
+                <img src={WhatsIcon} className="" style={{height: '30px', width: '30px'}}/>
               </WhatsappShareButton>
             </center>
           </Grid>
           <Grid item xs={12} className="tac">
-            Note: Only those who have invite can access.
+            Note: Only those who have invite can access
           </Grid>
           <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} />
           <Grid item xs={12} className="down-float">
