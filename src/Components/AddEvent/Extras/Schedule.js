@@ -215,7 +215,8 @@ export default function AddSchedule(props) {
                         </IconButton>
                       </center>
                     ) : (
-                      <center>
+
+                      props.IsAdmin === true ? <center>
                         <IconButton
                           onClick={() => {
                             setshowfulldescription(false)
@@ -238,7 +239,8 @@ export default function AddSchedule(props) {
                         >
                           <DeleteForeverIcon color="error" />
                         </IconButton>
-                      </center>
+                      </center> : <></>
+
                     )}
                   </Grid>
                   <Grid item xs={8} md={10}></Grid>
