@@ -25,7 +25,7 @@ export default function ShowSchedule(props) {
     (state) => state.Eventdata.myInvitations
   );
   useEffect(async () => {
-    debugger
+
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());

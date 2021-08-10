@@ -49,14 +49,19 @@ export default function AddSchedule(props) {
         link: link
       };
       console.log([...subEvent, data]);
-
-      await setSubevent([...props.CurrentEventDetails, ...subEvent, data]);
-      await dispatch(UpdateSchedules(props.Eid, [...props.CurrentEventDetails, ...subEvent, data]))
+      let newdata = [...subEvent, data]
+      await setSubevent(newdata);
+      await dispatch(UpdateSchedules(props.Eid, newdata))
       Delete();
       setadd(false);
     } else {
       setError(true);
     }
+    setsubname("");
+    setdatetime("");
+    setdescription("");
+    setvenue("");
+    setlink("")
   };
 
   const saveedit = async () => {
@@ -85,6 +90,7 @@ export default function AddSchedule(props) {
     setdatetime("");
     setdescription("");
     setvenue("");
+    setlink("")
     setshowfulldescription(false)
   };
 
