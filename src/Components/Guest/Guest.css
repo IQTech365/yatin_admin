@@ -79,6 +79,10 @@
 
 .nav-tabs .nav-link {
   text-decoration: none;
+ 
+  margin-bottom: 20px;
+  border-bottom: none !important;
+  
 }
 .addHostButton {
   background: #3897f1;
@@ -105,5 +109,24 @@
 
   .addHostButton {
     font-size: 8px;
+  }
+}
+
+.tabs_guestlist{
+  border-bottom: none;
+}
+
+
+@media (max-width:622px){
+  .tabs_guestlist{
+    justify-content: space-around;
+    border-bottom: none;
+  }
+  .nav-tabs .nav-link {
+    text-decoration: none;
+    background-color: #3897f1;
+    margin-bottom: 20px;
+    border-bottom: none !important;
+    color: white;
   }
 }
