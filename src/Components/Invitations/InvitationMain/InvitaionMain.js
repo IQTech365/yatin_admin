@@ -64,10 +64,39 @@ export default function InvitaionMain(props) {
     }
     setlikeCount(likeCountCopy);
   };
+  const replacelinks = (desc) => {
+    var sindices = [];
+    var eindices = [];
+    let newdesc = <></>;
+    let descpy = desc
+    let returnelement = []
+    let restafter
+    for (var i = 0; i < desc.length; i++) {
+      if (desc[i] === "{") sindices.push(i);
+      if (desc[i] === "}") eindices.push(i);
+    }
+    let starting = 0;
+    if (sindices.length === 0) {
+      return <>{desc}</>
+    } else {
+      for (var i = 0; i < sindices.length; i++) {
 
+        let restbefore = descpy.substring(starting, sindices[i]);
+        let link = descpy.substring(sindices[i] + 1, eindices[i]);
+        restafter = descpy.substring(eindices[i] + 1, desc.length);
+        starting = eindices[i] + 1;
+        returnelement.push(<>{restbefore}</>)
+        returnelement.push(<span className="t-blue" onClick={() => window.open(link)}>{link}</span>)
+        //
+      }
+      returnelement.push(<>{restafter}</>)
+      return (<p>{returnelement.map(elm => (elm))}</p>)
+    }
+  }
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
+      props.Eventdata[0].Description = await replacelinks(props.Eventdata[0].Description)
       await setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
@@ -107,7 +136,7 @@ export default function InvitaionMain(props) {
       />
       {/*  <Toggler /> */}
 
-      <Carousel controls={false} interval={99999999999999} style={{marginBottom: '9vh'}}>
+      <Carousel controls={false} interval={99999999999999} style={{ marginBottom: '9vh' }}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -141,11 +170,11 @@ export default function InvitaionMain(props) {
                     onClick={() => {
                       history.push(
                         "/" +
-                          props.base +
-                          "/guestlist/" +
-                          props.id +
-                          "/" +
-                          index
+                        props.base +
+                        "/guestlist/" +
+                        props.id +
+                        "/" +
+                        index
                       );
                     }}
                   />
@@ -153,8 +182,8 @@ export default function InvitaionMain(props) {
               </Container>
               <Container className="container-event">
                 {eve.filetype === "png" ||
-                eve.filetype === "jpg" ||
-                eve.filetype === "jpeg" ? (
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
@@ -212,11 +241,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                              props.base +
-                              "/comments/" +
-                              props.id +
-                              "/" +
-                              eve._id
+                            props.base +
+                            "/comments/" +
+                            props.id +
+                            "/" +
+                            eve._id
                           );
                         }}
                       />
@@ -290,11 +319,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/schedule/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/schedule/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
@@ -312,11 +341,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/location/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/location/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
@@ -333,12 +362,12 @@ export default function InvitaionMain(props) {
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
-                  <p className="event-des">
-                    {showfulldescription === false
+                  <p className="event-des">{eve.Description}
+                    {/* {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
-                      : eve.Description}
+                      : eve.Description} */}
                   </p>
-                  {eve.Description.length > 50 ? (
+                  {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"
                       className="invitationmain_link"
@@ -352,7 +381,7 @@ export default function InvitaionMain(props) {
                     </a>
                   ) : (
                     <></>
-                  )}
+                  )} */}
                 </Container>
               </Container>
             </Carousel.Item>

@@ -162,6 +162,7 @@ export default function NewAddParticipants(props) {
         await create_event();
     };
     const create_event = async () => {
+        debugger
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
@@ -169,8 +170,14 @@ export default function NewAddParticipants(props) {
         for (let i = 0; i < EventCpy.length; i++) {
             let furl =
                 uniqueurl + "Event_image/" + i + EventCpy[i].Name.replaceAll(" ", "");
-            let url = await uploadString(EventCpy[i].file, furl);
-            EventCpy[i].file = url;
+
+            if (EventCpy[i].file.includes('firebasestorage.googleapis.com')) {
+
+            } else {
+                let url = await uploadString(EventCpy[i].file, furl);
+                EventCpy[i].file = url;
+            }
+
         }
         await props.setEvents(EventCpy);
         if (Eventdata && Eventdata.ALBUM && Eventdata.ALBUM.length > 0) {

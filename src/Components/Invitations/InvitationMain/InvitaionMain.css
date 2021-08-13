@@ -84,6 +84,8 @@
 }
 .event-des {
   color: black;
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 .Like-count {
   position: relative;
@@ -148,8 +150,6 @@
   .event-des {
     font-size: 15px;
     line-height: 1.43;
- 
-
   }
   .Like-count {
     position: relative;
@@ -220,7 +220,6 @@
 
 @media (max-width: 320px) {
   .fullimagemain {
-    height: 50vh!important;
+    height: 50vh !important;
   }
 }
-

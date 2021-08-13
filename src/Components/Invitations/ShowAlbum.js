@@ -27,6 +27,7 @@ import Swiper from "react-id-swiper";
 export default function ShowAlbum(props) {
   const [isUploaded, setisUploaded] = useState(false);
   const [Eventdata, setEventdata] = useState([]);
+  const [uniqurl, setuniqurl] = useState("");
   const [Name, setName] = useState("");
   const [IsAdmin, setIsAdmin] = useState(false);
   const [MainCode, setMainCode] = useState("");
@@ -81,7 +82,7 @@ export default function ShowAlbum(props) {
         } else {
           await setIsAdmin(false);
         }
-
+        await setuniqurl(data.file)
       } else if (
         props.location.pathname === "/inv/albums/" + props.match.params.id &&
         myInvitations.length > 0
@@ -98,6 +99,7 @@ export default function ShowAlbum(props) {
         } else {
           await setIsAdmin(false);
         }
+        await setuniqurl(data.file)
       }
       console.log(Eventdata);
     }
@@ -157,6 +159,7 @@ export default function ShowAlbum(props) {
         eventname={Name}
         Type={Type}
         MainCode={MainCode}
+        uniqurl={uniqurl}
       />
 
       <DesktopNav id={props.match.params.id} base={base} />
