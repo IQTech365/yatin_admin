@@ -17,10 +17,10 @@ import FormLabel from "@material-ui/core/FormLabel";
 export default function UserProfile(props) {
   const Auth = useSelector((state) => state.Auth);
   const [showerror, setshowerror] = useState(false);
-  const [Name, setName] = useState(Auth.Name);
-  const [DOB, setDOB] = useState(Auth.DOB);
-  const [Gender, setGender] = useState(Auth.Gender);
-  const [Image, setImage] = useState(Auth.Profile);
+  const [Name, setName] = useState(Auth.Name === undefined || Auth.Name === '' ? '' : Auth.Name)
+  const [DOB, setDOB] = useState(Auth.DOB === undefined || Auth.DOB === '' ? '' : Auth.DOB)
+  const [Gender, setGender] = useState(Auth.Gender === undefined || Auth.Gender === '' ? '' : Auth.Gender);
+  const [Image, setImage] = useState(Auth.Profile === undefined || Auth.Profile === '' ? '' : Auth.Profile);
 
   const dispatch = useDispatch();
   const onDrop = useCallback(async (acceptedFiles) => {
@@ -52,7 +52,9 @@ export default function UserProfile(props) {
       setshowerror(true);
     } else {
       let url = Image
-      if (!Image.includes("Profile%2F")) {
+      if (Image !== '') {
+
+      } else if (Image.length > 1 && !Image.includes('firebasestorage.googleapis.com')) {
         url = await uploadString(
           Image,
           "Profile/" + Auth.Phone
@@ -208,12 +210,15 @@ export default function UserProfile(props) {
           }}
           className="w-100 m-b-5px"
           onClick={() => {
+            if (props.showall !== undefined) {
+              props.showall(true)
+            }
             props.hide(false)
           }}
         >
           skip
         </Button>
       </Grid>
-    </Grid>
+    </Grid >
   );
 }

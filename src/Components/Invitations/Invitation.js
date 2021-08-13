@@ -13,6 +13,7 @@ import Popup from "../Helpers/Popups/Popup";
 import { useSelector } from "react-redux";
 import UserProfile from "../UserPorfile/UserProfile";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
+import SingleEvent from '../../Assets/singleevent.png'
 export default function Invitation(props) {
   const [data, setData] = useState(props.data);
   const [show, setshow] = useState(false);
@@ -20,6 +21,7 @@ export default function Invitation(props) {
   const Auth = useSelector(state => state.Auth)
   const [showPopup, toggleShowPopup] = useState(false);
   const [useiinfopopup, setuserInfopopup] = useState(false);
+  const [HasSkipped, setHasSkipped] = useState(false);
   useEffect(async () => {
     console.log(props.data);
     let datacpy = [...props.data];
@@ -39,7 +41,8 @@ export default function Invitation(props) {
         setuserInfopopup={setuserInfopopup}
         toggleShowPopup={setuserInfopopup}
         showPopup={useiinfopopup}
-        url={"MyEvents/add-event"}
+        url={"MyEvents/"}
+        showall={setHasSkipped}
       />
       <Popup
         component={Notifications}
@@ -50,7 +53,7 @@ export default function Invitation(props) {
         showinvitaions={true}
 
       />
-      {data.map((inv, index) => (
+      {data.length > 0 && data.map((inv, index) => (
         <Grid
           item
           xs={12}
@@ -65,7 +68,9 @@ export default function Invitation(props) {
             onClick={() => {
               console.log(Auth.Name)
               Auth.Name == "" || Auth.Name == undefined ?
-                setuserInfopopup(true)
+                HasSkipped === false ?
+                  setuserInfopopup(true) :
+                  history.push("/inv/eventpage/" + index)
                 :
                 history.push("/inv/eventpage/" + index);
             }}
@@ -80,7 +85,9 @@ export default function Invitation(props) {
               onClick={() => {
                 console.log(Auth.Name)
                 Auth.Name == "" || Auth.Name == undefined ?
-                  setuserInfopopup(true)
+                  HasSkipped === false ?
+                    setuserInfopopup(true) :
+                    history.push("/inv/eventpage/" + index)
                   :
                   history.push("/inv/eventpage/" + index);
               }}
@@ -118,9 +125,11 @@ export default function Invitation(props) {
                   onClick={(e) => {
                     console.log(Auth.Name)
                     Auth.Name == "" || Auth.Name == undefined ?
-                      setuserInfopopup(true)
+                      HasSkipped === false ?
+                        setuserInfopopup(true) :
+                        history.push("/inv/eventpage/" + index)
                       :
-                      history.push("/inv/rsvp/" + index);
+                      history.push("/inv/eventpage/" + index);
                     e.preventDefault();
                   }}
                 >
@@ -131,6 +140,12 @@ export default function Invitation(props) {
           </div>
         </Grid>
       ))}
+      <Grid
+        item
+        xs={12}>
+        {data.length === 1 ? <center> <img src={SingleEvent} ></img></center> : <></>}
+      </Grid>
+
     </Grid>
   );
 }

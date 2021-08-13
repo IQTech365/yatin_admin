@@ -9,6 +9,7 @@ import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
 import history from "../../Utils/History";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
+import SingleEvent from '../../Assets/singleevent.png'
 export default function EventList(props) {
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
@@ -90,7 +91,11 @@ export default function EventList(props) {
           </div>
         </Grid>
       ))}
-
+      <Grid
+        item
+        xs={12}>
+        {data.length === 1 ? <center> <img src={SingleEvent} ></img></center> : <></>}
+      </Grid>
     </Grid>
   );
 }
