@@ -64,7 +64,6 @@ export default function InvitaionMain(props) {
     }
     setlikeCount(likeCountCopy);
   };
-<<<<<<< HEAD
   const replacelinks = (desc) => {
 
     var sindices = [];
@@ -97,9 +96,6 @@ export default function InvitaionMain(props) {
     }
   }
 
-=======
-
->>>>>>> parent of 52f06b4 (asd)
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
@@ -142,7 +138,7 @@ export default function InvitaionMain(props) {
       />
       {/*  <Toggler /> */}
 
-      <Carousel controls={false} interval={99999999999999} style={{marginBottom: '9vh'}}>
+      <Carousel controls={false} interval={99999999999999} style={{ marginBottom: '9vh' }}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -176,11 +172,11 @@ export default function InvitaionMain(props) {
                     onClick={() => {
                       history.push(
                         "/" +
-                          props.base +
-                          "/guestlist/" +
-                          props.id +
-                          "/" +
-                          index
+                        props.base +
+                        "/guestlist/" +
+                        props.id +
+                        "/" +
+                        index
                       );
                     }}
                   />
@@ -188,8 +184,8 @@ export default function InvitaionMain(props) {
               </Container>
               <Container className="container-event">
                 {eve.filetype === "png" ||
-                eve.filetype === "jpg" ||
-                eve.filetype === "jpeg" ? (
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
@@ -247,11 +243,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                              props.base +
-                              "/comments/" +
-                              props.id +
-                              "/" +
-                              eve._id
+                            props.base +
+                            "/comments/" +
+                            props.id +
+                            "/" +
+                            eve._id
                           );
                         }}
                       />
@@ -325,11 +321,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/schedule/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/schedule/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
@@ -347,11 +343,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/location/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/location/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
