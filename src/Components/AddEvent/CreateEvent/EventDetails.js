@@ -244,7 +244,6 @@ export default function EventDetails(props) {
                 CurrentEventDetails={CurrentEventDetails}
                 SetCurrentEventDetails={SetCurrentEventDetails}
                 show={toggleShowPopup}
-                Type={props.Type}
               />
             </div>
           </Modal>
@@ -812,7 +811,7 @@ export default function EventDetails(props) {
               save();
             }
           }}
-          style={{ marginTop: '20px' }}
+          style={{marginTop: '20px'}}
         >
           Next
         </button>

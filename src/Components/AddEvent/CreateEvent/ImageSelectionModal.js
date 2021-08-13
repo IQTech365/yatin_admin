@@ -1,13 +1,9 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../../Assets/ChooseFromGallery.svg";
 import Tenmplate from "../../../Assets/TemplateNone.svg";
-import axios from 'axios';
-import { url } from '../../../Utils/Config'
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 export default function ImageSelectionModal(props) {
-  const [Show, setswitch] = useState(false)
   const onDrop = useCallback(async (acceptedFiles) => {
     if (acceptedFiles[0].size > 10259265) {
       alert("Max file size 10 mb");
@@ -37,9 +33,8 @@ export default function ImageSelectionModal(props) {
     accept: "image/jpeg, image/png, image/jpg, video/mp4",
   });
 
-  return (Show === false ?
+  return (
     <Grid container spacing={0}>
-
       <Grid item xs={12}>
         <h2 className="tac">Upload Your Picture</h2>
       </Grid>
@@ -49,57 +44,9 @@ export default function ImageSelectionModal(props) {
           <img src={Gallery} className="w-100" />
         </div>
       </Grid>
-      <Grid item xs={6} onClick={() => { setswitch(true) }}>
+      <Grid item xs={6}>
         <img src={Tenmplate} className="w-100" />
       </Grid>
-    </Grid> : <ImageSelectionModalTemplates CurrentEventDetails={props.CurrentEventDetails}
-      SetCurrentEventDetails={props.SetCurrentEventDetails} Type={props.Type} show={props.show} />
+    </Grid>
   );
-}
-
-
-
-export function ImageSelectionModalTemplates(props) {
-  const [allimgsforcategory, setallimgsforcategory] = useState([{ Url: Tenmplate }])
-  const [currentimage, setcurrentimage] = useState(0)
-  const save = async (file) => {
-    let EventsCpy = await { ...props.CurrentEventDetails };
-    EventsCpy.filetype = 'png';
-    EventsCpy.file = file;
-    await props.SetCurrentEventDetails(EventsCpy);
-    console.log(EventsCpy)
-    props.show(false);
-  };
-
-  useEffect(() => {
-    axios
-      .post(url + "template/gettemplate", {
-        Category: props.Type
-      })
-      .then(async (res) => {
-        if (res.data.Templates.length > 0) {
-          setallimgsforcategory(res.data.Templates)
-        }
-
-      }).catch(() => {
-
-      })
-  }, [])
-  return (
-    <div>
-
-      <div style={{ width: '100%', height: '300px' }}>
-        <img src={allimgsforcategory[currentimage].Url} style={{ width: '100%', height: '299px', }} />
-        <div style={{ width: '50px', height: '50px', position: 'relative', bottom: '40px', left: '280px', }} >
-          <CheckCircleOutlineIcon style={{ color: 'Green', background: '#fff', borderRadius: '100%' }}
-            onClick={() => { save(allimgsforcategory[currentimage].Url) }} fontSize="large" />
-        </div>
-      </div>
-      <div style={{ width: '100%', height: '60px', overflowX: 'scroll', marginTop: '5px' }}>
-        {allimgsforcategory.map((img, index) => (
-          <img src={img.Url} style={{ width: '50px', height: '50px', }} onClick={() => { setcurrentimage(index) }} />
-        ))}
-      </div>
-    </div>
-  )
 }

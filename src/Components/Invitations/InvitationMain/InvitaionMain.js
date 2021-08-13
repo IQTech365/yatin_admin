@@ -99,7 +99,6 @@ export default function InvitaionMain(props) {
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
-      props.Eventdata[0].Description = await replacelinks(props.Eventdata[0].Description)
       await setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
@@ -365,12 +364,12 @@ export default function InvitaionMain(props) {
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
-                  <p className="event-des">{eve.Description}
-                    {/* {showfulldescription === false
+                  <p className="event-des">
+                    {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
-                      : eve.Description} */}
+                      : eve.Description}
                   </p>
-                  {/* {eve.Description.length > 50 ? (
+                  {eve.Description.length > 50 ? (
                     <a
                       href="#"
                       className="invitationmain_link"
@@ -384,7 +383,7 @@ export default function InvitaionMain(props) {
                     </a>
                   ) : (
                     <></>
-                  )} */}
+                  )}
                 </Container>
               </Container>
             </Carousel.Item>
