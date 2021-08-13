@@ -79,7 +79,10 @@ export default function UserProfile(props) {
           )}
         </center>
       </Grid>
-
+      <Grid item xs={12} md={12} style={{marginTop:20}}>
+  
+  <p style={{fontSize:'13px', fontStyle:'italic', textAlign:'center', fontWeight:'500'}}> 👋 Please Let All Know Who's Here</p>
+</Grid>
  
       <Grid item xs={12}>
         <span>Name</span>
@@ -177,10 +180,7 @@ export default function UserProfile(props) {
           inputProps={{ 'aria-label': '0' }}
         />
       </Grid>
-      <Grid item xs={12} md={12} style={{marginTop:10}}>
   
-  <p style={{fontSize:'13px', fontStyle:'italic'}}><span style={{fontWeight:'bold'}}>Recommended:</span> Fill your profile for best experience😎</p>
-</Grid>
 
       <Grid item xs={5}>
         <Button

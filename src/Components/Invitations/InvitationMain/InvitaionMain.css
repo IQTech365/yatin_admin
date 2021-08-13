@@ -187,7 +187,18 @@
 }
 
 .carousel-indicators {
-  visibility: hidden;
+  visibility: visible;
+  position: absolute;
+  right: 0;
+  top:0;
+  left: 0;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  margin-right: 15%;
+  margin-left: 15%;
+  list-style: none;
 }
 
 .carousel-indicators li {
@@ -211,7 +222,7 @@
 }
 
 .carousel-indicators .active {
-  visibility: hidden;
+  visibility: visible;
 }
 .invitationmain_link {
   text-decoration: none !important;
