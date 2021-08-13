@@ -65,6 +65,7 @@ export default function InvitaionMain(props) {
     setlikeCount(likeCountCopy);
   };
   const replacelinks = (desc) => {
+
     var sindices = [];
     var eindices = [];
     let newdesc = <></>;
@@ -75,6 +76,7 @@ export default function InvitaionMain(props) {
       if (desc[i] === "{") sindices.push(i);
       if (desc[i] === "}") eindices.push(i);
     }
+    debugger
     let starting = 0;
     if (sindices.length === 0) {
       return <>{desc}</>
@@ -87,12 +89,13 @@ export default function InvitaionMain(props) {
         starting = eindices[i] + 1;
         returnelement.push(<>{restbefore}</>)
         returnelement.push(<span className="t-blue" onClick={() => window.open(link)}>{link}</span>)
-        //
+
       }
       returnelement.push(<>{restafter}</>)
       return (<p>{returnelement.map(elm => (elm))}</p>)
     }
   }
+
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
