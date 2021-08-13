@@ -73,17 +73,15 @@ export default function UserProfile(props) {
         <input {...getInputProps()} />
         <center>
           {Image == "" ? (
-            <img src={ProfilePic} className="Profile" style={{ height: "110px", width:'110px' }} />
+            <img src={ProfilePic} className="Profile" style={{ height: "130px" }} />
           ) : (
-            <img src={Image} className="Profile" style={{ width: "110px", borderRadius: '50%', height: "110px" }} />
+            <img src={Image} className="Profile" style={{ height: "130px", borderRadius: '50%', height: "130px" }} />
           )}
         </center>
       </Grid>
-      <Grid item xs={12} md={12} style={{marginTop:20}}>
-  
-  <p style={{fontSize:'13px', fontStyle:'italic', textAlign:'center', fontWeight:'500'}}> 👋 Please Let All Know Who's Here</p>
-</Grid>
- 
+
+
+
       <Grid item xs={12}>
         <span>Name</span>
         <br />
@@ -180,7 +178,6 @@ export default function UserProfile(props) {
           inputProps={{ 'aria-label': '0' }}
         />
       </Grid>
-  
 
       <Grid item xs={5}>
         <Button
@@ -214,7 +211,7 @@ export default function UserProfile(props) {
             props.hide(false)
           }}
         >
-          Skip
+          skip
         </Button>
       </Grid>
     </Grid>

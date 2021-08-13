@@ -65,7 +65,6 @@ export default function InvitaionMain(props) {
     setlikeCount(likeCountCopy);
   };
   const replacelinks = (desc) => {
-
     var sindices = [];
     var eindices = [];
     let newdesc = <></>;
@@ -76,7 +75,6 @@ export default function InvitaionMain(props) {
       if (desc[i] === "{") sindices.push(i);
       if (desc[i] === "}") eindices.push(i);
     }
-    debugger
     let starting = 0;
     if (sindices.length === 0) {
       return <>{desc}</>
@@ -89,16 +87,16 @@ export default function InvitaionMain(props) {
         starting = eindices[i] + 1;
         returnelement.push(<>{restbefore}</>)
         returnelement.push(<span className="t-blue" onClick={() => window.open(link)}>{link}</span>)
-
+        //
       }
       returnelement.push(<>{restafter}</>)
       return (<p>{returnelement.map(elm => (elm))}</p>)
     }
   }
-
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
+      props.Eventdata[0].Description = await replacelinks(props.Eventdata[0].Description)
       await setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
@@ -364,12 +362,12 @@ export default function InvitaionMain(props) {
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
-                  <p className="event-des">
-                    {showfulldescription === false
+                  <p className="event-des">{eve.Description}
+                    {/* {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
-                      : eve.Description}
+                      : eve.Description} */}
                   </p>
-                  {eve.Description.length > 50 ? (
+                  {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"
                       className="invitationmain_link"
@@ -383,7 +381,7 @@ export default function InvitaionMain(props) {
                     </a>
                   ) : (
                     <></>
-                  )}
+                  )} */}
                 </Container>
               </Container>
             </Carousel.Item>

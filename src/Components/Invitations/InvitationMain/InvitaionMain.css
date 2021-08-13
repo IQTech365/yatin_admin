@@ -84,6 +84,8 @@
 }
 .event-des {
   color: black;
+  white-space: pre-line;
+  word-wrap: break-word;
 }
 .Like-count {
   position: relative;
@@ -148,8 +150,6 @@
   .event-des {
     font-size: 15px;
     line-height: 1.43;
- 
-
   }
   .Like-count {
     position: relative;
@@ -187,18 +187,7 @@
 }
 
 .carousel-indicators {
-  visibility: visible;
-  position: absolute;
-  right: 0;
-  top:0;
-  left: 0;
-  z-index: 15;
-  display: flex;
-  justify-content: center;
-  padding-left: 0;
-  margin-right: 15%;
-  margin-left: 15%;
-  list-style: none;
+  visibility: hidden;
 }
 
 .carousel-indicators li {
@@ -222,7 +211,7 @@
 }
 
 .carousel-indicators .active {
-  visibility: visible;
+  visibility: hidden;
 }
 .invitationmain_link {
   text-decoration: none !important;
@@ -231,7 +220,6 @@
 
 @media (max-width: 320px) {
   .fullimagemain {
-    height: 50vh!important;
+    height: 50vh !important;
   }
 }
-

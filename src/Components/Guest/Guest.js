@@ -7,7 +7,6 @@ import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import { useSelector, useDispatch } from "react-redux";
-import {IoMdPersonAdd} from "react-icons/io"
 import {
   GetEvents,
   GetInvitations,
@@ -209,7 +208,7 @@ export default function Guest(props) {
                   );
                 }}
               >
-                <IoMdPersonAdd />
+                <SupervisedUserCircleIcon />
                 <span className="manage_guest">Manage Guests</span>
               </span>
             ) : (
@@ -218,9 +217,9 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto", marginTop: 20}}>
+        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto"  }}>
           <Col>
-            <Tabs defaultActiveKey="All" className="tabs_guestlist">
+            <Tabs defaultActiveKey="All">
               <Tab eventKey="All" title="All">
                 {guestList.map((guest) => (
                   <Grid className="p-5px" container spacing={0}>
