@@ -248,7 +248,6 @@ export default function ManageGuest(props) {
     setguestList(guestList);
     setlist(guestList);
     setDisabled(true);
-    console.log(listdata);
     dispatch(update_participants(_id, listdata));
   }
   function cancelchanges() {
@@ -353,8 +352,8 @@ export default function ManageGuest(props) {
                       />
                     </Col>
                     <Col>
-                      <Row className="m-0" style={{ fontSize:'14px', fontWeight:'600' }}>
-                        <Userdataurl showName={true} Phone={guest.By}/>
+                      <Row className="m-0" style={{ fontSize: '14px', fontWeight: '600' }}>
+                        <Userdataurl showName={true} Phone={guest.By} />
                       </Row>
                       <Row className="m-0 ">
                         <span
@@ -410,7 +409,7 @@ export default function ManageGuest(props) {
           <></>
         ) : (
           <>
-          
+
             <Button
               variant="danger"
               size="lg"

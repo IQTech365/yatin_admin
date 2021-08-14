@@ -172,9 +172,8 @@ export function update_participants(id, data) {
     var dateTime = date + ' ' + time;
     axios
       .post(url + "event/UpdateParticipants", { id: id, data: data, date: dateTime })
-      .then((res) => {
-        dispatch(GetInvitations());
-        dispatch(GetEvents());
+      .then(async (res) => {
+        await dispatch(GetEvents());
         console.log(res);
       });
   };

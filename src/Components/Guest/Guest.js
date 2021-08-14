@@ -97,14 +97,16 @@ export default function Guest(props) {
       let maybe = [];
 
       RSVPList.map((rsvp) => {
-        if (rsvp.Status === "Accept") {
-          accept.push(rsvp);
-        }
-        if (rsvp.Status === "Decline") {
-          decline.push(rsvp);
-        }
-        if (rsvp.Status === "May Be") {
-          maybe.push(rsvp);
+        if (Participants.includes(rsvp.By)) {
+          if (rsvp.Status === "Accept") {
+            accept.push(rsvp);
+          }
+          if (rsvp.Status === "Decline") {
+            decline.push(rsvp);
+          }
+          if (rsvp.Status === "May Be") {
+            maybe.push(rsvp);
+          }
         }
       });
 
@@ -217,7 +219,7 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto"  }}>
+        <Row style={{ fontSize: '14px', fontWeight: '600', marginLeft: "auto" }}>
           <Col>
             <Tabs defaultActiveKey="All">
               <Tab eventKey="All" title="All">
