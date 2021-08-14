@@ -3,6 +3,7 @@ import Header from "../Helpers/Header/Header.js";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Comments/Comments.css";
+import { Grid } from '@material-ui/core'
 import CommentAvt from "../../Assets/CommentAvt.png";
 import { FcLike } from "react-icons/fc";
 import { IoMdSend } from "react-icons/io";
@@ -19,6 +20,7 @@ import {
   GetEvents,
   GetInvitations
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import { IconButton } from "@material-ui/core";
 export default function Coments(props) {
   const dispatch = useDispatch()
   const Auth = useSelector((state) => state.Auth);
@@ -28,6 +30,7 @@ export default function Coments(props) {
   const [comments, setcomments] = useState([]);
   const [comment, setcomment] = useState("");
   let base = "";
+
   let Eventdata = [];
   const getcomments = () => {
     axios
@@ -67,7 +70,7 @@ export default function Coments(props) {
   useEffect(async () => {
 
     // console.log("/MyEvents/eventpage/chat/" + props.match.params.id);
-    if (Events.myEvents.length > 0 && Events.myInvitations > 0) {
+    if (Events.myEvents.length > 0 && Events.myInvitations.length > 0) {
       if (
         props.location.pathname ===
         "/MyEvents/comments/" + props.match.params.id
@@ -76,43 +79,41 @@ export default function Coments(props) {
         base = "MyEvents";
         await seteveid(Eventdata[0]._id)
         await setMainCode(Eventdata[0].MainCode)
+        await setcomments(Eventdata[0].CommentList)
       } else {
         Eventdata = Events.myInvitations[props.match.params.id];
         base = "inv";
         await seteveid(Eventdata[0]._id)
         await setMainCode(Eventdata[0].MainCode)
+        await setcomments(Eventdata[0].CommentList)
       }
     } else {
       await dispatch(GetEvents())
       await dispatch(GetInvitations())
     }
 
+  }, [Events.myEvents, Events.myInvitations]);
 
-    // Eventdata.map((singleevent) => {
-    //   setcomments(singleevent.CommentList);
-    // });
-  }, [Eventdata]);
-
-  useEffect(() => {
-    if (props.showcommment === true) {
-      console.log(props.id);
-      axios
-        .post(url + "post/getpostcomments", {
-          id: props.id,
-          Phone: Auth.Phone,
-        })
-        .then((res) => {
-          if (res.data.data) {
-            console.log(res.data.data);
-            setcomments(res.data.data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return { err: "error 404" };
-        });
-    }
-  }, [props.showcommment]);
+  // useEffect(() => {
+  //   if (props.showcommment === true) {
+  //     console.log(props.id);
+  //     axios
+  //       .post(url + "post/getpostcomments", {
+  //         id: props.id,
+  //         Phone: Auth.Phone,
+  //       })
+  //       .then((res) => {
+  //         if (res.data.data) {
+  //           console.log(res.data.data);
+  //           setcomments(res.data.data);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         return { err: "error 404" };
+  //       });
+  //   }
+  // }, [props.showcommment]);
 
   return (
     <>
@@ -141,68 +142,70 @@ export default function Coments(props) {
             <Col></Col>
           </Row>
         </Container>
-        {comments.map((comment) => (
-          <Row
-            style={{
-              marginLeft: "auto",
-              paddingLeft: 5,
-              marginRight: 5,
-            }}
-            md={2}
-          >
-            <Col xs={2} md={1}>
-              <UserDataUrl showIcon={true} Phone={comment.CommentBy} />
-            </Col>
-            <Col xs={8} md={9}>
-              <h5 className="m-0 p-0">
-                <UserDataUrl showName={true} Phone={comment.CommentBy} />
-              </h5>
-              <p className=" m-5px fs-14">{comment.Comment}</p>
-            </Col>
-            <Col xs={2} md={1}>
-              <Like likeby={comment.likeby} MainCode={MainCode} _id={comment._id} />
-              {comment.likeby ? comment.likeby.Length : 0}
-            </Col>
-          </Row>
-        ))}
-      </Container>
-      <Container fluid className="p-0">
-        <Row
-          style={{
-            marginTop: 25,
+        <Grid
+          container
+          spacing={2} style={{
+            margin: 5,
+          }}>
 
-            marginLeft: "auto",
-            boxShadow: "4px 7px 7px -7px rgba(0,0,0,0.54)",
-          }}
-        >
-          <Col xs={10}>
-            <Form.Control
-              placeholder="Write a Comment"
-              style={{
-                width: "100%",
-                margin: 0,
-                marginTop: "5px",
-                marginBottom: "5px",
-              }}
-              value={comment}
-              onChange={(e) => {
-                setcomment(e.target.value);
-              }}
-            />
-          </Col>
-          <Col
-            xs={2}
-            onClick={() => {
-              submit();
-            }}
-          >
-            <IoMdSend
-              size={20}
-              style={{ float: "right", margin: "auto", marginTop: "5px" }}
-            />
-          </Col>
-        </Row>
+          {comments.map((comment) => (
+            <Grid
+
+              container
+              spacing={1}
+            >
+              <Grid item xs={2} md={1}>
+                <UserDataUrl showIcon={true} Phone={comment.CommentBy} />
+              </Grid>
+              <Grid item xs={8} md={9}>
+                <h5 className="m-0 p-0">
+                  <UserDataUrl showName={true} Phone={comment.CommentBy} />
+                </h5>
+                <p className=" m-5px fs-14">{comment.Comment}</p>
+              </Grid>
+              <Grid item xs={2} md={1}>
+                <Like likeby={comment.likeby} MainCode={MainCode} _id={comment._id} />
+                {comment.likeby ? comment.likeby.Length : 0}
+              </Grid>
+            </Grid>
+          ))}
+
+        </Grid>
       </Container>
+
+      <Grid container spacing={0}
+        style={{
+          margin: 5,
+        }}
+      >
+        <Grid item xs={10}>
+          <Form.Control
+            placeholder="Write a Comment"
+            style={{
+              width: "100%",
+              margin: 0,
+              marginTop: "5px",
+              marginBottom: "5px",
+            }}
+            value={comment}
+            onChange={(e) => {
+              setcomment(e.target.value);
+            }}
+          />
+        </Grid>
+        <Grid item
+          xs={2}
+          onClick={() => {
+            submit();
+          }}
+        ><IconButton> <IoMdSend
+          size={20}
+          style={{ float: "right", margin: "auto", marginTop: "5px" }}
+        /></IconButton>
+
+        </Grid>
+      </Grid>
+
     </>
   );
 }
