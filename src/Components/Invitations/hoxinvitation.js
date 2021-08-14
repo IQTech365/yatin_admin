@@ -59,6 +59,35 @@ export default function Hoxinvitation(props) {
     }
 
   }, [Auth.isLoggedIn]);
+  const replacelinks = (desc) => {
+    var sindices = [];
+    var eindices = [];
+    let newdesc = <></>;
+    let descpy = desc
+    let returnelement = []
+    let restafter
+    for (var i = 0; i < desc.length; i++) {
+      if (desc[i] === "{") sindices.push(i);
+      if (desc[i] === "}") eindices.push(i);
+    }
+    let starting = 0;
+    if (sindices.length === 0) {
+      return <>{desc}</>
+    } else {
+      for (var i = 0; i < sindices.length; i++) {
+
+        let restbefore = descpy.substring(starting, sindices[i]);
+        let link = descpy.substring(sindices[i] + 1, eindices[i]);
+        restafter = descpy.substring(eindices[i] + 1, desc.length);
+        starting = eindices[i] + 1;
+        returnelement.push(<>{restbefore}</>)
+        returnelement.push(<span className="t-blue" >{link}</span>)
+        //
+      }
+      returnelement.push(<>{restafter}</>)
+      return (<p>{returnelement.map(elm => (elm))}</p>)
+    }
+  }
   useEffect(async () => {
     if (props.match.params.Name === undefined) {
       console.log(props.match.params.maincode);
@@ -66,10 +95,16 @@ export default function Hoxinvitation(props) {
         .post(url + "event/viewinvite", {
           MainCode: props.match.params.maincode,
         })
-        .then((res) => {
+        .then(async (res) => {
           console.log(res);
           if (res.data.Status === "success") {
-            setInvitations(res.data.Events);
+            let EVENTCPY = [...res.data.Events]
+            //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
+            for (let i = 0; i < EVENTCPY.length; i++) {
+              EVENTCPY[i].Description = await replacelinks(EVENTCPY[i].Description)
+            }
+
+            await setInvitations(EVENTCPY);
           }
         })
         .catch((err) => {
@@ -83,9 +118,15 @@ export default function Hoxinvitation(props) {
           Code: props.match.params.Code
         })
         .then(async (res) => {
+          debugger
           if (res.data.Status === "success") {
+            let EVENTCPY = [...res.data.Events]
             //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
-            setInvitations(res.data.Events);
+            for (let i = 0; i < EVENTCPY.length; i++) {
+              EVENTCPY[i].Description = await replacelinks(EVENTCPY[i].Description)
+            }
+
+            await setInvitations(EVENTCPY);
           }
         })
         .catch((err) => {
@@ -213,11 +254,12 @@ export default function Hoxinvitation(props) {
 
                   <h3 className="event-date"><Dateformatter Date={eve.Date + " " + eve.Time} /></h3>
                   <p className="event-des">
-                    {showfulldescription === false
+                    {/* {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
-                      : eve.Description}
+                      : eve.Description} */}
+                    {eve.Description}
                   </p>
-                  {eve.Description.length > 50 ? (
+                  {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"
                       className="invitationmain_link"
@@ -231,7 +273,7 @@ export default function Hoxinvitation(props) {
                     </a>
                   ) : (
                     <></>
-                  )}
+                  )} */}
                 </Container>
               </Container>
             </Carousel.Item>
