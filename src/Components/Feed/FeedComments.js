@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
+import { Grid } from '@material-ui/core'
 import { TextField } from "@material-ui/core";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { addcomments } from "../../Redux/DispatchFuncitons/postfunctions";
@@ -34,12 +35,12 @@ export default function FeedComments(props) {
   }, [props.post])
 
   return (
-    <Container fluid className="mt-5px p-0">
-      <Row className="commentinp">
-        <Col xs={2} md={1} className="m-0 p-0">
+    <Grid container spacing={0} className="mt-5px p-0  mb-100">
+      <Grid container spacing={0} className="commentinp">
+        <Grid item xs={2} md={1} className="m-0 p-0">
           <UserDataUrl showIcon={true} Phone={Auth.Phone} />
-        </Col>
-        <Col xs={8} className="p-0 ">
+        </Grid>
+        <Grid item xs={8} className="p-0 ">
           <input
             type='text'
             value={comment}
@@ -51,41 +52,40 @@ export default function FeedComments(props) {
             error={isError}
             style={{ width: '100%', outline: 'none', border: 'none', background: '#f6f6f6', height: '100%', fontSize: 14 }}
           />
-        </Col>
-        <Col xs={2} className="">
+        </Grid>
+        <Grid item xs={2} className="">
           <IconButton onClick={() => {
             submit();
           }}>
             <SendIcon style={{ color: 'black' }} />
           </IconButton >
-        </Col>
-      </Row>
-      <Row className="p-5px m-5px">
+        </Grid>
+      </Grid>
+      <Grid container spacing={0} className="p-5px m-5px ">
         {comments &&
           comments.map((cmt) => (
-            <Row
+            <Grid container spacing={0}
               style={{
-                margin: 0,
-                marginTop: '10px !important',
+                marginTop: '10px',
                 width: '100%'
               }}
-              md={2}
+              md={12}
             >
-              <Col xs={2} md={1} className="fs-14">
+              <Grid item xs={2} md={1} className="fs-14">
                 <UserDataUrl showIcon={true} Phone={cmt.CommentBy} />
-              </Col>
-              <Col xs={10} md={9}>
+              </Grid>
+              <Grid item xs={10} md={9}>
                 <h5 className="m-0 p-0 fs-14">
                   <UserDataUrl showName={true} Phone={cmt.CommentBy} />
                 </h5>
 
                 <span className="t-grey fs-14">{cmt.Comment}</span>
-              </Col>
+              </Grid>
 
 
-            </Row>
+            </Grid>
           ))}
-      </Row>
-    </Container>
+      </Grid>
+    </Grid>
   );
 }
