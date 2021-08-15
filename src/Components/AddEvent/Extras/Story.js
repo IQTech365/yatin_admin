@@ -4,16 +4,15 @@ import Gallery from "../../../Assets/ChooseFromGallery.svg";
 import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import { useDispatch, useSelector } from "react-redux";
 import { SAVESTORY, DELETESTORY } from "../../../Redux/Actions/EventActions";
 import CreateIcon from "@material-ui/icons/Create";
-import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
+
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 export default function Story(props) {
   const dispatch = useDispatch();
-
-  const Eventdata = useSelector((state) => state.Eventdata);
-  const [subStory, setsubStory] = useState(Eventdata.STORY);
+  const [subStory, setsubStory] = useState(props.Eventdata);
   const [subname, setsubname] = useState("");
   const [file, setfile] = useState("");
   const [filetype, setfiletype] = useState("");
@@ -41,10 +40,10 @@ export default function Story(props) {
       console.log([...subStory, data]);
       await setsubStory([...subStory, data]);
 
-      dispatch({
-        type: SAVESTORY,
-        payload: [...subStory, data],
-      });
+      // dispatch({
+      //   type: SAVESTORY,
+      //   payload: [...subStory, data],
+      // });
       Delete();
     } else {
       setError(true);

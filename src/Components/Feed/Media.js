@@ -24,6 +24,8 @@ export default function Media(props) {
         }
 
     }, [])
+
+
     return (
         <Container fluid >
             <Row style={{ marginleft: 30, position: 'absolute', top: 0, zIndex: 99999 }}>

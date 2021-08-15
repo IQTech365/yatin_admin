@@ -13,7 +13,8 @@ import { uploadfiletoalbum } from '../../Redux/DispatchFuncitons/Eventfunctions'
 import { useSelector, useDispatch } from "react-redux";
 export default function Addtoalbum(props) {
     const dispatch = useDispatch();
-    const [album, setAlbum] = useState();
+    const [album, setAlbum] = useState([]);
+    const [uniqurl, setuniqurl] = useState('');
     const onDrop = useCallback(async (acceptedFiles) => {
         let bkpalbum = [];
         let filetype = [];
@@ -32,7 +33,24 @@ export default function Addtoalbum(props) {
         await setAlbum([...bkpalbum]);
         return true;
     }, []);
+    useEffect(async () => {
+        debugger
+        if (props.uniqurl.split('%2F')[1] === "InternalTemplates") {
+            let newurl = props.uniqurl.split('%2F')[2] + Math.floor(100000 + Math.random() * 900000) + '/Album/';
+            for (let i = 0; i < album.length; i++) {
+                if (album[i].file.includes('firebasestorage.googleapis.com')) {
+                    newurl = album[i].file.split('%2F')[1] + '/Album/'
+                }
+            }
 
+            console.log(newurl)
+            await setuniqurl(newurl)
+        } else {
+            await setuniqurl(props.uniqurl.split('%2F')[1] + '/Album/')
+            console.log(props.uniqurl.split('%2F')[1] + '/Album/')
+        }
+
+    }, [props.uniqurl])
     function getBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -124,6 +142,7 @@ export default function Addtoalbum(props) {
                             Save
                         </button>
                     </Grid>
+                    {uniqurl}
                 </div>
             </Modal>
         </div>

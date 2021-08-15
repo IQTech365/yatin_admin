@@ -258,11 +258,11 @@ export function UpdateAlbum(eid, Schedule) {
       });
   };
 }
-export function UpdateStory(eid, Schedule) {
+export function UpdateStory(id, story) {
   return (dispatch) => {
     axios
       .post(url + "event/updateStory", {
-        eid: eid, Schedule: Schedule,
+        id: id, story: story,
       })
       .then(async (res) => {
         await dispatch(GetInvitations());

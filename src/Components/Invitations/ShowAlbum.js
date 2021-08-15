@@ -23,7 +23,7 @@ import SaveIcon from "@material-ui/icons/Save";
 import Popup from "../Helpers/Popups/Popup";
 import Addtoalbum from "./Addtoalbum";
 import Swiper from "react-id-swiper";
-
+import { useSwipeable } from 'react-swipeable';
 export default function ShowAlbum(props) {
   const [isUploaded, setisUploaded] = useState(false);
   const [Eventdata, setEventdata] = useState([]);
@@ -40,7 +40,7 @@ export default function ShowAlbum(props) {
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   const Auth = useSelector((state) => state.Auth);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
-
+  const [currentmedia, setcurrentmedia] = useState(0);
   const params = {
     spaceBetween: 30,
     centeredSlides: true,
@@ -59,7 +59,6 @@ export default function ShowAlbum(props) {
   };
 
   useEffect(async () => {
-    debugger
     let data = []
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
@@ -122,6 +121,7 @@ export default function ShowAlbum(props) {
     setPrevfiles(Prevfilescpy);
     console.log(images);
   }, [Eventdata]);
+
   const save = async () => {
     let Album = [];
     let uniqueurl =
@@ -146,6 +146,13 @@ export default function ShowAlbum(props) {
     await dispatch(uploadfiletoalbum(Album, Eventdata[0].MainCode));
     setisUploaded(false);
   };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => currentmedia < images.length - 1 ? setcurrentmedia(currentmedia + 1) : setcurrentmedia(0),
+    onSwipedRight: () => currentmedia > 0 ? setcurrentmedia(currentmedia - 1) : setcurrentmedia(images.length - 1),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
   return (
     <div>
       <div className="desktop-only w-100">
@@ -177,6 +184,9 @@ export default function ShowAlbum(props) {
                 variant="secondary"
                 style={{ width: "30%", float: "right", borderRadius: "20px" }}
                 className="albumedit_btn"
+                onClick={() => {
+                  setshow(true);
+                }}
               >
                 <AddPhotoAlternateIcon /> Edit
               </Button>
@@ -212,7 +222,7 @@ export default function ShowAlbum(props) {
           </>
         ) : (
           <>
-            <Swiper {...params}>
+            {/* <Swiper {...params}>
               {images.map((img) => (
                 <div>
                   <Image
@@ -223,29 +233,25 @@ export default function ShowAlbum(props) {
                   />
                 </div>
               ))}
-            </Swiper>
-            {IsAdmin === true ? (
-              <>
-                <h3 className="tac">Add Albums😍 Now!</h3>
-                <p style={{ textAlign: "center" }}>
-                  Share with your friends the final pictures of event any time
-                </p>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Button
-                    variant="primary"
-                    className="addalbums_btn"
-                    onClick={() => {
-                      setshow(true);
-                    }}
-                  >
-                    Add Albums
-                  </Button>
-                </div>
-              </>
+            </Swiper> */}
+            <Row  {...handlers} style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}>
+              {images.map((post, index) => (
 
-            ) : (
-              <></>
-            )}
+                post.file !== "" && index === currentmedia ?
+                  <img className="Media" src={post.file} key={index} onClick={() => { setcurrentmedia(index) }} onmo /> : <></>)
+              )}
+
+            </Row>
+            <Row style={{ marginTop: 5, position: 'fixed', bottom: '15vh', overflowX: 'scroll', width: '100vw', margin: 0, left: 0 }}>
+              {images.map((post, index) => (
+                post.fileurl !== "" ?
+                  <img className="item-options" src={post.file} key={index} onClick={() => { setcurrentmedia(index) }} />
+                  : <></>)
+              )}
+
+
+            </Row>
+
           </>
         )}
       </Container>

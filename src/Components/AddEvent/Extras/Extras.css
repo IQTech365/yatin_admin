@@ -29,7 +29,7 @@
 }
 .story-image {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .schedule-l-icon {
   font-size: 40px;
@@ -85,7 +85,7 @@
   text-decoration: underline;
 }
 @media (max-width: 991px) {
-  .schedule_des{
-    width:35vh;
+  .schedule_des {
+    width: 35vh;
   }
 }
