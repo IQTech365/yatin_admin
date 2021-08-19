@@ -73,6 +73,7 @@ export default function EventList(props) {
               // await seteventcode(inv[index].eventCode);
               await setshow(true);
             }}
+            fontSize='large'
           />
           <div className="bottom-bar">
             <Grid container spacing={0}>
