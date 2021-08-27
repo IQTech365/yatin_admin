@@ -112,7 +112,22 @@
   margin-top: 10px;
   border-radius: 20px;
 }
-
+.moveup {
+  position: relative;
+  left: 25px;
+}
+.movedown {
+  position: relative;
+  right: 20px;
+  top: 50px;
+}
+.moveleft {
+}
+.moveright {
+  position: relative;
+  left: 28px;
+  top: 22px;
+}
 @media (max-width: 768px) {
   .tab_bar {
     height: 60px;
