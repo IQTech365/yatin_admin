@@ -55,7 +55,7 @@ export default function CanvasEditor(props) {
                 await setFormattedText(Text, ctx);
             }
         }
-    }, [canvas, Text, LoadedImage, up, left]);
+    }, [canvas, Text, LoadedImage, up, left, Color, FontSize, Bold,]);
 
     const download = async () => {
         debugger;
@@ -210,7 +210,7 @@ export default function CanvasEditor(props) {
                             getLineNumber(Text, input);
                             setText(e.target.value);
                         }}
-                        style={{ height: "100px" }}
+                        style={{ height: "70px", marginBottom: '20px' }}
                     />
                 </Grid>
                 <Grid item xs={3}>
@@ -359,7 +359,7 @@ export default function CanvasEditor(props) {
                     onClick={() => {
                         download();
                     }}
-                    className="l-blue btn t-white m-b-10"
+                    className="l-blue btn t-white m-b-10 mt-15px"
                 >
                     Done {LineNumber + Move}{isMouseDown === true ? 'true' : 'false'}
                 </Grid>
