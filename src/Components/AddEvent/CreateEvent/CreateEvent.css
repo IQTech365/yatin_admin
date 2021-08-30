@@ -114,19 +114,53 @@
 }
 .moveup {
   position: relative;
-  left: 25px;
+  left: 8vw;
+
+  border-radius: 100%;
+  border: solid;
+  width: 40px;
+  height: 40px;
+  background: #3897f1;
+  color: white;
+  padding: 4px;
+  text-align: center;
 }
 .movedown {
   position: relative;
-  right: 20px;
-  top: 50px;
+  left: 8vw;
+  border-radius: 100%;
+  border: solid;
+  width: 40px;
+  height: 40px;
+  background: #3897f1;
+  color: white;
+  padding: 4px;
+  text-align: center;
 }
 .moveleft {
+  position: relative;
+  right: 3vw;
+  bottom: 12vh;
+  border-radius: 100%;
+  border: solid;
+  width: 40px;
+  height: 40px;
+  background: #3897f1;
+  color: white;
+  padding: 4px;
+  text-align: center;
 }
 .moveright {
   position: relative;
-  left: 28px;
-  top: 22px;
+  left: 20vw;
+  border-radius: 100%;
+  border: solid;
+  width: 40px;
+  height: 40px;
+  background: #3897f1;
+  color: white;
+  padding: 4px;
+  text-align: center;
 }
 @media (max-width: 768px) {
   .tab_bar {

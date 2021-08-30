@@ -7,12 +7,15 @@ import KeyboardArrowUpRoundedIcon from "@material-ui/icons/KeyboardArrowUpRounde
 import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRounded";
 import KeyboardArrowLeftRoundedIcon from "@material-ui/icons/KeyboardArrowLeftRounded";
 import Repeatable from 'react-repeatable'
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 export default function CanvasEditor(props) {
     const [Bold, setBold] = useState(false);
     const [LoadedImage, setLoadedImage] = useState(false);
     const [Text, setText] = useState("");
     const [Color, setColor] = useState("#FF0000");
     const [FontSize, setFontSize] = useState(20);
+
+    const [isMoveEnable, setisMoveEnable] = useState(false);
     const [Move, setMove] = useState('');
     const [LineNumber, setLineNumber] = useState(0);
     const [isMouseDown, setisMouseDown] = useState(false);
@@ -186,107 +189,133 @@ export default function CanvasEditor(props) {
             <div style={{ width: "100%", height: "410px" }}>
                 <canvas ref={canvas} width={320} height={400} />
             </div>
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <textarea
-                        ref={input}
-                        rows={8}
-                        className="template_input"
-                        placeholder="Enter Text"
-                        vlaue={Text}
+            {isMoveEnable === false ?
+                <Grid container spacing={1}>
 
-                        onClick={(e) => {
-
-                            getLineNumber(Text, input);
-                        }}
-                        onKeyDown={() => {
-                            getLineNumber(Text, input);
-                        }}
-                        onKeyUp={() => {
-                            getLineNumber(Text, input);
-                        }}
-                        onChange={(e) => {
-
-                            getLineNumber(Text, input);
-                            setText(e.target.value);
-                        }}
-                        style={{ height: "70px", marginBottom: '20px' }}
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <center>
-                        <Checkbox
-                            checked={Bold}
-                            onChange={async (e) => {
-                                setBold(e.target.checked);
-                                let TextColorArraycpy = [...TextColorArray];
-                                if (
-                                    TextColorArraycpy[LineNumber] !== undefined
-                                ) {
-                                    TextColorArraycpy[LineNumber].Bold =
-                                        e.target.checked;
-                                    await setTextColorArray([...TextColorArraycpy]);
-                                }
-                            }}
-                            inputProps={{ "aria-label": "primary checkbox" }}
-                        />
-                        <div>Bold</div>
-                    </center>
-                </Grid>
-                <Grid item xs={3}>
-                    <center>
-                        <input
-                            type="color"
-                            id="body"
-                            name="body"
-                            style={{ marginTop: "10px" }}
-                            value={Color}
-                            onChange={async (e) => {
-                                setColor(e.target.value);
-                                let TextColorArraycpy = [...TextColorArray];
-                                if (
-                                    TextColorArraycpy[LineNumber] !== undefined
-                                ) {
-                                    TextColorArraycpy[LineNumber].Color =
-                                        e.target.value;
-                                    await setTextColorArray([...TextColorArraycpy]);
-                                }
-                            }}
-                        />
-                        <div>Color</div>
-                    </center>
-                </Grid>
-
-                <Grid item xs={3}>
-                    <center>
-                        <input
-                            type="Number"
+                    <Grid item xs={12}>
+                        <textarea
+                            ref={input}
+                            rows={8}
                             className="template_input"
-                            placeholder="1"
-                            style={{
-                                textAlign: "center",
-                                margin: 0,
-                                height: "4vh",
-                                marginTop: "6px",
+                            placeholder="Enter Text"
+                            vlaue={Text}
+
+                            onClick={(e) => {
+
+                                getLineNumber(Text, input);
                             }}
-                            value={FontSize}
-                            onChange={async (e) => {
-                                setFontSize(e.target.value);
-                                let TextColorArraycpy = [...TextColorArray];
-                                if (
-                                    TextColorArraycpy[LineNumber] !== undefined
-                                ) {
-                                    TextColorArraycpy[LineNumber].FontSize =
-                                        e.target.value;
-                                }
-                                await setTextColorArray([...TextColorArraycpy]);
+                            onKeyDown={() => {
+                                getLineNumber(Text, input);
                             }}
+                            onKeyUp={() => {
+                                getLineNumber(Text, input);
+                            }}
+                            onChange={(e) => {
+
+                                getLineNumber(Text, input);
+                                setText(e.target.value);
+                            }}
+                            style={{ height: "70px", marginBottom: '20px' }}
                         />
-                        <div>Font</div>
-                    </center>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <center>
+                            <Checkbox
+                                checked={Bold}
+                                onChange={async (e) => {
+                                    setBold(e.target.checked);
+                                    let TextColorArraycpy = [...TextColorArray];
+                                    if (
+                                        TextColorArraycpy[LineNumber] !== undefined
+                                    ) {
+                                        TextColorArraycpy[LineNumber].Bold =
+                                            e.target.checked;
+                                        await setTextColorArray([...TextColorArraycpy]);
+                                    }
+                                }}
+                                inputProps={{ "aria-label": "primary checkbox" }}
+                            />
+                            <div>Bold</div>
+                        </center>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <center>
+                            <input
+                                type="color"
+                                id="body"
+                                name="body"
+                                style={{ marginTop: "10px" }}
+                                value={Color}
+                                onChange={async (e) => {
+                                    setColor(e.target.value);
+                                    let TextColorArraycpy = [...TextColorArray];
+                                    if (
+                                        TextColorArraycpy[LineNumber] !== undefined
+                                    ) {
+                                        TextColorArraycpy[LineNumber].Color =
+                                            e.target.value;
+                                        await setTextColorArray([...TextColorArraycpy]);
+                                    }
+                                }}
+                            />
+                            <div>Color</div>
+                        </center>
+                    </Grid>
+
+                    <Grid item xs={3}>
+                        <center>
+                            <input
+                                type="Number"
+                                className="template_input"
+                                placeholder="1"
+                                style={{
+                                    textAlign: "center",
+                                    margin: 0,
+                                    height: "4vh",
+                                    marginTop: "6px",
+                                }}
+                                value={FontSize}
+                                onChange={async (e) => {
+                                    setFontSize(e.target.value);
+                                    let TextColorArraycpy = [...TextColorArray];
+                                    if (
+                                        TextColorArraycpy[LineNumber] !== undefined
+                                    ) {
+                                        TextColorArraycpy[LineNumber].FontSize =
+                                            e.target.value;
+                                    }
+                                    await setTextColorArray([...TextColorArraycpy]);
+                                }}
+                            />
+                            <div>Font</div>
+                        </center>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <button className='btn btn-primary' onClick={() => {
+                            setisMoveEnable(true)
+                        }}>
+                            Move
+                        </button>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        onClick={() => {
+                            download();
+                        }}
+                        className="l-blue btn t-white m-b-10 mt-15px"
+                    >
+                        Done
+                    </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                    <Grid container spacing={1}>
+                : <Grid container spacing={1}>
+                    <Grid item xs={4}>
+                        <IoArrowBackCircleOutline size={30} onClick={() => {
+                            setisMoveEnable(false)
+                        }} fontSize="large" />
+                    </Grid>
+                    <Grid item xs={4}>
+
                         <Repeatable
                             repeatDelay={500}
                             repeatInterval={32}
@@ -352,18 +381,10 @@ export default function CanvasEditor(props) {
                                 }}
                             /> </Repeatable>
                     </Grid>
-                </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    onClick={() => {
-                        download();
-                    }}
-                    className="l-blue btn t-white m-b-10 mt-15px"
-                >
-                    Done {LineNumber + Move}{isMouseDown === true ? 'true' : 'false'}
-                </Grid>
-            </Grid>
+
+                    <Grid item xs={4}>
+                    </Grid>
+                </Grid>}
         </>
     );
 }
