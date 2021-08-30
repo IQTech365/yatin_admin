@@ -114,8 +114,7 @@
 }
 .moveup {
   position: relative;
-  left: 8vw;
-
+  left: 30px;
   border-radius: 100%;
   border: solid;
   width: 40px;
@@ -127,7 +126,7 @@
 }
 .movedown {
   position: relative;
-  left: 8vw;
+  left: 30px;
   border-radius: 100%;
   border: solid;
   width: 40px;
@@ -139,8 +138,8 @@
 }
 .moveleft {
   position: relative;
-  right: 3vw;
-  bottom: 12vh;
+  right: 15px;
+  bottom: 80px;
   border-radius: 100%;
   border: solid;
   width: 40px;
@@ -152,7 +151,7 @@
 }
 .moveright {
   position: relative;
-  left: 20vw;
+  left: 75px;
   border-radius: 100%;
   border: solid;
   width: 40px;
