@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
-// import "../EventInfo/EventInfo.css";
 import { Carousel, Button } from "react-bootstrap";
 import eventimg from "../../../Assets/eventimg.png";
 import CheckIcon from "@material-ui/icons/Check";
@@ -78,11 +77,23 @@ export default function Rsvp(props) {
           ? Eventdata1 &&
           Eventdata1.map((eve, index) => (
             <Carousel.Item>
-              <img
-                className="d-block rsvpimage"
+              {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (<img
                 src={eve.file}
-                alt="First slide"
-              />
+                className="d-block fullimage"
+
+              />) : (
+                <video
+                  muted
+                  type="video/mp4"
+                  autoPlay={true}
+                  src={
+                    eve.file
+                  }
+
+                  preload="none"
+                  className='w-100 inv-img'
+                />
+              )}
               <div className="rsvp-buttons">
                 <center>
                   <Button

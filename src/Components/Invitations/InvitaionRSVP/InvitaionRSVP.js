@@ -40,7 +40,7 @@ export default function InvitaionRSVP(props) {
 
   return (
     <>
-     {/*  <div className="desktop-only w-100" >
+      {/*  <div className="desktop-only w-100" >
         <Header className="desktop-only" />
       </div>
       <DesktopNav id={props.id} base={props.base} />
@@ -57,11 +57,24 @@ export default function InvitaionRSVP(props) {
         {props.Eventdata && props.Eventdata.length > 0 &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
-              <img
-                className="d-block fullimage"
+              {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (<img
                 src={eve.file}
-                alt="First slide"
-              />
+                className="d-block fullimage"
+
+              />) : (
+                <video
+                  muted
+                  type="video/mp4"
+                  autoPlay={true}
+                  src={
+                    eve.file
+                  }
+
+                  preload="none"
+                  className='w-100 inv-img'
+                />
+              )}
+
               <div className="rsvp-buttons">
                 <center>
                   <Button
