@@ -17,40 +17,34 @@ export default function CanvasEditor(props) {
     const canvas = useRef(null);
     const input = useRef(null);
     let ctx;
-    const catImage = new Image();
     const [TextColorArray, setTextColorArray] = useState([]);
     const [up, setup] = useState(60);
     const [left, setleft] = useState(60);
     useEffect(() => {
-        ctx = canvas.current.getContext("2d");
+        rerendercanvas()
+    }, [canvas, props.SelectedImage, Bold, Text, FontSize, Color, up, left])
 
-        ctx.clearRect(0, 0, 320, 400);
-        ctx.fillRect(0, 0, 320, 400);
 
-        catImage.src = props.SelectedImage;
-        catImage.crossOrigin = "anonymous";
-
-        catImage.onload = () => {
-            ctx.drawImage(catImage, 0, 0, 320, 400);
-        };
-    }, [canvas, ctx]);
-    useEffect(async () => {
+    const rerendercanvas = async () => {
         if (props.SelectedImage && canvas && props.isImageSelected === true) {
+            debugger
             ctx = canvas.current.getContext("2d");
             ctx.clearRect(0, 0, 320, 400);
+            ctx.fillRect(0, 0, 320, 400);
             const catImage = new Image();
             catImage.src = props.SelectedImage;
             catImage.crossOrigin = "anonymous";
             ctx.textAlign = "left";
-            ctx.fillRect(0, 0, 320, 400);
-            ctx.drawImage(catImage, 0, 0, 320, 400);
+            await ctx.drawImage(catImage, 0, 0, 320, 400);
             if (Text === "") {
                 await setTextColorArray([]);
             } else {
                 await setFormattedText(Text, ctx);
             }
+        } else {
+
         }
-    }, [Text, up, left, Color, FontSize, Bold]);
+    }
 
     const download = async () => {
         debugger;
@@ -286,83 +280,88 @@ export default function CanvasEditor(props) {
                         Done
                     </Grid>
                 </Grid>
-                : <Grid container spacing={1}>
-                    <Grid item xs={4}>
-                        <IoArrowBackCircleOutline size={30} onClick={() => {
-                            setisMoveEnable(false)
-                        }} fontSize="large" />
-                    </Grid>
-                    <Grid item xs={4}>
-
-                        <Repeatable
-                            repeatDelay={500}
-                            repeatInterval={32}
-                            className="moveup"
-                            onHold={async (event) => {
-                                await setup(up - 2);
-                            }}
-                            onMouseDown={(e) => {
-                                e.preventDefault()
-                            }}
-                        >
-                            <KeyboardArrowUpRoundedIcon
-                                onClick={() => {
-                                    setup(up - 2);
-                                }}
-                            />
-                        </Repeatable>
-                        <Repeatable
-                            repeatDelay={500}
-                            repeatInterval={32}
-                            className="moveright"
-                            onMouseDown={(e) => {
-                                e.preventDefault()
-                            }}
-                            onHold={async (event) => {
-                                setleft(left + 3);
-                            }}>
-                            <KeyboardArrowRightRoundedIcon
-                                onClick={() => {
-                                    setleft(left + 3);
-                                }}
-                            />
-                        </Repeatable>
-                        <Repeatable
-                            repeatDelay={500}
-                            repeatInterval={32}
-                            className="movedown"
-                            onMouseDown={(e) => {
-                                e.preventDefault()
-                            }}
-                            onHold={async (event) => {
-                                setup(up + 3);
-                            }}>
-                            <KeyboardArrowDownRoundedIcon
-                                onClick={() => {
-                                    setup(up + 3);
-                                }}
-                            />
-                        </Repeatable>
-                        <Repeatable
-                            repeatDelay={500}
-                            repeatInterval={32}
-                            className="moveleft"
-                            onMouseDown={(e) => {
-                                e.preventDefault()
-                            }}
-                            onHold={async (event) => {
-                                setleft(left - 2);
-                            }}>
-                            <KeyboardArrowLeftRoundedIcon
-                                onClick={() => {
-                                    setleft(left - 2);
-                                }}
-                            /> </Repeatable>
-                    </Grid>
-
-                    <Grid item xs={4}>
-                    </Grid>
-                </Grid>}
+                : <Movable setisMoveEnable={setisMoveEnable} setup={setup} setleft={setleft} up={up} left={left} />}
         </>
     );
+}
+function Movable(props) {
+    return (
+        <Grid container spacing={1}>
+            <Grid item xs={4}>
+                <IoArrowBackCircleOutline size={30} onClick={() => {
+                    props.setisMoveEnable(false)
+                }} fontSize="large" />
+            </Grid>
+            <Grid item xs={4}>
+
+                <Repeatable
+                    repeatDelay={500}
+                    repeatInterval={32}
+                    className="moveup"
+                    onHold={async (event) => {
+                        await props.setup(props.up - 2);
+                    }}
+                    onMouseDown={(e) => {
+                        e.preventDefault()
+                    }}
+                >
+                    <KeyboardArrowUpRoundedIcon
+                        onClick={() => {
+                            props.setup(props.up - 2);
+                        }}
+                    />
+                </Repeatable>
+                <Repeatable
+                    repeatDelay={500}
+                    repeatInterval={32}
+                    className="moveright"
+                    onMouseDown={(e) => {
+                        e.preventDefault()
+                    }}
+                    onHold={async (event) => {
+                        props.setleft(props.left + 3);
+                    }}>
+                    <KeyboardArrowRightRoundedIcon
+                        onClick={() => {
+                            props.setleft(props.left + 3);
+                        }}
+                    />
+                </Repeatable>
+                <Repeatable
+                    repeatDelay={500}
+                    repeatInterval={32}
+                    className="movedown"
+                    onMouseDown={(e) => {
+                        e.preventDefault()
+                    }}
+                    onHold={async (event) => {
+                        props.setup(props.up + 3);
+                    }}>
+                    <KeyboardArrowDownRoundedIcon
+                        onClick={() => {
+                            props.setup(props.up + 3);
+                        }}
+                    />
+                </Repeatable>
+                <Repeatable
+                    repeatDelay={500}
+                    repeatInterval={32}
+                    className="moveleft"
+                    onMouseDown={(e) => {
+                        e.preventDefault()
+                    }}
+                    onHold={async (event) => {
+                        props.setup(props.left - 2);
+                    }}>
+                    <KeyboardArrowLeftRoundedIcon
+                        onClick={() => {
+                            props.setleft(props.left - 2);
+                        }}
+                    /> </Repeatable>
+            </Grid>
+
+            <Grid item xs={4}>
+            </Grid>
+        </Grid>
+    )
 }
