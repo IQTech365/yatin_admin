@@ -21,6 +21,7 @@ import CommentIcon from "../../../Assets/comment-dot.png";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
 import Location from "../../../Assets/Location.png";
 import { IoSendSharp } from "react-icons/io5";
+import { BiBell } from "react-icons/bi";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,11 +41,18 @@ import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import HelpIcon from "@material-ui/icons/Help";
+import Popup from "../../Helpers/Popups/Popup";
+import Notifications from "../../Notifications/Notification";
+
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
+  
   const [likeCount, setlikeCount] = useState([]);
   const [MainCode, setmaincode] = useState();
+  const [show, setshow] = useState(false);
+  const [maincode] = useState("");
+  const [eventcode, seteventcode] = useState("");
   const [commentcountplus, setcommentcountplus] = useState(0);
   const [showfulldescription, setshowfulldescription] = useState(false);
   const Auth = useSelector((state) => state.Auth);
@@ -135,7 +143,14 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-
+      <Popup
+        component={Notifications}
+        toggleShowPopup={setshow}
+        showPopup={show}
+        MainCode={props.MainCode}
+        showinvitaions={true}
+        eventcode={eventcode}
+      />
       <Carousel interval={2000} controls={true} style={{ marginBottom: '9vh'}}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
@@ -147,6 +162,7 @@ export default function InvitaionMain(props) {
                     marginRight: 3,
                     marginLeft: 3,
                     marginBottom: 10,
+                    zIndex:200
                   }}
                 >
                   <p style={{ color: "black" }}>
@@ -159,6 +175,19 @@ export default function InvitaionMain(props) {
                     />
                   </p>
                   <Col></Col>
+                  <BiBell 
+                     size={30}
+                     onClick={() => {
+                      setshow(true);
+                    }}
+                     style={{
+                       backgroundColor: "white",
+                       color: "black",
+                       borderRadius: 20,
+                       padding: "0.1em 0.4em",
+                       marginRight: 10
+                     }}
+                     />
                   <FaUserFriends
                     size={30}
                     style={{
@@ -435,4 +464,5 @@ export function IsRsvp(props) {
       )}
     </span>
   );
+
 }
