@@ -74,7 +74,7 @@ export function ImageSelectionModalTemplates(props) {
   const [currentimage, setcurrentimage] = useState(0);
   const [SelectedImage, setSelectedImage] = useState("");
   const [isImageSelected, setisImageSelected] = useState(false);
-
+  const [loadedRemoteImgs, setloadedRemoteImgs] = useState(false);
   const save = async (file) => {
     let EventsCpy = await { ...props.CurrentEventDetails };
     EventsCpy.file = file;
@@ -92,6 +92,9 @@ export function ImageSelectionModalTemplates(props) {
       .then(async (res) => {
         if (res.data.Templates.length > 0) {
           setallimgsforcategory(res.data.Templates);
+          setloadedRemoteImgs(true)
+        } else {
+          setloadedRemoteImgs(false)
         }
       })
       .catch(() => { });
@@ -100,53 +103,54 @@ export function ImageSelectionModalTemplates(props) {
   return (
     <>
       {isImageSelected === false ? (
-        <div>
-          <div style={{ width: "100%", height: "300px" }}>
-            <img
-              src={allimgsforcategory[currentimage].Url}
-              style={{ width: "100%", height: "299px" }}
-            />
+        loadedRemoteImgs === false ? <h1>Loading Templates</h1> :
+          <div>
+            <div style={{ width: "100%", height: "300px" }}>
+              <img
+                src={allimgsforcategory[currentimage].Url}
+                style={{ width: "100%", height: "299px" }}
+              />
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  position: "relative",
+                  bottom: "40px",
+                  left: "280px",
+                }}
+              >
+                <CheckCircleOutlineIcon
+                  style={{
+                    color: "Green",
+                    background: "#fff",
+                    borderRadius: "100%",
+                  }}
+                  onClick={() => {
+                    save(allimgsforcategory[currentimage].Url);
+                  }}
+                  fontSize="large"
+                />
+              </div>
+            </div>
             <div
               style={{
-                width: "50px",
-                height: "50px",
-                position: "relative",
-                bottom: "40px",
-                left: "280px",
+                width: "100%",
+                height: "60px",
+                overflowX: "scroll",
+                marginTop: "5px",
               }}
             >
-              <CheckCircleOutlineIcon
-                style={{
-                  color: "Green",
-                  background: "#fff",
-                  borderRadius: "100%",
-                }}
-                onClick={() => {
-                  save(allimgsforcategory[currentimage].Url);
-                }}
-                fontSize="large"
-              />
+              {allimgsforcategory.map((img, index) => (
+                <img
+                  src={img.Url}
+                  style={{ width: "50px", height: "50px" }}
+                  onClick={() => {
+                    setcurrentimage(index);
+                  }}
+                />
+              ))}
             </div>
           </div>
-          <div
-            style={{
-              width: "100%",
-              height: "60px",
-              overflowX: "scroll",
-              marginTop: "5px",
-            }}
-          >
-            {allimgsforcategory.map((img, index) => (
-              <img
-                src={img.Url}
-                style={{ width: "50px", height: "50px" }}
-                onClick={() => {
-                  setcurrentimage(index);
-                }}
-              />
-            ))}
-          </div>
-        </div>
       ) : (
         <CanvasEditor
           SelectedImage={SelectedImage}

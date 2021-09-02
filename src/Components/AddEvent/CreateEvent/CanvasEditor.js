@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { colors, IconButton } from "@material-ui/core";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Grid } from "@material-ui/core";
 import KeyboardArrowRightRoundedIcon from "@material-ui/icons/KeyboardArrowRightRounded";
@@ -10,15 +9,11 @@ import Repeatable from 'react-repeatable'
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 export default function CanvasEditor(props) {
     const [Bold, setBold] = useState(false);
-    const [LoadedImage, setLoadedImage] = useState(false);
     const [Text, setText] = useState("");
     const [Color, setColor] = useState("#FF0000");
     const [FontSize, setFontSize] = useState(20);
-
     const [isMoveEnable, setisMoveEnable] = useState(false);
-    const [Move, setMove] = useState('');
     const [LineNumber, setLineNumber] = useState(0);
-    const [isMouseDown, setisMouseDown] = useState(false);
     const canvas = useRef(null);
     const input = useRef(null);
     let ctx;
@@ -26,8 +21,6 @@ export default function CanvasEditor(props) {
     const [TextColorArray, setTextColorArray] = useState([]);
     const [up, setup] = useState(60);
     const [left, setleft] = useState(60);
-    let line = 0;
-    let interval;
     useEffect(() => {
         ctx = canvas.current.getContext("2d");
 
@@ -45,7 +38,6 @@ export default function CanvasEditor(props) {
         if (props.SelectedImage && canvas && props.isImageSelected === true) {
             ctx = canvas.current.getContext("2d");
             ctx.clearRect(0, 0, 320, 400);
-
             const catImage = new Image();
             catImage.src = props.SelectedImage;
             catImage.crossOrigin = "anonymous";
@@ -58,7 +50,7 @@ export default function CanvasEditor(props) {
                 await setFormattedText(Text, ctx);
             }
         }
-    }, [canvas, Text, LoadedImage, up, left, Color, FontSize, Bold,]);
+    }, [Text, up, left, Color, FontSize, Bold]);
 
     const download = async () => {
         debugger;
@@ -143,21 +135,7 @@ export default function CanvasEditor(props) {
             }
         }
     };
-    // useEffect(() => {
-    //     if (isMouseDown === true && Move !== '') {
-    //         switch (Move) {
-    //             case 'up': setup(up - 2);
-    //                 break;
-    //             case 'down': setup(up + 3);
-    //                 break;
-    //             case 'left': setleft(left + 3);
-    //                 break;
-    //             case 'right': setleft(left - 2);
-    //                 break;
-    //             default: break;
-    //         }
-    //     }
-    // }, [isMouseDown, left, up,])
+
     const getLineNumber = async (text, input) => {
         let indices = [0];
         for (var i = 0; i < text.length; i++) {
