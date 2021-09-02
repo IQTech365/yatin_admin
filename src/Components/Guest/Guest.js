@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Tab, Tabs } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
+import {IoMdPersonAdd} from "react-icons/io"
 import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
@@ -210,7 +211,7 @@ export default function Guest(props) {
                   );
                 }}
               >
-                <SupervisedUserCircleIcon />
+                <IoMdPersonAdd />
                 <span className="manage_guest">Manage Guests</span>
               </span>
             ) : (
@@ -219,9 +220,9 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ fontSize: '14px', fontWeight: '600', marginLeft: "auto" }}>
+        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto", marginTop: 20}}>
           <Col>
-            <Tabs defaultActiveKey="All">
+          <Tabs defaultActiveKey="All" className="tabs_guestlist">
               <Tab eventKey="All" title="All">
                 {guestList.map((guest) => (
                   <Grid className="p-5px" container spacing={0}>
