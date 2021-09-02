@@ -1,2 +1,0 @@
-export const SAVEGUEST = "SAVEGUEST";
-export const CLEARGUESTLIST = "CLEARGUESTLIST";

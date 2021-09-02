@@ -6,7 +6,6 @@ import Chatdata from "./ChatReducer";
 import Notifications from "./NotificatonReducer";
 import Posts from "./PostReducer";
 import CodeEvent from './CodeEventReducer'
-import GuestList from './GuestReducer'
 const allreducers = combineReducers({
   Auth: Auth,
   Eventdata: Eventdata,
@@ -14,7 +13,6 @@ const allreducers = combineReducers({
   Chatdata: Chatdata,
   Notifications: Notifications,
   Posts: Posts,
-  CodeEvent: CodeEvent,
-  GuestList: GuestList
+  CodeEvent: CodeEvent
 });
 export default allreducers;

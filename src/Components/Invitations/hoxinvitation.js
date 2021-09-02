@@ -184,23 +184,7 @@ export default function Hoxinvitation(props) {
                 </Row>
               </Container>
               <Container className="container-event">
-                {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (<img
-                  src={eve.file}
-                  className="inv-img"
-
-                />) : (
-                  <video
-                    muted
-                    type="video/mp4"
-                    autoPlay={true}
-                    src={
-                      eve.file
-                    }
-
-                    preload="none"
-                    className='w-100 inv-img'
-                  />
-                )}
+                <Image src={eve.file} className="fullimagemain" />
                 <Container className="box-event" fluid style={{ marginTop: "5vh" }}>
 
                   <UserDataUrl
