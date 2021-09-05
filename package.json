@@ -81,6 +81,7 @@
     "use-places-autocomplete": "^1.9.1",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
+    "woocommerce-api": "^1.5.0",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
     "workbox-cacheable-response": "^5.1.4",

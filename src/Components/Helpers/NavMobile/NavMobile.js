@@ -12,6 +12,7 @@ import { Container, Row, Col, Dropdown, DropdownButton } from "react-bootstrap";
 import { BiChevronDown } from "react-icons/bi";
 import history from "../../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
+import { BiGift } from "react-icons/bi"
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
 export default function NavMobile(props) {
@@ -46,21 +47,21 @@ export default function NavMobile(props) {
         }}
         className="deskhide-nav"
       >
-        
+
         <Nav
           style={{
             margin: "auto",
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
-          
+
             width: "100vw",
             height: '4.5vh'
           }}
-          
+
         >
           <Nav.Link
-            
+
             onClick={() => {
               history.push("/" + props.base + '/eventpage/' + props.id);
             }}
@@ -89,11 +90,11 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              setshow(true);
+              history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
             }}
             style={{ textDecoration: "none" }}
           >
-            <AiOutlineBell size={25} style={{ marginLeft: '8px' }} />
+            <BiGift size={25} style={{ marginLeft: '8px' }} />
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link>
           <Nav.Link
