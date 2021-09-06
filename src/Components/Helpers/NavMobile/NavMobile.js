@@ -104,7 +104,9 @@ export default function NavMobile(props) {
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link> */}
           <Nav.Link
-            style={{ textDecoration: "none" }}
+            style={{ textDecoration: "none" }} onClick={() => {
+              history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
+            }}
           >
             <AiOutlineShopping size={25} />
             <p className="mobilebar_text">Shop</p>
