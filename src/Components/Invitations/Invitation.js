@@ -106,6 +106,7 @@ export default function Invitation(props) {
                 setuserInfopopup(true)
               }
             }}
+            fontSize='large'
           />
           <div className="bottom-bar">
             <Grid container spacing={0}>

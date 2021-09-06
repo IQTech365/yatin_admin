@@ -176,6 +176,7 @@ export default function NewAddParticipants(props) {
             } else {
                 let url = await uploadString(EventCpy[i].file, furl);
                 EventCpy[i].file = url;
+                EventCpy[i].GuestInvite = false
             }
 
         }

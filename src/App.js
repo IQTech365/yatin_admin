@@ -38,7 +38,7 @@ import HomePage from "./Components/HomePage/HomePage";
 import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum';
-
+import Gift from './Components/Gift/Gift'
 function App() {
 
   window.OneSignal = window.OneSignal || [];
@@ -139,6 +139,8 @@ function App() {
               path="/MyEvents/eventpage/:id"
               component={InvitaionviewToggler}
             />
+
+            <Route exact path="/MyEvents/eventpage/gift/:id/:MainCode" component={Gift} />
             <Route exact path="/MyEvents/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/MyEvents/comments/:id/:_id" component={Comment} />
             <Route
@@ -178,6 +180,7 @@ function App() {
             /> */}
             <Route exact path="/inv/More/:id" component={SidebarMore} />
             <Route exact path="/inv/comments/:id/:_id" component={Comment} />
+            <Route exact path="/inv/eventpage/gift/:id/:MainCode" component={Gift} />
             <Route exact path="/inv/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/inv/videoconf/:id/" component={Jitsi} />
             <Route exact path="/inv/eventpage/chat/:id" component={Chat} />

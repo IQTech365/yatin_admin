@@ -1,21 +1,20 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../../Assets/ChooseFromGallery.svg";
 import Tenmplate from "../../../Assets/TemplateNone.svg";
-import axios from 'axios';
-import { url } from '../../../Utils/Config'
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import axios from "axios";
+import { url } from "../../../Utils/Config";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import CanvasEditor from "./CanvasEditor";
+
 export default function ImageSelectionModal(props) {
-  const [Show, setswitch] = useState(false)
+  const [Show, setswitch] = useState(false);
   const onDrop = useCallback(async (acceptedFiles) => {
     if (acceptedFiles[0].size > 10259265) {
       alert("Max file size 10 mb");
       return false;
     }
-
-    console.log(props.data);
-
     let EventsCpy = await { ...props.CurrentEventDetails };
     let type = acceptedFiles[0].type.split("/");
     EventsCpy.filetype = type[1];
@@ -37,9 +36,8 @@ export default function ImageSelectionModal(props) {
     accept: "image/jpeg, image/png, image/jpg, video/mp4",
   });
 
-  return (Show === false ?
+  return Show === false ? (
     <Grid container spacing={0}>
-
       <Grid item xs={12}>
         <h2 className="tac">Upload Your Picture</h2>
       </Grid>
@@ -49,57 +47,119 @@ export default function ImageSelectionModal(props) {
           <img src={Gallery} className="w-100" />
         </div>
       </Grid>
-      <Grid item xs={6} onClick={() => { setswitch(true) }}>
+      <Grid
+        item
+        xs={6}
+        onClick={() => {
+          setswitch(true);
+        }}
+      >
         <img src={Tenmplate} className="w-100" />
       </Grid>
-    </Grid> : <ImageSelectionModalTemplates CurrentEventDetails={props.CurrentEventDetails}
-      SetCurrentEventDetails={props.SetCurrentEventDetails} Type={props.Type} show={props.show} />
+    </Grid>
+  ) : (
+    <ImageSelectionModalTemplates
+      CurrentEventDetails={props.CurrentEventDetails}
+      SetCurrentEventDetails={props.SetCurrentEventDetails}
+      Type={props.Type}
+      show={props.show}
+    />
   );
 }
 
-
-
 export function ImageSelectionModalTemplates(props) {
-  const [allimgsforcategory, setallimgsforcategory] = useState([{ Url: Tenmplate }])
-  const [currentimage, setcurrentimage] = useState(0)
+  const [allimgsforcategory, setallimgsforcategory] = useState([
+    { Url: Tenmplate },
+  ]);
+  const [currentimage, setcurrentimage] = useState(0);
+  const [SelectedImage, setSelectedImage] = useState("");
+  const [isImageSelected, setisImageSelected] = useState(false);
+  const [loadedRemoteImgs, setloadedRemoteImgs] = useState(false);
   const save = async (file) => {
     let EventsCpy = await { ...props.CurrentEventDetails };
-    EventsCpy.filetype = 'png';
     EventsCpy.file = file;
-    await props.SetCurrentEventDetails(EventsCpy);
-    console.log(EventsCpy)
-    props.show(false);
+    await setSelectedImage(file);
+    await setisImageSelected(true);
+    // await props.SetCurrentEventDetails(EventsCpy);
+    // props.show(false);
   };
 
   useEffect(() => {
     axios
       .post(url + "template/gettemplate", {
-        Category: props.Type
+        Category: props.Type,
       })
       .then(async (res) => {
         if (res.data.Templates.length > 0) {
-          setallimgsforcategory(res.data.Templates)
+          setallimgsforcategory(res.data.Templates);
+          setloadedRemoteImgs(true)
+        } else {
+          setloadedRemoteImgs(false)
         }
-
-      }).catch(() => {
-
       })
-  }, [])
-  return (
-    <div>
+      .catch(() => { });
+  }, []);
 
-      <div style={{ width: '100%', height: '300px' }}>
-        <img src={allimgsforcategory[currentimage].Url} style={{ width: '100%', height: '299px', }} />
-        <div style={{ width: '50px', height: '50px', position: 'relative', bottom: '40px', left: '280px', }} >
-          <CheckCircleOutlineIcon style={{ color: 'Green', background: '#fff', borderRadius: '100%' }}
-            onClick={() => { save(allimgsforcategory[currentimage].Url) }} fontSize="large" />
-        </div>
-      </div>
-      <div style={{ width: '100%', height: '60px', overflowX: 'scroll', marginTop: '5px' }}>
-        {allimgsforcategory.map((img, index) => (
-          <img src={img.Url} style={{ width: '50px', height: '50px', }} onClick={() => { setcurrentimage(index) }} />
-        ))}
-      </div>
-    </div>
-  )
+  return (
+    <>
+      {isImageSelected === false ? (
+        loadedRemoteImgs === false ? <h1>Loading Templates</h1> :
+          <div>
+            <div style={{ width: "100%", height: "300px" }}>
+              <img
+                src={allimgsforcategory[currentimage].Url}
+                style={{ width: "100%", height: "299px" }}
+              />
+              <div
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  position: "relative",
+                  bottom: "40px",
+                  left: "280px",
+                }}
+              >
+                <CheckCircleOutlineIcon
+                  style={{
+                    color: "Green",
+                    background: "#fff",
+                    borderRadius: "100%",
+                  }}
+                  onClick={() => {
+                    save(allimgsforcategory[currentimage].Url);
+                  }}
+                  fontSize="large"
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                width: "100%",
+                height: "60px",
+                overflowX: "scroll",
+                marginTop: "5px",
+              }}
+            >
+              {allimgsforcategory.map((img, index) => (
+                <img
+                  src={img.Url}
+                  style={{ width: "50px", height: "50px" }}
+                  onClick={() => {
+                    setcurrentimage(index);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+      ) : (
+        <CanvasEditor
+          SelectedImage={SelectedImage}
+          isImageSelected={isImageSelected}
+          SetCurrentEventDetails={props.SetCurrentEventDetails}
+          EventsCpy={props.CurrentEventDetails}
+          show={props.show}
+        />
+      )}
+    </>
+  );
 }

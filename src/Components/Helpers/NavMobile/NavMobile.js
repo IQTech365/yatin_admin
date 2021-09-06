@@ -10,11 +10,12 @@ import { BsThreeDots } from "react-icons/bs";
 import "./NavMobile.css";
 import { AiOutlineShopping } from "react-icons/ai";
 import history from "../../../Utils/History";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { BiGift } from "react-icons/bi"
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
 export default function NavMobile(props) {
-  
+
   const [show, setshow] = useState(false);
   const [maincode, setmaincode] = useState("");
   const [eventcode, seteventcode] = useState("");
@@ -55,8 +56,10 @@ export default function NavMobile(props) {
             width: "100vw",
             height: "4.5vh",
           }}
+
         >
           <Nav.Link
+
             onClick={() => {
               history.push("/" + props.base + "/eventpage/" + props.id);
             }}
@@ -78,12 +81,12 @@ export default function NavMobile(props) {
             onClick={() => {
               history.push(
                 "/" +
-                  props.base +
-                  "/eventpage/" +
-                  "feed/" +
-                  props.id +
-                  "/" +
-                  props.MainCode
+                props.base +
+                "/eventpage/" +
+                "feed/" +
+                props.id +
+                "/" +
+                props.MainCode
               );
             }}
             style={{ textDecoration: "none" }}
@@ -91,21 +94,21 @@ export default function NavMobile(props) {
             <BiNews size={25} />
             <p className="mobilebar_text">Feed</p>
           </Nav.Link>
-         {/*  <Nav.Link
+          {/*  <Nav.Link
             onClick={() => {
-              setshow(true);
+              history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
             }}
             style={{ textDecoration: "none" }}
           >
-            <AiOutlineBell size={25} style={{ marginLeft: "8px" }} />
+            <BiGift size={25} style={{ marginLeft: '8px' }} />
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link> */}
-           <Nav.Link
+          <Nav.Link
             style={{ textDecoration: "none" }}
           >
             <AiOutlineShopping size={25} />
             <p className="mobilebar_text">Shop</p>
-          </Nav.Link> 
+          </Nav.Link>
 
           <Nav.Link
             onClick={() => {
