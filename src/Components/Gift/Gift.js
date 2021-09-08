@@ -85,21 +85,25 @@ export default function Gift(props) {
 
             </Grid>
             {gifts.map((gift, index) => (
-                <Grid xs={12} sm={6} item key={index}>
+                <Grid xs={12} sm={4} item key={index}>
                     <div className="product_card">
                         <img
                             src={gift.images[0].src} fluid
                         />
                         <div className="product_cardbody">
                             <div className="card-title">
-                                <h4>{gift.name}</h4>
+                                <h4 style={{ fontSize: "15px" }}>{gift.name}</h4>
                                 <h3 style={{ fontSize: "15px" }}>₹{gift.price}</h3>
                             </div>
 
                             <p>{gift.short_description}</p>
                             <div className="btn-group">
-                                <button className="btn btn-primary" onClick={() => window.open(gift.external_url, "_blank", 'noopener,noreferrer')} >Buy Now</button>
-                                <button className="btn btn-outline-primary" onClick={() => window.open(gift.permalink, "_blank", 'noopener,noreferrer')}>Details</button>
+                                <button className="btn btn-primary"
+                                    onClick={() => window.open(gift.external_url, "_blank", 'noopener,noreferrer')}
+                                    style={{ borderRadius: '20px' }} >Buy Now</button>
+                                <button className="btn btn-outline-primary"
+                                    onClick={() => window.open(gift.permalink, "_blank", 'noopener,noreferrer')}
+                                    style={{ borderRadius: '20px' }}>Details</button>
                             </div>
                         </div>
                     </div>
