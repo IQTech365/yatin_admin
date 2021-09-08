@@ -222,6 +222,7 @@ export default function InvitaionMain(props) {
                     src={eve.file}
                     preload="none"
                     className="w-100"
+                    style={{height:'60vh', objectFit:'cover'}}
                   />
                 )}
                 <Container
