@@ -58,16 +58,43 @@ export default function NewAddParticipants(props) {
     const [participants, setParticipants] = useState([]);
     let Albumcpy = [];
     let Storycpy = [];
+    var usercodecpy = [];
     let codescpy = []
     useEffect(async () => {
+
         supported = "contacts" in navigator && "ContactsManager" in window;
         if (supported === true) {
             SetIsMobile(true);
         } else {
             SetIsMobile(false);
         }
-    }, []);
+        await addCode()
+        await save()
 
+    }, []);
+    async function addCode() {
+
+        for (var i = 0; i < props.Events.length; i++) {
+            codescpy.push({
+                Name: props.Events[i].Name,
+                code: randomString(
+                    8,
+                    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                ),
+            });
+            usercodecpy.push(codescpy[i].code);
+        }
+        console.log(codescpy);
+        await setCodes(codescpy);
+        return 1;
+    }
+
+    function randomString(length, chars) {
+        var result = "";
+        for (var i = length; i > 0; --i)
+            result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
 
     const readExcel = async (file) => {
         const fileReader = new FileReader();
@@ -143,33 +170,18 @@ export default function NewAddParticipants(props) {
         particpantscpy[eventKey] = [...contactlist];
         await setParticipants([...particpantscpy]);
     };
-
-    function randomString(length, chars) {
-        var result = "";
-        for (var i = length; i > 0; --i)
-            result += chars[Math.floor(Math.random() * chars.length)];
-        return result;
-    }
-
     const save = async () => {
-        debugger;
-        await setEntryWay('Code')
-
-        for (var i = 0; i < props.Events.length; i++) {
-            await codescpy.push(await randomString(8, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
-        }
-        await setCodes(codescpy)
-        await setisSaving(true);
+        setisSaving(true);
         let EventCpy = [...props.Events];
-        if (participants.length === 0 && EntryWay === 'Contacts') {
-            await setisSaving(false);
+        if (participants.length === 0 && EntryWay !== 'Code') {
+            setisSaving(false);
             return false;
         }
         let particpantsCpy = [...participants];
-        particpantsCpy.map(async (listdata, index) => {
+        particpantsCpy.map((listdata, index) => {
             if (listdata.length === 0) {
                 alert("Please Add Guests to Event no " + (index + 1));
-                await setisSaving(false);
+                setisSaving(false);
                 return false;
             } else {
                 EventCpy[index].Participants = listdata;
@@ -227,11 +239,11 @@ export default function NewAddParticipants(props) {
                 Events: EventCpy,
                 Album: Albumcpy,
                 Story: Storycpy,
-                code: codescpy,
+                code: code,
                 EntryWay: EntryWay,
             })
         );
-        //  setisSaving(false);
+        setisSaving(false);
     };
     return (<>
         <Modal
@@ -261,7 +273,7 @@ export default function NewAddParticipants(props) {
         <Grid container spacing={0}>
 
             {isSaving === true ? <CircularProgress className="Progress" /> : <></>}
-            <img src={Access} className="access-logo " />
+            {/* <img src={Access} className="access-logo " />
             <b className="tac w-100 b theme-font ">
                 Give access to your guest or Upload CSV with for group access
             </b>
@@ -290,7 +302,7 @@ export default function NewAddParticipants(props) {
                         PhoneBook
                     </button>
                 </Grid>
-                <Grid item xs={12} sm={12} style={{ display: window.innerWidth > window.innerHeight ? 'block' : 'none' }}>
+                <Grid item xs={12} sm={12}>
                     <label
                         htmlfor="input1"
                         className="btn excel-file-upload  t-white l-blue mt-5px"
@@ -302,9 +314,7 @@ export default function NewAddParticipants(props) {
                                 e.preventDefault();
                                 setopenModal(true);
                             } else {
-                                console.log("done 2")
-                                e.preventDefault();
-                                setopenModal(true);
+                                alert("clicked<")
                             }
                         }}
                     >
@@ -317,7 +327,7 @@ export default function NewAddParticipants(props) {
                         className="upload-excel mt-10px"
 
                         onChange={(e) => {
-                            if (props.Events.length < 1) {
+                            if (props.Events.length < 2) {
                                 readExcel(e.target.files[0]);
                                 console.log("done 1")
                             }
@@ -334,10 +344,9 @@ export default function NewAddParticipants(props) {
                     code={code}
                     setCodes={setCodes}
                     setEntryWay={setEntryWay}
-                    save={save}
                 />
             </Grid>
-            <Grid item xs={participants.length > 0 ? 6 : 12}>
+            <Grid item xs={6}>
                 <button
                     className="btn next mt-10px t-blue"
                     onClick={() => {
@@ -347,9 +356,8 @@ export default function NewAddParticipants(props) {
                     Back
                 </button>
             </Grid>
-            <Grid item xs={participants.length > 0 ? 6 : false}>
+            <Grid item xs={6}>
                 <button
-                    style={{ display: participants.length > 0 ? 'block' : 'none' }}
                     className="btn next mt-10px l-blue t-white p-5px"
                     onClick={() => {
                         save();
@@ -357,7 +365,7 @@ export default function NewAddParticipants(props) {
                 >
                     Next
                 </button>
-            </Grid>
+            </Grid> */}
         </Grid ></>
     )
 }

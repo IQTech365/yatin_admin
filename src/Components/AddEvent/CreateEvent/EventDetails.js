@@ -448,7 +448,7 @@ export default function EventDetails(props) {
       <>
         <Grid
           item
-          xs={7}
+          xs={6}
           className={
             CurrentEventDetails.VenueType === "Offline" ? "hide" : "show"
           }

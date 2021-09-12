@@ -15,8 +15,9 @@ export default function AddCode(props) {
       result += chars[Math.floor(Math.random() * chars.length)];
     return result;
   }
-  useEffect(() => {
-    if (show === true && props.code.length !== props.Events.length) {
+  async function setcodesInEvents() {
+    debugger;
+    if (props.code.length !== props.Events.length) {
       for (var i = 0; i < props.Events.length; i++) {
         codescpy.push({
           Name: props.Events[i].Name,
@@ -28,13 +29,18 @@ export default function AddCode(props) {
         usercodecpy.push(codescpy[i].code);
       }
       console.log(codescpy);
-      setCodes(codescpy);
-      setusercode(usercodecpy);
+      await setCodes(codescpy);
+      await setusercode(usercodecpy);
+      await props.setEntryWay("Code");
+      await props.setCodes(usercode);
+      await props.save();
     }
-  }, [show]);
+  }
   return (
     <div>
-      <button className=" next btn btn-dark mt-10px" onClick={handleShow}>
+      <button className=" next btn btn-dark mt-10px" onClick={() => {
+        props.save()
+      }}>
         Use Code
       </button>
       <Modal
@@ -63,7 +69,7 @@ export default function AddCode(props) {
                 <Col xs={5} md={3} className="m-0 mt-5px">
                   {code.Name + ":"}
                 </Col>
-                <Col xs={7} md={9} className="m-0 mt-5px"  style={{paddingBottom: '10px'}}>
+                <Col xs={7} md={9} className="m-0 mt-5px" style={{ paddingBottom: '10px' }}>
                   <Form.Control
                     disabled={true}
                     type="email"
