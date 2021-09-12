@@ -29,10 +29,10 @@ export default function Gift(props) {
     } else {
       if (
         props.location.pathname ===
-          "/MyEvents/eventpage/gift/" +
-            props.match.params.id +
-            "/" +
-            props.match.params.MainCode &&
+        "/MyEvents/eventpage/gift/" +
+        props.match.params.id +
+        "/" +
+        props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id][0]);
@@ -41,10 +41,10 @@ export default function Gift(props) {
         await getgifts(MyEvents[props.match.params.id][0].InvId.Type);
       } else if (
         props.location.pathname ===
-          "/inv/eventpage/gift/" +
-            props.match.params.id +
-            "/" +
-            props.match.params.MainCode &&
+        "/inv/eventpage/gift/" +
+        props.match.params.id +
+        "/" +
+        props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id][0]);
