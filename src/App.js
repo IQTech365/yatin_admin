@@ -2,6 +2,9 @@ import "./App.css";
 import "./Colors.css";
 import "./Responsive.css";
 import "./Scrollbar.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "swiper/swiper-bundle.min.css";
+import "react-modal-video/css/modal-video.min.css";
 import React, { useEffect } from "react";
 import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
@@ -9,7 +12,6 @@ import Redirector from "./Utils/Routing";
 import history from "./Utils/History";
 import { useSelector } from "react-redux";
 import MobileAuth from "./Components/Auth/MobileAuth";
-import Landingpage from "./Components/LandingPage/Landingpage";
 import Home from "./Components/Home/Home";
 import AddEvent from "./Components/AddEvent/AddEvent";
 import Rsvp from "./Components/Invitations/RSVP/Rsvp";
@@ -39,6 +41,7 @@ import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum';
 import Gift from './Components/Gift/Gift'
+
 function App() {
 
   window.OneSignal = window.OneSignal || [];
@@ -61,7 +64,9 @@ function App() {
     return (
       <Router history={history}>
         <div className="App">
+
           <Switch>
+          <Route exact path="/" component={HomePage} />
             <Route
               exact
               path="/MyInvitations/:maincode"
@@ -75,6 +80,7 @@ function App() {
 
             <Route exact path="/" component={HomePage} />
             <Route exact path="/*" component={Redirector} />
+           
           </Switch>
         </div>
       </Router>

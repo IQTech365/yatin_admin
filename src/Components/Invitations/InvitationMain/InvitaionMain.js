@@ -47,7 +47,6 @@ import Notifications from "../../Notifications/Notification";
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
-  
   const [likeCount, setlikeCount] = useState([]);
   const [MainCode, setmaincode] = useState();
   const [show, setshow] = useState(false);

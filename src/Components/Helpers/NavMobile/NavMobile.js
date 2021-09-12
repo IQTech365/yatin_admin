@@ -29,7 +29,7 @@ export default function NavMobile(props) {
           setishost(true);
         }
       });
-      console.log(props.Eventdata[0].Host);
+      console.log(props.Eventdata[0].Name);
     }
   }, [props.Eventdata]);
   return (
