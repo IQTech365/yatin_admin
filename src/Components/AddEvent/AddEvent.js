@@ -9,12 +9,10 @@ import Toggler from "../Helpers/EventInvitoggler/Toggler";
 import BackNavBar from "../Helpers/BackNavbar/BackNavBar";
 import Back from "../../Assets/Back.svg";
 import history from "../../Utils/History";
-import { useSelector } from "react-redux";
 import Plan from "../Plan/Plan";
 export default function AddEvent(props) {
   const [Type, setType] = useState("Wedding");
   const [activeStep, setActiveStep] = useState(0);
-  const CreateEventForm = useSelector((state) => state.CreateEventForm);
   const [Events, setEvents] = useState([]);
 
   let events = {
@@ -187,54 +185,58 @@ export default function AddEvent(props) {
   }, []);
 
   function StepRender(step) {
-    switch (step.activeStep) {
-      case 0:
-        return (
-          <CreateEvent
-            setType={setType}
-            Type={Type}
-            Events={Events}
-            setEvents={setEvents}
-            addAnEvent={addAnEvent}
-            checkIfEventEmpty={checkIfEventEmpty}
-            handleChange={handleChange}
-            removeAnEvent={removeAnEvent}
-            SelectEvent={SelectEvent}
-            SelectedEvent={SelectedEvent}
-            handleNext={handleNext}
-            handleBack={handleBack}
-            addfinalDetails={addfinalDetails}
-            albumdata={albumdata}
-            setalbumdata={setalbumdata}
-            Story={Story}
-            setStory={setStory}
-            template={events}
-            className="p-15px"
-          />
-        );
-      case 1000:
-        return <Plan handleNext={handleNext} handleBack={handleBack} />;
-      case 1:
-        return (
-          <AddParticipants
-            handleNext={handleNext}
-            handleBack={handleBack}
-            Events={Events}
-            setEvents={setEvents}
-            SelectEvent={SelectEvent}
-            SelectedEvent={SelectedEvent}
-            addAnEvent={addAnEvent}
-            removeAnEvent={removeAnEvent}
-            addfinalDetails={addfinalDetails}
-            Type={Type}
-            Story={Story}
-          />
-        );
-      case 3:
-        return <div></div>;
-      default:
-        return <div></div>;
-    }
+    return (
+      <>{step.activeStep === 0 ?
+        <CreateEvent
+          setType={setType}
+          Type={Type}
+          Events={Events}
+          setEvents={setEvents}
+          addAnEvent={addAnEvent}
+          checkIfEventEmpty={checkIfEventEmpty}
+          handleChange={handleChange}
+          removeAnEvent={removeAnEvent}
+          SelectEvent={SelectEvent}
+          SelectedEvent={SelectedEvent}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          addfinalDetails={addfinalDetails}
+          albumdata={albumdata}
+          setalbumdata={setalbumdata}
+          Story={Story}
+          setStory={setStory}
+          template={events}
+          className="p-15px"
+        /> : step.activeStep === 1 ? <AddParticipants
+          handleNext={handleNext}
+          handleBack={handleBack}
+          Events={Events}
+          setEvents={setEvents}
+          SelectEvent={SelectEvent}
+          SelectedEvent={SelectedEvent}
+          addAnEvent={addAnEvent}
+          removeAnEvent={removeAnEvent}
+          addfinalDetails={addfinalDetails}
+          Type={Type}
+          Story={Story}
+        /> : <></>}</>
+    )
+    // switch (step.activeStep) {
+    //   case 0:
+    //     return (
+
+    //     );
+    //   case 1000:
+    //     return <Plan handleNext={handleNext} handleBack={handleBack} />;
+    //   case 1:
+    //     return (
+
+    //     );
+    //   case 3:
+    //     return <div></div>;
+    //   default:
+    //     return <div></div>;
+    // }
   }
 
   return (

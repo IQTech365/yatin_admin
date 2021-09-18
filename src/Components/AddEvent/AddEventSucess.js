@@ -4,33 +4,16 @@ import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
 import { Grid } from "@material-ui/core";
 import check from "../../Assets/check-circle.1.png";
-import Share from "../../Assets/Shareon.svg";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import axios from "axios";
 import { url } from "../../Utils/Config";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
 import { WhatsappShareButton } from "react-share";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
-import Lottie from "react-lottie";
-import celebration from "../Animations/celebrations.json";
 import WhatsIcon from "../../Assets/WhatsIcon.png";
 
-const defaultOptions = {
-  loop: 2,
-  autoplay: true,
-  animationData: celebration,
-  rendererSettings: {
-    // preserveAspectRatio: "xMidYMid slice"
-  },
-};
+
 
 export default function AddEventSucess(props) {
   const Auth = useSelector((state) => state.Auth);
@@ -209,7 +192,6 @@ export default function AddEventSucess(props) {
           <Grid item xs={12} className="tac">
             Note: Only those who have invite can access
           </Grid>
-          {/* <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} /> */}
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import { Button, Modal, Container, Row, Col, Form } from "react-bootstrap";
 export default function AddCode(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [codes, setCodes] = useState([]);
   const [usercode, setusercode] = useState([]);
-  var codescpy = [];
+  // var codescpy = [];
   var usercodecpy = [];
   function randomString(length, chars) {
     var result = "";
@@ -15,27 +13,27 @@ export default function AddCode(props) {
       result += chars[Math.floor(Math.random() * chars.length)];
     return result;
   }
-  async function setcodesInEvents() {
-    debugger;
-    if (props.code.length !== props.Events.length) {
-      for (var i = 0; i < props.Events.length; i++) {
-        codescpy.push({
-          Name: props.Events[i].Name,
-          code: randomString(
-            8,
-            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-          ),
-        });
-        usercodecpy.push(codescpy[i].code);
-      }
-      console.log(codescpy);
-      await setCodes(codescpy);
-      await setusercode(usercodecpy);
-      await props.setEntryWay("Code");
-      await props.setCodes(usercode);
-      await props.save();
-    }
-  }
+
+  // async function setcodesInEvents() {
+  //   if (props.code.length !== props.Events.length) {
+  //     for (var i = 0; i < props.Events.length; i++) {
+  //       codescpy.push({
+  //         Name: props.Events[i].Name,
+  //         code: randomString(
+  //           8,
+  //           "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  //         ),
+  //       });
+  //       usercodecpy.push(codescpy[i].code);
+  //     }
+  //     console.log(codescpy);
+  //     await setCodes(codescpy);
+  //     await setusercode(usercodecpy);
+  //     await props.setEntryWay("Code");
+  //     await props.setCodes(usercode);
+  //     await props.save();
+  //   }
+  // }
   return (
     <div>
       <button className=" next btn btn-dark mt-10px" onClick={() => {

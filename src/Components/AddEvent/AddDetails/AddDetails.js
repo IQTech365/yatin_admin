@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./AddDetails.css";
 import { Grid } from "@material-ui/core";
 import Header from "../../Helpers/Header/Header";
@@ -8,7 +8,7 @@ import BackNavBar from "../../Helpers/BackNavbar/BackNavBar";
 import AddSchedule from "../Extras/Schedule";
 import Album from "../Extras/Album";
 import Story from "../Extras/Story";
-import history from "../../../Utils/History";
+
 export default function AddDetails(props) {
   const [Name, SetName] = useState(props.Name);
 

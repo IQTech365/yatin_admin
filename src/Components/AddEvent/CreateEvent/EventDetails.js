@@ -2,33 +2,18 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   TextField,
-  InputLabel,
   Select,
   MenuItem,
-  Switch,
   FormControl,
-  Paper,
   Modal,
-  Button,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
 import AddImg from "../../../Assets/AddImage.svg";
-import Scehedule from "../../../Assets/schedule.svg";
-import Storyimg from "../../../Assets/AddStory.svg";
-import Albumsimg from "../../../Assets/gallery.svg";
 import Map from "../../Helpers/Maps/Maps";
 import CancelIcon from "@material-ui/icons/Cancel";
-import Album from "../Extras/Album";
-import Story from "../Extras/Story";
-import AddSchedule from "../Extras/Schedule";
 import ImageSelectionModal from "./ImageSelectionModal";
-import AddDetails from "../AddDetails/AddDetails";
-import { editform } from "../../../Redux/DispatchFuncitons/EventCreationFormFunction";
-import { SAVEFORM } from "../../../Redux/Actions/EventCreationFormActions";
 import { useDispatch } from "react-redux";
-import CreateIcon from "@material-ui/icons/Create";
-import SaveIcon from "@material-ui/icons/Save";
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -144,13 +129,6 @@ export default function EventDetails(props) {
     }
   };
   const dispatch = useDispatch();
-
-  // const updatereduxform = async (data) => {
-  //   await dispatch({
-  //     type: SAVEFORM,
-  //     payload: data,
-  //   });
-  // };
 
   return (
     <Grid container spacing={1} className="p-15px pt-0">

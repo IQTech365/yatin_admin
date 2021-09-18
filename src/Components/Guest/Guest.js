@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Tab, Tabs } from "react-bootstrap";
+import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
-import {IoMdPersonAdd} from "react-icons/io"
+import { IoMdPersonAdd } from "react-icons/io"
 import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
-import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import { useSelector, useDispatch } from "react-redux";
 import {
   GetEvents,
@@ -220,9 +219,9 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ fontSize:'14px', fontWeight:'600',marginLeft: "auto", marginTop: 20}}>
+        <Row style={{ fontSize: '14px', fontWeight: '600', marginLeft: "auto", marginTop: 20 }}>
           <Col>
-          <Tabs defaultActiveKey="All" className="tabs_guestlist">
+            <Tabs defaultActiveKey="All" className="tabs_guestlist">
               <Tab eventKey="All" title="All">
                 {guestList.map((guest) => (
                   <Grid className="p-5px" container spacing={0}>

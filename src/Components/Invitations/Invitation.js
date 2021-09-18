@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, } from "@material-ui/core";
 import NoInv from "../../Assets/NoInvitation.svg";
 import "./Invitations.css";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LanguageIcon from "@material-ui/icons/Language";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
-import InfoIcon from "@material-ui/icons/Info";
 import history from "../../Utils/History";
 import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
@@ -19,7 +15,6 @@ export default function Invitation(props) {
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
   const Auth = useSelector(state => state.Auth)
-  const [showPopup, toggleShowPopup] = useState(false);
   const [useiinfopopup, setuserInfopopup] = useState(false);
   const [HasSkipped, setHasSkipped] = useState(false);
   useEffect(async () => {

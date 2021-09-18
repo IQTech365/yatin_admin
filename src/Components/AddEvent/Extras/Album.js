@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../../Assets/ChooseFromGallery.svg";
 import CancelIcon from "@material-ui/icons/Cancel";
 import "./Extras.css";
 import { useDispatch, useSelector } from "react-redux";
-import { SAVEALBUM, DELETEALBUM } from "../../../Redux/Actions/EventActions";
+import { SAVEALBUM } from "../../../Redux/Actions/EventActions";
 export default function Album(props) {
   const dispatch = useDispatch();
   const Eventdata = useSelector((state) => state.Eventdata);

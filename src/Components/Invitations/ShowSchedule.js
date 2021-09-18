@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import "./Invitations.css"
 import Header from "../Helpers/Header/Header";
-import BlankSchedule from "../../Assets/BlankSchedule.svg";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import history from "../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
 import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
-import AddSchedule from '../AddEvent/Extras/Schedule'
+import AddSchedule from '../AddEvent/Extras/Schedule';
+
 export default function ShowSchedule(props) {
   const dispatch = useDispatch();
   const [Eventdata, setEventdata] = useState([])

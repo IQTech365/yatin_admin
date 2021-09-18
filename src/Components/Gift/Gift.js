@@ -78,7 +78,6 @@ export default function Gift(props) {
 
   return (
     <>
-      {" "}
       <NavMobile base={base} id={props.match.params.id} />
       <GiftBanner />
       <Grid spacing={0} container>
@@ -105,7 +104,7 @@ export default function Gift(props) {
         {gifts.map((gift, index) => (
           <Grid xs={12} sm={3} item key={index}>
             <div className="product_card">
-              <img src={gift.images[0].src} fluid />
+              <img src={gift.images[0].src} fluid style={{ width: "150px" }} />
               <div className="product_cardbody">
                 <div className="card-title">
                   <h4 style={{ fontSize: 16 }}>{gift.name}</h4>

@@ -10,7 +10,7 @@ import { Modal } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import { uploadString } from '../../Utils/FileUpload_Download'
 import { uploadfiletoalbum } from '../../Redux/DispatchFuncitons/Eventfunctions'
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 export default function Addtoalbum(props) {
     const dispatch = useDispatch();
     const [album, setAlbum] = useState([]);
@@ -34,7 +34,7 @@ export default function Addtoalbum(props) {
         return true;
     }, []);
     useEffect(async () => {
-        debugger
+
         if (props.uniqurl.split('%2F')[1] === "InternalTemplates") {
             let newurl = props.uniqurl.split('%2F')[2] + Math.floor(100000 + Math.random() * 900000) + '/Album/';
             for (let i = 0; i < album.length; i++) {

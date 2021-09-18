@@ -53,7 +53,6 @@ export default function CanvasEditor(props) {
     }, [Text, up, left, Color, FontSize, Bold]);
 
     const download = async () => {
-        debugger;
         var dataURL = canvas.current.toDataURL("image/jpeg", 1.0);
         let EventsCpy = await { ...props.CurrentEventDetails };
         EventsCpy.filetype = "png";

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Grid, Paper, TextField, IconButton } from "@material-ui/core";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { Grid, Paper, IconButton } from "@material-ui/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import { useDropzone } from "react-dropzone";
@@ -8,10 +7,9 @@ import AlbumsNone from "../../Assets/AlbumsNone.jpg";
 import Gallery from "../../Assets/ChooseFromGallery.svg";
 import CreateIcon from "@material-ui/icons/Create";
 import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
-import DateTimePicker from "react-datetime-picker";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { UpdateStory } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 
 export default function AddStory(props) {
@@ -28,7 +26,6 @@ export default function AddStory(props) {
   const [isError, setError] = useState(false);
   const [uniqurl, setuniqurl] = useState("");
   const save = async () => {
-    debugger;
     if (
       subname !== "" &&
       datetime !== "" &&
@@ -175,7 +172,7 @@ export default function AddStory(props) {
       {add == true ? (
         <Paper style={{ height: "300x" }} elevation={3}>
           <Grid container spacing={0}>
-            <Grid className="stryimg" xs={12} md={8} style={{margin:'auto'}}>
+            <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }}>
               {file === "" ? (
                 <div {...getRootProps()} className="w-100">
                   <input {...getInputProps()} className="w-100" />
@@ -201,7 +198,7 @@ export default function AddStory(props) {
               )}
             </Grid>
 
-            <Grid className="stryimg" xs={12} md={8} style={{margin:'auto'}}>
+            <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }}>
               <Form.Label style={{ fontWeight: 500 }}>Event Name</Form.Label>
               <Form.Control
                 size="sm"
@@ -245,34 +242,34 @@ export default function AddStory(props) {
               />
               <br />
               <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      columnGap: "20px",
-                    }}
-                  >
-              <Button
-                style={{ borderRadius: "20px" }}
-                variant="outline-danger"
-                onClick={() => {
-                  setadd(false);
+                item
+                xs={12}
+                md={12}
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  columnGap: "20px",
                 }}
               >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                style={{ borderRadius: "20px" }}
-                onClick={() => {
-                  save();
-                }}
-              >
-                Save
-              </Button>
-              
+                <Button
+                  style={{ borderRadius: "20px" }}
+                  variant="outline-danger"
+                  onClick={() => {
+                    setadd(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="primary"
+                  style={{ borderRadius: "20px" }}
+                  onClick={() => {
+                    save();
+                  }}
+                >
+                  Save
+                </Button>
+
               </Grid>
               <br />
             </Grid>
@@ -287,12 +284,12 @@ export default function AddStory(props) {
         edit === true && index === currentedited ? (
           <Paper style={{ height: "300x" }} elevation={3}>
             <Grid container spacing={0}>
-              <Grid className="stryimg" item xs={3} sm={3} style={{margin:'auto'}}>
+              <Grid className="stryimg" item xs={3} sm={3} style={{ margin: 'auto' }}>
                 <div {...getRootProps()} className="w-100">
                   <input {...getInputProps()} className="w-100" />
                   {eve.filetype === "png" ||
-                  eve.filetype === "jpg" ||
-                  eve.filetype === "jpeg" ? (
+                    eve.filetype === "jpg" ||
+                    eve.filetype === "jpeg" ? (
                     <img
                       src={eve.file === undefined ? " " : eve.file}
                       className="w-100 story-image"
@@ -310,81 +307,81 @@ export default function AddStory(props) {
                   )}
                 </div>
               </Grid>
-              <Grid className="stryimg" xs={12} md={8} style={{margin:'auto'}}>
-              <Form.Label style={{ fontWeight: 500 }}>Event Name</Form.Label>
-              <Form.Control
-                size="sm"
-                type="text"
-                placeholder="Event Name Here"
-                onChange={(e) => {
-                  setsubname(e.target.value);
-                }}
-                value={subname}
-                error={isError === true && subname === "" ? true : false}
-              />
-              <br />
-
-              <form noValidate>
-                <Form.Label style={{ fontWeight: 500 }}>Date</Form.Label>
+              <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }}>
+                <Form.Label style={{ fontWeight: 500 }}>Event Name</Form.Label>
                 <Form.Control
                   size="sm"
-                  type="datetime-local"
-                  placeholder="Edit Date"
-                  id="datetime-local"
-                  defaultValue="2017-05-24T10:30"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
+                  type="text"
+                  placeholder="Event Name Here"
                   onChange={(e) => {
-                    setdatetime(e.target.value);
+                    setsubname(e.target.value);
                   }}
-                  value={datetime}
-                />{" "}
+                  value={subname}
+                  error={isError === true && subname === "" ? true : false}
+                />
                 <br />
-              </form>
-              <Form.Label style={{ fontWeight: 500 }}>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Enter Description"
-                style={{ height: "100px" }}
-                onChange={(e) => {
-                  setdescription(e.target.value);
-                }}
-                value={description}
-                error={isError === true && description === "" ? true : false}
-              />
-              <br />
+
+                <form noValidate>
+                  <Form.Label style={{ fontWeight: 500 }}>Date</Form.Label>
+                  <Form.Control
+                    size="sm"
+                    type="datetime-local"
+                    placeholder="Edit Date"
+                    id="datetime-local"
+                    defaultValue="2017-05-24T10:30"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    onChange={(e) => {
+                      setdatetime(e.target.value);
+                    }}
+                    value={datetime}
+                  />{" "}
+                  <br />
+                </form>
+                <Form.Label style={{ fontWeight: 500 }}>Description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  placeholder="Enter Description"
+                  style={{ height: "100px" }}
+                  onChange={(e) => {
+                    setdescription(e.target.value);
+                  }}
+                  value={description}
+                  error={isError === true && description === "" ? true : false}
+                />
+                <br />
                 <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      columnGap: "20px",
+                  item
+                  xs={12}
+                  md={12}
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    columnGap: "20px",
+                  }}
+                >
+                  <Button
+                    style={{ borderRadius: "20px" }}
+                    variant="outline-danger"
+                    onClick={() => {
+                      setadd(false);
                     }}
                   >
-              <Button
-                style={{ borderRadius: "20px" }}
-                variant="outline-danger"
-                onClick={() => {
-                  setadd(false);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                style={{ borderRadius: "20px" }}
-                onClick={() => {
-                  save();
-                }}
-              >
-                Save
-              </Button>
-              
-              </Grid>
-              <br />
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="primary"
+                    style={{ borderRadius: "20px" }}
+                    onClick={() => {
+                      save();
+                    }}
+                  >
+                    Save
+                  </Button>
+
+                </Grid>
+                <br />
               </Grid>
             </Grid>
           </Paper>
@@ -393,8 +390,8 @@ export default function AddStory(props) {
             <Grid container spacing={0}>
               <Grid className="stryimg" item xs={5} sm={3}>
                 {eve.filetype === "png" ||
-                eve.filetype === "jpg" ||
-                eve.filetype === "jpeg" ? (
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
                   <img
                     src={eve.file === undefined ? " " : eve.file}
                     className="w-100  story-image"

@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
-import male from "../../Assets/Male.svg";
-import female from "../../Assets/Female.svg";
 import { useDropzone } from "react-dropzone";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,10 +7,6 @@ import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
 import ProfilePic from "../../Assets/ProfilePic.png"
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 
 export default function UserProfile(props) {
   const Auth = useSelector((state) => state.Auth);
@@ -46,7 +40,6 @@ export default function UserProfile(props) {
     accept: "image/jpeg, image/png, image/jpg",
   });
   const save = async () => {
-    debugger
     console.log(Image)
     if (Name === "" || DOB === "" || Gender === "") {
       setshowerror(true);

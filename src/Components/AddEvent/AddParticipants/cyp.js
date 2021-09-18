@@ -190,7 +190,7 @@ export default function NewAddParticipants(props) {
         await create_event();
     };
     const create_event = async () => {
-        debugger
+
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];

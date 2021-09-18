@@ -8,36 +8,29 @@ import NavMobile from "../Helpers/NavMobile/NavMobile";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
-import SendIcon from "../../Assets/ic-send.png";
 import { HiHome } from "react-icons/hi";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai"
 import { GoCalendar, GoLocation } from "react-icons/go"
-import CommentIcon from "../../Assets/comment-dot.png";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
-import Location from "../../Assets/Location.png";
 import history from "../../Utils/History";
-import LIKE from "../../Assets/LIKE.png";
-import RSVP from "../../Assets/RSVP.png";
 import LoginSignup from "../Auth/LoginSignup";
 import { FaUserFriends } from "react-icons/fa";
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
-import { IoArrowBackCircleOutline, IoSendSharp } from "react-icons/io5";
+import { IoSendSharp } from "react-icons/io5";
 import './Invitations.css'
 import './InvitationMain/InvitaionMain.css'
 import { addEvent } from '../../Redux/DispatchFuncitons/CodeFunctions'
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
-  const [showfulldescription, setshowfulldescription] = useState(false);
   const [show, setshow] = useState(false);
   const Auth = useSelector((state) => state.Auth);
   const myInvitations = useSelector((state) => state.Eventdata.myInvitations);
 
   const dispatch = useDispatch();
   useEffect(async () => {
-    debugger
     if (Auth.isLoggedIn === false) {
       if (props.match.params.maincode !== "" && props.match.params.Code !== "" && props.match.params.Code !== undefined) {
         await dispatch(addEvent(props.match.params.Code, props.match.params.maincode))
@@ -118,7 +111,6 @@ export default function Hoxinvitation(props) {
           Code: props.match.params.Code
         })
         .then(async (res) => {
-          debugger
           if (res.data.Status === "success") {
             let EVENTCPY = [...res.data.Events]
             //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
@@ -184,7 +176,7 @@ export default function Hoxinvitation(props) {
                 </Row>
               </Container>
               <Container className="container-event">
-              {eve.filetype === "png" ||
+                {eve.filetype === "png" ||
                   eve.filetype === "jpg" ||
                   eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
@@ -196,7 +188,7 @@ export default function Hoxinvitation(props) {
                     src={eve.file}
                     preload="none"
                     className="w-100"
-                    style={{height:'60vh', objectFit:'cover'}}
+                    style={{ height: '60vh', objectFit: 'cover' }}
                   />
                 )}
                 <Container className="box-event" fluid style={{ marginTop: "5vh" }}>

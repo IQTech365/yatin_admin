@@ -16,7 +16,6 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { formatRelative } from "date-fns";
 import "./Maps.css";
 import "@reach/combobox/styles.css";
 import Geocode from "react-geocode";

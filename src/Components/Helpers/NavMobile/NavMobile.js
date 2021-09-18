@@ -5,19 +5,17 @@ import {
   BiPhotoAlbum,
   BiCalendarEvent,
 } from "react-icons/bi";
-import { AiOutlineBell } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import "./NavMobile.css";
 import { AiOutlineShopping } from "react-icons/ai";
 import history from "../../../Utils/History";
-import { useSelector, useDispatch } from "react-redux";
-import { BiGift } from "react-icons/bi"
+import { useSelector, } from "react-redux";
+
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
 export default function NavMobile(props) {
 
   const [show, setshow] = useState(false);
-  const [maincode, setmaincode] = useState("");
   const [eventcode, seteventcode] = useState("");
   const Auth = useSelector((state) => state.Auth);
   const [ishost, setishost] = useState(false);

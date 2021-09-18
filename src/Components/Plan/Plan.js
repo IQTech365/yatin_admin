@@ -3,12 +3,7 @@ import "./Plan.css";
 import {
   Grid,
   Paper,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
 } from "@material-ui/core";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 function Plancard(props) {
   return (
     <Paper

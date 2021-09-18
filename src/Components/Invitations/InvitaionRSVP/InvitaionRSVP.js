@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import Header from "../../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import "./InvitaionRSVP.css";
 import { Carousel, Button } from "react-bootstrap";
-
 import CheckIcon from "@material-ui/icons/Check";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ErrorIcon from "@material-ui/icons/Error";
 import { rsvp_event, GetInvitations, GetEvents } from "../../../Redux/DispatchFuncitons/Eventfunctions";
-import history from "../../../Utils/History";
-import NavMobile from "../../Helpers/NavMobile/NavMobile";
-import DesktopNav from "../../Helpers/DesktopNav/DesktopNav";
-import Toggler from "../../Helpers/EventInvitoggler/Toggler";
 import { getNotification } from '../../../Redux/DispatchFuncitons/NotificationFunctions'
 export default function InvitaionRSVP(props) {
   const dispatch = useDispatch();
@@ -40,7 +34,7 @@ export default function InvitaionRSVP(props) {
 
   return (
     <>
-     {/*  <div className="desktop-only w-100" >
+      {/*  <div className="desktop-only w-100" >
         <Header className="desktop-only" />
       </div>
       <DesktopNav id={props.id} base={props.base} />

@@ -12,7 +12,7 @@ const allreducers = combineReducers({
   CreateEventForm: CreateEventForm,
   Chatdata: Chatdata,
   Notifications: Notifications,
-  Posts: Posts,
+
   CodeEvent: CodeEvent
 });
 export default allreducers;

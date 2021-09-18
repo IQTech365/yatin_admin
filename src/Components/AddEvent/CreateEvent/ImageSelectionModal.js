@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../../Assets/ChooseFromGallery.svg";

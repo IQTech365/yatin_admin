@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MobileHeader.css";
-import { Navbar, Container, Row, Col, Avatar, Image } from "react-bootstrap";
-import MobileLogo from "../../../Assets/MobileLogo.png";
+import { Navbar, Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import history from "../../../Utils/History";
-import { GetEvents } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 
 const MobileHeader = (props) => {
   const Auth = useSelector((state) => state.Auth);
@@ -19,7 +16,7 @@ const MobileHeader = (props) => {
           setishost(true);
         }
       });
-     console.log(props.Eventdata[0].Name);
+      console.log(props.Eventdata[0].Name);
     }
   }, [props.Eventdata]);
 

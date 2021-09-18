@@ -10,23 +10,16 @@ import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
 import history from "./Utils/History";
-import { useSelector } from "react-redux";
-import MobileAuth from "./Components/Auth/MobileAuth";
+import { useSelector, useDispatch } from "react-redux";
 import Home from "./Components/Home/Home";
 import AddEvent from "./Components/AddEvent/AddEvent";
 import Rsvp from "./Components/Invitations/RSVP/Rsvp";
 import AddEventSucess from "./Components/AddEvent/AddEventSucess";
-import Notification from "./Components/Notifications/Notification";
-import EventDone from "./Components/EventDone/EventDone";
-import AlertNotif from "./Components/Settings/AlertNotif/AlertNotif";
-import EnterCode from "./Components/Entercode/Entercode";
 import Chat from "./Components/Chat/Chat";
 import Feed from "./Components/Feed/Feed";
 import Comment from "./Components/Comments/Coments";
-import Blankpages from "./Components/BlankPages/404";
 import ShowSchedule from "./Components/Invitations/ShowSchedule";
 import InvitaionviewToggler from "./Components/Invitations/InvitaionviewToggler";
-import InvitaionMain from "./Components/Invitations/InvitationMain/InvitaionMain";
 import Locationofline from "./Components/Location Offline/LocationOffline";
 import Jitsi from "./Components/jitsi/Jitsivc";
 import GuestList from "./Components/Guest/Guest";
@@ -37,36 +30,43 @@ import EventAdmin from "./Components/Admin/EventAdmin";
 import ManageGuest from "./Components/Guest/ManageGuest";
 import EditEvent from "./Components/EditEvent/EditEvent";
 import HomePage from "./Components/HomePage/HomePage";
-import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum';
-import Gift from './Components/Gift/Gift'
-
+import Gift from './Components/Gift/Gift';
+import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
+import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
 function App() {
-
+  const dispatch = useDispatch()
   window.OneSignal = window.OneSignal || [];
   const OneSignal = window.OneSignal;
+  const Auth = useSelector((state) => state.Auth);
   useEffect(() => {
-    OneSignal.push(() => {
-      OneSignal.init({
-        appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
-      })
-    });
-  }, []);
-
-  useEffect(() => {
+    OneSignal.init({
+      appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
+    })
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
-  }, []
-  )
-  const Auth = useSelector((state) => state.Auth);
+  }, []);
+
+  useEffect(async () => {
+    const interval = setInterval(() => {
+      console.log("x")
+      if (Auth.isLoggedIn === true) {
+        dispatch(GetEvents());
+        dispatch(GetInvitations());
+      }
+    }, 10000);
+    //return () => clearInterval(interval);
+  }, []);
+
+
   if (Auth.isLoggedIn === false) {
     return (
       <Router history={history}>
         <div className="App">
 
           <Switch>
-          <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={HomePage} />
             <Route
               exact
               path="/MyInvitations/:maincode"
@@ -80,7 +80,7 @@ function App() {
 
             <Route exact path="/" component={HomePage} />
             <Route exact path="/*" component={Redirector} />
-           
+
           </Switch>
         </div>
       </Router>
@@ -225,7 +225,7 @@ function App() {
               path="/MyEvents/event-create-success/:id/:Share"
               component={AddEventSucess}
             />
-            <Route exact path="/MyEvents/add-event" component={AddEvent} />
+            <Route exact path="/MyEvents/edit/:id" component={CreateOrUpdate} />
             <Route exact path="/add-event" component={AddEvent} />
             <Route exact path="/user-profile" component={AddEvent} />
             <Route exact path="/home" component={Home} />

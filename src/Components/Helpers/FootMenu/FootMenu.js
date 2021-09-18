@@ -8,7 +8,7 @@ import history from "../../../Utils/History";
 import { useSelector } from "react-redux";
 import Popup from "../Popups/Popup";
 import UserProfile from "../../UserPorfile/UserProfile";
-import Entercode from "../../Entercode/Entercode";
+
 
 const useStyles = makeStyles((theme) => ({
   text: {
@@ -64,7 +64,7 @@ export default function FootMenu(props) {
             if (Auth.Name === "" || Auth.Name === undefined) {
               setuserInfopopup(true);
             } else {
-              history.push("MyEvents/add-event");
+              history.push("add-event");
             }
           }}
         >
@@ -100,7 +100,7 @@ export default function FootMenu(props) {
         component={UserProfile}
         toggleShowPopup={setuserInfopopup}
         showPopup={useiinfopopup}
-        url={"MyEvents/add-event"}
+        url={"add-event"}
       />
       {/* <Popup
         toggleShowPopup={toggleShowPopup}

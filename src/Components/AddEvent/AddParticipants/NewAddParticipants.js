@@ -2,36 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Access from "../../../Assets/AddAccess.svg";
 import "../AddEvent.css";
-import { Grid, Switch, Modal } from "@material-ui/core";
-import readXlsxFile from "read-excel-file";
+import { Grid, Modal } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { saveEvent } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { uploadString } from "../../../Utils/FileUpload_Download";
-import EventNameBox from "../CreateEvent/EventNameBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import AddCode from "./AddCode";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
-import {
-    Container,
-    Row,
-    Button,
-    ListGroup,
-    Tabs,
-    Tab,
-    Col,
-    Spinner,
-} from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-
 import * as XLSX from "xlsx";
-import { json } from "body-parser";
 import Addformultiple from './Addformultiple'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,14 +20,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function NewAddParticipants(props) {
-    const classes = useStyles();
     const [eventKey, setKey] = useState(0);
     const dispatch = useDispatch();
     const Eventdata = useSelector((state) => state.Eventdata);
     let supported = "";
     let attribute = ["name", "tel"];
     const opts = { multiple: true };
-    let Eventscpy = [...props.Events];
     const [EntryWay, setEntryWay] = useState("Code");
     const [code, setCodes] = useState([]);
     const [isMobile, SetIsMobile] = useState(false);
@@ -58,7 +34,8 @@ export default function NewAddParticipants(props) {
     const [participants, setParticipants] = useState([]);
     let Albumcpy = [];
     let Storycpy = [];
-    let codescpy = []
+    let codescpy = [];
+
     useEffect(async () => {
         supported = "contacts" in navigator && "ContactsManager" in window;
         if (supported === true) {
@@ -109,10 +86,10 @@ export default function NewAddParticipants(props) {
         await setParticipants([...particpantscpy]);
         return 1;
     }
+
     const openContactPicker = async () => {
         try {
             let ldata = [];
-            let number = "";
             const contacts = await navigator.contacts.select(attribute, opts);
             contacts.map(async (contact) => {
                 await ldata.push(contact.tel[0])
@@ -122,6 +99,7 @@ export default function NewAddParticipants(props) {
             console.log(err);
         }
     };
+
     const saverecipeients = async (data) => {
         let particpantscpy = [...participants];
         let contactlist = [];
@@ -152,7 +130,7 @@ export default function NewAddParticipants(props) {
     }
 
     const save = async () => {
-        debugger;
+
         await setEntryWay('Code')
 
         for (var i = 0; i < props.Events.length; i++) {
@@ -178,11 +156,9 @@ export default function NewAddParticipants(props) {
         await create_event();
     };
     const create_event = async () => {
-        debugger
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
-        let MainCode = "";
         for (let i = 0; i < EventCpy.length; i++) {
             let furl =
                 uniqueurl + "Event_image/" + i + EventCpy[i].Name.replaceAll(" ", "");
@@ -194,7 +170,6 @@ export default function NewAddParticipants(props) {
                 EventCpy[i].file = url;
                 EventCpy[i].GuestInvite = false
             }
-
         }
         await props.setEvents(EventCpy);
         if (Eventdata && Eventdata.ALBUM && Eventdata.ALBUM.length > 0) {

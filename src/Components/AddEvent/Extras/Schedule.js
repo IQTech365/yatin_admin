@@ -1,17 +1,11 @@
 import "./Extras.css";
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, IconButton } from "@material-ui/core";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { Grid, IconButton } from "@material-ui/core";
 import { Form, Button } from "react-bootstrap";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import CreateIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import BlankSchedule from "../../../Assets/BlankSchedule.svg";
 import { UpdateSchedules } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { useDispatch } from "react-redux";
@@ -107,7 +101,7 @@ export default function AddSchedule(props) {
 
   return (
     <Grid container spacing={0}>
-      <Grid item xs={12} md={8} style={{margin:'auto'}}>
+      <Grid item xs={12} md={8} style={{ margin: 'auto' }}>
         {subEvent.length > 0 || add === true ? (
           <>
             {subEvent.map((eve, index) => (
@@ -321,7 +315,7 @@ export default function AddSchedule(props) {
         )}
       </Grid>
       {add == true && props.IsAdmin === true ? (
-        <Grid item xs={12} md={8} style={{margin:'auto'}} className="mb-100">
+        <Grid item xs={12} md={8} style={{ margin: 'auto' }} className="mb-100">
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
               <Form.Label style={{ fontWeight: 500 }}>Schedule Name</Form.Label>

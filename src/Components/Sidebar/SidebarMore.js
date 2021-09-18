@@ -3,23 +3,22 @@ import "../Sidebar/Sidebar.css";
 import { IoArrowBackCircleOutline, IoCall } from "react-icons/io5";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import { Component } from "react";
 import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import DancingImg from "../../Assets/DancingImg.png";
 import { GoBook } from "react-icons/go";
-import { IoImagesSharp, IoPowerSharp, IoTrashOutline, IoShareSocialOutline } from "react-icons/io5";
+import { IoPowerSharp, IoTrashOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import {
   GetEvents,
   GetInvitations, deleteInvite
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
-
 import { logout } from '../../Redux/DispatchFuncitons/AuthFunctions'
 import { Modal } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
+
 export default function SidebarMore(props) {
   const [base, setbase] = useState("");
   const [ishost, setishost] = useState(false);
@@ -30,7 +29,6 @@ export default function SidebarMore(props) {
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
   const [showPopup, toggleShowPopup] = useState(false)
   useEffect(async () => {
-    debugger
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
