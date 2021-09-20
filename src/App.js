@@ -35,6 +35,7 @@ import ShowAlbum from './Components/Invitations/ShowAlbum';
 import Gift from './Components/Gift/Gift';
 import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
 import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
+import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions'
 function App() {
   const dispatch = useDispatch()
   window.OneSignal = window.OneSignal || [];
@@ -49,15 +50,17 @@ function App() {
   }, []);
 
   useEffect(async () => {
+    //    dispatch(getlist())
     const interval = setInterval(() => {
       console.log("x")
       if (Auth.isLoggedIn === true) {
         dispatch(GetEvents());
         dispatch(GetInvitations());
+        dispatch(getlist())
       }
     }, 10000);
     //return () => clearInterval(interval);
-  }, []);
+  }, [Auth.isLoggedIn]);
 
 
   if (Auth.isLoggedIn === false) {

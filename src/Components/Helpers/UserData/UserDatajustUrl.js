@@ -1,43 +1,29 @@
 import React, { useState, useEffect } from "react";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Avatar } from "@material-ui/core";
-import axios from "axios";
-import { url } from "../../../Utils/Config";
+import { useSelector } from "react-redux";
+import * as _ from "lodash";
 export default function UserDataUrl(props) {
   const [User, setUser] = useState({});
+  const GuestList = useSelector(state => state.GuestList)
+  const Auth = useSelector(state => state.Auth);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
-
-      axios
-        .post(url + "auth/getuserdetails", { Phone: props.Phone })
-        .then((res) => {
-          if (res.data.user) {
-            setUser(res.data.user);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return { err: "error 404" };
-        });
-    }
-  }, []);
-  useEffect(() => {
-    if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
-
-      axios
-        .post(url + "auth/getuserdetails", { Phone: props.Phone })
-        .then((res) => {
-          if (res.data.user) {
-            setUser(res.data.user);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return { err: "error 404" };
-        });
+      if (Auth.Phone === props.Phone) {
+        setUser({ Name: Auth.Name, Pic: Auth.Profile });
+      } else {
+        let i = _.findLastIndex(GuestList, function (o) { return o.Phone == props.Phone; });
+        if (i !== -1) {
+          await setUser(GuestList[i])
+        }
+        else {
+          await setUser({ Name: Auth.Phone, Pic: "" })
+        }
+      }
     }
   }, [props.Phone]);
+
   return (
     <>
       {props.showIcon === true ? (
