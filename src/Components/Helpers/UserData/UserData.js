@@ -21,7 +21,7 @@ export default function UserData(props) {
         }
       }
     }
-  }, [props.Phone]);
+  }, [props.Phone, GuestList]);
   return (
     <div className="w-100">
       {props.showIcon === true ? (

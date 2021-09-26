@@ -11,18 +11,19 @@ export default function UserDataUrl(props) {
   useEffect(async () => {
     if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
       if (Auth.Phone === props.Phone) {
-        setUser({ Name: Auth.Name, Pic: Auth.Profile });
+        await setUser({ Name: Auth.Name, Pic: Auth.Profile });
       } else {
         let i = _.findLastIndex(GuestList, function (o) { return o.Phone == props.Phone; });
         if (i !== -1) {
+          //  console.log(GuestList[i])
           await setUser(GuestList[i])
         }
         else {
-          await setUser({ Name: Auth.Phone, Pic: "" })
+          await setUser({ Name: props.Phone, Pic: "" })
         }
       }
     }
-  }, [props.Phone]);
+  }, [props.Phone, GuestList]);
 
   return (
     <>

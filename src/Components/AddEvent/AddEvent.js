@@ -207,19 +207,21 @@ export default function AddEvent(props) {
           setStory={setStory}
           template={events}
           className="p-15px"
-        /> : step.activeStep === 1 ? <AddParticipants
-          handleNext={handleNext}
-          handleBack={handleBack}
-          Events={Events}
-          setEvents={setEvents}
-          SelectEvent={SelectEvent}
-          SelectedEvent={SelectedEvent}
-          addAnEvent={addAnEvent}
-          removeAnEvent={removeAnEvent}
-          addfinalDetails={addfinalDetails}
-          Type={Type}
-          Story={Story}
-        /> : <></>}</>
+        /> :
+        step.activeStep === 1 ? <Plan handleNext={handleNext} handleBack={handleBack} /> :
+          step.activeStep === 2 ? <AddParticipants
+            handleNext={handleNext}
+            handleBack={handleBack}
+            Events={Events}
+            setEvents={setEvents}
+            SelectEvent={SelectEvent}
+            SelectedEvent={SelectedEvent}
+            addAnEvent={addAnEvent}
+            removeAnEvent={removeAnEvent}
+            addfinalDetails={addfinalDetails}
+            Type={Type}
+            Story={Story}
+          /> : <></>}</>
     )
     // switch (step.activeStep) {
     //   case 0:

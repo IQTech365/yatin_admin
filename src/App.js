@@ -5,7 +5,7 @@ import "./Scrollbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/swiper-bundle.min.css";
 import "react-modal-video/css/modal-video.min.css";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
@@ -34,10 +34,12 @@ import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum';
 import Gift from './Components/Gift/Gift';
 import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
+import { gettemplate } from './Redux/DispatchFuncitons/TemplateFunctions'
 import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
 import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions'
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [loop, setloop] = useState()
   window.OneSignal = window.OneSignal || [];
   const OneSignal = window.OneSignal;
   const Auth = useSelector((state) => state.Auth);
@@ -48,18 +50,25 @@ function App() {
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
   }, []);
-
+  let interval;
   useEffect(async () => {
-    //    dispatch(getlist())
-    const interval = setInterval(() => {
-      console.log("x")
-      if (Auth.isLoggedIn === true) {
+    dispatch(gettemplate())
+    if (Auth.isLoggedIn === true) {
+      dispatch(gettemplate())
+      interval = setInterval(() => {
+
         dispatch(GetEvents());
         dispatch(GetInvitations());
         dispatch(getlist())
-      }
-    }, 10000);
-    //return () => clearInterval(interval);
+      }, 10000);
+      await setloop(interval)
+    } else {
+
+      await clearInterval(loop);
+      await setloop()
+    }
+
+
   }, [Auth.isLoggedIn]);
 
 

@@ -7,7 +7,7 @@ import axios from "axios";
 import { url } from "../../../Utils/Config";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CanvasEditor from "./CanvasEditor";
-
+import { useSelector } from "react-redux";
 export default function ImageSelectionModal(props) {
   const [Show, setswitch] = useState(false);
   const onDrop = useCallback(async (acceptedFiles) => {
@@ -73,8 +73,10 @@ export function ImageSelectionModalTemplates(props) {
   ]);
   const [currentimage, setcurrentimage] = useState(0);
   const [SelectedImage, setSelectedImage] = useState("");
+  const [SelectedTemplate, setSelectedTemplate] = useState("");
   const [isImageSelected, setisImageSelected] = useState(false);
   const [loadedRemoteImgs, setloadedRemoteImgs] = useState(false);
+  const AllTemplates = useSelector(state => state.AllTemplates)
   const save = async (file) => {
     let EventsCpy = await { ...props.CurrentEventDetails };
     EventsCpy.file = file;
@@ -84,20 +86,12 @@ export function ImageSelectionModalTemplates(props) {
     // props.show(false);
   };
 
-  useEffect(() => {
-    axios
-      .post(url + "template/gettemplate", {
-        Category: props.Type,
-      })
-      .then(async (res) => {
-        if (res.data.Templates.length > 0) {
-          setallimgsforcategory(res.data.Templates);
-          setloadedRemoteImgs(true)
-        } else {
-          setloadedRemoteImgs(false)
-        }
-      })
-      .catch(() => { });
+  useEffect(async () => {
+    let AllTemplatescpy = await AllTemplates.filter(async (temps, index) => {
+      return temps.Category === props.Type;
+    });
+    await setallimgsforcategory(AllTemplatescpy);
+    await setloadedRemoteImgs(true)
   }, []);
 
   return (
@@ -107,7 +101,7 @@ export function ImageSelectionModalTemplates(props) {
           <div>
             <div style={{ width: "100%", height: "300px" }}>
               <img
-                src={allimgsforcategory[currentimage].Url}
+                src={allimgsforcategory[currentimage].urlToImage[0].src}
                 style={{ width: "100%", height: "299px" }}
               />
               <div
@@ -126,7 +120,7 @@ export function ImageSelectionModalTemplates(props) {
                     borderRadius: "100%",
                   }}
                   onClick={() => {
-                    save(allimgsforcategory[currentimage].Url);
+                    save(allimgsforcategory[currentimage].urlToImage[0].src);
                   }}
                   fontSize="large"
                 />
@@ -142,7 +136,7 @@ export function ImageSelectionModalTemplates(props) {
             >
               {allimgsforcategory.map((img, index) => (
                 <img
-                  src={img.Url}
+                  src={img.urlToImage[0].src}
                   style={{ width: "50px", height: "50px" }}
                   onClick={() => {
                     setcurrentimage(index);
@@ -158,6 +152,9 @@ export function ImageSelectionModalTemplates(props) {
           SetCurrentEventDetails={props.SetCurrentEventDetails}
           EventsCpy={props.CurrentEventDetails}
           show={props.show}
+          currentimage={currentimage}
+          setcurrentimage={setcurrentimage}
+          allimgsforcategory={allimgsforcategory}
         />
       )}
     </>
