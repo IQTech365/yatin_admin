@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import './CanvasEditor.scss'
 import { toPng } from 'html-to-image';
+import { Grid } from "@material-ui/core";
 export default function CanvasEditor(props) {
     const [version, setversion] = useState(0);
     const download = async () => {
@@ -59,23 +60,26 @@ export default function CanvasEditor(props) {
                 ))}
 
             </div>
-            <div className="choose-colors">
-                {props.allimgsforcategory[props.currentimage].urlToImage.map((options, index) => (
-                    <Button
-                        className="color-blocks"
-                        style={{ backgroundColor: options.color }}
-                        onClick={() => {
-                            setversion(index)
-                        }}
-                    ></Button>
-                ))}
-
-            </div>
-            <button className="save-event" style={{ marginTop: '5px' }} onClick={() => {
-                download()
-            }}>
-                Save
-            </button>
+            <Grid container spacing={0}>
+                <Grid item xs={6} justify="center"><center style={{ paddingTop: '10px' }}>
+                    {props.allimgsforcategory[props.currentimage].urlToImage.map((options, index) => (
+                        <Button
+                            className="color-blocks"
+                            style={{ backgroundColor: options.color }}
+                            onClick={() => {
+                                setversion(index)
+                            }}
+                        ></Button>
+                    ))}</center>
+                </Grid>
+                <Grid item xs={6}>
+                    <button className="save-event" style={{ marginTop: '5px' }} onClick={() => {
+                        download()
+                    }}>
+                        Save
+                    </button>
+                </Grid>
+            </Grid>
 
 
         </>
