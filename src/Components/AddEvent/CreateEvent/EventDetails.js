@@ -14,6 +14,7 @@ import Map from "../../Helpers/Maps/Maps";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
+import {BsInfoCircleFill} from "react-icons/bs"
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -134,7 +135,7 @@ export default function EventDetails(props) {
     <Grid container spacing={1} className="p-15px pt-0">
       <Grid item xs={12} sm={12}>
         {CurrentEventDetails !== undefined &&
-          CurrentEventDetails.file === "" ? (
+        CurrentEventDetails.file === "" ? (
           <center>
             <img
               src={AddImg}
@@ -149,8 +150,8 @@ export default function EventDetails(props) {
         ) : CurrentEventDetails !== undefined &&
           CurrentEventDetails.filetype !== undefined ? (
           CurrentEventDetails.filetype === "png" ||
-            CurrentEventDetails.filetype === "jpg" ||
-            CurrentEventDetails.filetype === "jpeg" ? (
+          CurrentEventDetails.filetype === "jpg" ||
+          CurrentEventDetails.filetype === "jpeg" ? (
             <img
               src={
                 CurrentEventDetails !== undefined
@@ -377,7 +378,7 @@ export default function EventDetails(props) {
               }}
               value="Online-Inapp"
             >
-              Online-Inapp
+              OnlineInApp
             </MenuItem>
             <MenuItem
               className="w-100-p"
@@ -440,13 +441,13 @@ export default function EventDetails(props) {
             placeholder="Add Link Below"
             value={
               CurrentEventDetails.VenueType === "Online" ||
-                CurrentEventDetails.VenueType === "Both"
+              CurrentEventDetails.VenueType === "Both"
                 ? CurrentEventDetails.Link
                 : "Meeting Created"
             }
             disabled={
               CurrentEventDetails.VenueType === "Online" ||
-                CurrentEventDetails.VenueType === "Both"
+              CurrentEventDetails.VenueType === "Both"
                 ? false
                 : true
             }
@@ -475,7 +476,7 @@ export default function EventDetails(props) {
           sm={CurrentEventDetails.VenueType === "Offline" ? 7 : 12}
           className={
             CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Online-Inapp"
+            CurrentEventDetails.VenueType === "Online-Inapp"
               ? "hide"
               : "show"
           }
@@ -512,15 +513,15 @@ export default function EventDetails(props) {
                     border: "Solid 2px #3897f1",
                     borderRadius: "150px",
                     padding: "8px",
-                    position: 'relative',
-                    bottom: '6px'
+                    position: "relative",
+                    bottom: "6px",
                   }}
                 >
                   {Location === ""
                     ? "Please Enter A location"
                     : Location.length > 25
-                      ? Location.substring(0, 25)
-                      : Location}
+                    ? Location.substring(0, 25)
+                    : Location}
                 </div>
               </Grid>
             </Grid>
@@ -531,62 +532,28 @@ export default function EventDetails(props) {
                 ? "error"
                 : "hide"
             }
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           >
             Please add Location
           </span>
         </Grid>
-        {/* <Grid
-          item
-          xs={isEditLocation === true ? 1 : false}
-          sm={isEditLocation === true ? 1 : false}
-          className={
-            CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Online-Inapp"
-              ? "hide"
-              : "show"
-          }
-        >
-          {isEditLocation === true ? (
+        <Grid item xs={12}>
+          <p style={{textAlign:"right", fontSize:"12px"}}><BsInfoCircleFill />
 
-            <p style={{ display: 'flex', justifyContent: 'left' }}>   <SaveIcon
-              onClick={() => {
-                setisEditLocation(false);
-              }}
-              style={{ position: "relative", color: "green" }}
-            />Save</p>
-
-          ) : (
-            <></>
-          )}
-        </Grid> */}
+            {CurrentEventDetails.VenueType === "Online"
+              ? " Add Your Zoom Other Links"
+              : CurrentEventDetails.VenueType === "Online-Inapp"
+              ? " No Further Action Required"
+              : CurrentEventDetails.VenueType === "Offline"
+              ? " Add Your Location"
+              : " Add Your Location and Meeting Link"}
+          </p>
+        </Grid>
       </>
 
       <Grid item xs={12}>
         <span className="label">Description</span>
-        {/* <TextField
-          id="standard-name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused,
-            },
-          }}
-          InputProps={{
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-            },
-            inputMode: "numeric"
-          }}
-        /> */}
+
         <TextField
           id="outlined-basic"
           // label="Description"
@@ -605,11 +572,7 @@ export default function EventDetails(props) {
               ? true
               : false
           }
-          // InputProps={{
-          //   classes: {
-          //     notchedOutline: classes.notchedOutline,
-          //   },
-          // }}
+         
           multiline={true}
           rows={2}
         />
@@ -634,9 +597,7 @@ export default function EventDetails(props) {
         />
       </Grid> */}
 
-
       {/* Album, Schdedule and Story Commented Below */}
-
 
       {/*      <Grid
         item
@@ -778,7 +739,7 @@ export default function EventDetails(props) {
         <></>
       )} */}
 
-      <Grid item xs={12} >
+      <Grid item xs={12}>
         <button
           className={
             props.disablesave === false
@@ -790,7 +751,7 @@ export default function EventDetails(props) {
               save();
             }
           }}
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: "20px" }}
         >
           Next
         </button>

@@ -319,6 +319,7 @@ export default function NewAddParticipants(props) {
                     onClick={() => {
                         props.handleBack();
                     }}
+                    style={{position:'fixed', bottom:'-2px'}}
                 >
                     Back
                 </button>

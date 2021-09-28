@@ -195,6 +195,7 @@ export default function AddEventSucess(props) {
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
+              style={{position:'fixed', bottom: '0', right: '0'}}
               onClick={() => {
                 if (props.match.params.Share === undefined) {
                   history.push("/");

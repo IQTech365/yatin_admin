@@ -204,6 +204,7 @@ export default function AddStory(props) {
                 size="sm"
                 type="text"
                 placeholder="Event Name Here"
+                style={{borderRadius:'20px'}}
                 onChange={(e) => {
                   setsubname(e.target.value);
                 }}
@@ -218,6 +219,7 @@ export default function AddStory(props) {
                   type="datetime-local"
                   placeholder="Edit Date"
                   id="datetime-local"
+                  style={{borderRadius:'20px'}}
                   defaultValue="2017-05-24T10:30"
                   InputLabelProps={{
                     shrink: true,
@@ -233,7 +235,7 @@ export default function AddStory(props) {
               <Form.Control
                 as="textarea"
                 placeholder="Enter Description"
-                style={{ height: "100px" }}
+                style={{ height: "100px", borderRadius:'20px' }}
                 onChange={(e) => {
                   setdescription(e.target.value);
                 }}

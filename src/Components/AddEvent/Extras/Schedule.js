@@ -330,6 +330,7 @@ export default function AddSchedule(props) {
                   className: "nounder",
                 }}
                 value={subname}
+                style={{borderRadius:'20px'}}
               />
 
               <br />
@@ -348,6 +349,7 @@ export default function AddSchedule(props) {
                   onChange={(e) => {
                     setdatetime(e.target.value);
                   }}
+                  style={{borderRadius:'20px'}}
                   value={datetime}
                 />
               </form>
@@ -361,6 +363,7 @@ export default function AddSchedule(props) {
                   setdescription(e.target.value);
                 }}
                 value={description}
+                style={{borderRadius:'20px'}}
                 InputProps={{
                   className: "nounder",
                 }}
@@ -373,6 +376,7 @@ export default function AddSchedule(props) {
                 size="sm"
                 type="text"
                 placeholder="Enter Link"
+                style={{borderRadius:'20px'}}
                 InputProps={{
                   className: "nounder",
                 }}
@@ -412,19 +416,6 @@ export default function AddSchedule(props) {
                 Save
               </Button>
 
-              {/* <center>
-                {props.CurrentEventDetails.VenueType === "Online" ? (
-                  <ControlPointIcon
-                    className="schedule-l-icon"
-                    fontSize={"large"}
-                  />
-                ) : (
-                  <LocationOnRoundedIcon
-                    className="schedule-l-icon"
-                    fontSize={"large"}
-                  />
-                )}
-              </center> */}
             </Grid>
             <Grid item xs={8} md={10}></Grid>
             <Grid item xs={4} md={2}></Grid>
