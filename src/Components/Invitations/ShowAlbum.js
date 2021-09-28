@@ -1,29 +1,22 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./AlbumStyle.css";
 import AlbumsNone from "../../Assets/AlbumsNone.jpg";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import { IoChevronBackCircleOutline } from "react-icons/io5";
-import { IconButton } from "@material-ui/core";
-import ImageGallery from "react-image-gallery";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Header from "../Helpers/Header/Header";
 import MobileNav from "../Helpers/NavMobile/NavMobile.js";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav.js";
 import "react-image-gallery/styles/css/image-gallery.css";
-import BlankSchedule from "../../Assets/NOAlbums.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import { useDropzone } from "react-dropzone";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { uploadfiletoalbum } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import SaveIcon from "@material-ui/icons/Save";
-import Popup from "../Helpers/Popups/Popup";
 import Addtoalbum from "./Addtoalbum";
-import Swiper from "react-id-swiper";
 import { useSwipeable } from 'react-swipeable';
+
 export default function ShowAlbum(props) {
   const [isUploaded, setisUploaded] = useState(false);
   const [Eventdata, setEventdata] = useState([]);

@@ -22,6 +22,7 @@ export default function Addformultiple(props) {
     await setparticipants(props.participants);
     await setwidth(100 / props.Events.length + "vw");
   }, [props.participants]);
+
   const readExcel = async (file) => {
     const fileReader = new FileReader();
     await fileReader.readAsArrayBuffer(file);
@@ -37,6 +38,7 @@ export default function Addformultiple(props) {
       console.log(error);
     };
   };
+
   const DeleteThisContact = (index) => {
     let particpantscpy = [...props.participants];
     let NexteventKey = parseInt(props.eventKey) + 1;
@@ -101,7 +103,7 @@ export default function Addformultiple(props) {
             ))}
         </Tabs>
         <Row>
-          <Col xs={12} md={12} style={{display: "flex"}}>
+          <Col xs={12} md={12} style={{ display: "flex" }}>
             {props.isMobile === true ? (
               <Button
                 variant="outline-primary"
@@ -143,7 +145,7 @@ export default function Addformultiple(props) {
               </>
             )}
           </Col>
-          <Col xs={12} md={12} style={{marinTop: 10}}>
+          <Col xs={12} md={12} style={{ marinTop: 10 }}>
             <Button
               variant="outline-primary"
               onClick={() => {
@@ -151,11 +153,11 @@ export default function Addformultiple(props) {
               }}
               style={{
                 display:
-                  props.eventKey == props.Events.length - 1 ? "none" : "block", borderRadius: 20, marginTop:20
+                  props.eventKey == props.Events.length - 1 ? "none" : "block", borderRadius: 20, marginTop: 20
               }}
               className="addcontacts_btn"
             >
-             Copy to Next Invite
+              Copy to Next Invite
               <FaArrowRight />
             </Button>
           </Col>

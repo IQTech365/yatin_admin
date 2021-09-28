@@ -10,7 +10,6 @@ import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { getposts } from "../../Redux/DispatchFuncitons/postfunctions";
 import { getNotification } from "../../Redux/DispatchFuncitons/NotificationFunctions";
 import { getChats } from "../../Redux/DispatchFuncitons/Chatgroupfunctions";
 import { addme } from "../../Redux/DispatchFuncitons/Eventfunctions";
@@ -42,13 +41,10 @@ export default function Home(props) {
 
   }, []);
   useEffect(async () => {
-    const interval = setInterval(() => {
-      dispatch(GetEvents());
-      dispatch(GetInvitations());
-      dispatch(getNotification());
-      dispatch(getChats());
-    }, 30000);
-
+    dispatch(GetEvents());
+    dispatch(GetInvitations());
+    dispatch(getNotification());
+    dispatch(getChats());
   }, []);
 
   return (

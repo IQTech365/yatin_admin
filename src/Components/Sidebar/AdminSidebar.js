@@ -1,9 +1,8 @@
 import React from "react";
 import "../Sidebar/Sidebar.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { Component } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
@@ -33,13 +32,13 @@ export default function AdminSidebar(props) {
         <Row>
           <Col>
             <p style={{
-                fontWeight: 600,
-                fontSize: 20,
-                paddingLeft: "10px",
-                marginBottom: 20,
-                marginTop: 20,
-            
-              }}>
+              fontWeight: 600,
+              fontSize: 20,
+              paddingLeft: "10px",
+              marginBottom: 20,
+              marginTop: 20,
+
+            }}>
               <IoArrowBackCircleOutline
                 size={30}
                 onClick={() => {

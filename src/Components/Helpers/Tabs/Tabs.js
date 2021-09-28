@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Tabs.css";
 import { Grid } from "@material-ui/core";
 export default function Tabs() {

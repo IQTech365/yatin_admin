@@ -1,12 +1,9 @@
 import React, { useCallback, useState, useEffect } from "react";
 import {
   Grid,
-  InputLabel,
   Select,
   FormControl,
-  Modal,
 } from "@material-ui/core";
-import CancelIcon from "@material-ui/icons/Cancel";
 import { useDropzone } from "react-dropzone";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -14,7 +11,6 @@ import EventNameBox from "./EventNameBox";
 import AddImg from "../../../Assets/AddImage.svg";
 import Uploading from "../../../Assets/Uploading.svg";
 import EventDetails from "./EventDetails";
-import ImageSelectionModal from "./ImageSelectionModal";
 import "./CreateEvent.css";
 import { makeStyles } from "@material-ui/core/styles";
 export default function CreateEvent(props) {
@@ -26,7 +22,7 @@ export default function CreateEvent(props) {
       color: "#3897f1 !important",
     },
   }));
-  const classes = useStyles();
+
   const [disablesave, setDisablesave] = useState(false);
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
@@ -38,7 +34,7 @@ export default function CreateEvent(props) {
     multiple: false,
     accept: "image/jpeg, image/png, image/jpg, video/mp4 ",
   });
-  const [showPopup, toggleShowPopup] = useState(false);
+
   const [url, seturl] = useState(AddImg);
   useEffect(() => {
     if (

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Helpers/Header/Header.js";
-import Toggler from "../Helpers/EventInvitoggler/Toggler.js";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "./EventAdmin.css";
 import Chart from "react-apexcharts";
@@ -9,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import { url } from "../../Utils/Config";
 import axios from "axios";
-import { GetEvents, GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import { GetEvents } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import { Grid } from "@material-ui/core";
 export default function EventAdmin(props) {
@@ -20,7 +19,6 @@ export default function EventAdmin(props) {
   });
   const [series, setseries] = useState([1, 1, 1, 1]);
   const [comment, setcomment] = useState("");
-  const [base, setbase] = useState("")
   const Auth = useSelector((state) => state.Auth);
   const [Eventdata, setEventdata] = useState("")
   const [Rsvplist, setRsvplist] = useState([])
@@ -39,7 +37,6 @@ export default function EventAdmin(props) {
       let Host = []
       let all = []
       await setEventdata(MyEvents[props.match.params.id][props.match.params.eid])
-      await setRsvplist(MyEvents[props.match.params.id][props.match.params.eid])
       await setRsvplist(MyEvents[props.match.params.id][props.match.params.eid].RSVPList)
       Participants = MyEvents[props.match.params.id][props.match.params.eid].Participants;
       Host = MyEvents[props.match.params.id][props.match.params.eid].Host;

@@ -5,8 +5,8 @@ import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import { useDispatch, useSelector } from "react-redux";
-import { SAVESTORY, DELETESTORY } from "../../../Redux/Actions/EventActions";
+import { useDispatch } from "react-redux";
+import { SAVESTORY } from "../../../Redux/Actions/EventActions";
 import CreateIcon from "@material-ui/icons/Create";
 
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";

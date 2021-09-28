@@ -1,173 +1,108 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Tab, Tabs } from "react-bootstrap";
+import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
+import { IoMdPersonAdd } from "react-icons/io";
 import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
-import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import { useSelector, useDispatch } from "react-redux";
 import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { Grid } from '@material-ui/core'
+import { Grid } from "@material-ui/core";
 import StarsIcon from "@material-ui/icons/Stars";
-import { addCohost, removeCohost } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import _ from 'lodash';
-import Backdrop from '@material-ui/core/Backdrop';
+import {
+  addCohost,
+  removeCohost,
+} from "../../Redux/DispatchFuncitons/Eventfunctions";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import _ from "lodash";
+import Backdrop from "@material-ui/core/Backdrop";
+
 export default function Guest(props) {
-  const [Events, setEvents] = useState([]);
-  const [shouldchange, setshouldchange] = useState(false);
-  const [eid, seteid] = useState("");
-  const [guestList, setguestList] = useState([]);
+  const dispatch = useDispatch();
+  let MyEvents = useSelector((state) => state.Eventdata.myEvents);
+  let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
+  const Auth = useSelector((state) => state.Auth);
   const [Hosts, setHosts] = useState([]);
+  const [guestList, setguestList] = useState([]);
   const [guestListaccept, setguestListaccept] = useState([]);
   const [guestListdecline, setguestListdecline] = useState([]);
   const [guestListmaybe, setguestListmaybe] = useState([]);
+  const [shouldchange, setshouldchange] = useState(false);
+  const [eid, seteid] = useState("");
   const [isAdmin, setisAdmin] = useState(false);
-  const dispatch = useDispatch();
-  const [Eventdata, setEventdata] = useState([]);
   const [base, setbase] = useState("");
-  const Auth = useSelector((state) => state.Auth);
-  let MyEvents = useSelector((state) => state.Eventdata.myEvents);
-  let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
-
   useEffect(async () => {
-    // if (shouldchange === false) {
     let RSVPList = [];
     let Participants = [];
+    let accept = [];
+    let decline = [];
+    let maybe = [];
     let data = [];
-    if (MyEvents.length === 0 && myInvitations.length === 0) {
-      await dispatch(GetEvents());
-      await dispatch(GetInvitations());
+    let all = [];
+    if (
+      props.location.pathname ===
+      "/MyEvents/guestlist/" +
+      props.match.params.id +
+      "/" +
+      props.match.params.invno &&
+      MyEvents.length > 0
+    ) {
+      data = MyEvents[props.match.params.id][props.match.params.invno];
+      await setbase("MyEvents");
     } else {
-      if (
-        props.location.pathname ===
-        "/MyEvents/guestlist/" +
-        props.match.params.id +
-        "/" +
-        props.match.params.invno &&
-        MyEvents.length > 0
-      ) {
-        await setEventdata(MyEvents[props.match.params.id]);
-        await setbase("MyEvents");
-        await setEvents(Eventdata);
-        data = MyEvents[props.match.params.id][props.match.params.invno];
-        console.log(data.RSVPList);
-        await setHosts(data.Host);
-        await seteid(data._id);
-        RSVPList = data.RSVPList;
-        if (data.Host.includes(Auth.Phone)) {
-          setisAdmin(true);
-        } else {
-          setisAdmin(false);
-        }
-        Participants = [...data.Participants, ...data.Host];
-        await setguestList(Participants);
+      data = myInvitations[props.match.params.id][props.match.params.invno];
+      await setbase("inv");
+    }
 
-      } else if (
-        props.location.pathname ===
-        "/inv/guestlist/" +
-        props.match.params.id +
-        "/" +
-        props.match.params.invno &&
-        myInvitations.length > 0
-      ) {
-        data = myInvitations[props.match.params.id][props.match.params.invno];
-        await setEventdata(myInvitations[props.match.params.id]);
-        await setbase("inv");
-        await setEvents(Eventdata);
-        RSVPList = data.RSVPList;
-        await setHosts(data.Host);
-        if (data.Host.includes(Auth.Phone)) {
-          setisAdmin(true);
-        } else {
-          setisAdmin(false);
+    RSVPList = _.orderBy(data.RSVPList, "By", "asc");
+    Participants = [...data.Participants, ...data.Host].sort();
+    await setguestList(Participants);
+    await setHosts(data.Host);
+    await seteid(data._id);
+    if (data.Host.includes(Auth.Phone)) {
+      await setisAdmin(true);
+    } else {
+      await setisAdmin(false);
+    }
+    RSVPList.map((rsvp) => {
+      if (Participants.includes(rsvp.By)) {
+        if (rsvp.Status === "Accept") {
+          accept.push(rsvp);
         }
-        await seteid(data._id);
-        Participants = [...data.Participants, ...data.Host];
-        await setguestList(Participants);
-
+        if (rsvp.Status === "Decline") {
+          decline.push(rsvp);
+        }
+        if (rsvp.Status === "May Be") {
+          maybe.push(rsvp);
+        }
       }
+    });
+    let allrsvp = [...accept, ...decline, ...maybe];
 
-      let accept = [];
-      let decline = [];
-      let maybe = [];
-
-      RSVPList.map((rsvp) => {
-        if (Participants.includes(rsvp.By)) {
-          if (rsvp.Status === "Accept") {
-            accept.push(rsvp);
-          }
-          if (rsvp.Status === "Decline") {
-            decline.push(rsvp);
-          }
-          if (rsvp.Status === "May Be") {
-            maybe.push(rsvp);
-          }
-        }
-      });
-
-      let all = [];
-      let allrsvp = accept.concat(decline);
-      allrsvp = allrsvp.concat(maybe);
+    for (let i = 0; i < Participants.length; i++) {
       let Status = "Invited";
-      for (let j = 0; j < Participants.length; j++) {
-        let Status = "Invited";
-        let found = false;
-        for (let k = 0; k < allrsvp.length; k++) {
-          if (
-            allrsvp[k].By === Participants[j] ||
-            allrsvp[k].By === "+91" + Participants[j]
-          ) {
-            Status = allrsvp[k].Status;
-            found = true;
-            break;
-          } else {
-            console.log("x");
-          }
+      let found = false;
+      for (let j = 0; j < allrsvp.length; j++) {
+        if (allrsvp[j].By === Participants[i]) {
+          found = true;
+          Status = allrsvp[j].Status;
         }
-
-        if (Participants[j].toString().startsWith("+")) {
-          all.push({ By: Participants[j], Status: Status });
-        } else {
-          all.push({ By: "+91" + Participants[j], Status: Status });
-        }
-        found = false;
       }
-      all = _.uniqBy(all, 'By');
-      accept = _.uniqBy(accept, 'By');
-      decline = _.uniqBy(decline, 'By');
-      maybe = _.uniqBy(maybe, 'By');
-      setguestList(all);
-      setguestListaccept(accept);
-      setguestListdecline(decline);
-      setguestListmaybe(maybe);
+      all.push({ By: Participants[i], Status: Status });
+      found = false;
     }
-    //   if (Participants.length > 0) {
-    //     await setshouldchange(true)
-    //   }
-    // }
+    await setshouldchange(true);
+    await setguestList(all);
+    await setguestListaccept(accept);
+    await setguestListdecline(decline);
+    await setguestListmaybe(maybe);
   }, [myInvitations, MyEvents]);
-
-  useEffect(() => {
-    if (shouldchange === false) {
-      setTimeout(() => setshouldchange(true), 3000);
-    }
-  }, [shouldchange])
   return (
-    <>
-      <Backdrop style={{
-        display: shouldchange === false ? 'block' : 'none',
-
-      }} open={shouldchange} >
-        <CircularProgress style={{
-          position: 'fixed', left: '45vw', top: '45vh',
-        }} />
-      </Backdrop>
-
+    <div>
       <div className="desktop-only w-100">
         <Header className="desktop-only" />
       </div>
@@ -210,7 +145,7 @@ export default function Guest(props) {
                   );
                 }}
               >
-                <SupervisedUserCircleIcon />
+                <IoMdPersonAdd />
                 <span className="manage_guest">Manage Guests</span>
               </span>
             ) : (
@@ -219,13 +154,19 @@ export default function Guest(props) {
           </Col>
         </Row>
 
-        <Row style={{ fontSize: '14px', fontWeight: '600', marginLeft: "auto" }}>
+        <Row
+          style={{
+            fontSize: "14px",
+            fontWeight: "600",
+            marginLeft: "auto",
+            marginTop: 20,
+          }}
+        >
           <Col>
-            <Tabs defaultActiveKey="All">
+            <Tabs defaultActiveKey="All" className="tabs_guestlist">
               <Tab eventKey="All" title="All">
                 {guestList.map((guest) => (
                   <Grid className="p-5px" container spacing={0}>
-
                     <Grid item xs={2} md={1}>
                       <Userdataurl showIcon={true} Phone={guest.By} />
                     </Grid>
@@ -253,40 +194,60 @@ export default function Guest(props) {
                       {isAdmin === true ? (
                         Hosts.includes(guest.By) === false ? (
                           <>
-                            <button
-                              className="addHostButton"
-                              onClick={async () => {
-                                setshouldchange(false)
-                                await dispatch(addCohost(eid, guest.By));
-
-                              }}
-
-                            >
-                              {shouldchange === false ? <>...</> :
-                                <>  <StarsIcon /> Add Co-Host</>}
-                            </button>
+                            {shouldchange === false ? (
+                              <>...</>
+                            ) : (
+                              <button
+                                className="addHostButton"
+                                onClick={async () => {
+                                  setshouldchange(false);
+                                  await dispatch(addCohost(eid, guest.By));
+                                }}
+                                onDoubleClick={async () => {
+                                  setshouldchange(false);
+                                  await dispatch(addCohost(eid, guest.By));
+                                }}
+                              >
+                                <>
+                                  {" "}
+                                  <StarsIcon /> Add Co-Host
+                                </>
+                              </button>
+                            )}
                           </>
-                        ) : (
-                          guest.By !== Auth.Phone ?
-                            <center>
+                        ) : guest.By !== Auth.Phone ? (
+                          <center>
+                            {" "}
+                            {shouldchange === false ? (
+                              <>...</>
+                            ) : (
                               <button
                                 className="removeHostButton"
                                 onClick={async () => {
-                                  setshouldchange(false)
+                                  setshouldchange(false);
                                   await dispatch(removeCohost(eid, guest.By));
                                 }}
-
+                                onDoubleClick={async () => {
+                                  setshouldchange(false);
+                                  await dispatch(removeCohost(eid, guest.By));
+                                }}
                               >
-                                {shouldchange === false ? <>...</> :
-                                  <>  <StarsIcon /> Remove</>}
+                                <>
+                                  {" "}
+                                  <StarsIcon /> Remove
+                                </>
                               </button>
-                            </center> : <center><StarsIcon /></center>
+                            )}
+                          </center>
+                        ) : (
+                          <center>
+                            <StarsIcon />
+                          </center>
                         )
                       ) : (
                         <></>
                       )}
                     </Grid>
-
                   </Grid>
                 ))}
               </Tab>
@@ -388,6 +349,6 @@ export default function Guest(props) {
           </Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }

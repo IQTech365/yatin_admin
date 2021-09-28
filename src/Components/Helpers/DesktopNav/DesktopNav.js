@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 import { BiNews } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { Container, Row, Col, Dropdown, DropdownButton, Button } from "react-bootstrap";
@@ -8,12 +7,12 @@ import history from "../../../Utils/History";
 import { useSelector, useDispatch } from "react-redux";
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
-import { GoBook } from "react-icons/go";
-import { IoImagesSharp, IoPowerSharp } from "react-icons/io5";
+import { IoImagesSharp } from "react-icons/io5";
 import { deleteInvite } from '../../../Redux/DispatchFuncitons/Eventfunctions'
 import { Modal } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { IconButton } from "@material-ui/core";
+
 export default function DesktopNav(props) {
   const dispatch = useDispatch();
   const Auth = useSelector((state) => state.Auth);
@@ -52,22 +51,22 @@ export default function DesktopNav(props) {
             <CancelIcon color="secondary" fontSize="large" />
           </IconButton>
           <Row className="m-0"><center><h3
-          style={{fontSize:20, textAlign: 'center', fontWeight: 400}}
+            style={{ fontSize: 20, textAlign: 'center', fontWeight: 400 }}
           >
             Do you want to delete this invite?</h3></center>
           </Row>
-          <Row className="m-0"  style={{paddingTop:20}}>
-            <Col><Button variant="danger" 
-            style={{borderRadius:20}}
-            className="w-100" onClick={() => {
-              dispatch(deleteInvite(props.Eventdata[0].MainCode))
-            }}>Yes</Button>
+          <Row className="m-0" style={{ paddingTop: 20 }}>
+            <Col><Button variant="danger"
+              style={{ borderRadius: 20 }}
+              className="w-100" onClick={() => {
+                dispatch(deleteInvite(props.Eventdata[0].MainCode))
+              }}>Yes</Button>
             </Col>
             <Col><Button variant="primary" className="w-100"
-            style={{borderRadius:20}}
-            onClick={() => {
-              toggleShowPopup(false);
-            }}>No</Button>
+              style={{ borderRadius: 20 }}
+              onClick={() => {
+                toggleShowPopup(false);
+              }}>No</Button>
             </Col>
           </Row>
         </div>

@@ -43,7 +43,6 @@
     object-fit: cover !important;
     width: 100% !important;
     height: 100% !important;
-    border-radius: 0 !important;
   }
   .save-event {
     width: 100% !important;
@@ -67,15 +66,14 @@
     font-size: 9px !important;
   }
   .InvitationCard {
-    height: 185px !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    height: 460px !important;
+    margin: 5px !important;
   }
   .inv-img {
-    height: 185px !important;
+    height: 460px !important;
   }
   .bottom-bar {
-    bottom: 40% !important;
+    bottom: 20% !important;
   }
   .popup-close {
     left: 90% !important;

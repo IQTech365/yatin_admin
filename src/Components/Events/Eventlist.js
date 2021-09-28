@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import NoInv from "../../Assets/NoInvitation.svg";
 import "./Eventlist.css";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LanguageIcon from "@material-ui/icons/Language";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
@@ -73,6 +71,7 @@ export default function EventList(props) {
               // await seteventcode(inv[index].eventCode);
               await setshow(true);
             }}
+            fontSize='large'
           />
           <div className="bottom-bar">
             <Grid container spacing={0}>

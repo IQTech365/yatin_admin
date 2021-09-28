@@ -1,46 +1,30 @@
 import React, { useState, useEffect } from "react";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Avatar, IconButton } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { getuserdata } from "../../../Redux/DispatchFuncitons/AuthFunctions";
-import { url } from "../../../Utils/Config";
-import { Grid } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import * as _ from "lodash";
 export default function UserDataUrl(props) {
   const [User, setUser] = useState({});
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
+  const GuestList = useSelector(state => state.GuestList)
+  const Auth = useSelector(state => state.Auth);
 
-      axios
-        .post(url + "auth/getuserdetails", { Phone: props.Phone })
-        .then((res) => {
-          if (res.data.user) {
-            setUser(res.data.user);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return { err: "error 404" };
-        });
-    }
-  }, []);
-  useEffect(() => {
+  useEffect(async () => {
     if (props.Phone !== "" && props.Phone !== undefined && props.Phone !== null) {
-
-      axios
-        .post(url + "auth/getuserdetails", { Phone: props.Phone })
-        .then((res) => {
-          if (res.data.user) {
-            setUser(res.data.user);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          return { err: "error 404" };
-        });
+      if (Auth.Phone === props.Phone) {
+        await setUser({ Name: Auth.Name, Pic: Auth.Profile });
+      } else {
+        let i = _.findLastIndex(GuestList, function (o) { return o.Phone == props.Phone; });
+        if (i !== -1) {
+          //  console.log(GuestList[i])
+          await setUser(GuestList[i])
+        }
+        else {
+          await setUser({ Name: props.Phone, Pic: "" })
+        }
+      }
     }
-  }, [props.Phone]);
+  }, [props.Phone, GuestList]);
+
   return (
     <>
       {props.showIcon === true ? (

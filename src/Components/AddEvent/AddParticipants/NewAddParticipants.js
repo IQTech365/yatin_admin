@@ -2,36 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Access from "../../../Assets/AddAccess.svg";
 import "../AddEvent.css";
-import { Grid, Switch, Modal } from "@material-ui/core";
-import readXlsxFile from "read-excel-file";
+import { Grid, Modal } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { saveEvent } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { uploadString } from "../../../Utils/FileUpload_Download";
-import EventNameBox from "../CreateEvent/EventNameBox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import AddCode from "./AddCode";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
-import {
-    Container,
-    Row,
-    Button,
-    ListGroup,
-    Tabs,
-    Tab,
-    Col,
-    Spinner,
-} from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-
 import * as XLSX from "xlsx";
-import { json } from "body-parser";
 import Addformultiple from './Addformultiple'
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,15 +20,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function NewAddParticipants(props) {
-    const classes = useStyles();
     const [eventKey, setKey] = useState(0);
     const dispatch = useDispatch();
     const Eventdata = useSelector((state) => state.Eventdata);
     let supported = "";
     let attribute = ["name", "tel"];
     const opts = { multiple: true };
-    let Eventscpy = [...props.Events];
-    const [EntryWay, setEntryWay] = useState("Contact");
+    const [EntryWay, setEntryWay] = useState("Code");
     const [code, setCodes] = useState([]);
     const [isMobile, SetIsMobile] = useState(false);
     const [isSaving, setisSaving] = useState(false);
@@ -58,6 +34,8 @@ export default function NewAddParticipants(props) {
     const [participants, setParticipants] = useState([]);
     let Albumcpy = [];
     let Storycpy = [];
+    let codescpy = [];
+
     useEffect(async () => {
         supported = "contacts" in navigator && "ContactsManager" in window;
         if (supported === true) {
@@ -108,10 +86,10 @@ export default function NewAddParticipants(props) {
         await setParticipants([...particpantscpy]);
         return 1;
     }
+
     const openContactPicker = async () => {
         try {
             let ldata = [];
-            let number = "";
             const contacts = await navigator.contacts.select(attribute, opts);
             contacts.map(async (contact) => {
                 await ldata.push(contact.tel[0])
@@ -121,6 +99,7 @@ export default function NewAddParticipants(props) {
             console.log(err);
         }
     };
+
     const saverecipeients = async (data) => {
         let particpantscpy = [...participants];
         let contactlist = [];
@@ -142,18 +121,33 @@ export default function NewAddParticipants(props) {
         particpantscpy[eventKey] = [...contactlist];
         await setParticipants([...particpantscpy]);
     };
+
+    function randomString(length, chars) {
+        var result = "";
+        for (var i = length; i > 0; --i)
+            result += chars[Math.floor(Math.random() * chars.length)];
+        return result;
+    }
+
     const save = async () => {
-        setisSaving(true);
+
+        await setEntryWay('Code')
+
+        for (var i = 0; i < props.Events.length; i++) {
+            await codescpy.push(await randomString(8, "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        }
+        await setCodes(codescpy)
+        await setisSaving(true);
         let EventCpy = [...props.Events];
-        if (participants.length === 0 && EntryWay !== 'Code') {
-            setisSaving(false);
+        if (participants.length === 0 && EntryWay === 'Contacts') {
+            await setisSaving(false);
             return false;
         }
         let particpantsCpy = [...participants];
-        particpantsCpy.map((listdata, index) => {
+        particpantsCpy.map(async (listdata, index) => {
             if (listdata.length === 0) {
                 alert("Please Add Guests to Event no " + (index + 1));
-                setisSaving(false);
+                await setisSaving(false);
                 return false;
             } else {
                 EventCpy[index].Participants = listdata;
@@ -166,18 +160,17 @@ export default function NewAddParticipants(props) {
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
-        let MainCode = "";
         for (let i = 0; i < EventCpy.length; i++) {
             let furl =
-                uniqueurl + "Event_image/" + i + EventCpy[i].Name.replaceAll(" ", "");
+                uniqueurl + "Event_image/" + i + EventCpy[i].Name.includes(" ") ? EventCpy[i].Name.replaceAll(" ", "") : EventCpy[i].Name;
 
             if (EventCpy[i].file.includes('firebasestorage.googleapis.com')) {
 
             } else {
                 let url = await uploadString(EventCpy[i].file, furl);
                 EventCpy[i].file = url;
+                EventCpy[i].GuestInvite = false
             }
-
         }
         await props.setEvents(EventCpy);
         if (Eventdata && Eventdata.ALBUM && Eventdata.ALBUM.length > 0) {
@@ -210,11 +203,11 @@ export default function NewAddParticipants(props) {
                 Events: EventCpy,
                 Album: Albumcpy,
                 Story: Storycpy,
-                code: code,
+                code: codescpy,
                 EntryWay: EntryWay,
             })
         );
-        setisSaving(false);
+        //  setisSaving(false);
     };
     return (<>
         <Modal
@@ -273,7 +266,7 @@ export default function NewAddParticipants(props) {
                         PhoneBook
                     </button>
                 </Grid>
-                <Grid item xs={12} sm={12}>
+                <Grid item xs={12} sm={12} style={{ display: window.innerWidth > window.innerHeight ? 'block' : 'none' }}>
                     <label
                         htmlfor="input1"
                         className="btn excel-file-upload  t-white l-blue mt-5px"
@@ -285,7 +278,9 @@ export default function NewAddParticipants(props) {
                                 e.preventDefault();
                                 setopenModal(true);
                             } else {
-                                alert("clicked<")
+                                console.log("done 2")
+                                e.preventDefault();
+                                setopenModal(true);
                             }
                         }}
                     >
@@ -298,7 +293,7 @@ export default function NewAddParticipants(props) {
                         className="upload-excel mt-10px"
 
                         onChange={(e) => {
-                            if (props.Events.length < 2) {
+                            if (props.Events.length < 1) {
                                 readExcel(e.target.files[0]);
                                 console.log("done 1")
                             }
@@ -315,9 +310,10 @@ export default function NewAddParticipants(props) {
                     code={code}
                     setCodes={setCodes}
                     setEntryWay={setEntryWay}
+                    save={save}
                 />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={participants.length > 0 ? 6 : 12}>
                 <button
                     className="btn next mt-10px t-blue"
                     onClick={() => {
@@ -327,8 +323,9 @@ export default function NewAddParticipants(props) {
                     Back
                 </button>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={participants.length > 0 ? 6 : false}>
                 <button
+                    style={{ display: participants.length > 0 ? 'block' : 'none' }}
                     className="btn next mt-10px l-blue t-white p-5px"
                     onClick={() => {
                         save();
