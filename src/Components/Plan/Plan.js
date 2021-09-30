@@ -43,7 +43,7 @@ function Plancard(props) {
   );
 }
 export default function Plan(props) {
-  const [selectedplan, selectplan] = useState(0);
+  const [selectedplan, selectplan] = useState(3);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -51,7 +51,7 @@ export default function Plan(props) {
         <div className="planheadtop"></div>
       </Grid>
       <Grid item xs={12} className="plancardholder">
-        <Plancard
+     {/*    <Plancard
           plan={"Free"}
           selectplan={selectplan}
           cost={"RS 00 / Month"}
@@ -73,13 +73,13 @@ export default function Plan(props) {
           cost={"RS 299 / Month"}
           invites={"400"}
           plani={2}
-        />
+        /> */}
 
         <Plancard
           plan={"Gold"}
           selectplan={selectplan}
           cost={"RS 499 / Month"}
-          invites={"400+"}
+          invites={"Unlimited"}
           plani={3}
         />
       </Grid>

@@ -118,7 +118,7 @@ export default function AddEventSucess(props) {
           </Grid>
 
           <Grid item xs={12}>
-            <p className="w-100 tac"> Click on the Link to copy</p>
+            <p className="tac" style={{fontWeight:'700'}}>Share Exclusive Invite✨</p>
           </Grid>
 
           <Grid
@@ -174,7 +174,7 @@ export default function AddEventSucess(props) {
             </>
           )}
           <Grid item xs={12} className="w-100 tac">
-            Share on
+            Share With 1-Click
           </Grid>
           <Grid item xs={12} className="tac m-b-25px" style={{ zIndex: '33333' }}>
             <center>
@@ -189,7 +189,7 @@ export default function AddEventSucess(props) {
               </WhatsappShareButton>
             </center>
           </Grid>
-          <Grid item xs={12} className="tac">
+          <Grid item xs={12} className="tac" style={{fontSize:10}}>
             Note: Only those who have invite can access
           </Grid>
           <Grid item xs={12} className="down-float">

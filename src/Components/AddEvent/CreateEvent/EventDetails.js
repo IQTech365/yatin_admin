@@ -14,7 +14,7 @@ import Map from "../../Helpers/Maps/Maps";
 import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
-import {BsInfoCircleFill} from "react-icons/bs"
+import { BsInfoCircleFill } from "react-icons/bs";
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -538,7 +538,8 @@ export default function EventDetails(props) {
           </span>
         </Grid>
         <Grid item xs={12}>
-          <p style={{textAlign:"right", fontSize:"12px"}}><BsInfoCircleFill />
+          <p style={{ textAlign: "right", fontSize: "12px" }}>
+            <BsInfoCircleFill />
 
             {CurrentEventDetails.VenueType === "Online"
               ? " Add Your Zoom Other Links"
@@ -572,7 +573,6 @@ export default function EventDetails(props) {
               ? true
               : false
           }
-         
           multiline={true}
           rows={2}
         />

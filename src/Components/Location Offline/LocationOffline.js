@@ -18,9 +18,18 @@ import vcimage from "../../Assets/videocall.png";
 import history from "../../Utils/History";
 import { GoogleMapsAPI } from "../../Utils/Config";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import Lottie from 'react-lottie';
+import animationData from '../Animations/online.json';
 
 const libraries = ["places"];
-
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: animationData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice"
+  }
+};
 const options = {
   // styles: mapStyles,
   disableDefaultUI: false,
@@ -129,19 +138,28 @@ export default function Location(props) {
           Location
         </p>
       </Col>
-      <img
+      <Lottie 
+	    options={defaultOptions}
+        height={200}
+        width={200}
+        style={{
+          marginBottom:'20vh',
+          display:
+          Eventdata.VenueType === "Online" ||
+            Eventdata.VenueType === "Online-Inapp"
+            ? "block"
+            : "none",
+        }}
+      />
+     {/*  <img
         src={vcimage}
         style={{
           width: "100vw",
           height: "70vh",
           objectFit: "contain",
-          display:
-            Eventdata.VenueType === "Online" ||
-              Eventdata.VenueType === "Online-Inapp"
-              ? "block"
-              : "none",
+         
         }}
-      />
+      /> */}
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
@@ -270,49 +288,7 @@ export default function Location(props) {
             ></Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Card>
-          <Card.Header
-            style={{
-              display:
-                Eventdata.VenueType === "Offline" ||
-                  Eventdata.VenueType === "Both"
-                  ? "block"
-                  : "none",
-            }}
-          >
-            <Accordion.Toggle
-              eventKey="2"
-              style={{
-                color: "skyblue",
-                height: "100%",
-                width: "100%",
-                border: "none",
-                background: "none",
-                color: "#000",
-                textAlign: "left",
-              }}
-            >
-              <LocationOnOutlinedIcon style={{ color: "skyblue" }} /> Get Location Only
-              <KeyboardArrowDownIcon
-                style={{ float: "right", color: "skyblue" }}
-              />
-            </Accordion.Toggle>
-          </Card.Header>
-
-          <Accordion.Collapse eventKey="2">
-            <Card.Body
-              style={{
-                display:
-                  Eventdata.VenueType === "Offline" ||
-                    Eventdata.VenueType === "Both"
-                    ? "block"
-                    : "none",
-              }}
-            >
-            {Eventdata.Location.split("address")[1].replace(/:"/i, "").replace("}", "")}
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+     
       </Accordion>
     </div>
   );
