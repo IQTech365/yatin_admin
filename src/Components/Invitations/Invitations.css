@@ -96,7 +96,10 @@
   }
 }
 
-
 .schedule_main {
   margin-bottom: 20px !important;
+}
+
+center > div > .OTP:first-child {
+  margin-left: 20% !important;
 }

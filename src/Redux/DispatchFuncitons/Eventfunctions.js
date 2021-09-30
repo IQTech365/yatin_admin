@@ -64,6 +64,23 @@ export function addme(code, maincode) {
 
   };
 }
+
+
+export function authInv(id, index) {
+  return (dispatch) => {
+    axios.post(url + "event/AuthInvite", { _id: id }).then(async (res) => {
+      console.log("res", res)
+      if (res.data.status === 'success') {
+        debugger
+        await dispatch(deleteEvent());
+        await dispatch(GetEvents());
+        await dispatch(GetInvitations());
+        history.push("/inv/eventpage/" + index)
+      }
+    });
+  }
+}
+
 export function GetEvents() {
   return (dispatch) => {
     axios.get(url + "event/getmyEvents").then((res) => {

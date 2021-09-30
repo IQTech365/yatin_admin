@@ -6,21 +6,22 @@ import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
 import history from "../../Utils/History";
 import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import UserProfile from "../UserPorfile/UserProfile";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
-import SingleEvent from '../../Assets/singleevent.png'
+import SingleEvent from '../../Assets/singleevent.png';
+import OtpInput from "react-otp-input";
+import { authInv } from '../../Redux/DispatchFuncitons/Eventfunctions'
 export default function Invitation(props) {
   const [data, setData] = useState(props.data);
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
+  const [showAuthWindow, setshowAuthWindow] = useState(false);
+  const [selected, setselected] = useState();
   const Auth = useSelector(state => state.Auth)
   const [useiinfopopup, setuserInfopopup] = useState(false);
   const [HasSkipped, setHasSkipped] = useState(false);
   useEffect(async () => {
-    console.log(props.data);
-    let datacpy = [...props.data];
-
     await setData(props.data);
   }, [props.data]);
 
@@ -28,9 +29,28 @@ export default function Invitation(props) {
   } else {
     return <img src={NoInv} className="nodata" />;
   }
-
+  const checkifauth = async (index) => {
+    debugger
+    await setselected(index)
+    if (data[index][0].InvId.HasAuth === false) {
+      history.push("/inv/eventpage/" + index)
+    } else {
+      if (data[index][0].InvId.AuthNums.includes(Auth.Phone)) {
+        history.push("/inv/eventpage/" + index)
+      } else {
+        await setshowAuthWindow(true)
+      }
+    }
+  }
   return (
     <Grid container spacing={0} className="mb-100 invitation_mobile" >
+      <Popup
+        component={Password}
+        toggleShowPopup={setshowAuthWindow}
+        showPopup={showAuthWindow}
+        showall={selected}
+        MainCode={data}
+      />
       <Popup
         component={UserProfile}
         setuserInfopopup={setuserInfopopup}
@@ -65,9 +85,9 @@ export default function Invitation(props) {
               Auth.Name == "" || Auth.Name == undefined ?
                 HasSkipped === false ?
                   setuserInfopopup(true) :
-                  history.push("/inv/eventpage/" + index)
+                  checkifauth(index)
                 :
-                history.push("/inv/eventpage/" + index);
+                checkifauth(index)
             }}
           />) : (
             <video
@@ -144,4 +164,37 @@ export default function Invitation(props) {
 
     </Grid>
   );
+}
+
+
+export function Password(props) {
+  const dispatch = useDispatch()
+  const [PWD, setPWD] = useState();
+  const verify = async () => {
+    debugger
+    if (PWD === props.MainCode[props.showall][0].InvId.PassWord) {
+      await dispatch(authInv(props.MainCode[props.showall][0].InvId._id, props.showall))
+    }
+  }
+  return (
+    <div>Enter Password<br />
+      <center>
+        <OtpInput
+          className="OTP"
+          value={PWD}
+          onChange={(otp) => setPWD(otp)}
+          numInputs={4}
+          separator={<span></span>}
+          inputStyle="Otp-block"
+          isInputNum={true} style={{ paddingLeft: '25%' }}
+        /><br />
+        <button className="w-100 save-event" onClick={() => {
+          verify()
+        }}
+        >
+          Verify
+        </button>
+      </center>
+    </div>
+  )
 }
