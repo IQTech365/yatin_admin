@@ -19,6 +19,7 @@ export default function AddEventSucess(props) {
   const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
+  const [pwd, setpwd] = useState("");
   const [mode, setmode] = useState();
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
@@ -52,6 +53,7 @@ export default function AddEventSucess(props) {
             "/" +
             res.data.Events[0].code
           );
+          await setpwd(res.data.Events[0].InvId.PassWord)
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
@@ -68,10 +70,12 @@ export default function AddEventSucess(props) {
             " https://mobillyinvite.com/MyInvitations/" +
             maincode
           );
+          await setpwd(res.data.Events[0].InvId.PassWord)
         }
 
         await setmode(res.data.Events[0].EntryWay);
       });
+    console.log(allevents)
   }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -116,7 +120,9 @@ export default function AddEventSucess(props) {
               Your Invitation has been sucessfully created.
             </h2>
           </Grid>
-
+          <Grid item xs={12} style={{ display: pwd !== "" ? 'block' : 'none' }}>
+            <h4 className="w-100 tac"> Passcode:{pwd} </h4>
+          </Grid>
           <Grid item xs={12}>
             <p className="w-100 tac"> Click on the Link to copy</p>
           </Grid>
