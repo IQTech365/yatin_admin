@@ -105,9 +105,9 @@ export default function AddSchedule(props) {
         {subEvent.length > 0 || add === true ? (
           <>
             {subEvent.map((eve, index) => (
-              <Grid item xs={12} className="card-shadow m-b-10 schedule-details">
+              <Grid item xs={12} className="card-shadow m-b-10 schedule-details"  style={{display: add === true ? "none" : ""}}>
                 <Grid container spacing={0}>
-                  <Grid item xs={12} md={12}>
+                  <Grid item xs={12} md={12} >
                     {edit === true && editselected === index ? (
                       <>
                         <Form.Label style={{ fontWeight: 500 }}>
@@ -185,6 +185,7 @@ export default function AddSchedule(props) {
                           container
                           spacing={0}
                           className="padding-left-7 p-10-p "
+                 
                         >
                           <Grid item xs={12}>
                             <div className="ScheduleName l-blue-t m-0">
@@ -243,6 +244,7 @@ export default function AddSchedule(props) {
                   <Grid
                     item
                     xs={12}
+                    
                     md={12}
                     style={{
                       display: "flex",
@@ -275,6 +277,7 @@ export default function AddSchedule(props) {
                     ) : props.IsAdmin === true ? (
                       <center>
                         <IconButton
+                      
                           onClick={() => {
                             setshowfulldescription(false);
                             setsubname(eve.Name);
@@ -289,6 +292,7 @@ export default function AddSchedule(props) {
                           <CreateIcon />
                         </IconButton>
                         <IconButton
+                        
                           onClick={() => {
                             Deleteone(index);
                             setshowfulldescription(false);

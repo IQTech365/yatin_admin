@@ -171,7 +171,7 @@ export default function AddStory(props) {
     <>
       {add == true ? (
         <Paper style={{ height: "300x" }} elevation={3}>
-          <Grid container spacing={0}>
+          <Grid container spacing={0} >
             <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }}>
               {file === "" ? (
                 <div {...getRootProps()} className="w-100">
@@ -198,7 +198,7 @@ export default function AddStory(props) {
               )}
             </Grid>
 
-            <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }}>
+            <Grid className="stryimg" xs={12} md={8} style={{ margin: 'auto' }} >
               <Form.Label style={{ fontWeight: 500 }}>Event Name</Form.Label>
               <Form.Control
                 size="sm"
@@ -388,8 +388,8 @@ export default function AddStory(props) {
             </Grid>
           </Paper>
         ) : (
-          <Paper style={{ height: "300x" }} elevation={3}>
-            <Grid container spacing={0}>
+          <Paper style={{ height: "300x" }} elevation={3}  style={{display: add === true || edit === true  ? "none" : ""}}>
+            <Grid container spacing={0} >
               <Grid className="stryimg" item xs={5} sm={3}>
                 {eve.filetype === "png" ||
                   eve.filetype === "jpg" ||
