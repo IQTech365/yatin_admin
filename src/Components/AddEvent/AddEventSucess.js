@@ -186,7 +186,7 @@ export default function AddEventSucess(props) {
             <center>
               <WhatsappShareButton
                 url={" "}
-                title={Watsapp}
+                title={pwd !== "" ? Watsapp + ". Password: " + pwd : Watsapp}
 
                 separator=" "
                 className="Demo__some-network__share-button"

@@ -11,19 +11,21 @@ export default function Places(props) {
     setaddress(address);
   };
 
-  const handleSelect = (address) => {
+  const handleSelect = async (address) => {
+    await setaddress(address);
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
+      .then(async (latLng) => {
         console.log("Success", latLng);
-        let data = JSON.stringify({
+        let data = await JSON.stringify({
           lat: latLng.lat,
           lng: latLng.lng,
           address: address,
         });
-        props.setLocation(data);
-        setaddress(address);
+        await props.setLocation(data);
+        await console.log(address)
         props.setaddress(address);
+        await console.log(props.location)
       })
       .catch((error) => console.error("Error", error));
 

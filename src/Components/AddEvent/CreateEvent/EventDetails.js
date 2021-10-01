@@ -480,7 +480,7 @@ export default function EventDetails(props) {
               : "show"
           }
         >
-          {isEditLocation}
+
           {isEditLocation === true ? (
             <>
               <Map

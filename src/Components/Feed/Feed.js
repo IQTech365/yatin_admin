@@ -29,6 +29,7 @@ export default function Feed(props) {
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
   const dispatch = useDispatch();
+  const [isAdmin, setisAdmin] = useState(false);
   const [isSubmit, setisSubmit] = useState(false);
   const [isloaded, toggleisloaded] = useState(false);
   const [showPopup, toggleShowPopup] = useState(false);
@@ -64,6 +65,10 @@ export default function Feed(props) {
 
         await setbase("MyEvents");
         await setadmins(MyEvents[props.match.params.id][0].Host);
+        await setisAdmin(true)
+        if (MyEvents[props.match.params.id][0].Host.includes(Auth.Phone)) {
+          await setisAdmin(true)
+        }
         await guestlist([...MyEvents[props.match.params.id][0].Participants, ...MyEvents[props.match.params.id][0].Host]);
       } else if (
         props.location.pathname ===
@@ -71,7 +76,10 @@ export default function Feed(props) {
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id]);
-
+        await setisAdmin(true)
+        if (myInvitations[props.match.params.id][0].Host.includes(Auth.Phone)) {
+          await setisAdmin(true)
+        }
         await setbase("inv");
         await setadmins(myInvitations[props.match.params.id][0].Host);
         await guestlist([...myInvitations[props.match.params.id][0].Participants, ...myInvitations[props.match.params.id][0].Host]);
@@ -130,10 +138,10 @@ export default function Feed(props) {
         .post(url + "post/getposts", { maincode: props.match.params.MainCode })
         .then(async function (response) {
           toggleisloaded(true);
-          if (response.data.Posts.length !== 0) {
-            await setcurrentPosts(response.data.Posts);
-            await filterposts(response.data.Posts, Eventdata[0].Host)
-          }
+
+          await setcurrentPosts(response.data.Posts);
+          await filterposts(response.data.Posts, Eventdata[0].Host)
+
 
         })
         .catch(function (error) {
@@ -343,7 +351,7 @@ export default function Feed(props) {
         <Postrender data={currentPosts} filter={filter} filterdata={currentfilteredPosts} getposts={getposts}
           Eventdata={Eventdata} showcommmentforpost={showcommmentforpost} showcommment={showcommment} Maincode={props.match.params.Maincode}
           setshowcommmentforpost={setshowcommmentforpost}
-          setshowcommment={setshowcommment} />
+          setshowcommment={setshowcommment} isAdmin={isAdmin} />
       )}
 
 
