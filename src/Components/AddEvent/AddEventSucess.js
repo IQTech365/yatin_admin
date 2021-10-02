@@ -90,9 +90,9 @@ export default function AddEventSucess(props) {
       await navigator
         .share({
           title: "title",
-          text:  res.data.Events[0].Name +
+          text:  type +
           ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
-          
+
           url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: [file],
         })
