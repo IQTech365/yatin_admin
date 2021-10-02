@@ -84,14 +84,14 @@ export default function AddEventSucess(props) {
   const handleOnSubmit = async () => {
     const response = await fetch(image);
     const blob = await response.blob();
-    const file = new File([blob], "share.jpg", { type: blob.type });
+    const file = new File([blob], "share.jpg", { type: 'image/jpeg' });
     console.log(file);
     if (navigator.share) {
       await navigator
         .share({
           title: "title",
           text:  type +
-          ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
+          " \n Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
 
           url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: [file],
