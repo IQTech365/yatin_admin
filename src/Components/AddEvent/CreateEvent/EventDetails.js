@@ -5,7 +5,7 @@ import {
   Select,
   MenuItem,
   FormControl,
-  Modal,
+  Modal, Switch
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
@@ -481,7 +481,7 @@ export default function EventDetails(props) {
               : "show"
           }
         >
-          {isEditLocation}
+
           {isEditLocation === true ? (
             <>
               <Map
@@ -551,6 +551,25 @@ export default function EventDetails(props) {
           </p>
         </Grid>
       </>
+      {props.SelectedEvent === 0 ? <>
+        <Grid item xs={8} className="talc fs-bold  label" style={{ paddingTop: '15px' }}>
+          Add Password
+        </Grid>
+        <Grid item xs={4}>
+          <Switch
+            checked={CurrentEventDetails.IsPassword}
+            color="primary"
+            name="checkedB"
+            inputProps={{ "aria-label": "primary checkbox" }}
+            className="fr"
+            onChange={(e) => {
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                IsPassword: !CurrentEventDetails.IsPassword,
+              });
+            }}
+          />
+        </Grid></> : <></>}
 
       <Grid item xs={12}>
         <span className="label">Description</span>
@@ -578,24 +597,6 @@ export default function EventDetails(props) {
         />
       </Grid>
 
-      {/* <Grid item xs={8} className="talc fs-bold m-b-25px label">
-        Guest can Invite (max 3)
-      </Grid>
-      <Grid item xs={4}>
-        <Switch
-          checked={CurrentEventDetails.GuestInvite}
-          color="primary"
-          name="checkedB"
-          inputProps={{ "aria-label": "primary checkbox" }}
-          className="fr"
-          onChange={(e) => {
-            SetCurrentEventDetails({
-              ...CurrentEventDetails,
-              GuestInvite: !CurrentEventDetails.GuestInvite,
-            });
-          }}
-        />
-      </Grid> */}
 
       {/* Album, Schdedule and Story Commented Below */}
 

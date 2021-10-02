@@ -11,8 +11,10 @@ import { FcLike } from "react-icons/fc";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FcLikePlaceholder } from "react-icons/fc";
 import FeedComments from "./FeedComments";
-
+import { MdDeleteForever } from "react-icons/md";
+import { deletePost } from '../../Redux/DispatchFuncitons/postfunctions'
 export default function Postrender(props) {
+    const dispatch = useDispatch()
     const [Posts, setPosts] = useState([])
     useEffect(() => {
         if (props.filter === 'All') {
@@ -22,8 +24,14 @@ export default function Postrender(props) {
         }
 
     }, [props.data, props.filter, props.filterdata])
+    async function deletePostUI(index) {
+        debugger
+        let postcpy = [...Posts]
+        postcpy.filter((post, i) => i !== index);
+        await setPosts(postcpy)
+    }
     return (
-        <div>
+        <div className="mb-100">
             <>
                 {Posts.map((post, index) => (
                     <Container
@@ -88,7 +96,7 @@ export default function Postrender(props) {
                             <></>
                         )}
                         <Row className="m-0 p-0">
-                            <Col xs={6} className="mt-10px">
+                            <Col xs={props.isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "rgb(244 67 54)" }}
@@ -106,7 +114,7 @@ export default function Postrender(props) {
                                     </a>
                                 </center>
                             </Col>
-                            <Col xs={6} className="mt-10px">
+                            <Col xs={props.isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "#007bff" }}
@@ -130,6 +138,17 @@ export default function Postrender(props) {
                                         {post.CommentList.length}
                                     </a>
                                 </center>
+                            </Col>
+                            <Col xs={props.isAdmin === true ? 4 : false} className="mt-10px col-4"> <center>
+                                <a
+                                    style={{ color: "rgb(244 67 54)" }}
+                                    onClick={() => {
+                                        dispatch(deletePost(post._id));
+                                        deletePostUI(index)
+                                    }}
+                                >
+                                    <MdDeleteForever size={25} style={{ marginLeft: 30 }} color="red" />
+                                </a></center>
                             </Col>
                         </Row>
 
@@ -190,6 +209,7 @@ export function Like(props) {
                 />
             )}
             {count}
+
         </>
     );
 }

@@ -30,6 +30,7 @@ export default function AddEvent(props) {
     Host: "",
     Co_Host: [],
     Schedule: [],
+    IsPassword: false
   };
   const [SelectedEvent, SelectEvent] = useState(0);
   const [Story, setStory] = useState([]);

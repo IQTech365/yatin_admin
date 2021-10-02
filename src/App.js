@@ -136,9 +136,10 @@ function App() {
               path="/MyEvents/Admin/:id/:eid"
               component={EventAdmin}
             />
-            <Route exact path="/MyEvents/Admin/:id" component={AdminSidebar} />
-            <Route exact path="/MyEvents/More/:id" component={SidebarMore} />
 
+            <Route exact path="/MyEvents/admin/:id" component={AdminSidebar} />
+            <Route exact path="/MyEvents/More/:id" component={SidebarMore} />
+            <Route exact path="/MyEvents/admin/edit/:id/:eid" component={<div>edit</div>} />
             <Route
               exact
               path="/MyEvents/Location/:id/:event"

@@ -64,6 +64,23 @@ export function addme(code, maincode) {
 
   };
 }
+
+
+export function authInv(id, index) {
+  return (dispatch) => {
+    axios.post(url + "event/AuthInvite", { _id: id }).then(async (res) => {
+      console.log("res", res)
+      if (res.data.status === 'success') {
+        debugger
+        await dispatch(deleteEvent());
+        await dispatch(GetEvents());
+        await dispatch(GetInvitations());
+        history.push("/inv/eventpage/" + index)
+      }
+    });
+  }
+}
+
 export function GetEvents() {
   return (dispatch) => {
     axios.get(url + "event/getmyEvents").then((res) => {
@@ -178,7 +195,7 @@ export function update_participants(id, data) {
       });
   };
 }
-export function update_events(Type, Eventdata, maincode) {
+export function update_events(Type, Eventdata, maincode, _id, setIsSubmitted) {
   var today = new Date();
   var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -189,12 +206,21 @@ export function update_events(Type, Eventdata, maincode) {
         Type: Type,
         Eventdata: Eventdata,
         maincode: maincode,
+        id: _id,
         date: dateTime
       })
       .then((res) => {
-        dispatch(GetInvitations());
-        dispatch(GetEvents());
-        console.log(res);
+        if (res.data.status === "success") {
+          dispatch(GetInvitations());
+          dispatch(GetEvents());
+          console.log(res);
+          setIsSubmitted(false)
+          alert("Updated")
+        } else {
+          setIsSubmitted(false)
+          alert("failed")
+        }
+
       });
   };
 }

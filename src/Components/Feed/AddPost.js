@@ -82,7 +82,7 @@ export default function AddPost(props) {
                         </IconButton>
                     ) : (
                         <IconButton>
-                            <CircularProgress style={{ color: "black" }} />
+                            ...
                         </IconButton>
                     )}
                 </Grid>
@@ -116,7 +116,7 @@ export default function AddPost(props) {
                                 <img
                                     src={props.imageurl}
                                     className="w-100"
-                                    style={{ height: "30vh" }}
+
                                 />
                             </div>
                         </Col>

@@ -11,6 +11,7 @@ import { IconButton } from "@material-ui/core";
 import { uploadString } from '../../Utils/FileUpload_Download'
 import { uploadfiletoalbum } from '../../Redux/DispatchFuncitons/Eventfunctions'
 import { useDispatch } from "react-redux";
+
 export default function Addtoalbum(props) {
     const dispatch = useDispatch();
     const [album, setAlbum] = useState([]);
@@ -142,7 +143,7 @@ export default function Addtoalbum(props) {
                             Save
                         </button>
                     </Grid>
-                    {uniqurl}
+
                 </div>
             </Modal>
         </div>
