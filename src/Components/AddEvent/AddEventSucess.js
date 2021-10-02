@@ -13,8 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import WhatsIcon from "../../Assets/WhatsIcon.png";
 
-
-
 export default function AddEventSucess(props) {
   const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
@@ -24,6 +22,9 @@ export default function AddEventSucess(props) {
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
   const [SelectedCode, setSelectedCode] = useState("");
+  const [image, getImage] = useState("");
+  const [type, setType] = useState("");
+
   useEffect(() => {
     axios
       .post(url + "event/viewinvitation", {
@@ -38,45 +39,67 @@ export default function AddEventSucess(props) {
 
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
-          await setpwd(res.data.Events[0].InvId.PassWord)
+          await getImage(res.data.Events[0].file);
+          await setpwd(res.data.Events[0].InvId.PassWord);
+          await setType(res.data.Events[0].InvId.Type);
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode
           );
-          await setpwd(res.data.Events[0].InvId.PassWord)
+          await setpwd(res.data.Events[0].InvId.PassWord);
         }
 
         await setmode(res.data.Events[0].EntryWay);
       });
-    console.log(allevents)
+    console.log(allevents);
   }, []);
+
+  const handleOnSubmit = async () => {
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const file = new File([blob], "share.jpg", { type: blob.type });
+    console.log(file);
+    if (navigator.share) {
+      await navigator
+        .share({
+          title: type,
+          text: Watsapp,
+          url: " https://mobillyinvite.com/MyInvitations/" + maincode,
+          files: [file],
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error in sharing", error));
+    } else {
+      console.log(`system does not support sharing files.`);
+    }
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -85,23 +108,32 @@ export default function AddEventSucess(props) {
   };
 
   const handleClose = async (data, Name) => {
-    await setSelectedCode(Name)
+    await setSelectedCode(Name);
     await setcodesharelink(
       " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
     );
     await setWatsapp(
       "Hi there ! You have been invited by " +
-      Auth.Name +
-      " to " +
-      allevents[0].Name +
-      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobillyinvite.com/MyInvitations/" +
-      maincode +
-      "/" +
-      allevents[0].code
+        Auth.Name +
+        " to " +
+        allevents[0].Name +
+        ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+        " https://mobillyinvite.com/MyInvitations/" +
+        maincode +
+        "/" +
+        allevents[0].code
     );
     setAnchorEl(null);
   };
+  useEffect(() => {
+    if (navigator.share === undefined) {
+      if (window.location.protocol === "http:") {
+        window.location.replace(
+          window.location.href.replace(/^http:/, "https:")
+        );
+      }
+    }
+  }, []);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -120,11 +152,13 @@ export default function AddEventSucess(props) {
               Your Invitation has been sucessfully created.
             </h2>
           </Grid>
-          <Grid item xs={12} style={{ display: pwd !== "" ? 'block' : 'none' }}>
+          <Grid item xs={12} style={{ display: pwd !== "" ? "block" : "none" }}>
             <h4 className="w-100 tac"> Passcode:{pwd} </h4>
           </Grid>
           <Grid item xs={12}>
-            <p className="tac" style={{fontWeight:'700'}}>Share Exclusive Invite✨</p>
+            <p className="tac" style={{ fontWeight: "700" }}>
+              Share Exclusive Invite✨
+            </p>
           </Grid>
 
           <Grid
@@ -147,8 +181,8 @@ export default function AddEventSucess(props) {
             </Grid>
           </Grid>
           {allevents &&
-            allevents.length > 0 &&
-            allevents[0].EntryWay === "Code" ? (
+          allevents.length > 0 &&
+          allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={12} className="tac m-b-25px clipboard grey">
                 <Grid container spacing={0}>
@@ -175,43 +209,56 @@ export default function AddEventSucess(props) {
               </Grid>
             </>
           ) : (
-            <>
-
-            </>
+            <></>
           )}
           <Grid item xs={12} className="w-100 tac">
             Share With 1-Click
           </Grid>
-          <Grid item xs={12} className="tac m-b-25px" style={{ zIndex: '33333' }}>
+          <Grid
+            item
+            xs={12}
+            className="tac m-b-25px"
+            style={{ zIndex: "33333" }}
+          >
             <center>
+              <button
+                onClick={handleOnSubmit}
+                className="share-button"
+                type="button"
+                title="Share this article"
+              >
+                Share
+              </button>
               <WhatsappShareButton
                 url={" "}
                 title={pwd !== "" ? Watsapp + ". Password: " + pwd : Watsapp}
-
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{ height: '30px', width: '30px' }} />
+                <img
+                  src={WhatsIcon}
+                  className=""
+                  style={{ height: "30px", width: "30px" }}
+                />
               </WhatsappShareButton>
             </center>
           </Grid>
-          <Grid item xs={12} className="tac" style={{fontSize:10}}>
+          <Grid item xs={12} className="tac" style={{ fontSize: 10 }}>
             Note: Only those who have invite can access
           </Grid>
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
-              style={{position:'fixed', bottom: '0', right: '0'}}
+              style={{ position: "fixed", bottom: "0", right: "0" }}
               onClick={() => {
                 if (props.match.params.Share === undefined) {
                   history.push("/");
                 } else {
                   history.goBack();
                 }
-
               }}
             >
-              {props.match.params.Share === undefined ? 'Done' : 'Back'}
+              {props.match.params.Share === undefined ? "Done" : "Back"}
             </button>
           </Grid>
         </Grid>
