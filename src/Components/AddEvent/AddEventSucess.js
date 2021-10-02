@@ -89,9 +89,11 @@ export default function AddEventSucess(props) {
     if (navigator.share) {
       await navigator
         .share({
-          title: type,
-          text: Watsapp,
-          url: " https://mobillyinvite.com/MyInvitations/" + maincode,
+          title: "title",
+          text:  res.data.Events[0].Name +
+          ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
+          
+          url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: [file],
         })
         .then(() => console.log("Successful share"))
