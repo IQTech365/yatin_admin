@@ -162,7 +162,7 @@ export default function AddSchedule(props) {
                         />
 
                         <br />
-                        <Form.Label style={{ fontWeight: 500 }}>
+                     {/*    <Form.Label style={{ fontWeight: 500 }}>
                           Link (Optional)
                         </Form.Label>
                         <Form.Control
@@ -177,7 +177,7 @@ export default function AddSchedule(props) {
                           }}
                           value={link}
                         />
-                        <br />
+                        <br /> */}
                       </>
                     ) : (
                       <>
@@ -204,7 +204,7 @@ export default function AddSchedule(props) {
                               }
                             />
                           </Grid>
-                          <Grid
+                         {/*  <Grid
                             item
                             xs={12}
                             onClick={() => {
@@ -213,7 +213,7 @@ export default function AddSchedule(props) {
                             className="Link"
                           >
                             {eve.link}
-                          </Grid>
+                          </Grid> */}
                           <br />
                           <Grid item xs={12}>
                             <p className="event-des schedule_des">
@@ -373,7 +373,7 @@ export default function AddSchedule(props) {
                 }}
               />
               <br />
-              <Form.Label style={{ fontWeight: 500 }}>
+             {/*  <Form.Label style={{ fontWeight: 500 }}>
                 Link (Optional)
               </Form.Label>
               <Form.Control
@@ -388,7 +388,7 @@ export default function AddSchedule(props) {
                   setlink(e.target.value);
                 }}
                 value={link}
-              />
+              /> */}
             </Grid>
             <Grid
               item
