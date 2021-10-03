@@ -1,33 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
 import MainBanner from "./MainBanner";
 import Contact from "./ContactUs";
 import Footer from "./Footer";
-import Testimonials from "./Testimonials";
 import Features from "./Features";
 import Additionals from "./Additionals";
 import AboutBanner from "./AboutBanner";
-import CompanySlide from "./CompanySlide";
 import ChatWidget from "./ChatWidget";
-class HomePage extends React.Component {
-  render() {
-    return (
-      <>
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-        
-        <MainBanner />
-        <ChatWidget />
-        <Features />
-        <AboutBanner />
-        <Additionals />
-        {/* <Testimonials />
+
+export default function HomePage() {
+  const [Loading, setLoading] = useState(false);
+  useEffect(async () => {
+    await setLoading(true)
+    const timer = setTimeout(async () => {
+      await setLoading(false)
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [])
+  return (
+    <div>
+      {Loading === true ? <CircularProgress style={{ width: '6vw', position: 'fixed', top: '45vh', left: '47vw' }} /> :
+        <>
+          <MainBanner />
+          <ChatWidget />
+          <Features />
+          <AboutBanner />
+          <Additionals />
+          {/* <Testimonials />
         <CompanySlide /> */}
-        <Contact />
-        <Footer />
+          <Contact />
+          <Footer />
 
-      </>
-    );
-  }
+        </>}
+    </div>
+  )
 }
 
-export default HomePage;

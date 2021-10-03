@@ -168,7 +168,7 @@ export default function EventDetails(props) {
             />
           ) : (
             <video
-              muted
+
               type="video/mp4"
               autoPlay={true}
               src={

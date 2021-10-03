@@ -14,15 +14,20 @@ import FeedComments from "./FeedComments";
 import { MdDeleteForever } from "react-icons/md";
 import { deletePost } from '../../Redux/DispatchFuncitons/postfunctions'
 export default function Postrender(props) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const Auth = useSelector((state) => state.Auth);
     const [Posts, setPosts] = useState([])
-    useEffect(() => {
+    const [isAdmin, setisAdmin] = useState(false)
+    useEffect(async () => {
+        if (props.admins.includes(Auth.Phone)) {
+            await setisAdmin(true)
+        }
         if (props.filter === 'All') {
             setPosts(props.data)
         } else {
             setPosts(props.filterdata)
         }
-
+        console.log(props.admins)
     }, [props.data, props.filter, props.filterdata])
     async function deletePostUI(index) {
         debugger
@@ -96,7 +101,7 @@ export default function Postrender(props) {
                             <></>
                         )}
                         <Row className="m-0 p-0">
-                            <Col xs={props.isAdmin === true ? 4 : 6} className="mt-10px">
+                            <Col xs={isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "rgb(244 67 54)" }}
@@ -114,7 +119,7 @@ export default function Postrender(props) {
                                     </a>
                                 </center>
                             </Col>
-                            <Col xs={props.isAdmin === true ? 4 : 6} className="mt-10px">
+                            <Col xs={isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "#007bff" }}
@@ -139,7 +144,7 @@ export default function Postrender(props) {
                                     </a>
                                 </center>
                             </Col>
-                            <Col xs={props.isAdmin === true ? 4 : false} className="mt-10px col-4"> <center>
+                            <Col xs={4} className="mt-10px col-4" style={{ display: isAdmin === true ? 'block' : 'none' }} > <center>
                                 <a
                                     style={{ color: "rgb(244 67 54)" }}
                                     onClick={() => {

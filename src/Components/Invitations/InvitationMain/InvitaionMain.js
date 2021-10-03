@@ -135,7 +135,7 @@ export default function InvitaionMain(props) {
         showinvitaions={true}
 
       />
-      <Carousel interval={2000} controls={true} style={{ marginBottom: '9vh' }}>
+      <Carousel interval={null} controls={true} style={{ marginBottom: '9vh' }}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -200,7 +200,7 @@ export default function InvitaionMain(props) {
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
-                    muted
+
                     type="video/mp4"
                     autoPlay={true}
                     src={eve.file}

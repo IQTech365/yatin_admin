@@ -32,7 +32,7 @@ export default function Invitation(props) {
   const checkifauth = async (index) => {
     debugger
     await setselected(index)
-    if (data[index][0].InvId.HasAuth === false) {
+    if (data[index][0].InvId.HasAuth === undefined || data[index][0].InvId.HasAuth === false) {
       history.push("/inv/eventpage/" + index)
     } else {
       if (data[index][0].InvId.AuthNums.includes(Auth.Phone)) {

@@ -15,6 +15,7 @@ export default function AddPost(props) {
     const Auth = useSelector((state) => state.Auth);
 
     const onDrop = useCallback(async (acceptedFiles) => {
+        debugger
         if (acceptedFiles[0].size > 5259265) {
             alert("Max file size 5mb");
             return false;
@@ -102,13 +103,13 @@ export default function AddPost(props) {
                             props.setShowTagQuery(true);
                         }}
                     >
-                        <FaTag size={17} /> Tag
+                        <FaTag size={17} />Add  Tags
                     </a>
                     {/* )} */}
                 </Col>
             </Row>
             {props.imageurl !== "" ? (
-                props.type !== "mp4" ? (
+                props.type === "image" ? (
                     <Row>
                         <Col md={12}>
                             <div {...getRootProps()}>
@@ -117,7 +118,7 @@ export default function AddPost(props) {
                                     src={props.imageurl}
                                     className="w-100"
 
-                                />
+                                />{props.type}
                             </div>
                         </Col>
                     </Row>
