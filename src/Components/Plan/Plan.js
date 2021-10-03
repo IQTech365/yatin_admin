@@ -75,13 +75,13 @@ export default function Plan(props) {
           plani={2}
         /> */}
 
-        <Plancard
+       {/*  <Plancard
           plan={"Gold"}
           selectplan={selectplan}
           cost={"RS 499 / Month"}
           invites={"Unlimited"}
           plani={3}
-        />
+        /> */}
       </Grid>
       <Grid item xs={12}>
         <Paper className="planpayment">
@@ -144,13 +144,13 @@ export default function Plan(props) {
         </Paper>
       </Grid>
       <Grid item xs={12} className="m-7px">
-        <p style={{fontWeight:'700', fontStyle:'italic', fontSize:'12px'}}>Hurray! A Special Treat From Us! Enjoy Our Plans for Free🎁🎀 (Limited Time Only)</p>
+        <p style={{fontWeight:'700', fontSize:'12px', width:'90%', margin:'auto', backgroundColor:'antiquewhite'}}>Hurray! A Special Treat From Us! Enjoy Our Plans for Free🎁🎀 (Limited Time Only)</p>
         <button
           className="custom-file-upload"
-          style={{ position: "fixed", bottom: "5px" }}
+          style={{ position: "fixed", bottom: "20px" }}
           onClick={() => props.handleNext()}
         >
-          Make Payment
+          Next
         </button>
       </Grid>
     </Grid>

@@ -1,13 +1,14 @@
-
 import React, { useEffect, useState } from "react";
 import Access from "../../../Assets/AddAccess.svg";
 import "../AddEvent.css";
 import { Grid, Modal } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import {Button} from "react-bootstrap";
 import { saveEvent } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { uploadString } from "../../../Utils/FileUpload_Download";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
+import {BsFillInfoCircleFill} from "react-icons/bs"
 import AddCode from "./AddCode";
 import * as XLSX from "xlsx";
 import Addformultiple from './Addformultiple'
@@ -251,7 +252,7 @@ export default function NewAddParticipants(props) {
             </Grid>
             <Grid container spacing={0}>
                 <Grid item xs={12} sm={12}>
-                    <button
+                <Button variant="secondary"
                         className=" btn custom-file-upload t-white l-blue mt-5px"
                         style={{ display: isMobile === true ? "block" : "none" }}
                         onClick={() => {
@@ -264,7 +265,7 @@ export default function NewAddParticipants(props) {
                         }}
                     >
                         PhoneBook
-                    </button>
+                    </Button>
                 </Grid>
                 <Grid item xs={12}>
                 <AddCode
@@ -276,10 +277,12 @@ export default function NewAddParticipants(props) {
                 />
             </Grid>
                 <Grid item xs={12} sm={12} >
-                    <button
+                    <Button
+                     variant="secondary"
                         htmlfor="input1"
-                        className="btn next t-white l-blue mt-5px"
-                        style={{ display: isMobile === false ? "block" : "none" }}
+                        className="btn t-white mt-5px"
+                        
+                        style={{ display: isMobile === false ? "block" : "none", width:'96%', margin: "2%", borderRadius:'20px' }}
                         onClick={(e) => {
                             if (props.Events.length > 1) {
                                 alert("clicked>")
@@ -295,7 +298,7 @@ export default function NewAddParticipants(props) {
                     >
                         {props.Events.length === 1 ? " Upload Excel" : "Add Participants"}
 
-                    </button>
+                    </Button>
                     <input
                         type="file"
                         id="input1"
@@ -312,15 +315,18 @@ export default function NewAddParticipants(props) {
                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
                 </Grid>
+                <p style={{fontSize:'12px', width:'90%', margin:'auto'}}>
+                    <BsFillInfoCircleFill />  Switch to Desktop Version, to Give Access Via Phone Number (through CSV)
+                </p>
             </Grid>
        
             <Grid item xs={participants.length > 0 ? 6 : 12}>
                 <button
-                    className="btn next mt-10px t-blue"
+                    className="btn next l-blue mt-10px t-white"
                     onClick={() => {
                         props.handleBack();
                     }}
-                    style={{position:'fixed', bottom:'-2px'}}
+                    style={{position:'fixed', bottom:'10px'}}
                 >
                     Back
                 </button>

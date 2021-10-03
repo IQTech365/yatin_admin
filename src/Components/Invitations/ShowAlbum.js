@@ -258,11 +258,11 @@ export default function ShowAlbum(props) {
               navigation={true}
               thumbs={{ swiper: thumbsSwiper }}
               className="mySwiper2"
-              style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}
+              style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '70vh' }}
             >
               {images.map((post, index) => (
                 <SwiperSlide>
-                  <img src={post.file} key={index} style={{height:'58vh', objectFit:'contain', width:'100%'}}/>
+                  <img src={post.file} key={index} style={{height:'65vh', objectFit:'contain', width:'100%'}}/>
                 </SwiperSlide>
               ))}
 
@@ -273,16 +273,16 @@ export default function ShowAlbum(props) {
               onSwiper={setThumbsSwiper}
               loop={true}
               spaceBetween={20}
-              slidesPerView={3}
+              slidesPerView={4}
               freeMode={true}
               watchSlidesProgress={true}
               className="mySwiper"
-              style={{ bottom: '5vh', width: '100vw', height: "150px", objectFit:'contain', position:'fixed' }}
+              style={{ bottom: '5vh', width: '100vw', height: "110px", objectFit:'contain', position:'fixed' }}
             >
               {images.map((post, index) => (
                 post.fileurl !== "" ?
                   <SwiperSlide>
-                    <img src={post.file} key={index}  style={{ objectFit:'cover', width:'100%', height:'inherit'}}/>
+                    <img src={post.file} key={index}  style={{ objectFit:'cover', width:'100%', height:'inherit', border:'2px solid lightgrey', borderRadius:'8px'}}/>
                   </SwiperSlide>
 
                   : <></>)

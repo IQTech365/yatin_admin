@@ -124,7 +124,7 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-      <Carousel interval={2000} controls={true} style={{ marginBottom: '9vh' }}>
+      <Carousel interval={2000} controls={true}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
