@@ -54,7 +54,7 @@ export default function AddEventSucess(props) {
               "/" +
               res.data.Events[0].code
           );
-          getImage(res.data.Events[0].file);
+          await getImage(res.data.Events[0].file);
           await setpwd(res.data.Events[0].InvId.PassWord);
           await setType(res.data.Events[0].InvId.Type);
         } else {
@@ -135,7 +135,7 @@ export default function AddEventSucess(props) {
         );
       }
     }
-  }, []);
+  }, []); 
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>

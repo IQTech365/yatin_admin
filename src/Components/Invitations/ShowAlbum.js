@@ -19,11 +19,11 @@ import { useSwipeable } from "react-swipeable";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Thumbs } from "swiper";
-
+SwiperCore.use([Navigation, Thumbs]);
 // install Swiper modules
 
 export default function ShowAlbum(props) {
-  SwiperCore.use([Navigation, Thumbs]);
+
   const [isUploaded, setisUploaded] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [Eventdata, setEventdata] = useState([]);
@@ -247,6 +247,7 @@ export default function ShowAlbum(props) {
                 </div>
               ))}
             </Swiper> */}
+            <Row>
             <Swiper
               style={{
                 "--swiper-navigation-color": "#fff",
@@ -257,35 +258,38 @@ export default function ShowAlbum(props) {
               navigation={true}
               thumbs={{ swiper: thumbsSwiper }}
               className="mySwiper2"
-              style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: 'auto' }}
+              style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}
             >
               {images.map((post, index) => (
                 <SwiperSlide>
-                  <img src={post.file} key={index} />
+                  <img src={post.file} key={index} style={{height:'58vh', objectFit:'contain', width:'100%'}}/>
                 </SwiperSlide>
               ))}
 
             </Swiper>
+            </Row>
+            <Row>
             <Swiper
               onSwiper={setThumbsSwiper}
               loop={true}
-              spaceBetween={10}
-              slidesPerView={4}
+              spaceBetween={20}
+              slidesPerView={3}
               freeMode={true}
               watchSlidesProgress={true}
               className="mySwiper"
-              style={{ marginTop: 5, position: 'fixed', bottom: '15vh', overflowX: 'scroll', width: '100vw', margin: 0, left: 0, height: "60px" }}
+              style={{ bottom: '5vh', width: '100vw', height: "150px", objectFit:'contain', position:'fixed' }}
             >
               {images.map((post, index) => (
                 post.fileurl !== "" ?
                   <SwiperSlide>
-                    <img src={post.file} key={index} />
+                    <img src={post.file} key={index}  style={{ objectFit:'cover', width:'100%', height:'inherit'}}/>
                   </SwiperSlide>
 
                   : <></>)
               )}
 
             </Swiper>
+            </Row>
             {/* <Row  {...handlers} style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}>
               {images.map((post, index) => (
 
@@ -309,3 +313,5 @@ export default function ShowAlbum(props) {
     </div>
   );
 }
+
+
