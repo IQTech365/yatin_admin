@@ -266,10 +266,19 @@ export default function NewAddParticipants(props) {
                         PhoneBook
                     </button>
                 </Grid>
-                <Grid item xs={12} sm={12} style={{ display: window.innerWidth > window.innerHeight ? 'block' : 'none' }}>
-                    <label
+                <Grid item xs={12}>
+                <AddCode
+                    Events={props.Events}
+                    code={code}
+                    setCodes={setCodes}
+                    setEntryWay={setEntryWay}
+                    save={save}
+                />
+            </Grid>
+                <Grid item xs={12} sm={12} >
+                    <button
                         htmlfor="input1"
-                        className="btn excel-file-upload  t-white l-blue mt-5px"
+                        className="btn next t-white l-blue mt-5px"
                         style={{ display: isMobile === false ? "block" : "none" }}
                         onClick={(e) => {
                             if (props.Events.length > 1) {
@@ -286,7 +295,7 @@ export default function NewAddParticipants(props) {
                     >
                         {props.Events.length === 1 ? " Upload Excel" : "Add Participants"}
 
-                    </label>
+                    </button>
                     <input
                         type="file"
                         id="input1"
@@ -304,21 +313,14 @@ export default function NewAddParticipants(props) {
                     />
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <AddCode
-                    Events={props.Events}
-                    code={code}
-                    setCodes={setCodes}
-                    setEntryWay={setEntryWay}
-                    save={save}
-                />
-            </Grid>
+       
             <Grid item xs={participants.length > 0 ? 6 : 12}>
                 <button
                     className="btn next mt-10px t-blue"
                     onClick={() => {
                         props.handleBack();
                     }}
+                    style={{position:'fixed', bottom:'-2px'}}
                 >
                     Back
                 </button>

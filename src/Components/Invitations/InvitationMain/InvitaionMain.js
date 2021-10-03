@@ -13,7 +13,6 @@ import { GoCalendar, GoLocation } from "react-icons/go";
 import Carousel from "react-bootstrap/Carousel";
 import UserDataUrl from "../../Helpers/UserData/UserDatajustUrl";
 import { IoSendSharp } from "react-icons/io5";
-import { BiBell } from "react-icons/bi";
 import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
@@ -29,8 +28,6 @@ import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import HelpIcon from "@material-ui/icons/Help";
-import Popup from "../../Helpers/Popups/Popup";
-import Notifications from "../../Notifications/Notification";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
@@ -127,15 +124,7 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-      <Popup
-        component={Notifications}
-        toggleShowPopup={setshow}
-        showPopup={show}
-        MainCode={props.MainCode}
-        showinvitaions={true}
-
-      />
-      <Carousel interval={null} controls={true} style={{ marginBottom: '9vh' }}>
+      <Carousel interval={2000} controls={true} style={{ marginBottom: '9vh' }}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -159,19 +148,6 @@ export default function InvitaionMain(props) {
                     />
                   </p>
                   <Col></Col>
-                  <BiBell
-                    size={30}
-                    onClick={() => {
-                      setshow(true);
-                    }}
-                    style={{
-                      backgroundColor: "white",
-                      color: "black",
-                      borderRadius: 20,
-                      padding: "0.1em 0.4em",
-                      marginRight: 10
-                    }}
-                  />
                   <FaUserFriends
                     size={30}
                     style={{
@@ -270,7 +246,7 @@ export default function InvitaionMain(props) {
                   </h4>
                   <Form.Control
                     size="sm"
-                    placeholder="Write Comment"
+                    placeholder="Congratulate!"
                     className="form-control"
                     value={comment}
                     onChange={(e) => {

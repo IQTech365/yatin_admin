@@ -40,13 +40,11 @@ import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions'
 function App() {
   const dispatch = useDispatch();
   const [loop, setloop] = useState()
-  window.OneSignal = window.OneSignal || [];
-  const OneSignal = window.OneSignal;
+
+
   const Auth = useSelector((state) => state.Auth);
   useEffect(() => {
-    OneSignal.init({
-      appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
-    })
+   
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
   }, []);

@@ -9,7 +9,7 @@
   margin: 1%;
 }
 .planpayment {
-  padding: 20px;
+  padding: 18px;
   margin: 5px;
   font-size: 17px;
   font-weight: 500;
@@ -21,26 +21,14 @@
 .lowerplan {
   height: 150px;
   width: 100%;
+  color: 
+  #8d8d8d;
 }
 .Free {
-  background: linear-gradient(
-    120deg,
-    #00d8ff,
-    #91f0ff,
-    #80e8ff,
-    #91f0ff,
-    #00d8ff
-  );
+  background: linear-gradient(to right, #8e2de2, #4a00e0); 
 }
 .Bronze {
-  background: linear-gradient(
-    120deg,
-    #3e2b01,
-    #503b00,
-    #836600,
-    #c1a132,
-    #eaca58
-  );
+  background-image: linear-gradient(134deg, #d09e84 1%, #a5825f 32%, #6b5844 67%, #41382f 100%);
 }
 .Silver {
   background: linear-gradient(
@@ -53,14 +41,7 @@
   );
 }
 .Gold {
-  background: linear-gradient(
-    120deg,
-    #bf953f,
-    #fcf6ba,
-    #b38728,
-    #fbf5b7,
-    #aa771c
-  );
+  background-image: linear-gradient(134deg, #f5dc53 1%, #c3971c 44%, #b98612 75%, #b1780a 100%);
 }
 .pfsmall {
   font-size: small;
@@ -75,4 +56,7 @@
   font-size: 25px;
   padding: 4px;
   font-weight: 800;
+}
+.plan-float{
+text-align: right;
 }

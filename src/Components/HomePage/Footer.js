@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="row">
           <div className="col-md-5 text-md-left text-center mb-2 mb-md-0">
             <p className="text-white mb-0">
-              Copyright @ 2021, All Rights Reserved for Mobilly Invite
+              Copyright @ 2021, All Rights Reserved by Cy Ecommerce LLP
             </p>
           </div>
           <div className="col-md-2 text-center">

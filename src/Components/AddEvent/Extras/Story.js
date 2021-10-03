@@ -143,9 +143,10 @@ export default function Story(props) {
             key={eve.Name + index}
             container
             spacing={0}
-            className="card-shadow  m-b-10  "
+            className="card-shadow  m-b-10 "
+           
           >
-            <Grid item xs={4} md={3}>
+            <Grid item xs={4} md={3} >
               {edit === true && currentedited === index ? (
                 <div {...getRootProps()} className="w-100">
                   <input {...getInputProps()} className="w-100" />
@@ -288,8 +289,9 @@ export default function Story(props) {
         item
         xs={12}
         className={add === false ? "hide" : "show card-shadow m-b-10 "}
+       
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} >
           <Grid item xs={4} md={2}>
             {file === "" ? (
               <div {...getRootProps()} className="w-100">

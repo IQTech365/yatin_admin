@@ -37,7 +37,7 @@ export default function UserDataUrl(props) {
         <></>
       )}
       {props.showName && props.showName === true ? (
-        <span className="name">
+        <span className="name" style={{fontSize: "15px"}}>
           {User.Name === undefined || User.Name === ""
             ? props.Phone
             : User.Name}

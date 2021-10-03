@@ -10,16 +10,15 @@ import SwiperCore, {
 import Banner from "../../Assets/Banner.jpg";
 import BannerTwo from "../../Assets/BannerTwo.jpg";
 import BannerThree from "../../Assets/BannerThree.jpg";
-import MobileHeader from "../Helpers/MobileHeader/MobileHeader"
+
 
 
 SwiperCore.use([Autoplay, Pagination, Navigation, Scrollbar]);
 const GiftBanner = () => {
   return (
     <>
-    <MobileHeader />
+
     <Swiper
-    style={{marginTop: '6vh'}} 
       centeredSlides={true}
       slidesPerView={1}
       loop={true}

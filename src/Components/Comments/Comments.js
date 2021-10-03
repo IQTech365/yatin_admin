@@ -26,8 +26,6 @@ class Comments extends React.Component {
             <h3 style={{ color: "black", fontSize: 28, fontWeight: "bold" }}>
               Comments
             </h3>
-
-            {/* Comments Section Starts Here */}
           </Row>
           <Row
             style={{
@@ -95,7 +93,7 @@ class Comments extends React.Component {
                 as="textarea"
                 rows={6}
                 placeholder="Write a Comment"
-                style={{ width: "100%" }}
+                style={{ width: "100%"}}
               />
             </Col>
             <Col>

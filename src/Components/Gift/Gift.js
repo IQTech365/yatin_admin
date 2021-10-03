@@ -11,10 +11,23 @@ import {
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import NavMobile from "../Helpers/NavMobile/NavMobile";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { Row, Col } from "react-bootstrap";
 import history from "../../Utils/History";
+import { Button } from "react-bootstrap";
 import AmazonLogo from "../../Assets/AmazonLogo.png";
 import { FaShoppingCart } from "react-icons/fa";
+import Lottie from "react-lottie";
+import animationData from "../Animations/giftloading.json";
+
 export default function Gift(props) {
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   const dispatch = useDispatch();
   const [gifts, setgifts] = useState([]);
   const [Eventdata, setEventdata] = useState([]);
@@ -22,6 +35,10 @@ export default function Gift(props) {
   const [base, setbase] = useState("");
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
+
+  const redirect = () => {
+    window.location.href = "https://shop.mobillyinvite.com/";
+  };
   useEffect(async () => {
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
@@ -29,10 +46,10 @@ export default function Gift(props) {
     } else {
       if (
         props.location.pathname ===
-        "/MyEvents/eventpage/gift/" +
-        props.match.params.id +
-        "/" +
-        props.match.params.MainCode &&
+          "/MyEvents/eventpage/gift/" +
+            props.match.params.id +
+            "/" +
+            props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id][0]);
@@ -41,10 +58,10 @@ export default function Gift(props) {
         await getgifts(MyEvents[props.match.params.id][0].InvId.Type);
       } else if (
         props.location.pathname ===
-        "/inv/eventpage/gift/" +
-        props.match.params.id +
-        "/" +
-        props.match.params.MainCode &&
+          "/inv/eventpage/gift/" +
+            props.match.params.id +
+            "/" +
+            props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id][0]);
@@ -78,78 +95,110 @@ export default function Gift(props) {
 
   return (
     <>
-      <NavMobile base={base} id={props.match.params.id} />
-      <GiftBanner />
-      <Grid spacing={0} container>
-        <Grid xs={12} item className="back-navigation desktop-only p-10px">
-          <div
-            style={{
-              width: "100%",
-              marginTop: 5,
-              marginRight: 3,
-              marginLeft: 3,
-            }}
-          >
-            <IoArrowBackCircleOutline
-              size={40}
-              style={{ color: "black" }}
-              onClick={() => history.goBack()}
-            />
-            <h3 style={{ color: "black", fontSize: 28, fontWeight: "900" }}>
-              Feed
-            </h3>
-          </div>
-        </Grid>
-
-        {gifts.map((gift, index) => (
-          <Grid xs={12} sm={3} item key={index}>
-            <div className="product_card">
-              <img src={gift.images[0].src} fluid style={{ width: "150px" }} />
-              <div className="product_cardbody">
-                <div className="card-title">
-                  <h4 style={{ fontSize: 16 }}>{gift.name}</h4>
-                  <h3 style={{ fontSize: "15px" }}>₹{gift.price}</h3>
-                </div>
-
-                <img src={AmazonLogo} style={{ height: "15px" }} />
-
-                <p>{gift.short_description}</p>
-
-                <div className="btn-group">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() =>
-                      window.open(
-                        gift.external_url,
-                        "_blank",
-                        "noopener,noreferrer"
-                      )
-                    }
-                    style={{ borderRadius: "20px" }}
-                  >
-                    <FaShoppingCart style={{ marginRight: 5 }} />
-                    Buy Now
-                  </button>
-                  <button
-                    className="btn btn-outline-primary"
-                    onClick={() =>
-                      window.open(
-                        gift.permalink,
-                        "_blank",
-                        "noopener,noreferrer"
-                      )
-                    }
-                    style={{ borderRadius: "20px" }}
-                  >
-                    Details
-                  </button>
-                </div>
+      {" "}
+      {gifts.length <= 0 ? (
+        <div>
+          {" "}
+          <Lottie options={defaultOptions} height={400} width={400} />
+          <p style={{textAlign: "center", fontSize:"15px", fontWeight: "bold"}}>Getting Some Cool Gifts <br /> for Your Event</p>
+        </div>
+      ) : (
+        <>
+          <NavMobile base={base} id={props.match.params.id} />
+          <GiftBanner />
+          <Grid spacing={0} container>
+            <Grid xs={12} item className="back-navigation desktop-only p-10px">
+              <div
+                style={{
+                  width: "100%",
+                  marginTop: 5,
+                  marginRight: 3,
+                  marginLeft: 3,
+                }}
+              >
+                <IoArrowBackCircleOutline
+                  size={40}
+                  style={{ color: "black" }}
+                  onClick={() => history.goBack()}
+                />
+                <h3 style={{ color: "black", fontSize: 28, fontWeight: "900" }}>
+                  Feed
+                </h3>
               </div>
-            </div>
+            </Grid>
+
+            {gifts.map((gift, index) => (
+              <Grid xs={12} sm={3} item key={index}>
+                <Row className="product_card">
+                  <Col
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "50%",
+                    }}
+                  >
+                    {" "}
+                    <img src={gift.images[0].src} fluid />
+                    <img
+                      src={AmazonLogo}
+                      style={{ height: "15px", objectFit: "contain" }}
+                    />
+                  </Col>
+                  <Col>
+                    {" "}
+                    <div className="product_cardbody">
+                      <div className="card-title">
+                        <h4 style={{ fontSize: 13 }}>{gift.name}</h4>
+                        <h3 style={{ fontSize: 13 }}>₹{gift.price}</h3>
+                      </div>
+
+                      <p>{gift.short_description}</p>
+
+                      <div className="btn-group">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() =>
+                            window.open(
+                              gift.external_url,
+                              "_blank",
+                              "noopener,noreferrer"
+                            )
+                          }
+                          style={{ borderRadius: "20px" }}
+                        >
+                          <FaShoppingCart style={{ marginRight: 5 }} />
+                          Buy Now
+                        </button>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={() =>
+                            window.open(
+                              gift.permalink,
+                              "_blank",
+                              "noopener,noreferrer"
+                            )
+                          }
+                          style={{ borderRadius: "20px" }}
+                        >
+                          Details
+                        </button>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Grid>
+            ))}
+            <Button
+              variant="primary"
+              style={{ margin: "auto", borderRadius: "20px" }}
+              onClick={redirect}
+            >
+              Load More
+            </Button>
+            <Grid xs={12} item className="m-b-50px"></Grid>
           </Grid>
-        ))}
-        <Grid xs={12} item className="m-b-50px"></Grid>
-      </Grid>
+        </>
+      )}
     </>
   );
 }
