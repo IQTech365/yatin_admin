@@ -8,7 +8,7 @@ export default function UserData(props) {
   const GuestList = useSelector(state => state.GuestList)
   const Auth = useSelector(state => state.Auth);
   useEffect(async () => {
-    console.log(props.Phone);
+    // console.log(props.Phone);
     if (props.Phone !== "" || props.Phone === undefined) {
       if (Auth.Phone === props.Phone) {
         setUser({ Name: Auth.Name, Pic: Auth.Profile });

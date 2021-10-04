@@ -46,10 +46,10 @@ export default function Gift(props) {
     } else {
       if (
         props.location.pathname ===
-          "/MyEvents/eventpage/gift/" +
-            props.match.params.id +
-            "/" +
-            props.match.params.MainCode &&
+        "/MyEvents/eventpage/gift/" +
+        props.match.params.id +
+        "/" +
+        props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id][0]);
@@ -58,10 +58,10 @@ export default function Gift(props) {
         await getgifts(MyEvents[props.match.params.id][0].InvId.Type);
       } else if (
         props.location.pathname ===
-          "/inv/eventpage/gift/" +
-            props.match.params.id +
-            "/" +
-            props.match.params.MainCode &&
+        "/inv/eventpage/gift/" +
+        props.match.params.id +
+        "/" +
+        props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id][0]);
@@ -83,7 +83,7 @@ export default function Gift(props) {
     axios
       .post(url + "event/ListGifts", { category: Category })
       .then(function (response) {
-        console.log(response.data.alldata);
+        // console.log(response.data.alldata);
         if (response.data.status === "success") {
           setgifts(response.data.alldata);
         }
@@ -100,7 +100,7 @@ export default function Gift(props) {
         <div>
           {" "}
           <Lottie options={defaultOptions} height={400} width={400} />
-          <p style={{textAlign: "center", fontSize:"15px", fontWeight: "bold"}}>Getting Some Cool Gifts <br /> for Your Event</p>
+          <p style={{ textAlign: "center", fontSize: "15px", fontWeight: "bold" }}>Getting Some Cool Gifts <br /> for Your Event</p>
         </div>
       ) : (
         <>

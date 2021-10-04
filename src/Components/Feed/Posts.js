@@ -27,7 +27,7 @@ export default function Postrender(props) {
         } else {
             setPosts(props.filterdata)
         }
-        console.log(props.admins)
+        // console.log(props.admins)
     }, [props.data, props.filter, props.filterdata])
     async function deletePostUI(index) {
         debugger
@@ -124,9 +124,9 @@ export default function Postrender(props) {
                                     <a
                                         style={{ color: "#007bff" }}
                                         onClick={async () => {
-                                            console.log(props.showcommmentforpost)
-                                            console.log(!props.showcommment)
-                                            console.log(!props.showcommment)
+                                            // console.log(props.showcommmentforpost)
+                                            // console.log(!props.showcommment)
+                                            // console.log(!props.showcommment)
                                             if (props.showcommmentforpost === post._id) {
                                                 props.setshowcommment(!props.showcommment);
                                                 props.setshowcommmentforpost(post._id);

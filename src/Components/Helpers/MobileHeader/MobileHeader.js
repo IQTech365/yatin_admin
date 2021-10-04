@@ -10,13 +10,13 @@ const MobileHeader = (props) => {
   const EventState = useSelector((state) => state.Eventdata);
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
-      console.log(EventState);
+      // console.log(EventState);
       props.Eventdata[0].Host.map((host) => {
         if (host === Auth.Phone) {
           setishost(true);
         }
       });
-      console.log(props.Eventdata[0].Name);
+      // console.log(props.Eventdata[0].Name);
     }
   }, [props.Eventdata]);
 

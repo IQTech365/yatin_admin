@@ -18,7 +18,7 @@ export default function Addformultiple(props) {
   const [participants, setparticipants] = useState([]);
   const [width, setwidth] = useState("100%");
   useEffect(async () => {
-    console.log(props);
+    // console.log(props);
     await setparticipants(props.participants);
     await setwidth(100 / props.Events.length + "vw");
   }, [props.participants]);
@@ -56,7 +56,7 @@ export default function Addformultiple(props) {
       if (props.eventKey < 3 && props.eventKey < props.Events.length - 1) {
         let NexteventKey = parseInt(props.eventKey) + 1;
         particpantscpy[NexteventKey] = particpantscpy[props.eventKey];
-        console.log(particpantscpy);
+        // console.log(particpantscpy);
         props.setParticipants(particpantscpy);
       } else {
         alert("No more Events to copy");
@@ -72,7 +72,7 @@ export default function Addformultiple(props) {
         <Tabs
           activeKey={props.eventKey}
           onSelect={(k) => {
-            console.log(k);
+            // console.log(k);
             props.setKey(k);
           }}
         >
@@ -135,7 +135,7 @@ export default function Addformultiple(props) {
                   type="file"
                   accept=".xlsx"
                   onChange={(e) => {
-                    console.log("done 4");
+                    // console.log("done 4");
                     const file = e.target.files[0];
                     readExcel(file);
                   }}

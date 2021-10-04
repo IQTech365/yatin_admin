@@ -40,7 +40,7 @@ export default function AddStory(props) {
         file: file,
         filetype: filetype,
       };
-      console.log([...subStory, data]);
+      // console.log([...subStory, data]);
 
       let subStorycopy = [...subStory, data];
       for (let i = 0; i < subStory.length; i++) {
@@ -150,20 +150,20 @@ export default function AddStory(props) {
       let newurl =
         props.uniqurl.split("%2F")[2] +
         Math.floor(100000 + Math.random() * 900000) +
-        "/Album/";
+        "/Story/";
       for (let i = 0; i < subStory.length; i++) {
         if (
           subStory[i].file &&
           subStory[i].file.includes("firebasestorage.googleapis.com")
         ) {
-          newurl = subStory[i].file.split("%2F")[1] + "/Album/";
+          newurl = subStory[i].file.split("%2F")[1] + "/Story/";
         }
       }
-      console.log(newurl);
+      // console.log(newurl);
       await setuniqurl(newurl);
     } else {
-      await setuniqurl(props.uniqurl.split("%2F")[1] + "/Album/");
-      console.log(props.uniqurl.split("%2F")[1] + "/Album/");
+      await setuniqurl(props.uniqurl.split("%2F")[1] + "/Story/");
+      // console.log(props.uniqurl.split("%2F")[1] + "/Album/");
     }
   }, [props.Eventdata, props.uniqurl]);
 
@@ -204,7 +204,7 @@ export default function AddStory(props) {
                 size="sm"
                 type="text"
                 placeholder="Event Name Here"
-                style={{borderRadius:'20px'}}
+                style={{ borderRadius: '20px' }}
                 onChange={(e) => {
                   setsubname(e.target.value);
                 }}
@@ -219,7 +219,7 @@ export default function AddStory(props) {
                   type="datetime-local"
                   placeholder="Edit Date"
                   id="datetime-local"
-                  style={{borderRadius:'20px'}}
+                  style={{ borderRadius: '20px' }}
                   defaultValue="2017-05-24T10:30"
                   InputLabelProps={{
                     shrink: true,
@@ -235,7 +235,7 @@ export default function AddStory(props) {
               <Form.Control
                 as="textarea"
                 placeholder="Enter Description"
-                style={{ height: "100px", borderRadius:'20px' }}
+                style={{ height: "100px", borderRadius: '20px' }}
                 onChange={(e) => {
                   setdescription(e.target.value);
                 }}
@@ -388,7 +388,7 @@ export default function AddStory(props) {
             </Grid>
           </Paper>
         ) : (
-          <Paper style={{ height: "300x" }} elevation={3}  style={{display: add === true || edit === true  ? "none" : ""}}>
+          <Paper style={{ height: "300x" }} elevation={3} style={{ display: add === true || edit === true ? "none" : "" }}>
             <Grid container spacing={0} >
               <Grid className="stryimg" item xs={5} sm={3}>
                 {eve.filetype === "png" ||

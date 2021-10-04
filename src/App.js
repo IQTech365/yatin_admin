@@ -44,7 +44,7 @@ function App() {
 
   const Auth = useSelector((state) => state.Auth);
   useEffect(() => {
-   
+
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
   }, []);

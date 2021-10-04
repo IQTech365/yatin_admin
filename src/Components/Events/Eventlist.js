@@ -11,7 +11,7 @@ export default function EventList(props) {
 
   const [data, setData] = useState(props.data);
   useEffect(async () => {
-    console.log(props.data);
+    // console.log(props.data);
     await setData(props.data);
   }, [props.data]);
 
@@ -21,7 +21,7 @@ export default function EventList(props) {
   }
   return (
     <Grid container className="mb-100 contain-main" >
-      
+
       {data.map((inv, index) => (
         <Grid
           item
@@ -54,20 +54,20 @@ export default function EventList(props) {
               className='w-100 inv-img'
             />
           )}
-   
-         
+
+
           <div className="bottom-bar">
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <Grid container spacing={0} className="event-info">
-                  <Grid item xs={12} className="fs-bold t-white"  style={{fontSize:'23px'}}>
+                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '23px' }}>
                     {inv[0].Name}
                   </Grid>
-                  <Grid item xs={6} className="animated-list" style={{ color:'black', fontSize:'15px', borderRadius:'5px', fontWeight:'700'}}>
+                  <Grid item xs={6} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '5px', fontWeight: '700' }}>
                     <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
-                  
+
                   </Grid>
-                
+
                 </Grid>
               </Grid>
               <Grid item xs={2}></Grid>

@@ -58,18 +58,18 @@ export default function AdminSidebar(props) {
             >
               <Row className="sidebar-rows">
                 <Col style={{ margin: "auto", padding: "10px" }} xs={8}>{eventdata.Name}</Col>
-                <Col xs={4}>
+                <Col xs={4} onClick={() => {
+                  history.push(
+                    "/" + base + "/admin/" + props.match.params.id + "/" + index
+                  );
+                }} >
                   <div style={{ float: 'right' }}>
-                    <MdModeEdit style={{ margin: "5px" }} onClick={() => {
+                    {/* <MdModeEdit style={{ margin: "5px" }} onClick={() => {
                       history.push(
                         "/" + base + "/Manage-Event/" + props.match.params.id + "/" + index
                       );
-                    }} />
-                    <RiArrowRightSLine size={20} onClick={() => {
-                      history.push(
-                        "/" + base + "/admin/" + props.match.params.id + "/" + index
-                      );
-                    }} style={{ margin: "5px" }} />
+                    }} /> */}
+                    <RiArrowRightSLine size={20} style={{ margin: "5px" }} />
                   </div>
                 </Col>
 

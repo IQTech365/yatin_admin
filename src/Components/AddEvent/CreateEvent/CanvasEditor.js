@@ -10,7 +10,7 @@ export default function CanvasEditor(props) {
         let file = await toPng(document.getElementById('image'))
             .then(async function (blob) {
                 let EventsCpy = await { ...props.CurrentEventDetails };
-                console.log(blob)
+                // console.log(blob)
                 EventsCpy.filetype = "png";
                 EventsCpy.file = blob;
                 await props.SetCurrentEventDetails(EventsCpy);

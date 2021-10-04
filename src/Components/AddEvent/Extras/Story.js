@@ -37,7 +37,7 @@ export default function Story(props) {
         file: file,
         filetype: filetype,
       };
-      console.log([...subStory, data]);
+      // console.log([...subStory, data]);
       await setsubStory([...subStory, data]);
 
       // dispatch({
@@ -144,7 +144,7 @@ export default function Story(props) {
             container
             spacing={0}
             className="card-shadow  m-b-10 "
-           
+
           >
             <Grid item xs={4} md={3} >
               {edit === true && currentedited === index ? (
@@ -289,7 +289,7 @@ export default function Story(props) {
         item
         xs={12}
         className={add === false ? "hide" : "show card-shadow m-b-10 "}
-       
+
       >
         <Grid container spacing={2} >
           <Grid item xs={4} md={2}>

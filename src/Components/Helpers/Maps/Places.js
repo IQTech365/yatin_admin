@@ -16,16 +16,16 @@ export default function Places(props) {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then(async (latLng) => {
-        console.log("Success", latLng);
+        //console.log("Success", latLng);
         let data = await JSON.stringify({
           lat: latLng.lat,
           lng: latLng.lng,
           address: address,
         });
         await props.setLocation(data);
-        await console.log(address)
+        //  await console.log(address)
         props.setaddress(address);
-        await console.log(props.location)
+        // await console.log(props.location)
       })
       .catch((error) => console.error("Error", error));
 

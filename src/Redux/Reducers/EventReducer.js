@@ -14,6 +14,11 @@ const Eventdata = (state = initialState, action) => {
         ...state,
         ALBUM: action.payload,
       };
+    case "ADDALBUM":
+      return {
+        ...state,
+        ALBUM: [...state.ALBUM, ...action.payload],
+      };
     case "DELETEALBUM":
       return {
         ...state,

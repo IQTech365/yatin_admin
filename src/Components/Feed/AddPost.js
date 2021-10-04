@@ -22,7 +22,7 @@ export default function AddPost(props) {
         }
         let url = "";
         let ftype = acceptedFiles[0].type.split("/");
-        console.log(ftype)
+        //   console.log(ftype)
         props.settype(ftype[0]);
         var reader = await new FileReader();
         reader.onload = async function () {

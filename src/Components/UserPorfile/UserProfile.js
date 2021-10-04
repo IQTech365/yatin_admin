@@ -7,7 +7,7 @@ import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
 import ProfilePic from "../../Assets/ProfilePic.png"
 import Radio from "@material-ui/core/Radio";
-import {BsFillInfoCircleFill} from "react-icons/bs"
+import { BsFillInfoCircleFill } from "react-icons/bs"
 
 export default function UserProfile(props) {
   const Auth = useSelector((state) => state.Auth);
@@ -41,12 +41,12 @@ export default function UserProfile(props) {
     accept: "image/jpeg, image/png, image/jpg",
   });
   const save = async () => {
-    console.log(Image)
+    debugger
     if (Name === "" || DOB === "" || Gender === "") {
       setshowerror(true);
     } else {
       let url = Image
-      if (Image !== '') {
+      if (Image === '') {
 
       } else if (Image.length > 1 && !Image.includes('firebasestorage.googleapis.com')) {
         url = await uploadString(
@@ -68,20 +68,20 @@ export default function UserProfile(props) {
       <Grid item xs={12} {...getRootProps()}>
         <input {...getInputProps()} />
         <center>
-       
+
           {Image == "" ? (
             <img src={ProfilePic} className="Profile" style={{ height: "130px" }} />
           ) : (
             <img src={Image} className="Profile" style={{ height: "130px", borderRadius: '50%', height: "130px" }} />
           )}
-           <p style={{fontStyle:'italic',fontSize:'12px', marginTop:'10px', fontWeight:'bold'}}> <BsFillInfoCircleFill/> For Best Experience, Fill Your Profile✨ </p>
+          <p style={{ fontStyle: 'italic', fontSize: '12px', marginTop: '10px', fontWeight: 'bold' }}> <BsFillInfoCircleFill /> For Best Experience, Fill Your Profile✨ </p>
         </center>
       </Grid>
 
 
 
       <Grid item xs={12}>
-        
+
         <span>Name</span>
         <br />
         <TextField
@@ -94,7 +94,7 @@ export default function UserProfile(props) {
           error={showerror === true && Name === "" ? true : false}
         />
       </Grid>
-      <Grid item xs={12} style={{marginTop:'10px'}}>
+      <Grid item xs={12} style={{ marginTop: '10px' }}>
         <span>DOB</span>
         <TextField
           variant="outlined"
@@ -108,8 +108,8 @@ export default function UserProfile(props) {
           error={showerror === true && DOB === "" ? true : false}
         />
       </Grid>
-  
-      <Grid item xs={12} style={{marginTop:'10px'}}>
+
+      <Grid item xs={12} style={{ marginTop: '10px' }}>
         Male
         <Radio
           checked={Gender === 'M'}
@@ -131,7 +131,7 @@ export default function UserProfile(props) {
           value="O"
           name="radio-button-demo"
           inputProps={{ 'aria-label': '0' }}
-        /> 
+        />
       </Grid>
 
       <Grid item xs={5}>
@@ -171,9 +171,9 @@ export default function UserProfile(props) {
         >
           Skip
         </Button>
-     
+
       </Grid>
-    
+
     </Grid >
   );
 }

@@ -17,7 +17,7 @@ export default function FeedComments(props) {
 
       let commentscpy = [...comments]
       await commentscpy.push({ CommentBy: Auth.Phone, Comment: comment })
-      console.log(commentscpy)
+      // console.log(commentscpy)
       await setcomments(commentscpy)
       await setisError(false);
       await setcomment("")
@@ -27,7 +27,7 @@ export default function FeedComments(props) {
     }
   };
   useEffect(() => {
-    console.log(props.data)
+    //   console.log(props.data)
     setcomments(props.data)
   }, [props.post])
 

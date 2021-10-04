@@ -167,7 +167,7 @@ export default function ShowAlbum(props) {
       <Addtoalbum
         toggleShowPopup={setshow}
         showPopup={show}
-        images={Prevfiles}
+        images={images}
         _id={props.match.params.id}
         eventname={Name}
         Type={Type}
@@ -268,7 +268,7 @@ export default function ShowAlbum(props) {
             </Swiper>
             <Swiper
               onSwiper={setThumbsSwiper}
-              loop={true}
+              loop={false}
               spaceBetween={10}
               slidesPerView={4}
               freeMode={true}
