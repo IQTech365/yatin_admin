@@ -176,7 +176,6 @@ export default function InvitaionMain(props) {
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
-                    muted
                     type="video/mp4"
                     autoPlay={true}
                     src={eve.file}

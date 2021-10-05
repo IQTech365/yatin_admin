@@ -23,7 +23,7 @@ export default function AddTags(props) {
     const classes = useStyles();
     useEffect(() => {
         setTags([...props.url])
-        console.log(props.MainCode)
+        //  console.log(props.MainCode)
     }, [props.url])
 
     const addTags = (data) => {

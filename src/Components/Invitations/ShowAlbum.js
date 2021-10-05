@@ -167,7 +167,7 @@ export default function ShowAlbum(props) {
       <Addtoalbum
         toggleShowPopup={setshow}
         showPopup={show}
-        images={Prevfiles}
+        images={images}
         _id={props.match.params.id}
         eventname={Name}
         Type={Type}
@@ -271,12 +271,18 @@ export default function ShowAlbum(props) {
             <Row>
             <Swiper
               onSwiper={setThumbsSwiper}
+<<<<<<< HEAD
               loop={true}
               spaceBetween={20}
+=======
+              loop={false}
+              spaceBetween={10}
+>>>>>>> origin/Test
               slidesPerView={4}
               freeMode={true}
               watchSlidesProgress={true}
               className="mySwiper"
+<<<<<<< HEAD
               style={{ bottom: '5vh', width: '100vw', height: "110px", objectFit:'contain', position:'fixed' }}
             >
               {images.map((post, index) => (
@@ -287,6 +293,15 @@ export default function ShowAlbum(props) {
 
                   : <></>)
               )}
+=======
+              style={{ marginTop: 5, position: 'fixed', bottom: '10vh', overflowX: 'scroll', width: '100vw', margin: 0, left: 0, height: "60px" }}
+            >
+              {images.map((post, index) => (
+                <SwiperSlide>
+                  <img src={post.file} key={index} style={{ width: '60px', height: "55px", margin: "1px", objectFit: "contain" }} />
+                </SwiperSlide>
+              ))}
+>>>>>>> origin/Test
 
             </Swiper>
             </Row>

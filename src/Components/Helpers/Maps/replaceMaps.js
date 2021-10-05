@@ -51,7 +51,7 @@ class Map extends React.Component {
           ...this.props.CurrentEventDetails,
           Location: location,
         });
-        console.log("city", city, area, state);
+        // console.log("city", city, area, state);
 
         this.setState({
           address: address ? address : "",
@@ -157,7 +157,7 @@ class Map extends React.Component {
    *
    * @param event
    */
-  onInfoWindowClose = (event) => {};
+  onInfoWindowClose = (event) => { };
   /**
    * When the user types an address in the search box
    * @param place
@@ -194,7 +194,7 @@ class Map extends React.Component {
    * @param event
    */
   onMarkerDragEnd = (event) => {
-    console.log("event", event);
+    // console.log("event", event);
     let newLat = event.latLng.lat(),
       newLng = event.latLng.lng(),
       addressArray = [];
@@ -226,7 +226,7 @@ class Map extends React.Component {
             lat: this.state.mapPosition.lat,
             lng: this.state.mapPosition.lng,
           }}
-          onClick={() => {}}
+          onClick={() => { }}
         >
           <Marker
             google={this.props.google}

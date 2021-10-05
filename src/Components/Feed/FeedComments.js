@@ -17,7 +17,7 @@ export default function FeedComments(props) {
 
       let commentscpy = [...comments]
       await commentscpy.push({ CommentBy: Auth.Phone, Comment: comment })
-      console.log(commentscpy)
+      // console.log(commentscpy)
       await setcomments(commentscpy)
       await setisError(false);
       await setcomment("")
@@ -27,12 +27,12 @@ export default function FeedComments(props) {
     }
   };
   useEffect(() => {
-    console.log(props.data)
+    //   console.log(props.data)
     setcomments(props.data)
   }, [props.post])
 
   return (
-    <Grid container spacing={0} className="mt-5px p-0  mb-100">
+    <Grid container spacing={0} className="mt-5px p-0  mb-5px">
       <Grid container spacing={0} className="commentinp">
         <Grid item xs={2} md={1} className="m-0 p-0">
           <UserDataUrl showIcon={true} Phone={Auth.Phone} />

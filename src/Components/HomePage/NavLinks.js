@@ -6,7 +6,7 @@ const NavLinks = () => {
   const [dropdownStatus, setDropdownStatus] = useState(false);
   const handleDropdownStatus = () => {
     setDropdownStatus(!dropdownStatus);
-    console.log(dropdownStatus);
+    // console.log(dropdownStatus);
   };
   return (
     <ul className="main-nav__navigation-box">

@@ -224,7 +224,7 @@ export function update_events(Type, Eventdata, maincode, _id, setIsSubmitted) {
       });
   };
 }
-export function uploadfiletoalbum(Album, MainCode) {
+export function uploadfiletoalbum(Album, MainCode, show, setIsProcessing) {
   var today = new Date();
   var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -234,10 +234,12 @@ export function uploadfiletoalbum(Album, MainCode) {
       .post(url + "event/addalbum", {
         Album: Album, _id: MainCode, date: dateTime
       })
-      .then((res) => {
-        dispatch(GetInvitations());
-        dispatch(GetEvents());
+      .then(async (res) => {
+        await dispatch(GetInvitations());
+        await dispatch(GetEvents());
         console.log(res);
+        await setIsProcessing(false)
+        await show(false)
       });
   };
 }

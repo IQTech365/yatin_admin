@@ -120,9 +120,7 @@ export default function Guest(props) {
               <IoArrowBackCircleOutline
                 size={32}
                 onClick={() => {
-                  console.log(
-                    "/" + base + "/eventpage/" + props.match.params.id
-                  );
+
                   history.push(
                     "/" + base + "/eventpage/" + props.match.params.id
                   );

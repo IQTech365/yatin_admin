@@ -30,7 +30,7 @@ export function Participant(props) {
             <ListItem
               onClick={async () => {
                 await props.setParticipants([grp]);
-                console.log([grp]);
+                // console.log([grp]);
                 await props.setgroupName(grp + "");
                 await props.create();
               }}
@@ -173,12 +173,12 @@ export default function SelectParticipant(props) {
     if (Participants.length > 0 && groupName !== "") {
       let participants = [...new Set(Participants)];
       await setParticipants(participants);
-      console.log(
-        groupName,
-        props.MainCode + groupName,
-        groupImage,
-        createGroup === 0 ? "INDV" : "GRP"
-      );
+      // console.log(
+      //   groupName,
+      //   props.MainCode + groupName,
+      //   groupImage,
+      //   createGroup === 0 ? "INDV" : "GRP"
+      // );
       if (groupImage !== "") {
         fileurl = await uploadString(
           groupImage,
@@ -197,7 +197,7 @@ export default function SelectParticipant(props) {
       );
       props.hide(false);
     } else {
-      console.log(groupName);
+      // console.log(groupName);
       console.log(Participants);
     }
   };

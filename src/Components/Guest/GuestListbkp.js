@@ -55,7 +55,7 @@ export default function Guest(props) {
                 await setbase("MyEvents");
                 await setEvents(Eventdata);
                 data = MyEvents[props.match.params.id][props.match.params.invno];
-                console.log(data.RSVPList);
+
                 await setHosts(data.Host);
                 await seteid(data._id);
                 RSVPList = data.RSVPList;
@@ -185,9 +185,7 @@ export default function Guest(props) {
                             <IoArrowBackCircleOutline
                                 size={32}
                                 onClick={() => {
-                                    console.log(
-                                        "/" + base + "/eventpage/" + props.match.params.id
-                                    );
+
                                     history.push(
                                         "/" + base + "/eventpage/" + props.match.params.id
                                     );

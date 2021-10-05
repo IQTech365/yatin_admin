@@ -10,8 +10,8 @@ export default function Media(props) {
             if (isselected === false) {
                 if (props.popuptype === "Photo" && props.currentPosts[i].filetype === "image") {
                     await setcurrentmedia(i)
-                    console.log(props.currentPosts[i])
-                    console.log(i)
+                    // console.log(props.currentPosts[i])
+                    // console.log(i)
                     isselected = true;
                 } else if (props.popuptype === "Videos" && props.currentPosts[i].filetype === "video") {
                     await setcurrentmedia(i)

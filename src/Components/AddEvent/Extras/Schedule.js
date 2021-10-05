@@ -43,7 +43,7 @@ export default function AddSchedule(props) {
         description: description,
         link: link,
       };
-      console.log([...subEvent, data]);
+      // console.log([...subEvent, data]);
       let newdata = [...subEvent, data];
       await setSubevent(newdata);
       await dispatch(UpdateSchedules(props.Eid, newdata));
@@ -105,7 +105,7 @@ export default function AddSchedule(props) {
         {subEvent.length > 0 || add === true ? (
           <>
             {subEvent.map((eve, index) => (
-              <Grid item xs={12} className="card-shadow m-b-10 schedule-details"  style={{display: add === true ? "none" : ""}}>
+              <Grid item xs={12} className="card-shadow m-b-10 schedule-details" style={{ display: add === true ? "none" : "" }}>
                 <Grid container spacing={0}>
                   <Grid item xs={12} md={12} >
                     {edit === true && editselected === index ? (
@@ -162,7 +162,7 @@ export default function AddSchedule(props) {
                         />
 
                         <br />
-                     {/*    <Form.Label style={{ fontWeight: 500 }}>
+                        {/*    <Form.Label style={{ fontWeight: 500 }}>
                           Link (Optional)
                         </Form.Label>
                         <Form.Control
@@ -185,7 +185,7 @@ export default function AddSchedule(props) {
                           container
                           spacing={0}
                           className="padding-left-7 p-10-p "
-                 
+
                         >
                           <Grid item xs={12}>
                             <div className="ScheduleName l-blue-t m-0">
@@ -204,7 +204,7 @@ export default function AddSchedule(props) {
                               }
                             />
                           </Grid>
-                         {/*  <Grid
+                          {/*  <Grid
                             item
                             xs={12}
                             onClick={() => {
@@ -244,7 +244,7 @@ export default function AddSchedule(props) {
                   <Grid
                     item
                     xs={12}
-                    
+
                     md={12}
                     style={{
                       display: "flex",
@@ -277,7 +277,7 @@ export default function AddSchedule(props) {
                     ) : props.IsAdmin === true ? (
                       <center>
                         <IconButton
-                      
+
                           onClick={() => {
                             setshowfulldescription(false);
                             setsubname(eve.Name);
@@ -292,7 +292,7 @@ export default function AddSchedule(props) {
                           <CreateIcon />
                         </IconButton>
                         <IconButton
-                        
+
                           onClick={() => {
                             Deleteone(index);
                             setshowfulldescription(false);
@@ -334,7 +334,7 @@ export default function AddSchedule(props) {
                   className: "nounder",
                 }}
                 value={subname}
-                style={{borderRadius:'20px'}}
+                style={{ borderRadius: '20px' }}
               />
 
               <br />
@@ -353,7 +353,7 @@ export default function AddSchedule(props) {
                   onChange={(e) => {
                     setdatetime(e.target.value);
                   }}
-                  style={{borderRadius:'20px'}}
+                  style={{ borderRadius: '20px' }}
                   value={datetime}
                 />
               </form>
@@ -367,13 +367,13 @@ export default function AddSchedule(props) {
                   setdescription(e.target.value);
                 }}
                 value={description}
-                style={{borderRadius:'20px'}}
+                style={{ borderRadius: '20px' }}
                 InputProps={{
                   className: "nounder",
                 }}
               />
               <br />
-             {/*  <Form.Label style={{ fontWeight: 500 }}>
+              {/*  <Form.Label style={{ fontWeight: 500 }}>
                 Link (Optional)
               </Form.Label>
               <Form.Control

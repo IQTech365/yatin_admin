@@ -30,7 +30,7 @@ export default function Invitation(props) {
   const checkifauth = async (index) => {
     debugger
     await setselected(index)
-    if (data[index][0].InvId.HasAuth === false) {
+    if (data[index][0].InvId.HasAuth === undefined || data[index][0].InvId.HasAuth === false) {
       history.push("/inv/eventpage/" + index)
     } else {
       if (data[index][0].InvId.AuthNums.includes(Auth.Phone)) {
@@ -57,7 +57,7 @@ export default function Invitation(props) {
         url={"MyEvents/"}
         showall={setHasSkipped}
       />
-     
+
       {data.length > 0 && data.map((inv, index) => (
         <Grid
           item
@@ -101,21 +101,21 @@ export default function Invitation(props) {
             />
           )}
 
-       
+
           <div className="bottom-bar">
-         
+
             <Grid container spacing={0}>
-            
+
               <Grid item xs={9}>
                 <Grid container spacing={0} className="event-info">
-                  <Grid item xs={12} className="fs-bold t-white" style={{fontSize:'23px'}}>
+                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '23px' }}>
                     {inv[0].Name}
                   </Grid>
-                  <Grid item xs={8}  className="animated-list" style={{ color:'black', fontSize:'15px', borderRadius:'3px', fontWeight:'700'}}>
+                  <Grid item xs={8} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '3px', fontWeight: '700' }}>
                     <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
-                  
+
                   </Grid>
-                
+
                 </Grid>
               </Grid>
               <Grid item xs={2}>
@@ -139,7 +139,7 @@ export default function Invitation(props) {
           </div>
         </Grid>
       ))}
-     
+
 
     </Grid>
   );

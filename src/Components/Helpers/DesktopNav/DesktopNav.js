@@ -22,7 +22,7 @@ export default function DesktopNav(props) {
   const [showPopup, toggleShowPopup] = useState(false)
   useEffect(() => {
     if (props.Eventdata && props.Eventdata.length > 0) {
-      console.log(props.Eventdata)
+      //  console.log(props.Eventdata)
       var Host = props.Eventdata[0].Host;
       for (var i = 0; i < Host.length; i++) {
         if (Host[i] === Auth.Phone) {
@@ -30,7 +30,7 @@ export default function DesktopNav(props) {
         }
       }
     }
-    console.log(props.base);
+    // console.log(props.base);
   }, [props.Eventdata]);
 
   return (

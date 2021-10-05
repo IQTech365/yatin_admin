@@ -59,7 +59,7 @@ export default function NewAddParticipants(props) {
             await saveparticipantsfromexcel(data)
         };
         fileReader.onerror = (error) => {
-            console.log(error);
+            // console.log(error);
         };
     };
 
@@ -162,8 +162,9 @@ export default function NewAddParticipants(props) {
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
         for (let i = 0; i < EventCpy.length; i++) {
+            let jointname = EventCpy[i].Name.includes(" ") ? EventCpy[i].Name.replaceAll(" ", "") : EventCpy[i].Name;
             let furl =
-                uniqueurl + "Event_image/" + i + EventCpy[i].Name.includes(" ") ? EventCpy[i].Name.replaceAll(" ", "") : EventCpy[i].Name;
+                uniqueurl + "Event_image/" + i + jointname;
 
             if (EventCpy[i].file.includes('firebasestorage.googleapis.com')) {
 
@@ -268,14 +269,14 @@ export default function NewAddParticipants(props) {
                     </Button>
                 </Grid>
                 <Grid item xs={12}>
-                <AddCode
-                    Events={props.Events}
-                    code={code}
-                    setCodes={setCodes}
-                    setEntryWay={setEntryWay}
-                    save={save}
-                />
-            </Grid>
+                    <AddCode
+                        Events={props.Events}
+                        code={code}
+                        setCodes={setCodes}
+                        setEntryWay={setEntryWay}
+                        save={save}
+                    />
+                </Grid>
                 <Grid item xs={12} sm={12} >
                     <Button
                      variant="secondary"
@@ -286,11 +287,11 @@ export default function NewAddParticipants(props) {
                         onClick={(e) => {
                             if (props.Events.length > 1) {
                                 alert("clicked>")
-                                console.log("done 2")
+                                // console.log("done 2")
                                 e.preventDefault();
                                 setopenModal(true);
                             } else {
-                                console.log("done 2")
+                                // console.log("done 2")
                                 e.preventDefault();
                                 setopenModal(true);
                             }
@@ -307,7 +308,7 @@ export default function NewAddParticipants(props) {
                         onChange={(e) => {
                             if (props.Events.length < 1) {
                                 readExcel(e.target.files[0]);
-                                console.log("done 1")
+                                // console.log("done 1")
                             }
                         }}
                         style={{ display: isMobile === false ? "block" : "none" }}
@@ -319,7 +320,7 @@ export default function NewAddParticipants(props) {
                     <BsFillInfoCircleFill />  Switch to Desktop Version, to Give Access Via Phone Number (through CSV)
                 </p>
             </Grid>
-       
+
             <Grid item xs={participants.length > 0 ? 6 : 12}>
                 <button
                     className="btn next l-blue mt-10px t-white"

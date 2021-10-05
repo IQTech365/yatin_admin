@@ -91,7 +91,7 @@ export default function EventDetails(props) {
   const save = async () => {
     let eventscpy = props.Events;
     let currentEvent = props.SelectedEvent;
-    console.log(CurrentEventDetails);
+    // console.log(CurrentEventDetails);
     eventscpy[props.SelectedEvent] = CurrentEventDetails;
 
     await props.setEvents(eventscpy);
@@ -110,10 +110,10 @@ export default function EventDetails(props) {
 
       props.handleNext();
     } else {
-      console.log("result false");
-      console.log(IsSubmitted);
+      // console.log("result false");
+      // console.log(IsSubmitted);
       await props.SelectEvent(result.index);
-      console.log(result.index);
+      // console.log(result.index);
     }
   };
 
@@ -135,7 +135,7 @@ export default function EventDetails(props) {
     <Grid container spacing={1} className="p-15px pt-0">
       <Grid item xs={12} sm={12}>
         {CurrentEventDetails !== undefined &&
-        CurrentEventDetails.file === "" ? (
+          CurrentEventDetails.file === "" ? (
           <center>
             <img
               src={AddImg}
@@ -150,8 +150,8 @@ export default function EventDetails(props) {
         ) : CurrentEventDetails !== undefined &&
           CurrentEventDetails.filetype !== undefined ? (
           CurrentEventDetails.filetype === "png" ||
-          CurrentEventDetails.filetype === "jpg" ||
-          CurrentEventDetails.filetype === "jpeg" ? (
+            CurrentEventDetails.filetype === "jpg" ||
+            CurrentEventDetails.filetype === "jpeg" ? (
             <img
               src={
                 CurrentEventDetails !== undefined
@@ -169,7 +169,7 @@ export default function EventDetails(props) {
             />
           ) : (
             <video
-              muted
+
               type="video/mp4"
               autoPlay={true}
               src={
@@ -275,7 +275,7 @@ export default function EventDetails(props) {
           ampm={false}
           value={CurrentEventDetails.Time}
           onChange={(e) => {
-            console.log(e.target.value);
+            // console.log(e.target.value);
             SetCurrentEventDetails({
               ...CurrentEventDetails,
               Time: e.target.value,
@@ -441,13 +441,13 @@ export default function EventDetails(props) {
             placeholder="Add Link Below"
             value={
               CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Both"
+                CurrentEventDetails.VenueType === "Both"
                 ? CurrentEventDetails.Link
                 : "Meeting Created"
             }
             disabled={
               CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Both"
+                CurrentEventDetails.VenueType === "Both"
                 ? false
                 : true
             }
@@ -476,7 +476,7 @@ export default function EventDetails(props) {
           sm={CurrentEventDetails.VenueType === "Offline" ? 7 : 12}
           className={
             CurrentEventDetails.VenueType === "Online" ||
-            CurrentEventDetails.VenueType === "Online-Inapp"
+              CurrentEventDetails.VenueType === "Online-Inapp"
               ? "hide"
               : "show"
           }
@@ -520,8 +520,8 @@ export default function EventDetails(props) {
                   {Location === ""
                     ? "Please Enter A location"
                     : Location.length > 25
-                    ? Location.substring(0, 25)
-                    : Location}
+                      ? Location.substring(0, 25)
+                      : Location}
                 </div>
               </Grid>
             </Grid>
@@ -544,10 +544,10 @@ export default function EventDetails(props) {
             {CurrentEventDetails.VenueType === "Online"
               ? " Add Your Zoom Other Links"
               : CurrentEventDetails.VenueType === "Online-Inapp"
-              ? " No Further Action Required"
-              : CurrentEventDetails.VenueType === "Offline"
-              ? " Add Your Location"
-              : " Add Your Location and Meeting Link"}
+                ? " No Further Action Required"
+                : CurrentEventDetails.VenueType === "Offline"
+                  ? " Add Your Location"
+                  : " Add Your Location and Meeting Link"}
           </p>
         </Grid>
     

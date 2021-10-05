@@ -37,7 +37,7 @@ export default function Coments(props) {
         Phone: Auth.Phone,
       })
       .then(async (res) => {
-        if (res.data.data) {
+        if (res.data.data && res.data.data.length > comments.length) {
           console.log(res.data.data);
           await setcomments(res.data.data);
         }
@@ -51,7 +51,7 @@ export default function Coments(props) {
     getcomments();
     const interval = setInterval(() => {
       getcomments();
-    }, 3000);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
@@ -75,15 +75,15 @@ export default function Coments(props) {
       ) {
         Eventdata = Events.myEvents[props.match.params.id];
         base = "MyEvents";
-        await seteveid(Eventdata[0]._id);
-        await setMainCode(Eventdata[0].MainCode);
-        await setcomments(Eventdata[0].CommentList);
+        await seteveid(Eventdata[0]._id)
+        await setMainCode(Eventdata[0].MainCode)
+        //  await setcomments(Eventdata[0].CommentList)
       } else {
         Eventdata = Events.myInvitations[props.match.params.id];
         base = "inv";
-        await seteveid(Eventdata[0]._id);
-        await setMainCode(Eventdata[0].MainCode);
-        await setcomments(Eventdata[0].CommentList);
+        await seteveid(Eventdata[0]._id)
+        await setMainCode(Eventdata[0].MainCode)
+        //  await setcomments(Eventdata[0].CommentList)
       }
     } else {
       await dispatch(GetEvents());
@@ -231,7 +231,7 @@ export function Like(props) {
     // props.setLikeList(likelistcpy);
     await setisliked(true);
   }
-  const likethecomment = () => {};
+  const likethecomment = () => { };
   return (
     <>
       {isliked === false ? (
