@@ -1,12 +1,12 @@
 import React from "react";
 import "../Sidebar/Sidebar.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { Component } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { MdModeEdit } from "react-icons/md"
 export default function AdminSidebar(props) {
   let Eventdata = [];
   let base = "";
@@ -33,13 +33,13 @@ export default function AdminSidebar(props) {
         <Row>
           <Col>
             <p style={{
-                fontWeight: 600,
-                fontSize: 20,
-                paddingLeft: "10px",
-                marginBottom: 20,
-                marginTop: 20,
-            
-              }}>
+              fontWeight: 600,
+              fontSize: 20,
+              paddingLeft: "10px",
+              marginBottom: 20,
+              marginTop: 20,
+
+            }}>
               <IoArrowBackCircleOutline
                 size={30}
                 onClick={() => {
@@ -54,17 +54,25 @@ export default function AdminSidebar(props) {
           Eventdata.map((eventdata, index) => (
             <a
               className="linkto-rows"
-              onClick={() => {
-                history.push(
-                  "/" + base + "/admin/" + props.match.params.id + "/" + index
-                );
-              }}
+
             >
               <Row className="sidebar-rows">
-                <Col style={{ margin: "auto", padding: "10px" }}>{eventdata.Name}</Col>
-                <Col>
-                  <RiArrowRightSLine size={20} className="arrow-iconcs" />
+                <Col style={{ margin: "auto", padding: "10px" }} xs={8}>{eventdata.Name}</Col>
+                <Col xs={4} onClick={() => {
+                  history.push(
+                    "/" + base + "/admin/" + props.match.params.id + "/" + index
+                  );
+                }} >
+                  <div style={{ float: 'right' }}>
+                    {/* <MdModeEdit style={{ margin: "5px" }} onClick={() => {
+                      history.push(
+                        "/" + base + "/Manage-Event/" + props.match.params.id + "/" + index
+                      );
+                    }} /> */}
+                    <RiArrowRightSLine size={20} style={{ margin: "5px" }} />
+                  </div>
                 </Col>
+
               </Row>
             </a>
           ))}

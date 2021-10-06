@@ -18,10 +18,11 @@ export default function Addformultiple(props) {
   const [participants, setparticipants] = useState([]);
   const [width, setwidth] = useState("100%");
   useEffect(async () => {
-    console.log(props);
+    // console.log(props);
     await setparticipants(props.participants);
     await setwidth(100 / props.Events.length + "vw");
   }, [props.participants]);
+
   const readExcel = async (file) => {
     const fileReader = new FileReader();
     await fileReader.readAsArrayBuffer(file);
@@ -37,6 +38,7 @@ export default function Addformultiple(props) {
       console.log(error);
     };
   };
+
   const DeleteThisContact = (index) => {
     let particpantscpy = [...props.participants];
     let NexteventKey = parseInt(props.eventKey) + 1;
@@ -54,7 +56,7 @@ export default function Addformultiple(props) {
       if (props.eventKey < 3 && props.eventKey < props.Events.length - 1) {
         let NexteventKey = parseInt(props.eventKey) + 1;
         particpantscpy[NexteventKey] = particpantscpy[props.eventKey];
-        console.log(particpantscpy);
+        // console.log(particpantscpy);
         props.setParticipants(particpantscpy);
       } else {
         alert("No more Events to copy");
@@ -70,7 +72,7 @@ export default function Addformultiple(props) {
         <Tabs
           activeKey={props.eventKey}
           onSelect={(k) => {
-            console.log(k);
+            // console.log(k);
             props.setKey(k);
           }}
         >
@@ -101,7 +103,7 @@ export default function Addformultiple(props) {
             ))}
         </Tabs>
         <Row>
-          <Col xs={12} md={12} style={{display: "flex"}}>
+          <Col xs={12} md={12} style={{ display: "flex" }}>
             {props.isMobile === true ? (
               <Button
                 variant="outline-primary"
@@ -133,7 +135,7 @@ export default function Addformultiple(props) {
                   type="file"
                   accept=".xlsx"
                   onChange={(e) => {
-                    console.log("done 4");
+                    // console.log("done 4");
                     const file = e.target.files[0];
                     readExcel(file);
                   }}
@@ -143,7 +145,7 @@ export default function Addformultiple(props) {
               </>
             )}
           </Col>
-          <Col xs={12} md={12} style={{marinTop: 10}}>
+          <Col xs={12} md={12} style={{ marinTop: 10 }}>
             <Button
               variant="outline-primary"
               onClick={() => {
@@ -151,11 +153,11 @@ export default function Addformultiple(props) {
               }}
               style={{
                 display:
-                  props.eventKey == props.Events.length - 1 ? "none" : "block", borderRadius: 20, marginTop:20
+                  props.eventKey == props.Events.length - 1 ? "none" : "block", borderRadius: 20, marginTop: 20
               }}
               className="addcontacts_btn"
             >
-             Copy to Next Invite
+              Copy to Next Invite
               <FaArrowRight />
             </Button>
           </Col>

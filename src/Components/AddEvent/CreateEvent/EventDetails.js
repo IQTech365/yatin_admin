@@ -2,33 +2,19 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   TextField,
-  InputLabel,
   Select,
   MenuItem,
-  Switch,
   FormControl,
-  Paper,
-  Modal,
-  Button,
+  Modal, Switch
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
 import AddImg from "../../../Assets/AddImage.svg";
-import Scehedule from "../../../Assets/schedule.svg";
-import Storyimg from "../../../Assets/AddStory.svg";
-import Albumsimg from "../../../Assets/gallery.svg";
 import Map from "../../Helpers/Maps/Maps";
 import CancelIcon from "@material-ui/icons/Cancel";
-import Album from "../Extras/Album";
-import Story from "../Extras/Story";
-import AddSchedule from "../Extras/Schedule";
 import ImageSelectionModal from "./ImageSelectionModal";
-import AddDetails from "../AddDetails/AddDetails";
-import { editform } from "../../../Redux/DispatchFuncitons/EventCreationFormFunction";
-import { SAVEFORM } from "../../../Redux/Actions/EventCreationFormActions";
 import { useDispatch } from "react-redux";
-import CreateIcon from "@material-ui/icons/Create";
-import SaveIcon from "@material-ui/icons/Save";
+import { BsInfoCircleFill } from "react-icons/bs";
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -105,7 +91,7 @@ export default function EventDetails(props) {
   const save = async () => {
     let eventscpy = props.Events;
     let currentEvent = props.SelectedEvent;
-    console.log(CurrentEventDetails);
+    // console.log(CurrentEventDetails);
     eventscpy[props.SelectedEvent] = CurrentEventDetails;
 
     await props.setEvents(eventscpy);
@@ -124,10 +110,10 @@ export default function EventDetails(props) {
 
       props.handleNext();
     } else {
-      console.log("result false");
-      console.log(IsSubmitted);
+      // console.log("result false");
+      // console.log(IsSubmitted);
       await props.SelectEvent(result.index);
-      console.log(result.index);
+      // console.log(result.index);
     }
   };
 
@@ -144,13 +130,6 @@ export default function EventDetails(props) {
     }
   };
   const dispatch = useDispatch();
-
-  // const updatereduxform = async (data) => {
-  //   await dispatch({
-  //     type: SAVEFORM,
-  //     payload: data,
-  //   });
-  // };
 
   return (
     <Grid container spacing={1} className="p-15px pt-0">
@@ -190,7 +169,7 @@ export default function EventDetails(props) {
             />
           ) : (
             <video
-              muted
+
               type="video/mp4"
               autoPlay={true}
               src={
@@ -296,7 +275,7 @@ export default function EventDetails(props) {
           ampm={false}
           value={CurrentEventDetails.Time}
           onChange={(e) => {
-            console.log(e.target.value);
+            // console.log(e.target.value);
             SetCurrentEventDetails({
               ...CurrentEventDetails,
               Time: e.target.value,
@@ -399,7 +378,7 @@ export default function EventDetails(props) {
               }}
               value="Online-Inapp"
             >
-              Online-Inapp
+              OnlineInApp
             </MenuItem>
             <MenuItem
               className="w-100-p"
@@ -448,7 +427,7 @@ export default function EventDetails(props) {
       <>
         <Grid
           item
-          xs={7}
+          xs={6}
           className={
             CurrentEventDetails.VenueType === "Offline" ? "hide" : "show"
           }
@@ -502,7 +481,7 @@ export default function EventDetails(props) {
               : "show"
           }
         >
-          {isEditLocation}
+
           {isEditLocation === true ? (
             <>
               <Map
@@ -534,8 +513,8 @@ export default function EventDetails(props) {
                     border: "Solid 2px #3897f1",
                     borderRadius: "150px",
                     padding: "8px",
-                    position: 'relative',
-                    bottom: '6px'
+                    position: "relative",
+                    bottom: "6px",
                   }}
                 >
                   {Location === ""
@@ -553,62 +532,29 @@ export default function EventDetails(props) {
                 ? "error"
                 : "hide"
             }
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           >
             Please add Location
           </span>
         </Grid>
-        {/* <Grid
-          item
-          xs={isEditLocation === true ? 1 : false}
-          sm={isEditLocation === true ? 1 : false}
-          className={
-            CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Online-Inapp"
-              ? "hide"
-              : "show"
-          }
-        >
-          {isEditLocation === true ? (
+        <Grid item xs={12}>
+          <p style={{ textAlign: "right", fontSize: "12px" }}>
+            <BsInfoCircleFill />
 
-            <p style={{ display: 'flex', justifyContent: 'left' }}>   <SaveIcon
-              onClick={() => {
-                setisEditLocation(false);
-              }}
-              style={{ position: "relative", color: "green" }}
-            />Save</p>
-
-          ) : (
-            <></>
-          )}
-        </Grid> */}
-      </>
+            {CurrentEventDetails.VenueType === "Online"
+              ? " Add Your Zoom Other Links"
+              : CurrentEventDetails.VenueType === "Online-Inapp"
+                ? " No Further Action Required"
+                : CurrentEventDetails.VenueType === "Offline"
+                  ? " Add Your Location"
+                  : " Add Your Location and Meeting Link"}
+          </p>
+        </Grid>
+    
 
       <Grid item xs={12}>
         <span className="label">Description</span>
-        {/* <TextField
-          id="standard-name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            classes: {
-              root: classes.cssLabel,
-              focused: classes.cssFocused,
-            },
-          }}
-          InputProps={{
-            classes: {
-              root: classes.cssOutlinedInput,
-              focused: classes.cssFocused,
-              notchedOutline: classes.notchedOutline,
-            },
-            inputMode: "numeric"
-          }}
-        /> */}
+
         <TextField
           id="outlined-basic"
           // label="Description"
@@ -627,38 +573,32 @@ export default function EventDetails(props) {
               ? true
               : false
           }
-          // InputProps={{
-          //   classes: {
-          //     notchedOutline: classes.notchedOutline,
-          //   },
-          // }}
           multiline={true}
           rows={2}
         />
       </Grid>
 
-      {/* <Grid item xs={8} className="talc fs-bold m-b-25px label">
-        Guest can Invite (max 3)
-      </Grid>
-      <Grid item xs={4}>
-        <Switch
-          checked={CurrentEventDetails.GuestInvite}
-          color="primary"
-          name="checkedB"
-          inputProps={{ "aria-label": "primary checkbox" }}
-          className="fr"
-          onChange={(e) => {
-            SetCurrentEventDetails({
-              ...CurrentEventDetails,
-              GuestInvite: !CurrentEventDetails.GuestInvite,
-            });
-          }}
-        />
-      </Grid> */}
-
-
+      </>
+      {props.SelectedEvent === 0 ? <>
+        <Grid item xs={8} className="talc fs-bold  label" style={{ paddingTop: '15px' }}>
+          Add Password
+        </Grid>
+        <Grid item xs={4}>
+          <Switch
+            checked={CurrentEventDetails.IsPassword}
+            color="primary"
+            name="checkedB"
+            inputProps={{ "aria-label": "primary checkbox" }}
+            className="fr"
+            onChange={(e) => {
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                IsPassword: !CurrentEventDetails.IsPassword,
+              });
+            }}
+          />
+        </Grid></> : <></>}
       {/* Album, Schdedule and Story Commented Below */}
-
 
       {/*      <Grid
         item
@@ -800,7 +740,7 @@ export default function EventDetails(props) {
         <></>
       )} */}
 
-      <Grid item xs={12} >
+      <Grid item xs={12}>
         <button
           className={
             props.disablesave === false
@@ -812,7 +752,7 @@ export default function EventDetails(props) {
               save();
             }
           }}
-          style={{ marginTop: '20px' }}
+          style={{ marginTop: "20px" }}
         >
           Next
         </button>

@@ -1,55 +1,42 @@
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "../Feed/Feed.css";
-import Header from "../Helpers/Header/Header.js";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import zoomicon from "../../Assets/zoomicon.png";
 import UserData from "../Helpers/UserData/UserData";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
-import { IoCameraOutline } from "react-icons/io5";
-import { FaTag } from "react-icons/fa";
-import axios from "axios";
-import { addpost, likepost } from "../../Redux/DispatchFuncitons/postfunctions";
-import { uploadString } from "../../Utils/FileUpload_Download";
-import { useDropzone } from "react-dropzone";
-import { InputTags } from "react-bootstrap-tagsinput";
+import { likepost } from "../../Redux/DispatchFuncitons/postfunctions";
 import "react-bootstrap-tagsinput/dist/index.css";
 import { FcLike } from "react-icons/fc";
 import { FaRegCommentDots } from "react-icons/fa";
-import { IoMdSend } from "react-icons/io";
 import { FcLikePlaceholder } from "react-icons/fc";
-import history from "../../Utils/History";
 import FeedComments from "./FeedComments";
-import { url } from "../../Utils/Config";
-import { Modal } from "@material-ui/core";
-import Media from "./Media";
-import NavMobile from "../Helpers/NavMobile/NavMobile";
-import Badge from "react-bootstrap/Badge";
-import { Multiselect } from "multiselect-react-dropdown";
-import SendIcon from "@material-ui/icons/Send";
-import { IconButton } from "@material-ui/core";
-import AddTags from "./AddTags";
-import Popup from "../Helpers/Popups/Popup";
-import {
-    GetEvents,
-    GetInvitations,
-} from "../../Redux/DispatchFuncitons/Eventfunctions";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
+import { MdDeleteForever } from "react-icons/md";
+import { deletePost } from '../../Redux/DispatchFuncitons/postfunctions'
 export default function Postrender(props) {
+    const dispatch = useDispatch();
+    const Auth = useSelector((state) => state.Auth);
     const [Posts, setPosts] = useState([])
-    useEffect(() => {
+    const [isAdmin, setisAdmin] = useState(false)
+    useEffect(async () => {
+        if (props.admins.includes(Auth.Phone)) {
+            await setisAdmin(true)
+        }
         if (props.filter === 'All') {
             setPosts(props.data)
         } else {
             setPosts(props.filterdata)
         }
-
+        // console.log(props.admins)
     }, [props.data, props.filter, props.filterdata])
+    async function deletePostUI(index) {
+        debugger
+        let postcpy = [...Posts]
+        postcpy.filter((post, i) => i !== index);
+        await setPosts(postcpy)
+    }
     return (
-        <div>
+        <div className="mb-100">
             <>
                 {Posts.map((post, index) => (
                     <Container
@@ -114,7 +101,7 @@ export default function Postrender(props) {
                             <></>
                         )}
                         <Row className="m-0 p-0">
-                            <Col xs={6} className="mt-10px">
+                            <Col xs={isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "rgb(244 67 54)" }}
@@ -132,14 +119,14 @@ export default function Postrender(props) {
                                     </a>
                                 </center>
                             </Col>
-                            <Col xs={6} className="mt-10px">
+                            <Col xs={isAdmin === true ? 4 : 6} className="mt-10px">
                                 <center>
                                     <a
                                         style={{ color: "#007bff" }}
                                         onClick={async () => {
-                                            console.log(props.showcommmentforpost)
-                                            console.log(!props.showcommment)
-                                            console.log(!props.showcommment)
+                                            // console.log(props.showcommmentforpost)
+                                            // console.log(!props.showcommment)
+                                            // console.log(!props.showcommment)
                                             if (props.showcommmentforpost === post._id) {
                                                 props.setshowcommment(!props.showcommment);
                                                 props.setshowcommmentforpost(post._id);
@@ -156,6 +143,17 @@ export default function Postrender(props) {
                                         {post.CommentList.length}
                                     </a>
                                 </center>
+                            </Col>
+                            <Col xs={4} className="mt-10px col-4" style={{ display: isAdmin === true ? 'block' : 'none' }} > <center>
+                                <a
+                                    style={{ color: "rgb(244 67 54)" }}
+                                    onClick={() => {
+                                        dispatch(deletePost(post._id));
+                                        deletePostUI(index)
+                                    }}
+                                >
+                                    <MdDeleteForever size={25} style={{ marginLeft: 30 }} color="red" />
+                                </a></center>
                             </Col>
                         </Row>
 
@@ -216,6 +214,7 @@ export function Like(props) {
                 />
             )}
             {count}
+
         </>
     );
 }

@@ -9,12 +9,10 @@ import Toggler from "../Helpers/EventInvitoggler/Toggler";
 import BackNavBar from "../Helpers/BackNavbar/BackNavBar";
 import Back from "../../Assets/Back.svg";
 import history from "../../Utils/History";
-import { useSelector } from "react-redux";
 import Plan from "../Plan/Plan";
 export default function AddEvent(props) {
   const [Type, setType] = useState("Wedding");
   const [activeStep, setActiveStep] = useState(0);
-  const CreateEventForm = useSelector((state) => state.CreateEventForm);
   const [Events, setEvents] = useState([]);
 
   let events = {
@@ -32,6 +30,7 @@ export default function AddEvent(props) {
     Host: "",
     Co_Host: [],
     Schedule: [],
+    IsPassword: false
   };
   const [SelectedEvent, SelectEvent] = useState(0);
   const [Story, setStory] = useState([]);
@@ -53,9 +52,9 @@ export default function AddEvent(props) {
     }
 
     if (SelectedEvent > events.length - 1) {
-      console.log(SelectedEvent - 1);
+      // console.log(SelectedEvent - 1);
       SelectEvent(SelectedEvent - 1);
-      console.log(SelectedEvent, events.length - 1);
+      // console.log(SelectedEvent, events.length - 1);
     }
   };
 
@@ -72,26 +71,26 @@ export default function AddEvent(props) {
       seterroring(true);
       return { status: false, index: 0, component: "Type" };
     }
-    console.log(Events);
+    // console.log(Events);
     let Eventcpy = [...Events];
     let result = true;
     let incompleteeventnumber = null;
     //check for event first
     Eventcpy = { ...Events[index] };
     if (Eventcpy.Name === "") {
-      console.log({ status: false, index: index, component: "Name" });
+      // console.log({ status: false, index: index, component: "Name" });
       return { status: false, index: index, component: "Name" };
     } else if (Eventcpy.Date === "") {
-      console.log({ status: false, index: index, component: "Date" });
+      // console.log({ status: false, index: index, component: "Date" });
       return { status: false, index: index, component: "Date" };
     } else if (Eventcpy.Time === "") {
-      console.log({ status: false, index: index, component: "Time" });
+      // console.log({ status: false, index: index, component: "Time" });
       return { status: false, index: index, component: "Time" };
     } else if (Eventcpy.Description === "") {
-      console.log({ status: false, index: index, component: "Description" });
+      // console.log({ status: false, index: index, component: "Description" });
       return { status: false, index: index, component: "Description" };
     } else if (Eventcpy.VenueType === "") {
-      console.log({ status: false, index: index, component: "VenueType" });
+      // console.log({ status: false, index: index, component: "VenueType" });
       return { status: false, index: index, component: "VenueType" };
     } else if (
       Eventcpy.VenueType === "Both" &&
@@ -104,16 +103,16 @@ export default function AddEvent(props) {
       });
       return { status: false, index: index, component: "Location" };
     } else if (Eventcpy.VenueType === "Online" && Eventcpy.Link === "") {
-      console.log({ status: false, index: index, component: "Link" });
+      // console.log({ status: false, index: index, component: "Link" });
       return { status: false, index: index, component: "Location" };
     } else if (Eventcpy.VenueType === "Offline" && Eventcpy.Location === "") {
-      console.log({ status: false, index: index, component: "Link" });
+      // console.log({ status: false, index: index, component: "Link" });
       return { status: false, index: index, component: "Location" };
     } else if (Eventcpy.file === "") {
-      console.log({ status: false, index: index, component: "file" });
+      // console.log({ status: false, index: index, component: "file" });
       return { status: false, index: index, component: "file" };
     } else if (Eventcpy.filetype === "") {
-      console.log({ status: false, index: index, component: "filetype" });
+      // console.log({ status: false, index: index, component: "filetype" });
       return { status: false, index: index, component: "filetype" };
     }
 
@@ -121,19 +120,19 @@ export default function AddEvent(props) {
       incompleteeventnumber = i;
       Eventcpy = { ...Events[i] };
       if (Eventcpy.Name === "") {
-        console.log({ status: false, index: i, component: "Name" });
+        // console.log({ status: false, index: i, component: "Name" });
         return { status: false, index: i, component: "Name" };
       } else if (Eventcpy.Date === "") {
-        console.log({ status: false, index: i, component: "Date" });
+        // console.log({ status: false, index: i, component: "Date" });
         return { status: false, index: i, component: "Date" };
       } else if (Eventcpy.Time === "") {
-        console.log({ status: false, index: i, component: "Time" });
+        // console.log({ status: false, index: i, component: "Time" });
         return { status: false, index: i, component: "Time" };
       } else if (Eventcpy.Description === "") {
-        console.log({ status: false, index: i, component: "Description" });
+        // console.log({ status: false, index: i, component: "Description" });
         return { status: false, index: i, component: "Description" };
       } else if (Eventcpy.VenueType === "") {
-        console.log({ status: false, index: i, component: "VenueType" });
+        // console.log({ status: false, index: i, component: "VenueType" });
         return { status: false, index: i, component: "VenueType" };
       } else if (
         Eventcpy.VenueType === "Both" &&
@@ -146,21 +145,21 @@ export default function AddEvent(props) {
         });
         return { status: false, index: i, component: "Location" };
       } else if (Eventcpy.VenueType === "Online" && Eventcpy.Link === "") {
-        console.log({ status: false, index: i, component: "Link" });
+        // console.log({ status: false, index: i, component: "Link" });
         return { status: false, index: i, component: "Location" };
       } else if (Eventcpy.VenueType === "Offline" && Eventcpy.Location === "") {
-        console.log({ status: false, index: i, component: "Link" });
+        // console.log({ status: false, index: i, component: "Link" });
         return { status: false, index: i, component: "Location" };
       } else if (Eventcpy.file === "") {
-        console.log({ status: false, index: i, component: "file" });
+        // console.log({ status: false, index: i, component: "file" });
         return { status: false, index: i, component: "file" };
       } else if (Eventcpy.filetype === "") {
-        console.log({ status: false, index: i, component: "filetype" });
+        // console.log({ status: false, index: i, component: "filetype" });
         return { status: false, index: i, component: "filetype" };
       }
     }
 
-    console.log({ status: true, index: null, component: "" });
+    // console.log({ status: true, index: null, component: "" });
     return { status: true, index: null, component: "" };
   };
 
@@ -187,36 +186,31 @@ export default function AddEvent(props) {
   }, []);
 
   function StepRender(step) {
-    switch (step.activeStep) {
-      case 0:
-        return (
-          <CreateEvent
-            setType={setType}
-            Type={Type}
-            Events={Events}
-            setEvents={setEvents}
-            addAnEvent={addAnEvent}
-            checkIfEventEmpty={checkIfEventEmpty}
-            handleChange={handleChange}
-            removeAnEvent={removeAnEvent}
-            SelectEvent={SelectEvent}
-            SelectedEvent={SelectedEvent}
-            handleNext={handleNext}
-            handleBack={handleBack}
-            addfinalDetails={addfinalDetails}
-            albumdata={albumdata}
-            setalbumdata={setalbumdata}
-            Story={Story}
-            setStory={setStory}
-            template={events}
-            className="p-15px"
-          />
-        );
-      case 1000:
-        return <Plan handleNext={handleNext} handleBack={handleBack} />;
-      case 1:
-        return (
-          <AddParticipants
+    return (
+      <>{step.activeStep === 0 ?
+        <CreateEvent
+          setType={setType}
+          Type={Type}
+          Events={Events}
+          setEvents={setEvents}
+          addAnEvent={addAnEvent}
+          checkIfEventEmpty={checkIfEventEmpty}
+          handleChange={handleChange}
+          removeAnEvent={removeAnEvent}
+          SelectEvent={SelectEvent}
+          SelectedEvent={SelectedEvent}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          addfinalDetails={addfinalDetails}
+          albumdata={albumdata}
+          setalbumdata={setalbumdata}
+          Story={Story}
+          setStory={setStory}
+          template={events}
+          className="p-15px"
+        /> :
+        step.activeStep === 1 ? <Plan handleNext={handleNext} handleBack={handleBack} /> :
+          step.activeStep === 2 ? <AddParticipants
             handleNext={handleNext}
             handleBack={handleBack}
             Events={Events}
@@ -228,13 +222,24 @@ export default function AddEvent(props) {
             addfinalDetails={addfinalDetails}
             Type={Type}
             Story={Story}
-          />
-        );
-      case 3:
-        return <div></div>;
-      default:
-        return <div></div>;
-    }
+          /> : <></>}</>
+    )
+    // switch (step.activeStep) {
+    //   case 0:
+    //     return (
+
+    //     );
+    //   case 1000:
+    //     return <Plan handleNext={handleNext} handleBack={handleBack} />;
+    //   case 1:
+    //     return (
+
+    //     );
+    //   case 3:
+    //     return <div></div>;
+    //   default:
+    //     return <div></div>;
+    // }
   }
 
   return (

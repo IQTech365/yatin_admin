@@ -4,42 +4,32 @@ import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
 import { Grid } from "@material-ui/core";
 import check from "../../Assets/check-circle.1.png";
-import Share from "../../Assets/Shareon.svg";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import axios from "axios";
 import { url } from "../../Utils/Config";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import { useSelector } from "react-redux";
 import { WhatsappShareButton } from "react-share";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
-import Lottie from "react-lottie";
-import celebration from "../Animations/celebrations.json";
 import WhatsIcon from "../../Assets/WhatsIcon.png";
-
-const defaultOptions = {
-  loop: 2,
-  autoplay: true,
-  animationData: celebration,
-  rendererSettings: {
-    // preserveAspectRatio: "xMidYMid slice"
-  },
-};
-
+import {
+  IconButton,
+  Select,
+  FormControl,
+} from "@material-ui/core";
+import { MdShare } from 'react-icons/md'
 export default function AddEventSucess(props) {
   const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
+  const [pwd, setpwd] = useState("");
   const [mode, setmode] = useState();
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
   const [SelectedCode, setSelectedCode] = useState("");
+  const [image, getImage] = useState("");
+  const [type, setType] = useState("");
+
   useEffect(() => {
     axios
       .post(url + "event/viewinvitation", {
@@ -69,6 +59,9 @@ export default function AddEventSucess(props) {
             "/" +
             res.data.Events[0].code
           );
+          await getImage(res.data.Events[0].file);
+          await setpwd(res.data.Events[0].InvId.PassWord);
+          await setType(res.data.Events[0].InvId.Type);
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
@@ -85,11 +78,35 @@ export default function AddEventSucess(props) {
             " https://mobillyinvite.com/MyInvitations/" +
             maincode
           );
+          await setpwd(res.data.Events[0].InvId.PassWord);
         }
 
         await setmode(res.data.Events[0].EntryWay);
       });
+    // console.log(allevents);
   }, []);
+
+  const handleOnSubmit = async () => {
+    const response = await fetch(image);
+    const blob = await response.blob();
+    const file = new File([blob], "image.jpg", { type: blob.type });
+    // console.log(file);
+    if (navigator.share) {
+      await navigator
+        .share({
+          title: "Hello👋",
+          text: type +
+            " \n Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
+
+          url: "https://mobillyinvite.com/MyInvitations/" + maincode,
+          files: [file],
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error in sharing", error));
+    } else {
+      // console.log(`system does not support sharing files.`);
+    }
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -98,7 +115,7 @@ export default function AddEventSucess(props) {
   };
 
   const handleClose = async (data, Name) => {
-    await setSelectedCode(Name)
+    await setSelectedCode(Name);
     await setcodesharelink(
       " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
     );
@@ -115,6 +132,15 @@ export default function AddEventSucess(props) {
     );
     setAnchorEl(null);
   };
+  useEffect(() => {
+    if (navigator.share === undefined) {
+      if (window.location.protocol === "http:") {
+        window.location.replace(
+          window.location.href.replace(/^http:/, "https:")
+        );
+      }
+    }
+  }, []); 
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -133,9 +159,13 @@ export default function AddEventSucess(props) {
               Your Invitation has been sucessfully created.
             </h2>
           </Grid>
-
+          <Grid item xs={12} style={{ display: pwd !== "" && pwd !== null ? "block" : "none" }}>
+            <h4 className="w-100 tac"> Passcode:{pwd} </h4>
+          </Grid>
           <Grid item xs={12}>
-            <p className="w-100 tac"> Click on the Link to copy</p>
+            <p className="tac" style={{ fontWeight: "700" }}>
+              Share Exclusive Invite✨
+            </p>
           </Grid>
 
           <Grid
@@ -161,8 +191,30 @@ export default function AddEventSucess(props) {
             allevents.length > 0 &&
             allevents[0].EntryWay === "Code" ? (
             <>
-              <Grid item xs={12} className="tac m-b-25px clipboard grey">
-                <Grid container spacing={0}>
+              <Grid item xs={10} className="tac m-b-25px mt-5px">
+
+                <FormControl
+                  variant="outlined"
+                  className="w-100-p "
+                  size="small"
+                  variant="outlined"
+                 
+                >
+                  <Select
+                    native
+                    value={SelectedCode}
+                    
+                    onChange={handleClose}
+                    style={{ textAlign: 'center', padding:'none', height:'25px' }}
+                    // className="selectboxblue"
+                    displayEmpty
+                  >  {allevents &&
+                    allevents.map((eve) => (
+                      <option value={eve.code, eve.Name + "Code :" + eve.code}>   {eve.Name + "Code :" + eve.code}</option>
+                    ))}
+                  </Select>
+                </FormControl>
+                {/* <Grid container spacing={0}>
                   <Grid
                     item
                     xs={10}
@@ -182,47 +234,68 @@ export default function AddEventSucess(props) {
                       }}
                     />
                   </Grid>
-                </Grid>
+                </Grid> */}
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton>
+                  <MdShare
+                    onClick={handleOnSubmit}
+                  >
+
+                  </MdShare></IconButton>
               </Grid>
             </>
           ) : (
-            <>
-
-            </>
+            <></>
           )}
           <Grid item xs={12} className="w-100 tac">
-            Share on
+            Share With 1-Click
           </Grid>
-          <Grid item xs={12} className="tac m-b-25px" style={{ zIndex: '33333' }}>
+          <Grid
+            item
+            xs={12}
+            className="tac m-b-25px"
+            style={{ zIndex: "33333" }}
+          >
             <center>
+              <button
+                onClick={handleOnSubmit}
+                className="share-button"
+                type="button"
+                title="Share this article"
+              >
+                Share
+              </button>
               <WhatsappShareButton
                 url={" "}
-                title={Watsapp}
-
+                title={pwd !== "" && pwd !== null ? Watsapp + ". Password: " + pwd : Watsapp}
                 separator=" "
                 className="Demo__some-network__share-button"
               >
-                <img src={WhatsIcon} className="" style={{ height: '30px', width: '30px' }} />
+                <img
+                  src={WhatsIcon}
+                  className=""
+                  style={{ height: "30px", width: "30px" }}
+                />
               </WhatsappShareButton>
             </center>
           </Grid>
-          <Grid item xs={12} className="tac">
+          <Grid item xs={12} className="tac" style={{ fontSize: 10 }}>
             Note: Only those who have invite can access
           </Grid>
-          {/* <Lottie options={defaultOptions} height={400} style={{ position: 'absolute', margin: 'auto', width: 'auto' }} /> */}
           <Grid item xs={12} className="down-float">
             <button
               className="btn save-event mt-10px"
+              style={{ position: "fixed", bottom: "0", right: "0" }}
               onClick={() => {
                 if (props.match.params.Share === undefined) {
                   history.push("/");
                 } else {
                   history.goBack();
                 }
-
               }}
             >
-              {props.match.params.Share === undefined ? 'Done' : 'Back'}
+              {props.match.params.Share === undefined ? "Done" : "Back"}
             </button>
           </Grid>
         </Grid>
@@ -244,6 +317,6 @@ export default function AddEventSucess(props) {
             </MenuItem>
           ))}
       </Menu>
-    </Grid>
+    </Grid >
   );
 }

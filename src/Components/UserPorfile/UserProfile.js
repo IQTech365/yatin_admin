@@ -1,7 +1,5 @@
 import React, { useState, useCallback } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
-import male from "../../Assets/Male.svg";
-import female from "../../Assets/Female.svg";
 import { useDropzone } from "react-dropzone";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,10 +7,7 @@ import { saveuserinfo } from "../../Redux/DispatchFuncitons/AuthFunctions";
 import "./userProfile.css";
 import ProfilePic from "../../Assets/ProfilePic.png"
 import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
+import { BsFillInfoCircleFill } from "react-icons/bs"
 
 export default function UserProfile(props) {
   const Auth = useSelector((state) => state.Auth);
@@ -47,12 +42,11 @@ export default function UserProfile(props) {
   });
   const save = async () => {
     debugger
-    console.log(Image)
     if (Name === "" || DOB === "" || Gender === "") {
       setshowerror(true);
     } else {
       let url = Image
-      if (Image !== '') {
+      if (Image === '') {
 
       } else if (Image.length > 1 && !Image.includes('firebasestorage.googleapis.com')) {
         url = await uploadString(
@@ -74,22 +68,25 @@ export default function UserProfile(props) {
       <Grid item xs={12} {...getRootProps()}>
         <input {...getInputProps()} />
         <center>
+
           {Image == "" ? (
             <img src={ProfilePic} className="Profile" style={{ height: "130px" }} />
           ) : (
             <img src={Image} className="Profile" style={{ height: "130px", borderRadius: '50%', height: "130px" }} />
           )}
+          <p style={{ fontStyle: 'italic', fontSize: '12px', marginTop: '10px', fontWeight: 'bold' }}> <BsFillInfoCircleFill /> For Best Experience, Fill Your Profile✨ </p>
         </center>
       </Grid>
 
 
 
       <Grid item xs={12}>
+
         <span>Name</span>
         <br />
         <TextField
           variant="outlined"
-          className="w-100 m-b-5px "
+          className="w-100 mt-5px"
           value={Name}
           onChange={(e) => {
             setName(e.target.value);
@@ -97,11 +94,11 @@ export default function UserProfile(props) {
           error={showerror === true && Name === "" ? true : false}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} style={{ marginTop: '10px' }}>
         <span>DOB</span>
         <TextField
           variant="outlined"
-          className="w-100 m-b-5px "
+          className="w-100 mt-5px"
           type="date"
           defaultValue="2017-05-24"
           value={DOB}
@@ -111,52 +108,8 @@ export default function UserProfile(props) {
           error={showerror === true && DOB === "" ? true : false}
         />
       </Grid>
-      {/* <FormControl component="fieldset">
-        <FormLabel component="legend">Gender</FormLabel>
-        <RadioGroup
-          row
-          aria-label="position"
-          name="position"
-          defaultValue={"M"}
-          value={Gender}
-        >
-          <FormControlLabel
-            value="male"
-            src={Gender === "M" && Image !== "" ? Image : male}
-            className={
-              Image === ""
-                ? showerror === true
-                  ? "no-proifle "
-                  : " Profile"
-                : "Profile"
-            }
-            control={<Radio color="primary" />}
-            label="Male"
-            onClick={() => {
-              setGender("M");
-            }}
-            labelPlacement="start"
-          />
-          <FormControlLabel
-            value="female"
-            control={<Radio color="primary" />}
-            onClick={() => {
-              setGender("F");
-            }}
-            label="Female"
-            src={Gender === "F" && Image !== "" ? Image : female}
-            className={
-              Image === ""
-                ? showerror === true
-                  ? "no-proifle "
-                  : " Profile"
-                : "Profile"
-            }
-            labelPlacement="start"
-          />
-        </RadioGroup>
-      </FormControl> */}
-      <Grid item xs={12}>
+
+      <Grid item xs={12} style={{ marginTop: '10px' }}>
         Male
         <Radio
           checked={Gender === 'M'}
@@ -204,7 +157,7 @@ export default function UserProfile(props) {
           variant="contained"
           color="secondary"
           style={{
-            backgroundColor: "red",
+            backgroundColor: "grey",
             borderRadius: 25,
             marginTop: 10,
           }}
@@ -216,9 +169,11 @@ export default function UserProfile(props) {
             props.hide(false)
           }}
         >
-          skip
+          Skip
         </Button>
+
       </Grid>
+
     </Grid >
   );
 }

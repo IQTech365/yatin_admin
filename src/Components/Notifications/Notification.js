@@ -1,11 +1,7 @@
-import { Button, Modal } from "react-bootstrap";
-import React, { useState, useEffect } from "react";
-import CancelIcon from "@material-ui/icons/Cancel";
-import { Avatar, IconButton } from "@material-ui/core";
+import React from "react";
+import { Avatar } from "@material-ui/core";
 import "./Notifications.css"
 import { useSelector } from "react-redux";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import NoNotfcations from '../../Assets/NoNotifications.svg'
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 export default function Notification(props) {

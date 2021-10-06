@@ -16,7 +16,6 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
-import { formatRelative } from "date-fns";
 import "./Maps.css";
 import "@reach/combobox/styles.css";
 import Geocode from "react-geocode";
@@ -249,10 +248,10 @@ export default function Map(props) {
         setAddress(faddress);
 
         let location = JSON.stringify({ lat, long, faddress });
-        console.log({
-          ...props.CurrentEventDetails,
-          Location: location,
-        });
+        // console.log({
+        //   ...props.CurrentEventDetails,
+        //   Location: location,
+        // });
         // props.setLocation(location);
         // if (props.CurrentEventDetails.VenueType === "Offline") {
         //   props.SetCurrentEventDetails({
@@ -267,7 +266,7 @@ export default function Map(props) {
         //   });
         // }
 
-        console.log(faddress);
+        // console.log(faddress);
       },
       (error) => {
         console.error(error);
@@ -282,7 +281,7 @@ export default function Map(props) {
 
   const panTo = useCallback(({ lat, lng }) => {
     let location = JSON.stringify({ lat, lng });
-    console.log(location);
+    // console.log(location);
 
     mapRef.current.panTo({ lat, lng });
     mapRef.current.setZoom(20);
@@ -342,7 +341,7 @@ export default function Map(props) {
 }
 
 function Search(props) {
-  console.log(props);
+  // console.log(props);
   const {
     ready,
     value,
@@ -370,7 +369,7 @@ function Search(props) {
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       props.panTo({ lat, lng });
-      console.log(results);
+      // console.log(results);
       let location = await JSON.stringify({ lat, lng, address });
 
       if (props.CurrentEventDetails.VenueType === "Offline") {

@@ -1,0 +1,32 @@
+.product_card {
+  margin: 5%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px 0 rgb(0 0 0 / 20%);
+  display: flex;
+}
+.product_card > *:not(img) {
+  padding: 5px 10px;
+}
+
+.product_card img {
+  height: 180px;
+  object-fit: cover;
+  margin: 5px;
+}
+
+.product_cardbody p {
+  color: #3d3d3d;
+  margin-bottom: 20px;
+  font-size: 11px;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.image-gallery-image{
+  height: auto!important;
+}

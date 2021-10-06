@@ -1,31 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Paper } from "@material-ui/core";
+import { Grid, } from "@material-ui/core";
 import NoInv from "../../Assets/NoInvitation.svg";
 import "./Invitations.css";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LanguageIcon from "@material-ui/icons/Language";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
-import InfoIcon from "@material-ui/icons/Info";
 import history from "../../Utils/History";
-import Notifications from "../Notifications/Notification";
 import Popup from "../Helpers/Popups/Popup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import UserProfile from "../UserPorfile/UserProfile";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
-import SingleEvent from '../../Assets/singleevent.png'
+import SingleEvent from '../../Assets/singleevent.png';
+import OtpInput from "react-otp-input";
+import { authInv } from '../../Redux/DispatchFuncitons/Eventfunctions'
 export default function Invitation(props) {
   const [data, setData] = useState(props.data);
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
+  const [showAuthWindow, setshowAuthWindow] = useState(false);
+  const [selected, setselected] = useState();
   const Auth = useSelector(state => state.Auth)
-  const [showPopup, toggleShowPopup] = useState(false);
   const [useiinfopopup, setuserInfopopup] = useState(false);
   const [HasSkipped, setHasSkipped] = useState(false);
   useEffect(async () => {
-    console.log(props.data);
-    let datacpy = [...props.data];
-
     await setData(props.data);
   }, [props.data]);
 
@@ -33,9 +27,28 @@ export default function Invitation(props) {
   } else {
     return <img src={NoInv} className="nodata" />;
   }
-
+  const checkifauth = async (index) => {
+    debugger
+    await setselected(index)
+    if (data[index][0].InvId.HasAuth === undefined || data[index][0].InvId.HasAuth === false) {
+      history.push("/inv/eventpage/" + index)
+    } else {
+      if (data[index][0].InvId.AuthNums.includes(Auth.Phone)) {
+        history.push("/inv/eventpage/" + index)
+      } else {
+        await setshowAuthWindow(true)
+      }
+    }
+  }
   return (
     <Grid container spacing={0} className="mb-100 invitation_mobile" >
+      <Popup
+        component={Password}
+        toggleShowPopup={setshowAuthWindow}
+        showPopup={showAuthWindow}
+        showall={selected}
+        MainCode={data}
+      />
       <Popup
         component={UserProfile}
         setuserInfopopup={setuserInfopopup}
@@ -44,15 +57,7 @@ export default function Invitation(props) {
         url={"MyEvents/"}
         showall={setHasSkipped}
       />
-      <Popup
-        component={Notifications}
-        setuserInfopopup={setshow}
-        toggleShowPopup={setshow}
-        showPopup={show}
-        MainCode={MainCode}
-        showinvitaions={true}
 
-      />
       {data.length > 0 && data.map((inv, index) => (
         <Grid
           item
@@ -70,9 +75,9 @@ export default function Invitation(props) {
               Auth.Name == "" || Auth.Name == undefined ?
                 HasSkipped === false ?
                   setuserInfopopup(true) :
-                  history.push("/inv/eventpage/" + index)
+                  checkifauth(index)
                 :
-                history.push("/inv/eventpage/" + index);
+                checkifauth(index)
             }}
           />) : (
             <video
@@ -96,27 +101,21 @@ export default function Invitation(props) {
             />
           )}
 
-          <NotificationsNoneIcon
-            className="card-button Notifyme t-white"
-            onClick={async () => {
-              if (Auth.Name !== "" || Auth.Name !== undefined) {
-                await setmaincode(inv[0].MainCode)
-                await setshow(true)
-              } else {
-                setuserInfopopup(true)
-              }
-            }}
-          />
+
           <div className="bottom-bar">
+
             <Grid container spacing={0}>
+
               <Grid item xs={9}>
                 <Grid container spacing={0} className="event-info">
-                  <Grid item xs={12} className="fs-bold t-white">
+                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '23px' }}>
                     {inv[0].Name}
                   </Grid>
-                  <Grid item xs={12} className="fs-small t-white ">
+                  <Grid item xs={8} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '3px', fontWeight: '700' }}>
                     <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
+
                   </Grid>
+
                 </Grid>
               </Grid>
               <Grid item xs={2}>
@@ -140,12 +139,41 @@ export default function Invitation(props) {
           </div>
         </Grid>
       ))}
-      <Grid
-        item
-        xs={12}>
-        {data.length === 1 ? <center> <img src={SingleEvent} ></img></center> : <></>}
-      </Grid>
+
 
     </Grid>
   );
+}
+
+
+export function Password(props) {
+  const dispatch = useDispatch()
+  const [PWD, setPWD] = useState();
+  const verify = async () => {
+    debugger
+    if (PWD === props.MainCode[props.showall][0].InvId.PassWord) {
+      await dispatch(authInv(props.MainCode[props.showall][0].InvId._id, props.showall))
+    }
+  }
+  return (
+    <div>Enter Password<br />
+      <center>
+        <OtpInput
+          className="OTP"
+          value={PWD}
+          onChange={(otp) => setPWD(otp)}
+          numInputs={4}
+          separator={<span></span>}
+          inputStyle="Otp-block"
+          isInputNum={true} style={{ paddingLeft: '25%' }}
+        /><br />
+        <button className="w-100 save-event" onClick={() => {
+          verify()
+        }}
+        >
+          Verify
+        </button>
+      </center>
+    </div>
+  )
 }

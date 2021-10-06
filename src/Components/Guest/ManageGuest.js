@@ -3,15 +3,11 @@ import {
   Container,
   Row,
   Col,
-  Image,
-  Tab,
-  Tabs,
   Button,
   ListGroup,
   Modal,
 } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import readXlsxFile from "read-excel-file";
 import "../Guest/Guest.css";
 import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,11 +15,10 @@ import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import {
-  change_event,
   update_participants,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import * as XLSX from "xlsx";
-import { ReactExcel, readFile, generateObjects } from "@ramonak/react-excel";
+
 export default function ManageGuest(props) {
   const dispatch = useDispatch();
   const [isDisable, setDisabled] = useState(true);
@@ -84,10 +79,10 @@ export default function ManageGuest(props) {
     });
 
     promise.then((d) => {
-      console.log(d);
+      // console.log(d);
       let result = d.map((data) => data.Contact);
 
-      console.log(result);
+      //  console.log(result);
       let Status = "";
       result = result.map((data) => {
         if (typeof data === "string") {
@@ -101,7 +96,7 @@ export default function ManageGuest(props) {
         let jdata = { By: data, Status: Status };
         return jdata;
       });
-      console.log(result);
+      // console.log(result);
       setguestList([...guestList, ...result]);
       setlist([...guestList, ...result]);
       setDisabled(false);
@@ -186,7 +181,7 @@ export default function ManageGuest(props) {
     all = all.filter((allcontact) => {
       return by != allcontact.By;
     });
-    console.log(all);
+    // console.log(all);
     await setguestList([]);
     await setguestList(all);
   };
@@ -214,7 +209,7 @@ export default function ManageGuest(props) {
         }
       });
 
-      console.log(ldata);
+      // console.log(ldata);
       let Status = "";
       ldata = ldata.map((data) => {
         if (typeof data === "string") {
@@ -228,16 +223,16 @@ export default function ManageGuest(props) {
         let jdata = { By: data, Status: Status };
         return jdata;
       });
-      console.log(ldata);
+      // console.log(ldata);
       setguestList([...guestList, ...ldata]);
       setlist(ldata);
       setDisabled(false);
       await setlist([...ldata]);
-      console.log(_id);
+      // console.log(_id);
       let participants = [...ldata];
       // await dispatch(update_participants(_id, participants));
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
   function save() {

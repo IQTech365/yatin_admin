@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import "./Plan.css";
-import {
-  Grid,
-  Paper,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@material-ui/core";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import { Grid, Paper } from "@material-ui/core";
 function Plancard(props) {
   return (
     <Paper
@@ -18,7 +10,12 @@ function Plancard(props) {
       }}
     >
       <Grid container spacing={0}>
-        <Grid item xs={12} className={"upperplan " + props.plan}>
+        <Grid
+          item
+          xs={12}
+          className={"upperplan " + props.plan}
+          style={{ borderRadius: "10px" }}
+        >
           <Grid xs={12} className="tac t-white pfsmall">
             {props.plan}
           </Grid>
@@ -31,12 +28,12 @@ function Plancard(props) {
             {props.cost}
           </Grid>
         </Grid>
-        <Grid item xs={12} className="lowerplan">
+        <Grid item xs={12} className="lowerplan mt-5px">
           <ul class="a">
             <li>Multiple Events</li>
             <li>Albums</li>
             <li>Schedule</li>
-            <li>Ousr Story</li>
+            <li>Our Story</li>
             <li>Location</li>
             <li>Multiple Admin</li>
           </ul>
@@ -46,7 +43,7 @@ function Plancard(props) {
   );
 }
 export default function Plan(props) {
-  const [selectedplan, selectplan] = useState(0);
+  const [selectedplan, selectplan] = useState(3);
   return (
     <Grid container spacing={0}>
       <Grid item xs={12}>
@@ -54,7 +51,7 @@ export default function Plan(props) {
         <div className="planheadtop"></div>
       </Grid>
       <Grid item xs={12} className="plancardholder">
-        <Plancard
+     {/*    <Plancard
           plan={"Free"}
           selectplan={selectplan}
           cost={"RS 00 / Month"}
@@ -76,15 +73,15 @@ export default function Plan(props) {
           cost={"RS 299 / Month"}
           invites={"400"}
           plani={2}
-        />
+        /> */}
 
-        <Plancard
+       {/*  <Plancard
           plan={"Gold"}
           selectplan={selectplan}
           cost={"RS 499 / Month"}
-          invites={"400+"}
+          invites={"Unlimited"}
           plani={3}
-        />
+        /> */}
       </Grid>
       <Grid item xs={12}>
         <Paper className="planpayment">
@@ -92,11 +89,11 @@ export default function Plan(props) {
             <Grid item xs={9}>
               Plan Amount
             </Grid>
-            <Grid item xs={3}>
-              {selectedplan === 0 ? "Rs 00" : <></>}
-              {selectedplan === 1 ? "Rs 99" : <></>}
-              {selectedplan === 2 ? "Rs 299" : <></>}
-              {selectedplan === 3 ? "Rs 499" : <></>}
+            <Grid item xs={3} className="plan-float">
+              {selectedplan === 0 ? "₹00" : <></>}
+              {selectedplan === 1 ? "₹99" : <></>}
+              {selectedplan === 2 ? "₹299" : <></>}
+              {selectedplan === 3 ? "₹499" : <></>}
             </Grid>
           </Grid>
         </Paper>
@@ -108,7 +105,7 @@ export default function Plan(props) {
             <Grid item xs={9}>
               Extra Template
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={3} className="plan-float">
               Rs 00
             </Grid>
           </Grid>
@@ -121,8 +118,11 @@ export default function Plan(props) {
             <Grid item xs={9}>
               Coupon Discount
             </Grid>
-            <Grid item xs={3}>
-              Rs 00
+            <Grid item xs={3} className="plan-float">
+            {selectedplan === 0 ? "₹00" : <></>}
+                  {selectedplan === 1 ? "₹-99" : <></>}
+                  {selectedplan === 2 ? "₹-299" : <></>}
+                  {selectedplan === 3 ? "₹-499" : <></>}
             </Grid>
           </Grid>
         </Paper>
@@ -133,13 +133,10 @@ export default function Plan(props) {
             <Grid item xs={9}>
               Total Amount
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={3} className="plan-float">
               <b>
                 <u>
-                  {selectedplan === 0 ? "Rs 00" : <></>}
-                  {selectedplan === 1 ? "Rs 99" : <></>}
-                  {selectedplan === 2 ? "Rs 299" : <></>}
-                  {selectedplan === 3 ? "Rs 499" : <></>}
+                 0
                 </u>
               </b>
             </Grid>
@@ -147,11 +144,13 @@ export default function Plan(props) {
         </Paper>
       </Grid>
       <Grid item xs={12} className="m-7px">
+        <p style={{fontWeight:'700', fontSize:'12px', width:'90%', margin:'auto', backgroundColor:'antiquewhite'}}>Hurray! A Special Treat From Us! Enjoy Our Plans for Free🎁🎀 (Limited Time Only)</p>
         <button
           className="custom-file-upload"
+          style={{ position: "fixed", bottom: "20px" }}
           onClick={() => props.handleNext()}
         >
-          Make Payment
+          Next
         </button>
       </Grid>
     </Grid>

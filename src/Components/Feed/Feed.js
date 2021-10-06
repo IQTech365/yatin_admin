@@ -1,34 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "../Feed/Feed.css";
-import Header from "../Helpers/Header/Header.js";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Image, Button } from "react-bootstrap";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import zoomicon from "../../Assets/zoomicon.png";
-import UserData from "../Helpers/UserData/UserData";
-import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
-import { IoCameraOutline } from "react-icons/io5";
-import { FaTag } from "react-icons/fa";
 import axios from "axios";
-import { addpost, likepost } from "../../Redux/DispatchFuncitons/postfunctions";
+import { addpost } from "../../Redux/DispatchFuncitons/postfunctions";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { useDropzone } from "react-dropzone";
-import { InputTags } from "react-bootstrap-tagsinput";
 import "react-bootstrap-tagsinput/dist/index.css";
-import { FcLike } from "react-icons/fc";
-import { FaRegCommentDots } from "react-icons/fa";
-import { IoMdSend } from "react-icons/io";
-import { FcLikePlaceholder } from "react-icons/fc";
 import history from "../../Utils/History";
-import FeedComments from "./FeedComments";
 import { url } from "../../Utils/Config";
 import { Modal } from "@material-ui/core";
 import Media from "./Media";
 import NavMobile from "../Helpers/NavMobile/NavMobile";
-import Badge from "react-bootstrap/Badge";
-import { Multiselect } from "multiselect-react-dropdown";
-import SendIcon from "@material-ui/icons/Send";
-import { IconButton } from "@material-ui/core";
 import AddTags from "./AddTags";
 import Popup from "../Helpers/Popups/Popup";
 import {
@@ -38,12 +23,13 @@ import {
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Postrender from './Posts'
 import AddPost from "./AddPost";
+
 export default function Feed(props) {
   const Auth = useSelector((state) => state.Auth);
-  let Posts = useSelector((state) => state.Posts[props.match.params.id]);
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
   const dispatch = useDispatch();
+
   const [isSubmit, setisSubmit] = useState(false);
   const [isloaded, toggleisloaded] = useState(false);
   const [showPopup, toggleShowPopup] = useState(false);
@@ -55,7 +41,6 @@ export default function Feed(props) {
   const [Eventdata, setEventdata] = useState([]);
   const [admins, setadmins] = useState([]);
   const [Tags, setTags] = useState([]);
-
   const [base, setbase] = useState("");
   const [filter, setfilter] = useState("All");
   const [caption, setcaption] = useState("");
@@ -80,6 +65,7 @@ export default function Feed(props) {
 
         await setbase("MyEvents");
         await setadmins(MyEvents[props.match.params.id][0].Host);
+
         await guestlist([...MyEvents[props.match.params.id][0].Participants, ...MyEvents[props.match.params.id][0].Host]);
       } else if (
         props.location.pathname ===
@@ -87,6 +73,7 @@ export default function Feed(props) {
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id]);
+        // await setisAdmin(true)
 
         await setbase("inv");
         await setadmins(myInvitations[props.match.params.id][0].Host);
@@ -146,10 +133,10 @@ export default function Feed(props) {
         .post(url + "post/getposts", { maincode: props.match.params.MainCode })
         .then(async function (response) {
           toggleisloaded(true);
-          if (response.data.Posts.length !== 0) {
-            await setcurrentPosts(response.data.Posts);
-            await filterposts(response.data.Posts, Eventdata[0].Host)
-          }
+
+          await setcurrentPosts(response.data.Posts);
+          await filterposts(response.data.Posts, Eventdata[0].Host)
+
 
         })
         .catch(function (error) {
@@ -359,7 +346,7 @@ export default function Feed(props) {
         <Postrender data={currentPosts} filter={filter} filterdata={currentfilteredPosts} getposts={getposts}
           Eventdata={Eventdata} showcommmentforpost={showcommmentforpost} showcommment={showcommment} Maincode={props.match.params.Maincode}
           setshowcommmentforpost={setshowcommmentforpost}
-          setshowcommment={setshowcommment} />
+          setshowcommment={setshowcommment} admins={admins} />
       )}
 
 

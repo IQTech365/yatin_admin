@@ -1,18 +1,13 @@
-import "./Extras.css"
+import "./Extras.css";
 import React, { useState, useEffect } from "react";
-import { Grid, TextField, IconButton } from "@material-ui/core";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import { Grid, IconButton } from "@material-ui/core";
+import { Form, Button } from "react-bootstrap";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import CreateIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import BlankSchedule from "../../../Assets/BlankSchedule.svg";
-import { UpdateSchedules } from '../../../Redux/DispatchFuncitons/Eventfunctions'
+import { UpdateSchedules } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { useDispatch } from "react-redux";
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function AddSchedule(props) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [subEvent, setSubevent] = useState([...props.CurrentEventDetails]);
   const [edit, setedit] = useState(false);
   const [add, setadd] = useState(false);
@@ -36,22 +31,22 @@ export default function AddSchedule(props) {
   const [description, setdescription] = useState("");
   const [link, setlink] = useState("");
   const [isError, setError] = useState(false);
-  const [showfulldescription, setshowfulldescription] = useState(false)
+  const [showfulldescription, setshowfulldescription] = useState(false);
   useEffect(() => {
     setSubevent([...props.CurrentEventDetails]);
-  }, [props.CurrentEventDetails])
+  }, [props.CurrentEventDetails]);
   const save = async () => {
     if (subname !== "" && datetime !== "" && description !== "") {
       let data = {
         Name: subname,
         datetime: datetime,
         description: description,
-        link: link
+        link: link,
       };
-      console.log([...subEvent, data]);
-      let newdata = [...subEvent, data]
+      // console.log([...subEvent, data]);
+      let newdata = [...subEvent, data];
       await setSubevent(newdata);
-      await dispatch(UpdateSchedules(props.Eid, newdata))
+      await dispatch(UpdateSchedules(props.Eid, newdata));
       Delete();
       setadd(false);
     } else {
@@ -61,7 +56,7 @@ export default function AddSchedule(props) {
     setdatetime("");
     setdescription("");
     setvenue("");
-    setlink("")
+    setlink("");
   };
 
   const saveedit = async () => {
@@ -70,12 +65,12 @@ export default function AddSchedule(props) {
         Name: subname,
         datetime: datetime,
         description: description,
-        link: link
+        link: link,
       };
       let subEventcpy = [...subEvent];
       subEventcpy[editselected] = data;
       await setSubevent(subEventcpy);
-      await dispatch(UpdateSchedules(props.Eid, subEventcpy))
+      await dispatch(UpdateSchedules(props.Eid, subEventcpy));
       var EventsCopy = [...subEventcpy];
       Delete();
       setedit(false);
@@ -90,8 +85,8 @@ export default function AddSchedule(props) {
     setdatetime("");
     setdescription("");
     setvenue("");
-    setlink("")
-    setshowfulldescription(false)
+    setlink("");
+    setshowfulldescription(false);
   };
 
   const Deleteone = async (i) => {
@@ -101,70 +96,88 @@ export default function AddSchedule(props) {
     });
     await setSubevent([...subeventcpy]);
     var EventsCopy = [...subeventcpy];
-    await dispatch(UpdateSchedules(props.Eid, [...subeventcpy]))
+    await dispatch(UpdateSchedules(props.Eid, [...subeventcpy]));
   };
 
   return (
     <Grid container spacing={0}>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={8} style={{ margin: 'auto' }}>
         {subEvent.length > 0 || add === true ? (
           <>
             {subEvent.map((eve, index) => (
-              <Grid
-                item
-                xs={12}
-                className="card-shadow m-b-10 schedule-details"
-              >
+              <Grid item xs={12} className="card-shadow m-b-10 schedule-details" style={{ display: add === true ? "none" : "" }}>
                 <Grid container spacing={0}>
-                  <Grid item xs={8} md={10}>
+                  <Grid item xs={12} md={12} >
                     {edit === true && editselected === index ? (
                       <>
-                        <TextField
-                          className="w-100 m-7px"
-                          size="small"
-                          label="Event Name"
+                        <Form.Label style={{ fontWeight: 500 }}>
+                          Schedule Name
+                        </Form.Label>
+                        <Form.Control
+                          size="sm"
+                          type="text"
+                          placeholder="Edit Name"
                           onChange={(e) => {
                             setsubname(e.target.value);
                           }}
                           value={subname}
                         />
+                        <br />
 
                         <form noValidate>
-                          <TextField
-                            id="datetime-local"
-                            label="Schedule timing"
+                          <Form.Label style={{ fontWeight: 500 }}>
+                            Date
+                          </Form.Label>
+                          <Form.Control
+                            size="sm"
                             type="datetime-local"
-                            defaultValue="2017-05-24 T 10:30"
-                            InputLabelProps={{
-                              shrink: true,
+                            placeholder="Edit Date"
+                            id="datetime-local"
+                            defaultValue="2017-05-24T10:30"
+                            InputProps={{
+                              className: "nounder",
                             }}
-                            className="w-100 m-7px"
-                            size="small"
                             onChange={(e) => {
                               setdatetime(e.target.value);
                             }}
                             value={datetime}
-                          />
+                          />{" "}
+                          <br />
                         </form>
 
-                        <TextField
-                          className="w-100 m-7px"
-                          size="small"
-                          label="Link"
+                        <Form.Label style={{ fontWeight: 500 }}>
+                          Description
+                        </Form.Label>
+                        <Form.Control
+                          as="textarea"
+                          placeholder="Enter Description"
+                          style={{ height: "100px" }}
+                          onChange={(e) => {
+                            setdescription(e.target.value);
+                          }}
+                          value={description}
+                          InputProps={{
+                            className: "nounder",
+                          }}
+                        />
+
+                        <br />
+                        {/*    <Form.Label style={{ fontWeight: 500 }}>
+                          Link (Optional)
+                        </Form.Label>
+                        <Form.Control
+                          size="sm"
+                          type="text"
+                          placeholder="Enter Link"
+                          InputProps={{
+                            className: "nounder",
+                          }}
                           onChange={(e) => {
                             setlink(e.target.value);
                           }}
                           value={link}
                         />
-                        <TextField
-                          className="w-100 m-7px"
-                          size="small"
-                          label="Description"
-                          onChange={(e) => {
-                            setdescription(e.target.value);
-                          }}
-                          value={description}
-                        />
+                        <br /> */}
                       </>
                     ) : (
                       <>
@@ -172,6 +185,7 @@ export default function AddSchedule(props) {
                           container
                           spacing={0}
                           className="padding-left-7 p-10-p "
+
                         >
                           <Grid item xs={12}>
                             <div className="ScheduleName l-blue-t m-0">
@@ -182,50 +196,90 @@ export default function AddSchedule(props) {
                             {eve.Venue}
                           </Grid>
                           <Grid item xs={12} className="dtime">
-                            <Dateformatter Date={eve.datetime.split("T")[0] + " " + eve.datetime.split("T")[1]} />
+                            <Dateformatter
+                              Date={
+                                eve.datetime.split("T")[0] +
+                                " " +
+                                eve.datetime.split("T")[1]
+                              }
+                            />
                           </Grid>
-                          <Grid item xs={12} onClick={() => {
-                            window.open('http://' + eve.link)
-
-                          }} className="Link">
+                          {/*  <Grid
+                            item
+                            xs={12}
+                            onClick={() => {
+                              window.open("http://" + eve.link);
+                            }}
+                            className="Link"
+                          >
                             {eve.link}
-                          </Grid><br />
+                          </Grid> */}
+                          <br />
                           <Grid item xs={12}>
-                            <p className="event-des schedule_des">{showfulldescription === false ? eve.description.slice(0, 50) + '...' : eve.description}</p>
-                            {eve.description.length > 50 ?
-                              <a href="#" className="invitationmain_link" onClick={() => { setshowfulldescription(!showfulldescription) }}>
-                                {showfulldescription === false ? 'Show More' : 'Show Less'}
-                              </a> : <></>}
-
+                            <p className="event-des schedule_des">
+                              {showfulldescription === false
+                                ? eve.description.slice(0, 50) + "..."
+                                : eve.description}
+                            </p>
+                            {eve.description.length > 50 ? (
+                              <a
+                                href="#"
+                                className="invitationmain_link"
+                                onClick={() => {
+                                  setshowfulldescription(!showfulldescription);
+                                }}
+                              >
+                                {showfulldescription === false
+                                  ? "Show More"
+                                  : "Show Less"}
+                              </a>
+                            ) : (
+                              <></>
+                            )}
                           </Grid>
                         </Grid>
                       </>
                     )}
                   </Grid>
-                  <Grid item xs={4} md={2} >
+                  <Grid
+                    item
+                    xs={12}
+
+                    md={12}
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      columnGap: "20px",
+                    }}
+                  >
                     {edit === true && editselected === index ? (
-                      <center>
-                        <IconButton
-                          onClick={() => {
-                            saveedit();
-                          }}
-                        >
-                          <CheckCircleOutlineIcon color="success" />
-                        </IconButton>
-                        <IconButton
+                      <>
+                        <Button
+                          style={{ borderRadius: "20px" }}
+                          variant="outline-danger"
                           onClick={() => {
                             Delete();
+                            setadd(false);
                           }}
                         >
-                          <DeleteForeverIcon color="error" />
-                        </IconButton>
-                      </center>
-                    ) : (
-
-                      props.IsAdmin === true ? <center>
-                        <IconButton
+                          Cancel
+                        </Button>
+                        <Button
+                          variant="primary"
+                          style={{ borderRadius: "20px" }}
                           onClick={() => {
-                            setshowfulldescription(false)
+                            save();
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </>
+                    ) : props.IsAdmin === true ? (
+                      <center>
+                        <IconButton
+
+                          onClick={() => {
+                            setshowfulldescription(false);
                             setsubname(eve.Name);
                             setdatetime(eve.datetime);
                             setdescription(eve.description);
@@ -238,15 +292,17 @@ export default function AddSchedule(props) {
                           <CreateIcon />
                         </IconButton>
                         <IconButton
+
                           onClick={() => {
                             Deleteone(index);
-                            setshowfulldescription(false)
+                            setshowfulldescription(false);
                           }}
                         >
                           <DeleteForeverIcon color="error" />
                         </IconButton>
-                      </center> : <></>
-
+                      </center>
+                    ) : (
+                      <></>
                     )}
                   </Grid>
                   <Grid item xs={8} md={10}></Grid>
@@ -256,110 +312,114 @@ export default function AddSchedule(props) {
             ))}
           </>
         ) : (
-          <center>  <img src={BlankSchedule} /></center>
+          <center>
+            {" "}
+            <img src={BlankSchedule} />
+          </center>
         )}
       </Grid>
       {add == true && props.IsAdmin === true ? (
-        <Grid item xs={12} className="card-shadow mb-100">
+        <Grid item xs={12} md={8} style={{ margin: 'auto' }} className="mb-100">
           <Grid container spacing={2}>
-            <Grid item xs={7} md={10}>
-              <TextField
-                className="w-100 m-7px l-blue-t"
-                size="small"
-                label="Event Name"
+            <Grid item xs={12} md={12}>
+              <Form.Label style={{ fontWeight: 500 }}>Schedule Name</Form.Label>
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Enter Schedule Name"
                 onChange={(e) => {
                   setsubname(e.target.value);
                 }}
-                value={subname}
-                variant="standard"
                 InputProps={{
                   className: "nounder",
                 }}
+                value={subname}
+                style={{ borderRadius: '20px' }}
               />
 
+              <br />
+
+              <Form.Label style={{ fontWeight: 500 }}>Schedule</Form.Label>
               <form noValidate>
-                <TextField
-                  id="datetime-local"
-                  label="Schedule timing"
+                <Form.Control
+                  size="sm"
                   type="datetime-local"
+                  placeholder="Small text"
+                  id="datetime-local"
                   defaultValue="2017-05-24T10:30"
-                  className="w-100 m-7px"
-                  variant="standard"
                   InputProps={{
                     className: "nounder",
-                  }}
-                  size="small"
-                  InputLabelProps={{
-                    shrink: true,
                   }}
                   onChange={(e) => {
                     setdatetime(e.target.value);
                   }}
+                  style={{ borderRadius: '20px' }}
                   value={datetime}
                 />
               </form>
-              <TextField
-                className="w-100 m-7px"
-                variant="standard"
-                InputProps={{
-                  className: "nounder",
-                }}
-                size="small"
-                label="Link"
-                onChange={(e) => {
-                  setlink(e.target.value);
-                }}
-                value={link}
-              />
-              <TextField
-                className="w-100 m-7px"
-                variant="standard"
-                InputProps={{
-                  className: "nounder",
-                }}
-                size="small"
-                label="Sub-Event description "
+              <br />
+              <Form.Label style={{ fontWeight: 500 }}>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Enter Description"
+                style={{ height: "100px" }}
                 onChange={(e) => {
                   setdescription(e.target.value);
                 }}
                 value={description}
+                style={{ borderRadius: '20px' }}
+                InputProps={{
+                  className: "nounder",
+                }}
               />
+              <br />
+              {/*  <Form.Label style={{ fontWeight: 500 }}>
+                Link (Optional)
+              </Form.Label>
+              <Form.Control
+                size="sm"
+                type="text"
+                placeholder="Enter Link"
+                style={{borderRadius:'20px'}}
+                InputProps={{
+                  className: "nounder",
+                }}
+                onChange={(e) => {
+                  setlink(e.target.value);
+                }}
+                value={link}
+              /> */}
             </Grid>
-            <Grid item xs={5} md={2}>
-              <center>
-                <IconButton
-                  onClick={() => {
-                    save();
-                  }}
-                >
-                  <CheckCircleOutlineIcon
-                    color="inherit"
-                    fontSize={"large"}
-                    style={{ color: "green" }}
-                  />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    Delete();
-                    setadd(false);
-                  }}
-                >
-                  <DeleteForeverIcon color="error" fontSize={"large"} />
-                </IconButton>
-              </center>
-              {/* <center>
-                {props.CurrentEventDetails.VenueType === "Online" ? (
-                  <ControlPointIcon
-                    className="schedule-l-icon"
-                    fontSize={"large"}
-                  />
-                ) : (
-                  <LocationOnRoundedIcon
-                    className="schedule-l-icon"
-                    fontSize={"large"}
-                  />
-                )}
-              </center> */}
+            <Grid
+              item
+              xs={12}
+              md={12}
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                columnGap: "20px",
+              }}
+            >
+              <Button
+                style={{ borderRadius: "20px" }}
+                variant="outline-danger"
+                onClick={() => {
+                  Delete();
+                  setadd(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                style={{ borderRadius: "20px" }}
+                onClick={() => {
+                  save();
+                }}
+              >
+                Save
+              </Button>
+
             </Grid>
             <Grid item xs={8} md={10}></Grid>
             <Grid item xs={4} md={2}></Grid>

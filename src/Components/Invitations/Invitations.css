@@ -4,7 +4,6 @@
   margin: 5%;
 }
 
-
 /* .card {
   margin-left: auto;
   align-self: center;
@@ -97,12 +96,10 @@
   }
 }
 
-/* @media (max-width: 360px) {
-  .contain-main {
-    margin-top: 1.5vh !important;
-  }
-} */
-
 .schedule_main {
   margin-bottom: 20px !important;
+}
+
+center > div > .OTP:first-child {
+  margin-left: 20% !important;
 }

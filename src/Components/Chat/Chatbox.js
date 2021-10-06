@@ -71,16 +71,16 @@ export default function Chatbox(props) {
         room: props.SelectedGroup.room,
         _id: props.SelectedGroup._id,
       });
-      console.log({
-        sender: Auth.Phone,
-        type: "image",
-        content: filedata,
-        room: props.SelectedGroup.room,
-        _id: props.SelectedGroup._id,
-      });
+      // console.log({
+      // sender: Auth.Phone,
+      //   type: "image",
+      //     content: filedata,
+      //       room: props.SelectedGroup.room,
+      //         _id: props.SelectedGroup._id,
+      // });
     };
     reader.onerror = function (error) {
-      // console.log("Error: ", error);
+      //// console.log("Error: ", error);
     };
     await reader.readAsDataURL(acceptedFiles[0]);
   }, []);
@@ -105,10 +105,10 @@ export default function Chatbox(props) {
     axios
       .post(url + "chatgroup/getchat", { _id: _id })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         if (response.data.status === "success") {
           setchat(response.data.chatdata);
-          console.log(response.data.chatdata);
+          // console.log(response.data.chatdata);
         }
       })
       .catch(function (error) {

@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
-import UserData from "../Helpers/UserData/UserData";
-import './Feed.css'
+import './Feed.css';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -25,7 +23,7 @@ export default function AddTags(props) {
     const classes = useStyles();
     useEffect(() => {
         setTags([...props.url])
-        console.log(props.MainCode)
+        //  console.log(props.MainCode)
     }, [props.url])
 
     const addTags = (data) => {
@@ -71,7 +69,7 @@ export default function AddTags(props) {
 
             </List>
             <button className="btn btn-primary" onClick={() => { props.showall([...Tags]); props.hide(false) }}
-            style={{ width: "100%", borderRadius: 20 }}>
+                style={{ width: "100%", borderRadius: 20 }}>
                 Save
             </button>
         </div >

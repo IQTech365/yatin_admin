@@ -2,11 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import NoInv from "../../Assets/NoInvitation.svg";
 import "./Eventlist.css";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import LanguageIcon from "@material-ui/icons/Language";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import Notifications from "../Notifications/Notification";
-import Popup from "../Helpers/Popups/Popup";
 import history from "../../Utils/History";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 import SingleEvent from '../../Assets/singleevent.png'
@@ -16,7 +11,7 @@ export default function EventList(props) {
 
   const [data, setData] = useState(props.data);
   useEffect(async () => {
-    console.log(props.data);
+    // console.log(props.data);
     await setData(props.data);
   }, [props.data]);
 
@@ -26,14 +21,7 @@ export default function EventList(props) {
   }
   return (
     <Grid container className="mb-100 contain-main" >
-      <Popup
-        component={Notifications}
-        toggleShowPopup={setshow}
-        showPopup={show}
-        MainCode={MainCode}
-        showinvitaions={true}
-      // eventCode={eventCode}
-      />
+
       {data.map((inv, index) => (
         <Grid
           item
@@ -66,24 +54,20 @@ export default function EventList(props) {
               className='w-100 inv-img'
             />
           )}
-          <NotificationsNoneIcon
-            className="card-button Notifyme t-white"
-            onClick={async () => {
-              await setmaincode(inv[0].MainCode);
-              // await seteventcode(inv[index].eventCode);
-              await setshow(true);
-            }}
-          />
+
+
           <div className="bottom-bar">
             <Grid container spacing={0}>
-              <Grid item xs={8}>
+              <Grid item xs={12}>
                 <Grid container spacing={0} className="event-info">
-                  <Grid item xs={12} className="fs-bold t-white">
+                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '23px' }}>
                     {inv[0].Name}
                   </Grid>
-                  <Grid item xs={12} className="fs-small t-white ">
+                  <Grid item xs={6} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '5px', fontWeight: '700' }}>
                     <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
+
                   </Grid>
+
                 </Grid>
               </Grid>
               <Grid item xs={2}></Grid>

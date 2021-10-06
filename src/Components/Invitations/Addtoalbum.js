@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../Assets/ChooseFromGallery.svg";
@@ -8,49 +7,24 @@ import { Grid } from "@material-ui/core";
 import "../Helpers/Popups/Popup.css";
 import { Modal } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
-import { uploadString } from '../../Utils/FileUpload_Download'
-import { uploadfiletoalbum } from '../../Redux/DispatchFuncitons/Eventfunctions'
-import { useSelector, useDispatch } from "react-redux";
+import { uploadString } from "../../Utils/FileUpload_Download";
+import { uploadfiletoalbum } from "../../Redux/DispatchFuncitons/Eventfunctions";
+import { useDispatch, useSelector } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
 export default function Addtoalbum(props) {
     const dispatch = useDispatch();
-    const [album, setAlbum] = useState([]);
-    const [uniqurl, setuniqurl] = useState('');
-    const onDrop = useCallback(async (acceptedFiles) => {
-        let bkpalbum = [];
-        let filetype = [];
+    const EventState = useSelector((state) => state.Eventdata);
+    const [IsProcessing, setIsProcessing] = useState(false);
 
-        for (let i = 0; i < acceptedFiles.length; i++) {
-            if (acceptedFiles[i].size > 5259265) {
-            } else {
-                let type = acceptedFiles[i].type.split("/");
-                type = type[1];
-                await getBase64(acceptedFiles[i]).then(async (data) => {
-                    await bkpalbum.push({ file: data, type: type });
-                    await filetype.push(type);
-                });
-            }
-        }
-        await setAlbum([...bkpalbum]);
-        return true;
-    }, []);
+
     useEffect(async () => {
-        debugger
-        if (props.uniqurl.split('%2F')[1] === "InternalTemplates") {
-            let newurl = props.uniqurl.split('%2F')[2] + Math.floor(100000 + Math.random() * 900000) + '/Album/';
-            for (let i = 0; i < album.length; i++) {
-                if (album[i].file.includes('firebasestorage.googleapis.com')) {
-                    newurl = album[i].file.split('%2F')[1] + '/Album/'
-                }
-            }
-
-            console.log(newurl)
-            await setuniqurl(newurl)
+        if (props.showPopup === true) {
+            await savetoredux([...props.images])
         } else {
-            await setuniqurl(props.uniqurl.split('%2F')[1] + '/Album/')
-            console.log(props.uniqurl.split('%2F')[1] + '/Album/')
+            await savetoredux([])
         }
+    }, [props.showPopup]);
 
-    }, [props.uniqurl])
     function getBase64(file) {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -60,30 +34,74 @@ export default function Addtoalbum(props) {
         });
     }
 
+    const onDrop = useCallback(async (acceptedFiles) => {
+        let dataarray = [];
+        for (let i = 0; i < acceptedFiles.length; i++) {
+            if (acceptedFiles[i].size > 5259265) {
+            } else {
+                let type = acceptedFiles[i].type.split("/");
+                type = type[1];
+                await getBase64(acceptedFiles[i]).then(async (data) => {
+                    dataarray.push({ file: data, type: type });
+                });
+            }
+        }
+        await Addtoalbum(dataarray)
+        return true;
+    }, []);
+
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         accept: "image/jpeg, image/png, image/jpg",
     });
-    const cancel = () => {
-        setAlbum([]);
-    };
-    const deleteimage = (i) => {
-        let albumcpy = [...album];
-        albumcpy = albumcpy.filter((item, index) => i !== index);
-        setAlbum([...albumcpy]);
-    };
-    const save = async () => {
-        let albumcopy = [...props.images]
-        let uniqueurl =
-            props.Type + Math.floor(100000 + Math.random() * 900000) + "/" + "Album/";
-        for (let i = 0; i < album.length; i++) {
-            let newurl = await uploadString(album[i].file, uniqueurl + i + "." + album[i].type)
-            await albumcopy.push({ file: newurl, type: album[i].type })
-        }
-        console.log(albumcopy)
-        await dispatch(uploadfiletoalbum(albumcopy, props.MainCode))
-        props.toggleShowPopup(false);
+
+    const Addtoalbum = async (data) => {
+
+        await dispatch({ type: "ADDALBUM", payload: data })
     }
+
+    const deleteimage = async (i) => {
+        let bkpalbum = EventState.ALBUM.filter((item, index) => i !== index);
+        await savetoredux([...bkpalbum])
+        return 1;
+
+    };
+    const savetoredux = async (data) => {
+        await dispatch({ type: "SAVEALBUM", payload: data })
+    }
+    const save = async () => {
+
+        await setIsProcessing(true);
+        let albumcopy = [...EventState.ALBUM];
+        let newuniqurl = "";
+        if (props.uniqurl.split("%2F")[1] === "InternalTemplates") {
+            newuniqurl =
+                props.uniqurl.split("%2F")[2] +
+                Math.floor(100000 + Math.random() * 900000) +
+                "/Album/";
+        } else {
+            newuniqurl = props.uniqurl.split("%2F")[1] + "/Album/";
+        }
+        for (let i = 0; i < albumcopy.length; i++) {
+            if (
+                albumcopy[i].file.length > 1 &&
+                !albumcopy[i].file.includes("firebasestorage.googleapis.com")
+            ) {
+                let url = await uploadString(albumcopy[i].file, newuniqurl + i);
+                albumcopy[i].file = url;
+            }
+        }
+
+        await dispatch(
+            uploadfiletoalbum(
+                albumcopy,
+                props.MainCode,
+                props.toggleShowPopup,
+                setIsProcessing
+            )
+        );
+        await savetoredux([])
+    };
     return (
         <div>
             <Modal
@@ -102,49 +120,64 @@ export default function Addtoalbum(props) {
                         <CancelIcon color="secondary" fontSize="large" />
                     </IconButton>
 
-                    <div {...getRootProps()} style={{ width: '100%' }}>
+                    <div {...getRootProps()} style={{ width: "100%" }}>
                         <input {...getInputProps()} />
                         <img src={Gallery} className="w-100 uploadhere" />
+                        {IsProcessing === true ? (
+                            <p className="tac">Please wait while files are uploading</p>
+                        ) : (
+                            <></>
+                        )}
                     </div>
-                    <Grid item xs={12} className="ofh view">
-                        <Grid container spacing={4}>
-                            {album && album.length > 0
-                                ? album.map((image, index) => (
-                                    <Grid item xs={4} md={2} key={"img" + index}>
-                                        <CancelIcon
-                                            onClick={() => {
-                                                deleteimage(index);
-                                            }}
-                                            color="secondary"
-                                            className="delete-img"
-                                        />
-                                        <img src={image.file} className="w-100 preview" />
-                                    </Grid>
-                                ))
-                                : Array.from({ length: 30 }, (value, key) => (
-                                    <Grid
-                                        item
-                                        xs={2}
-                                        md={1}
-                                        key={"img" + key}
-                                        className="w-100 preview grey m-5px"
-                                    ></Grid>
-                                ))}
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} className="submit jcc">
-                        <button
-                            onClick={() => {
-                                save();
+                    {IsProcessing === true ? (
+                        <CircularProgress
+                            style={{
+                                position: "relative",
+                                left: "45%",
                             }}
-                            className="add-album  "
-                        >
-                            Save
-                        </button>
-                    </Grid>
-                    {uniqurl}
+                        />
+                    ) : (
+                        <>
+                            <Grid item xs={12} className="ofh view">
+                                <Grid container spacing={4}>
+                                    {EventState.ALBUM && EventState.ALBUM.length > 0
+                                        ? EventState.ALBUM.map((image, index) => (
+                                            <Grid item xs={4} md={2} key={"img" + index}>
+                                                <CancelIcon
+                                                    onClick={() => {
+                                                        deleteimage(index);
+                                                    }}
+                                                    color="secondary"
+                                                    className="delete-img"
+                                                />
+                                                <img src={image.file} className="w-100 preview" />
+                                            </Grid>
+                                        ))
+                                        : Array.from({ length: 30 }, (value, key) => (
+                                            <Grid
+                                                item
+                                                xs={2}
+                                                md={1}
+                                                key={"img" + key}
+                                                className="w-100 preview grey m-5px"
+                                            ></Grid>
+                                        ))}
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} className="submit jcc">
+                                <button
+                                    onClick={() => {
+                                        save();
+                                    }}
+                                    className="add-album  "
+                                >
+                                    Save
+                                </button>
+                            </Grid>
+                        </>
+                    )}
                 </div>
             </Modal>
         </div>
-    )
+    );
 }

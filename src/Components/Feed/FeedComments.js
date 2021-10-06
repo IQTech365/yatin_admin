@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
-import { Grid } from '@material-ui/core'
-import { TextField } from "@material-ui/core";
+import { Grid } from '@material-ui/core';
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { addcomments } from "../../Redux/DispatchFuncitons/postfunctions";
 import { useDispatch, useSelector } from "react-redux";
 import SendIcon from '@material-ui/icons/Send';
-
 import { IconButton } from '@material-ui/core';
 export default function FeedComments(props) {
   const dispatch = useDispatch();
@@ -20,7 +17,7 @@ export default function FeedComments(props) {
 
       let commentscpy = [...comments]
       await commentscpy.push({ CommentBy: Auth.Phone, Comment: comment })
-      console.log(commentscpy)
+      // console.log(commentscpy)
       await setcomments(commentscpy)
       await setisError(false);
       await setcomment("")
@@ -30,12 +27,12 @@ export default function FeedComments(props) {
     }
   };
   useEffect(() => {
-    console.log(props.data)
+    //   console.log(props.data)
     setcomments(props.data)
   }, [props.post])
 
   return (
-    <Grid container spacing={0} className="mt-5px p-0  mb-100">
+    <Grid container spacing={0} className="mt-5px p-0  mb-5px">
       <Grid container spacing={0} className="commentinp">
         <Grid item xs={2} md={1} className="m-0 p-0">
           <UserDataUrl showIcon={true} Phone={Auth.Phone} />

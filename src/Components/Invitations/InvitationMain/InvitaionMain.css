@@ -188,6 +188,19 @@
 
 .carousel-indicators {
   visibility: hidden;
+  visibility: visible;
+  position: absolute;
+  right: 0;
+  top:0;
+  height: 100px;
+  left: 0;
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  margin-right: 15%;
+  margin-left: 15%;
+  list-style: none;
 }
 
 .carousel-indicators li {
@@ -195,10 +208,6 @@
   margin-bottom: 5vh;
 }
 
-.carousel-control-next-icon,
-.carousel-control-prev-icon {
-  display: none;
-}
 
 .chat-icon {
   float: right;
@@ -211,7 +220,7 @@
 }
 
 .carousel-indicators .active {
-  visibility: hidden;
+  visibility: visible;
 }
 .invitationmain_link {
   text-decoration: none !important;

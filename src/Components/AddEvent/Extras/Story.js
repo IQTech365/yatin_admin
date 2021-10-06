@@ -5,8 +5,8 @@ import { Grid, TextField, IconButton } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
-import { useDispatch, useSelector } from "react-redux";
-import { SAVESTORY, DELETESTORY } from "../../../Redux/Actions/EventActions";
+import { useDispatch } from "react-redux";
+import { SAVESTORY } from "../../../Redux/Actions/EventActions";
 import CreateIcon from "@material-ui/icons/Create";
 
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
@@ -37,7 +37,7 @@ export default function Story(props) {
         file: file,
         filetype: filetype,
       };
-      console.log([...subStory, data]);
+      // console.log([...subStory, data]);
       await setsubStory([...subStory, data]);
 
       // dispatch({
@@ -143,9 +143,10 @@ export default function Story(props) {
             key={eve.Name + index}
             container
             spacing={0}
-            className="card-shadow  m-b-10  "
+            className="card-shadow  m-b-10 "
+
           >
-            <Grid item xs={4} md={3}>
+            <Grid item xs={4} md={3} >
               {edit === true && currentedited === index ? (
                 <div {...getRootProps()} className="w-100">
                   <input {...getInputProps()} className="w-100" />
@@ -288,8 +289,9 @@ export default function Story(props) {
         item
         xs={12}
         className={add === false ? "hide" : "show card-shadow m-b-10 "}
+
       >
-        <Grid container spacing={2}>
+        <Grid container spacing={2} >
           <Grid item xs={4} md={2}>
             {file === "" ? (
               <div {...getRootProps()} className="w-100">

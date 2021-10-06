@@ -80,3 +80,19 @@ export function addpost(id, by, furl, type, tags, caption) {
       });
   };
 }
+export function deletePost(id) {
+  return (dispatch) => {
+    console.log("alling");
+    axios
+      .post(url + "post/delete", {
+        _id: id,
+      })
+      .then((res) => {
+        dispatch(GetEvents());
+        dispatch(getNotification());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}

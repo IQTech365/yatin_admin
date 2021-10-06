@@ -1,19 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback } from "react";
 import "../Feed/Feed.css";
-import Header from "../Helpers/Header/Header.js";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
-import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { useSelector, useDispatch } from "react-redux";
-import zoomicon from "../../Assets/zoomicon.png";
+import { Container, Row, Col, } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import UserData from "../Helpers/UserData/UserData";
-import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { IoCameraOutline } from "react-icons/io5";
 import { FaTag } from "react-icons/fa";
-import axios from "axios";
-import { addpost, likepost } from "../../Redux/DispatchFuncitons/postfunctions";
-import { uploadString } from "../../Utils/FileUpload_Download";
 import { useDropzone } from "react-dropzone";
-import { InputTags } from "react-bootstrap-tagsinput";
 import "react-bootstrap-tagsinput/dist/index.css";
 import SendIcon from "@material-ui/icons/Send";
 import { IconButton } from "@material-ui/core";
@@ -23,13 +15,14 @@ export default function AddPost(props) {
     const Auth = useSelector((state) => state.Auth);
 
     const onDrop = useCallback(async (acceptedFiles) => {
+        debugger
         if (acceptedFiles[0].size > 5259265) {
             alert("Max file size 5mb");
             return false;
         }
         let url = "";
         let ftype = acceptedFiles[0].type.split("/");
-        console.log(ftype)
+        //   console.log(ftype)
         props.settype(ftype[0]);
         var reader = await new FileReader();
         reader.onload = async function () {
@@ -90,7 +83,7 @@ export default function AddPost(props) {
                         </IconButton>
                     ) : (
                         <IconButton>
-                            <CircularProgress style={{ color: "black" }} />
+                            ...
                         </IconButton>
                     )}
                 </Grid>
@@ -110,13 +103,13 @@ export default function AddPost(props) {
                             props.setShowTagQuery(true);
                         }}
                     >
-                        <FaTag size={17} /> Tag
+                        <FaTag size={17} />Add  Tags
                     </a>
                     {/* )} */}
                 </Col>
             </Row>
             {props.imageurl !== "" ? (
-                props.type !== "mp4" ? (
+                props.type === "image" ? (
                     <Row>
                         <Col md={12}>
                             <div {...getRootProps()}>
@@ -124,8 +117,8 @@ export default function AddPost(props) {
                                 <img
                                     src={props.imageurl}
                                     className="w-100"
-                                    style={{ height: "30vh" }}
-                                />
+
+                                />{props.type}
                             </div>
                         </Col>
                     </Row>

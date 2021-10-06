@@ -2,29 +2,24 @@ import "./App.css";
 import "./Colors.css";
 import "./Responsive.css";
 import "./Scrollbar.css";
-import React, { useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "swiper/swiper-bundle.min.css";
+import "react-modal-video/css/modal-video.min.css";
+import React, { useState, useEffect } from "react";
 import ReactGa from "react-ga"
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
 import history from "./Utils/History";
-import { useSelector } from "react-redux";
-import MobileAuth from "./Components/Auth/MobileAuth";
-import Landingpage from "./Components/LandingPage/Landingpage";
+import { useSelector, useDispatch } from "react-redux";
 import Home from "./Components/Home/Home";
 import AddEvent from "./Components/AddEvent/AddEvent";
 import Rsvp from "./Components/Invitations/RSVP/Rsvp";
 import AddEventSucess from "./Components/AddEvent/AddEventSucess";
-import Notification from "./Components/Notifications/Notification";
-import EventDone from "./Components/EventDone/EventDone";
-import AlertNotif from "./Components/Settings/AlertNotif/AlertNotif";
-import EnterCode from "./Components/Entercode/Entercode";
 import Chat from "./Components/Chat/Chat";
 import Feed from "./Components/Feed/Feed";
 import Comment from "./Components/Comments/Coments";
-import Blankpages from "./Components/BlankPages/404";
 import ShowSchedule from "./Components/Invitations/ShowSchedule";
 import InvitaionviewToggler from "./Components/Invitations/InvitaionviewToggler";
-import InvitaionMain from "./Components/Invitations/InvitationMain/InvitaionMain";
 import Locationofline from "./Components/Location Offline/LocationOffline";
 import Jitsi from "./Components/jitsi/Jitsivc";
 import GuestList from "./Components/Guest/Guest";
@@ -35,33 +30,53 @@ import EventAdmin from "./Components/Admin/EventAdmin";
 import ManageGuest from "./Components/Guest/ManageGuest";
 import EditEvent from "./Components/EditEvent/EditEvent";
 import HomePage from "./Components/HomePage/HomePage";
-import FD from "./Components/FD/Fd";
 import ShowStory from './Components/Invitations/ShowStory';
 import ShowAlbum from './Components/Invitations/ShowAlbum';
-
+import Gift from './Components/Gift/Gift';
+import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
+import { gettemplate } from './Redux/DispatchFuncitons/TemplateFunctions'
+import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
+import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions'
 function App() {
+  const dispatch = useDispatch();
+  const [loop, setloop] = useState()
 
-  window.OneSignal = window.OneSignal || [];
-  const OneSignal = window.OneSignal;
-  useEffect(() => {
-    OneSignal.push(() => {
-      OneSignal.init({
-        appId: "3dbe4838-6b6b-4241-9ab6-d13c46bfa846"
-      })
-    });
-  }, []);
 
+  const Auth = useSelector((state) => state.Auth);
   useEffect(() => {
+
     ReactGa.initialize('UA-201872924-1')
     ReactGa.pageview(window.location.pathname + window.location.search)
-  }, []
-  )
-  const Auth = useSelector((state) => state.Auth);
+  }, []);
+  let interval;
+  useEffect(async () => {
+    dispatch(gettemplate())
+    if (Auth.isLoggedIn === true) {
+      dispatch(gettemplate())
+      interval = setInterval(() => {
+
+        dispatch(GetEvents());
+        dispatch(GetInvitations());
+        dispatch(getlist())
+      }, 10000);
+      await setloop(interval)
+    } else {
+
+      await clearInterval(loop);
+      await setloop()
+    }
+
+
+  }, [Auth.isLoggedIn]);
+
+
   if (Auth.isLoggedIn === false) {
     return (
       <Router history={history}>
         <div className="App">
+
           <Switch>
+            <Route exact path="/" component={HomePage} />
             <Route
               exact
               path="/MyInvitations/:maincode"
@@ -75,6 +90,7 @@ function App() {
 
             <Route exact path="/" component={HomePage} />
             <Route exact path="/*" component={Redirector} />
+
           </Switch>
         </div>
       </Router>
@@ -120,9 +136,10 @@ function App() {
               path="/MyEvents/Admin/:id/:eid"
               component={EventAdmin}
             />
-            <Route exact path="/MyEvents/Admin/:id" component={AdminSidebar} />
-            <Route exact path="/MyEvents/More/:id" component={SidebarMore} />
 
+            <Route exact path="/MyEvents/admin/:id" component={AdminSidebar} />
+            <Route exact path="/MyEvents/More/:id" component={SidebarMore} />
+            <Route exact path="/MyEvents/admin/edit/:id/:eid" component={<div>edit</div>} />
             <Route
               exact
               path="/MyEvents/Location/:id/:event"
@@ -139,6 +156,8 @@ function App() {
               path="/MyEvents/eventpage/:id"
               component={InvitaionviewToggler}
             />
+
+            <Route exact path="/MyEvents/eventpage/gift/:id/:MainCode" component={Gift} />
             <Route exact path="/MyEvents/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/MyEvents/comments/:id/:_id" component={Comment} />
             <Route
@@ -178,6 +197,7 @@ function App() {
             /> */}
             <Route exact path="/inv/More/:id" component={SidebarMore} />
             <Route exact path="/inv/comments/:id/:_id" component={Comment} />
+            <Route exact path="/inv/eventpage/gift/:id/:MainCode" component={Gift} />
             <Route exact path="/inv/eventpage/feed/:id/:MainCode" component={Feed} />
             <Route exact path="/inv/videoconf/:id/" component={Jitsi} />
             <Route exact path="/inv/eventpage/chat/:id" component={Chat} />
@@ -216,7 +236,7 @@ function App() {
               path="/MyEvents/event-create-success/:id/:Share"
               component={AddEventSucess}
             />
-            <Route exact path="/MyEvents/add-event" component={AddEvent} />
+            <Route exact path="/MyEvents/edit/:id" component={CreateOrUpdate} />
             <Route exact path="/add-event" component={AddEvent} />
             <Route exact path="/user-profile" component={AddEvent} />
             <Route exact path="/home" component={Home} />

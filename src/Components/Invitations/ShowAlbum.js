@@ -1,31 +1,31 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "./AlbumStyle.css";
 import AlbumsNone from "../../Assets/AlbumsNone.jpg";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import { IoChevronBackCircleOutline } from "react-icons/io5";
-import { IconButton } from "@material-ui/core";
-import ImageGallery from "react-image-gallery";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import Header from "../Helpers/Header/Header";
 import MobileNav from "../Helpers/NavMobile/NavMobile.js";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav.js";
 import "react-image-gallery/styles/css/image-gallery.css";
-import BlankSchedule from "../../Assets/NOAlbums.svg";
 import { useSelector, useDispatch } from "react-redux";
 import {
   GetEvents,
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import { useDropzone } from "react-dropzone";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { uploadfiletoalbum } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import SaveIcon from "@material-ui/icons/Save";
-import Popup from "../Helpers/Popups/Popup";
 import Addtoalbum from "./Addtoalbum";
-import Swiper from "react-id-swiper";
-import { useSwipeable } from 'react-swipeable';
+import { useSwipeable } from "react-swipeable";
+import { Swiper, SwiperSlide } from "swiper/react";
+// import Swiper core and required modules
+import SwiperCore, { Navigation, Thumbs } from "swiper";
+SwiperCore.use([Navigation, Thumbs]);
+// install Swiper modules
+
 export default function ShowAlbum(props) {
+
   const [isUploaded, setisUploaded] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [Eventdata, setEventdata] = useState([]);
   const [uniqurl, setuniqurl] = useState("");
   const [Name, setName] = useState("");
@@ -59,7 +59,7 @@ export default function ShowAlbum(props) {
   };
 
   useEffect(async () => {
-    let data = []
+    let data = [];
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
@@ -70,7 +70,7 @@ export default function ShowAlbum(props) {
         MyEvents.length > 0
       ) {
         console.log(MyEvents[0]);
-        data = MyEvents[props.match.params.id][0]
+        data = MyEvents[props.match.params.id][0];
         await setEventdata(data.InvId.Album);
         await setbase("MyEvents");
         await setType(data.InvId.Type);
@@ -81,12 +81,12 @@ export default function ShowAlbum(props) {
         } else {
           await setIsAdmin(false);
         }
-        await setuniqurl(data.file)
+        await setuniqurl(data.file);
       } else if (
         props.location.pathname === "/inv/albums/" + props.match.params.id &&
         myInvitations.length > 0
       ) {
-        data = myInvitations[props.match.params.id][0]
+        data = myInvitations[props.match.params.id][0];
         console.log(myInvitations[0]);
         await setEventdata(data.InvId.Album);
         await setbase("inv");
@@ -98,7 +98,7 @@ export default function ShowAlbum(props) {
         } else {
           await setIsAdmin(false);
         }
-        await setuniqurl(data.file)
+        await setuniqurl(data.file);
       }
       console.log(Eventdata);
     }
@@ -148,10 +148,16 @@ export default function ShowAlbum(props) {
   };
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => currentmedia < images.length - 1 ? setcurrentmedia(currentmedia + 1) : setcurrentmedia(0),
-    onSwipedRight: () => currentmedia > 0 ? setcurrentmedia(currentmedia - 1) : setcurrentmedia(images.length - 1),
+    onSwipedLeft: () =>
+      currentmedia < images.length - 1
+        ? setcurrentmedia(currentmedia + 1)
+        : setcurrentmedia(0),
+    onSwipedRight: () =>
+      currentmedia > 0
+        ? setcurrentmedia(currentmedia - 1)
+        : setcurrentmedia(images.length - 1),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    trackMouse: true,
   });
   return (
     <div>
@@ -161,7 +167,7 @@ export default function ShowAlbum(props) {
       <Addtoalbum
         toggleShowPopup={setshow}
         showPopup={show}
-        images={Prevfiles}
+        images={images}
         _id={props.match.params.id}
         eventname={Name}
         Type={Type}
@@ -170,10 +176,10 @@ export default function ShowAlbum(props) {
       />
 
       <DesktopNav id={props.match.params.id} base={base} />
-      <MobileNav id={props.match.params.id} base={base} />
+      <MobileNav id={props.match.params.id} base={base} MainCode={MainCode} />
 
       <Container style={{ margin: 0, padding: 0, marginTop: 10 }} fluid>
-        <Row className="p-0 m-0" >
+        <Row className="p-0 m-0">
           <Col xs={6}>
             {" "}
             <h3 className="p-5px"> Albums</h3>
@@ -198,27 +204,34 @@ export default function ShowAlbum(props) {
         <br />
         {images.length === 0 ? (
           <>
-
-            {IsAdmin === true ? <>  {" "}
-              <img src={AlbumsNone} className="blank-album" />
-              <br />
-              <h3 className="tac">Add Albums😍 Now!</h3>
-              <p style={{ textAlign: "center" }}>
-                Share with your friends the final pictures of event any time
-              </p><div style={{ display: "flex", justifyContent: "center" }}>
-                <Button
-                  variant="primary"
-                  className="addalbums_btn"
-                  onClick={() => {
-                    setshow(true);
-                  }}
-                >
-                  Add Albums
-                </Button>
-              </div></> : <>  <img src={AlbumsNone} className="blank-album" /> <br />
-              <h3 className="tac">No Albums😍 Yet!</h3>
-            </>}
-
+            {IsAdmin === true ? (
+              <>
+                {" "}
+                <img src={AlbumsNone} className="blank-album" />
+                <br />
+                <h3 className="tac">Add Albums😍 Now!</h3>
+                <p style={{ textAlign: "center" }}>
+                  Share with your friends the final pictures of event any time
+                </p>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Button
+                    variant="primary"
+                    className="addalbums_btn"
+                    onClick={() => {
+                      setshow(true);
+                    }}
+                  >
+                    Add Albums
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                {" "}
+                <img src={AlbumsNone} className="blank-album" /> <br />
+                <h3 className="tac">No Albums😍 Yet!</h3>
+              </>
+            )}
           </>
         ) : (
           <>
@@ -234,7 +247,50 @@ export default function ShowAlbum(props) {
                 </div>
               ))}
             </Swiper> */}
-            <Row  {...handlers} style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}>
+            <Row>
+            <Swiper
+              style={{
+                "--swiper-navigation-color": "#fff",
+                "--swiper-pagination-color": "#fff",
+              }}
+              loop={true}
+              spaceBetween={10}
+              navigation={true}
+              thumbs={{ swiper: thumbsSwiper }}
+              className="mySwiper2"
+              style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '70vh' }}
+            >
+              {images.map((post, index) => (
+                <SwiperSlide>
+                  <img src={post.file} key={index} style={{height:'65vh', objectFit:'contain', width:'100%'}}/>
+                </SwiperSlide>
+              ))}
+
+            </Swiper>
+            </Row>
+            <Row>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              loop={true}
+              spaceBetween={20}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              className="mySwiper"
+              style={{ bottom: '5vh', width: '100vw', height: "110px", objectFit:'contain', position:'fixed' }}
+            >
+              {images.map((post, index) => (
+                post.fileurl !== "" ?
+                  <SwiperSlide>
+                    <img src={post.file} key={index}  style={{ objectFit:'cover', width:'100%', height:'inherit', border:'2px solid lightgrey', borderRadius:'8px'}}/>
+                  </SwiperSlide>
+
+                  : <></>)
+              )}
+
+            </Swiper>
+            </Row>
+            {/* <Row  {...handlers} style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}>
               {images.map((post, index) => (
 
                 post.file !== "" && index === currentmedia ?
@@ -250,11 +306,12 @@ export default function ShowAlbum(props) {
               )}
 
 
-            </Row>
-
+            </Row> */}
           </>
         )}
       </Container>
     </div>
   );
 }
+
+

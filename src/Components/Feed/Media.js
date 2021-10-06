@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import CancelIcon from "@material-ui/icons/Cancel";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-import { Container, Row, Col, Image, Button, Form } from "react-bootstrap";
-import HorizontalSlider from 'react-horizontal-slider'
+import { Container, Row } from "react-bootstrap";
 import './Feed.css'
 export default function Media(props) {
     const [currentmedia, setcurrentmedia] = useState(0);
-    const [allmedia, setallmedia] = useState([]);
     useEffect(async () => {
         let isselected = false;
         for (let i = 0; i < props.currentPosts.length; i++) {
             if (isselected === false) {
                 if (props.popuptype === "Photo" && props.currentPosts[i].filetype === "image") {
                     await setcurrentmedia(i)
-                    console.log(props.currentPosts[i])
-                    console.log(i)
+                    // console.log(props.currentPosts[i])
+                    // console.log(i)
                     isselected = true;
                 } else if (props.popuptype === "Videos" && props.currentPosts[i].filetype === "video") {
                     await setcurrentmedia(i)

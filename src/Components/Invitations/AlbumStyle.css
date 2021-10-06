@@ -6,11 +6,11 @@
   height: 55vh !important;
 }
 .blank-album {
-  height: 30vh !important;
-  width: 100vw !important;
-
-  margin-top: 5vh !important;
-  object-fit: contain;
+  width: auto;
+  height: 33vh;
+  display: block;
+  margin: auto;
+  margin-top: 10vh!important;
 }
 
 .addalbums_btn{

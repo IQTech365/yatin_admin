@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -7,20 +7,29 @@ import {
 } from "@react-google-maps/api";
 import "@reach/combobox/styles.css";
 import Geocode from "react-geocode";
-import { Accordion, Card, Button, Container, Row, Col } from "react-bootstrap";
+import { Accordion, Card, Col } from "react-bootstrap";
 import Header from "../Helpers/Header/Header.js";
 import "../Location Offline/LocationOffline.css";
 import LocationOnOutlinedIcon from "@material-ui/icons/LocationOnOutlined";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import VideocamIcon from "@material-ui/icons/Videocam";
-import { useSelector, useDispatch } from "react-redux";
-import { json } from "body-parser";
+import { useSelector } from "react-redux";
 import vcimage from "../../Assets/videocall.png";
 import history from "../../Utils/History";
 import { GoogleMapsAPI } from "../../Utils/Config";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
-const libraries = ["places"];
+import Lottie from 'react-lottie';
+import animationData from '../Animations/online.json';
 
+const libraries = ["places"];
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: animationData,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice"
+  }
+};
 const options = {
   // styles: mapStyles,
   disableDefaultUI: false,
@@ -129,19 +138,28 @@ export default function Location(props) {
           Location
         </p>
       </Col>
-      <img
+      <Lottie 
+	    options={defaultOptions}
+        height={200}
+        width={200}
+        style={{
+          marginBottom:'20vh',
+          display:
+          Eventdata.VenueType === "Online" ||
+            Eventdata.VenueType === "Online-Inapp"
+            ? "block"
+            : "none",
+        }}
+      />
+     {/*  <img
         src={vcimage}
         style={{
           width: "100vw",
           height: "70vh",
           objectFit: "contain",
-          display:
-            Eventdata.VenueType === "Online" ||
-              Eventdata.VenueType === "Online-Inapp"
-              ? "block"
-              : "none",
+         
         }}
-      />
+      /> */}
       <GoogleMap
         id="map"
         mapContainerStyle={mapContainerStyle}
@@ -270,67 +288,7 @@ export default function Location(props) {
             ></Card.Body>
           </Accordion.Collapse>
         </Card>
-        <Card>
-          <Card.Header
-            style={{
-              display:
-                Eventdata.VenueType === "Offline" ||
-                  Eventdata.VenueType === "Both"
-                  ? "block"
-                  : "none",
-            }}
-          >
-            <Accordion.Toggle
-              eventKey="2"
-              style={{
-                color: "skyblue",
-                height: "100%",
-                width: "100%",
-                border: "none",
-                background: "none",
-                color: "#000",
-                textAlign: "left",
-              }}
-            >
-              <LocationOnOutlinedIcon style={{ color: "skyblue" }} /> Other
-              <KeyboardArrowDownIcon
-                style={{ float: "right", color: "skyblue" }}
-              />
-            </Accordion.Toggle>
-          </Card.Header>
-
-          <Accordion.Collapse eventKey="2">
-            <Card.Body
-              style={{
-                display:
-                  Eventdata.VenueType === "Offline" ||
-                    Eventdata.VenueType === "Both"
-                    ? "block"
-                    : "none",
-              }}
-            >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum. Why do we use it? It is a long established fact that
-              a reader will be distracted by the readable content of a page when
-              looking at its layout. The point of using Lorem Ipsum is that it
-              has a more-or-less normal distribution of letters, as opposed to
-              using 'Content here, content here', making it look like readable
-              English. Many desktop publishing packages and web page editors now
-              use Lorem Ipsum as their default model text, and a search for
-              'lorem ipsum' will uncover many web sites still in their infancy.
-              Various versions have evolved over the years, sometimes by
-              accident, sometimes on purpose (injected humour and the like).
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+     
       </Accordion>
     </div>
   );
