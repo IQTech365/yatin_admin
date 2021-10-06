@@ -198,12 +198,14 @@ export default function AddEventSucess(props) {
                   className="w-100-p "
                   size="small"
                   variant="outlined"
+                 
                 >
                   <Select
                     native
                     value={SelectedCode}
+                    
                     onChange={handleClose}
-                    style={{ textAlign: 'center' }}
+                    style={{ textAlign: 'center', padding:'none', height:'25px' }}
                     // className="selectboxblue"
                     displayEmpty
                   >  {allevents &&
