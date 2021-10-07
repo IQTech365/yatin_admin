@@ -29,6 +29,7 @@ export default function EventAdmin(props) {
 
   useEffect(async () => {
     if (MyEvents && MyEvents.length > 0) {
+      debugger
       let Rsvplistcpy = []
       let accept = [];
       let decline = [];
@@ -36,27 +37,28 @@ export default function EventAdmin(props) {
       let Participants = []
       let Host = []
       let all = []
-      await setEventdata(MyEvents[props.match.params.id][props.match.params.eid])
-      await setRsvplist(MyEvents[props.match.params.id][props.match.params.eid].RSVPList)
+      await setEventdata(MyEvents[props.match.params.id][props.match.params.eid]);
+      await setRsvplist(MyEvents[props.match.params.id][props.match.params.eid].RSVPList);
       Participants = MyEvents[props.match.params.id][props.match.params.eid].Participants;
       Host = MyEvents[props.match.params.id][props.match.params.eid].Host;
-      if (MyEvents[props.match.params.id][props.match.params.eid].RSVPList !== undefined || MyEvents[props.match.params.id][props.match.params.eid].RSVPList.length > 0) {
+      if (MyEvents[props.match.params.id][props.match.params.eid].RSVPList !== undefined
+        || MyEvents[props.match.params.id][props.match.params.eid].RSVPList.length > 0) {
         Rsvplistcpy = [...MyEvents[props.match.params.id][props.match.params.eid].RSVPList] || [];
 
-        Rsvplistcpy.map((rsvp) => {
-          if (!Host.includes(rsvp.By)) {
-            if (rsvp.Status === "Accept") {
-              accept.push(rsvp);
-            }
-            if (rsvp.Status === "Decline") {
-              decline.push(rsvp);
-            }
-            if (rsvp.Status === "May Be") {
-              maybe.push(rsvp);
-            }
+        for (let i = 0; i < Rsvplistcpy.length; i++) {
+
+          if (Rsvplistcpy[i].Status === "Accept") {
+            accept.push(Rsvplistcpy[i]);
+          }
+          if (Rsvplistcpy[i].Status === "Decline") {
+            decline.push(Rsvplistcpy[i]);
+          }
+          if (Rsvplistcpy[i].Status === "May Be") {
+            maybe.push(Rsvplistcpy[i]);
           }
 
-        });
+        }
+
         let allrsvp = accept.concat(decline);
         allrsvp = allrsvp.concat(maybe);
         for (let j = 0; j < Participants.length; j++) {
@@ -82,8 +84,8 @@ export default function EventAdmin(props) {
           }
           found = false;
         }
-        setseries([accept.length, decline.length, maybe.length, Participants.length - (accept.length + decline.length + maybe.length)]);
-        // console.log(90, [accept.length, decline.length, maybe.length, Participants.length - (accept.length + decline.length + maybe.length)])
+        await setseries([accept.length, decline.length, maybe.length, Participants.length + Host.length - (accept.length + decline.length + maybe.length)]);
+        console.log(90, [accept.length, decline.length, maybe.length, Participants.length + Host.length - (accept.length + decline.length + maybe.length)])
       }
       else {
         setseries([0, 0, 0, Participants.length]);

@@ -27,7 +27,9 @@ export default function EventAdmin2() {
     );
 
     useEffect(async () => {
+        debugger
         if (MyEvents && MyEvents.length > 0) {
+
             let Rsvplistcpy = []
             let accept = [];
             let decline = [];
@@ -73,7 +75,8 @@ export default function EventAdmin2() {
                 }
                 found = false;
             }
-            setseries([accept.length, decline.length, maybe.length]);
+            await setseries([accept.length, decline.length, maybe.length]);
+            console.log([accept.length, decline.length, maybe.length])
         }
 
     }, [MyEvents])

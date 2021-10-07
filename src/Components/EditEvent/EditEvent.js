@@ -48,9 +48,9 @@ export default function EditEvent(props) {
     await setTime(MyEvents[props.match.params.invno].Time)
     await setVenueType(MyEvents[props.match.params.invno].VenueType)
     await setLink(MyEvents[props.match.params.invno].Link)
-    await setLocation(MyEvents[props.match.params.invno].Location)
-    await setaddress(MyEvents[props.match.params.invno].Location.address)
-    await setDescription(MyEvents[props.match.params.invno].Description)
+    await setLocation(MyEvents[props.match.params.invno].Location || "")
+    await setaddress(MyEvents[props.match.params.invno].Location.address !== null ? MyEvents[props.match.params.invno].Location.address : "")
+    await setDescription(MyEvents[props.match.params.invno].Description || "")
   }, [])
   const save = async () => {
     let data = {
@@ -62,7 +62,12 @@ export default function EditEvent(props) {
       MyEvents[props.match.params.invno]._id, setIsSubmitted));
 
   };
-
+  useEffect(async () => {
+    debugger
+    if (typeof Description === "object") {
+      await setDescription(MyEvents[props.match.params.invno].Description.props.children)
+    }
+  }, [Description])
 
   return (
 
@@ -329,7 +334,7 @@ export default function EditEvent(props) {
               setIsSubmitted(true);
             }}
           >
-            {IsSubmitted === false ? "Update" : '...'}
+            {IsSubmitted === false ? "Update" : 'Saving'}
           </Button>
           <Button
             variant="outline-danger"
