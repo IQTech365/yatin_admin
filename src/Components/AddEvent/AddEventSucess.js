@@ -4,6 +4,7 @@ import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
 import { Grid } from "@material-ui/core";
 import check from "../../Assets/check-circle.1.png";
+import {FcShare} from "react-icons/fc"
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import axios from "axios";
 import { url } from "../../Utils/Config";
@@ -89,7 +90,7 @@ export default function AddEventSucess(props) {
   const handleOnSubmit = async () => {
     const response = await fetch(image);
     const blob = await response.blob();
-    const file = new File([blob], "image.jpg", { type: blob.type });
+    //const file = new File([blob], "image.jpg", { type: blob.type });
     // console.log(file);
     if (navigator.share) {
       await navigator
@@ -98,8 +99,8 @@ export default function AddEventSucess(props) {
           text: type +
             " \n Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
 
-          url: "https://mobillyinvite.com/MyInvitations/" + maincode,
-          files: [file],
+          url: "https://mobillyinvite.com/MyInvitations/" + maincode
+          //files: [file],
         })
         .then(() => console.log("Successful share"))
         .catch((error) => console.log("Error in sharing", error));
@@ -188,7 +189,7 @@ export default function AddEventSucess(props) {
             </Grid>
           </Grid>
           {allevents &&
-            allevents.length > 0 &&
+            allevents.length > 1 &&
             allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
@@ -205,7 +206,7 @@ export default function AddEventSucess(props) {
                     value={SelectedCode}
                     
                     onChange={handleClose}
-                    style={{ textAlign: 'center', padding:'none', height:'25px' }}
+                    style={{ textAlign: 'center', padding:'none', height:'38px' }}
                     // className="selectboxblue"
                     displayEmpty
                   >  {allevents &&
@@ -237,7 +238,7 @@ export default function AddEventSucess(props) {
                 </Grid> */}
               </Grid>
               <Grid item xs={2}>
-                <IconButton>
+                <IconButton  style={{backgroundColor: 'antiquewhite'}}>
                   <MdShare
                     onClick={handleOnSubmit}
                   >
@@ -258,14 +259,16 @@ export default function AddEventSucess(props) {
             style={{ zIndex: "33333" }}
           >
             <center>
-              <button
+              {allevents.length == 1 ? <FcShare
                 onClick={handleOnSubmit}
                 className="share-button"
                 type="button"
                 title="Share this article"
-              >
-                Share
-              </button>
+                size={25}
+                style={{marginRight:'10px'}}
+              />
+                 : ""}
+              
               <WhatsappShareButton
                 url={" "}
                 title={pwd !== "" && pwd !== null ? Watsapp + ". Password: " + pwd : Watsapp}

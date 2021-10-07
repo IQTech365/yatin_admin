@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./InvitaionMain.css";
 import Header from "../../Helpers/Header/Header";
-
+import { BiVideo } from "react-icons/bi";
 import Icon from "../../../Assets/comment.png";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
@@ -57,35 +57,40 @@ export default function InvitaionMain(props) {
     var sindices = [];
     var eindices = [];
     let newdesc = <></>;
-    let descpy = desc
-    let returnelement = []
-    let restafter
+    let descpy = desc;
+    let returnelement = [];
+    let restafter;
     for (var i = 0; i < desc.length; i++) {
       if (desc[i] === "{") sindices.push(i);
       if (desc[i] === "}") eindices.push(i);
     }
     let starting = 0;
     if (sindices.length === 0) {
-      return <>{desc}</>
+      return <>{desc}</>;
     } else {
       for (var i = 0; i < sindices.length; i++) {
-
         let restbefore = descpy.substring(starting, sindices[i]);
         let link = descpy.substring(sindices[i] + 1, eindices[i]);
         restafter = descpy.substring(eindices[i] + 1, desc.length);
         starting = eindices[i] + 1;
-        returnelement.push(<>{restbefore}</>)
-        returnelement.push(<span className="t-blue" onClick={() => window.open(link)}>{link}</span>)
+        returnelement.push(<>{restbefore}</>);
+        returnelement.push(
+          <span className="t-blue" onClick={() => window.open(link)}>
+            {link}
+          </span>
+        );
         //
       }
-      returnelement.push(<>{restafter}</>)
-      return (<p>{returnelement.map(elm => (elm))}</p>)
+      returnelement.push(<>{restafter}</>);
+      return <p>{returnelement.map((elm) => elm)}</p>;
     }
-  }
+  };
   useEffect(async () => {
     console.log(props.Eventdata);
     if (props.Eventdata && props.Eventdata.length > 0) {
-      props.Eventdata[0].Description = await replacelinks(props.Eventdata[0].Description)
+      props.Eventdata[0].Description = await replacelinks(
+        props.Eventdata[0].Description
+      );
       await setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
@@ -135,7 +140,7 @@ export default function InvitaionMain(props) {
                     marginRight: 3,
                     marginLeft: 3,
                     marginBottom: 10,
-                    zIndex: 200
+                    zIndex: 200,
                   }}
                 >
                   <p style={{ color: "black" }}>
@@ -159,11 +164,11 @@ export default function InvitaionMain(props) {
                     onClick={() => {
                       history.push(
                         "/" +
-                        props.base +
-                        "/guestlist/" +
-                        props.id +
-                        "/" +
-                        index
+                          props.base +
+                          "/guestlist/" +
+                          props.id +
+                          "/" +
+                          index
                       );
                     }}
                   />
@@ -171,8 +176,8 @@ export default function InvitaionMain(props) {
               </Container>
               <Container className="container-event">
                 {eve.filetype === "png" ||
-                  eve.filetype === "jpg" ||
-                  eve.filetype === "jpeg" ? (
+                eve.filetype === "jpg" ||
+                eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
@@ -181,7 +186,7 @@ export default function InvitaionMain(props) {
                     src={eve.file}
                     preload="none"
                     className="w-100"
-                    style={{ height: '60vh', objectFit: 'cover' }}
+                    style={{ height: "60vh", objectFit: "cover" }}
                   />
                 )}
                 <Container
@@ -230,11 +235,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                            props.base +
-                            "/comments/" +
-                            props.id +
-                            "/" +
-                            eve._id
+                              props.base +
+                              "/comments/" +
+                              props.id +
+                              "/" +
+                              eve._id
                           );
                         }}
                       />
@@ -308,11 +313,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                              props.base +
-                              "/schedule/" +
-                              props.id +
-                              "/" +
-                              index
+                                props.base +
+                                "/schedule/" +
+                                props.id +
+                                "/" +
+                                index
                             );
                           }}
                         />
@@ -324,20 +329,41 @@ export default function InvitaionMain(props) {
                     </Col>
                     <Col>
                       <center>
-                        <GoLocation
-                          style={{ color: "#4e4e4e" }}
-                          size="25"
-                          onClick={() => {
-                            history.push(
-                              "/" +
-                              props.base +
-                              "/location/" +
-                              props.id +
-                              "/" +
-                              index
-                            );
-                          }}
-                        />
+                        <p>
+                          {" "}
+                          {eve.VenueType == "Online-Inapp" && "Online" ? (
+                            <BiVideo
+                              style={{ color: "#4e4e4e" }}
+                              size="26"
+                              onClick={() => {
+                                history.push(
+                                  "/" +
+                                    props.base +
+                                    "/location/" +
+                                    props.id +
+                                    "/" +
+                                    index
+                                );
+                              }}
+                            />
+                          ) : (
+                            <GoLocation
+                              style={{ color: "#4e4e4e" }}
+                              size="25"
+                              onClick={() => {
+                                history.push(
+                                  "/" +
+                                    props.base +
+                                    "/location/" +
+                                    props.id +
+                                    "/" +
+                                    index
+                                );
+                              }}
+                            />
+                          )}
+                        </p>
+
                         {/*  <Image
                           src={Location}
                           
@@ -351,7 +377,8 @@ export default function InvitaionMain(props) {
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
-                  <p className="event-des">{eve.Description}
+                  <p className="event-des">
+                    {eve.Description}
                     {/* {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
@@ -424,5 +451,4 @@ export function IsRsvp(props) {
       )}
     </span>
   );
-
 }
