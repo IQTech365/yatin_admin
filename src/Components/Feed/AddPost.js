@@ -23,7 +23,7 @@ export default function AddPost(props) {
         let url = "";
         let ftype = acceptedFiles[0].type.split("/");
         //   console.log(ftype)
-        props.settype(ftype[0]);
+        props.settype(ftype[1]);
         var reader = await new FileReader();
         reader.onload = async function () {
             url = reader.result;
@@ -109,7 +109,9 @@ export default function AddPost(props) {
                 </Col>
             </Row>
             {props.imageurl !== "" ? (
-                props.type === "image" ? (
+                props.type === "png" ||
+                    props.type === "jpg" ||
+                    props.type === "jpeg" ? (
                     <Row>
                         <Col md={12}>
                             <div {...getRootProps()}>
@@ -118,7 +120,7 @@ export default function AddPost(props) {
                                     src={props.imageurl}
                                     className="w-100"
 
-                                />{props.type}
+                                />
                             </div>
                         </Col>
                     </Row>

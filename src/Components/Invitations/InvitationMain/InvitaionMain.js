@@ -193,7 +193,7 @@ export default function InvitaionMain(props) {
                     style={{ position: "relative", left: "10px", top: "3px" }}
                   >
                     <UserDataUrl
-                      Phone={eve.Host[0]}
+                      Phone={Auth.Phone}
                       showIcon={true}
                       className="m-10px"
                     />
@@ -241,7 +241,7 @@ export default function InvitaionMain(props) {
                     </>
                   </div>
                   <h4 className="avatar-name">
-                    <UserDataUrl Phone={eve.Host[0]} showName={true} />
+                    <UserDataUrl Phone={Auth.Phone} showName={true} />
                   </h4>
                   <Form.Control
                     size="sm"

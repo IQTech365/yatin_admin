@@ -336,7 +336,7 @@ export default function Feed(props) {
         </div>
       </Container>
       <AddPost settype={settype} setimageurl={setimageurl} setcaption={setcaption}
-        caption={caption} submit={submit} setShowTagQuery={setShowTagQuery} imageurl={imageurl} isSubmit={isSubmit} />
+        caption={caption} submit={submit} setShowTagQuery={setShowTagQuery} imageurl={imageurl} isSubmit={isSubmit} type={type} />
 
       {isloaded === false ? (
         <center>
