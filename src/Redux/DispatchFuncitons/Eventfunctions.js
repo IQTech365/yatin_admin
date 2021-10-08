@@ -215,10 +215,10 @@ export function update_events(Type, Eventdata, maincode, _id, setIsSubmitted) {
           dispatch(GetEvents());
           console.log(res);
           setIsSubmitted(false)
-          //  alert("Updated")
+          alert("Updated")
         } else {
           setIsSubmitted(false)
-          //  alert("failed")
+          alert("failed")
         }
 
       });

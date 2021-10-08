@@ -81,20 +81,23 @@ export default function Postrender(props) {
                         </Row>
 
                         {post.fileurl !== "" ? (
-                            post.filetype === "image" ? (
+                            post.filetype === "png" ||
+                                post.filetype === "jpg" ||
+                                post.filetype === "jpeg" ||
+                                post.filetype === "image" ? (
                                 <Image src={post.fileurl} fluid />
                             ) : (
                                 <center>
-                                    {" "}
                                     <video
                                         height="360"
                                         width={window.innerWidth > 500 ? 800 : window.innerWidth}
-                                        autoplay={false}
-                                        src={post.fileurl}
+                                        autoplay={true}
                                         type="video/mp4"
                                         controls={true}
-                                        preload="none"
-                                    />
+                                        preload="metadata"
+                                    >
+                                        <source src={post.fileurl + "#t=0.5"} type="video/mp4"></source>
+                                    </video>
                                 </center>
                             )
                         ) : (
