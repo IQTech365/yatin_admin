@@ -29,12 +29,13 @@ export default function Footer() {
               Privacy &amp; Policy
             </a>{" "}
           </div>
+
           <div className="col-md-2 text-right">
             <div className="justify-content-center justify-content-md-end d-flex flex-row">
               <a href="https://www.facebook.com/Minvitd/" className="ml-3 text-white">
                 <FaFacebookF size='20' />
               </a>
-   {/*            <a href="#" className="ml-3 text-white">
+              {/*            <a href="#" className="ml-3 text-white">
                 <FaTwitter size='20' />
               </a>
               <a href="#" className="ml-3 text-white">
@@ -45,8 +46,15 @@ export default function Footer() {
               </a> */}
             </div>
           </div>
+          <div className="col-md-3 text-center">
+
+            <a href="#" className="text-white">
+              Version:1.0.0
+            </a>
+          </div>
         </div>
       </div>
+
     </footer>
   )
 }
