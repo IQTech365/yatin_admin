@@ -32,6 +32,7 @@ export default function Gift(props) {
   const [gifts, setgifts] = useState([]);
   const [Eventdata, setEventdata] = useState([]);
   const [category, setcategory] = useState("");
+  const [maincode, setmaincode] = useState("");
   const [base, setbase] = useState("");
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
@@ -44,6 +45,7 @@ export default function Gift(props) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
     } else {
+
       if (
         props.location.pathname ===
         "/MyEvents/eventpage/gift/" +
@@ -56,6 +58,7 @@ export default function Gift(props) {
         await setbase("MyEvents");
         await setcategory(MyEvents[props.match.params.id][0].InvId.Type);
         await getgifts(MyEvents[props.match.params.id][0].InvId.Type);
+
       } else if (
         props.location.pathname ===
         "/inv/eventpage/gift/" +
@@ -104,7 +107,7 @@ export default function Gift(props) {
         </div>
       ) : (
         <>
-          <NavMobile base={base} id={props.match.params.id} />
+          <NavMobile base={base} id={props.match.params.id} MainCode={props.match.params.MainCode} />
           <GiftBanner />
           <Grid spacing={0} container>
             <Grid xs={12} item className="back-navigation desktop-only p-10px">

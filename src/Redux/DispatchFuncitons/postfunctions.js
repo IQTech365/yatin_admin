@@ -59,7 +59,7 @@ export function addcomments(id, by, comment, MainCode) {
   };
 }
 
-export function addpost(id, by, furl, type, tags, caption) {
+export function addpost(id, by, furl, type, tags, caption, setisSubmit) {
   return (dispatch) => {
     console.log("alling");
     axios
@@ -71,9 +71,10 @@ export function addpost(id, by, furl, type, tags, caption) {
         tags: tags,
         caption: caption,
       })
-      .then((res) => {
+      .then(async (res) => {
         // dispatch(getposts());
-        dispatch(getNotification());
+        await dispatch(getNotification());
+        await setisSubmit(false)
       })
       .catch((err) => {
         console.log(err);

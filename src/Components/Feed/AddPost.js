@@ -46,7 +46,13 @@ export default function AddPost(props) {
             className="addpost-event  "
             style={{ marginTop: 10, marginBottom: 10 }}
             fluid
-        >
+        > {props.isSubmit === false ? (
+            <></>
+        ) : (
+            <CircularProgress style={{
+                position: 'fixed', left: '45vw', top: '45vh', zIndex: 999
+            }} />
+        )}
             <Grid container spacing={0} className="commentinp">
                 <Grid item xs={2} md={1} style={{ margin: 'auto' }}>
                     <UserData Phone={Auth.Phone} showIcon={true} />
@@ -143,6 +149,8 @@ export default function AddPost(props) {
             ) : (
                 <></>
             )}
+
+
         </Container>
     )
 }

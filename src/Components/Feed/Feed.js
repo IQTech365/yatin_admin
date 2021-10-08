@@ -94,13 +94,13 @@ export default function Feed(props) {
       newurl = await uploadString(imageurl, url);
     }
     await dispatch(
-      addpost(Eventdata[0].MainCode, Auth.Phone, newurl, type, Tags, caption)
+      addpost(Eventdata[0].MainCode, Auth.Phone, newurl, type, Tags, caption, setisSubmit)
     );
     await setcaption("");
     await setimageurl("");
     await settype("");
     await setTags([]);
-    await setisSubmit(false);
+    //await setisSubmit(false);
   };
 
   const onDrop = useCallback(async (acceptedFiles) => {
@@ -335,9 +335,12 @@ export default function Feed(props) {
           </Row>
         </div>
       </Container>
-      <AddPost settype={settype} setimageurl={setimageurl} setcaption={setcaption}
-        caption={caption} submit={submit} setShowTagQuery={setShowTagQuery} imageurl={imageurl} isSubmit={isSubmit} type={type} />
-
+      {isSubmit === true ? <center>
+        <CircularProgress style={{ color: "black" }} />
+      </center> :
+        <AddPost settype={settype} setimageurl={setimageurl} setcaption={setcaption}
+          caption={caption} submit={submit} setShowTagQuery={setShowTagQuery} imageurl={imageurl} isSubmit={isSubmit} type={type} />
+      }
       {isloaded === false ? (
         <center>
           <CircularProgress style={{ color: "black" }} />
