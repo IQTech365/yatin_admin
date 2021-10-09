@@ -171,6 +171,7 @@ export default function EventDetails(props) {
             <video
 
               type="video/mp4"
+              style={{height:'300px'}}
               autoPlay={true}
               src={
                 CurrentEventDetails !== undefined

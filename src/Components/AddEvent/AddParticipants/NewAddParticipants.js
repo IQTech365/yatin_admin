@@ -264,6 +264,7 @@ export default function NewAddParticipants(props) {
                             }
 
                         }}
+
                     >
                         PhoneBook
                     </Button>
@@ -296,6 +297,7 @@ export default function NewAddParticipants(props) {
                                 setopenModal(true);
                             }
                         }}
+                        disabled
                     >
                         {props.Events.length === 1 ? " Upload Excel" : "Add Participants"}
 
