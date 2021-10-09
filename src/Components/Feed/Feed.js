@@ -215,7 +215,7 @@ export default function Feed(props) {
 
   return (
     <>
-      <NavMobile base={base} id={props.match.params.id} />
+      <NavMobile base={base} id={props.match.params.id} MainCode={props.match.params.MainCode} />
       <Popup
         component={AddTags}
         toggleShowPopup={setShowTagQuery}

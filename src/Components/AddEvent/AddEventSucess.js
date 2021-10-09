@@ -25,6 +25,7 @@ export default function AddEventSucess(props) {
   const [Watsapp, setWatsapp] = useState("");
   const [SelectedCode, setSelectedCode] = useState("");
   const [image, getImage] = useState("");
+  const [filetype, getfiletype] = useState("");
   const [type, setType] = useState("");
 
   useEffect(() => {
@@ -41,39 +42,40 @@ export default function AddEventSucess(props) {
 
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-              Auth.Name +
-              " to " +
-              res.data.Events[0].Name +
-              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-              " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await getImage(res.data.Events[0].file);
+          await getfiletype(res.data.Events[0].filetype);
           await setpwd(res.data.Events[0].InvId.PassWord);
           await setType(res.data.Events[0].InvId.Type);
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-              Auth.Name +
-              " to " +
-              res.data.Events[0].Name +
-              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-              " https://mobillyinvite.com/MyInvitations/" +
-              maincode
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode
           );
           await setpwd(res.data.Events[0].InvId.PassWord);
         }
@@ -84,10 +86,20 @@ export default function AddEventSucess(props) {
   }, []);
 
   const handleOnSubmit = async () => {
+    debugger
+    var filesArray = [];
+    let file = "";
     const response = await fetch(image);
     const blob = await response.blob();
-    const file = new File([blob], "image.jpg", { type: blob.type });
-    var filesArray = [file];
+    if (filetype === "jpeg" || filetype === "png" || filetype === "jpg") {
+      file = new File([blob], "image.jpg", { type: blob.type });
+      filesArray = [file];
+    } else {
+      file = await new File([blob], "video." + filetype, { type: blob.type });
+      filesArray = [file]
+
+    }
+
     // console.log(file);
     if (navigator.canShare && navigator.canShare({ files: filesArray })) {
       navigator
@@ -120,14 +132,14 @@ export default function AddEventSucess(props) {
     );
     await setWatsapp(
       "Hi there ! You have been invited by " +
-        Auth.Name +
-        " to " +
-        allevents[0].Name +
-        ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-        " https://mobillyinvite.com/MyInvitations/" +
-        maincode +
-        "/" +
-        allevents[0].code
+      Auth.Name +
+      " to " +
+      allevents[0].Name +
+      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+      " https://mobillyinvite.com/MyInvitations/" +
+      maincode +
+      "/" +
+      allevents[0].code
     );
     setAnchorEl(null);
   };
@@ -191,8 +203,8 @@ export default function AddEventSucess(props) {
             </Grid>
           </Grid>
           {allevents &&
-          allevents.length > 1 &&
-          allevents[0].EntryWay === "Code" ? (
+            allevents.length > 1 &&
+            allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
                 <FormControl
