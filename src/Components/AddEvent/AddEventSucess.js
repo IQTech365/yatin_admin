@@ -160,7 +160,7 @@ export default function AddEventSucess(props) {
       <Grid item xs={false} sm={3} md={3} />
       <Grid item xs={12} sm={6} md={6}>
         <Grid container spacing={0} className="p-10px">
-          <Grid item xs={12}>
+          <Grid item xs={12} style={{marginTop: '10vh'}}>
             <center>
               <img src={check} className="p-10px " />
             </center>
@@ -183,25 +183,7 @@ export default function AddEventSucess(props) {
             </p>
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-            className="tac m-b-25px clipboard"
-            onClick={() => {
-              navigator.clipboard.writeText(
-                "https://mobillyinvite.com/MyInvitations/" + maincode
-              );
-            }}
-          >
-            <Grid container spacing={0}>
-              <Grid item xs={10} md={11} className="link p-t-5">
-                {"https://mobillyinvite.com/xxxxx"}
-              </Grid>
-              <Grid item xs={2} md={1} className="p-t-10">
-                <FileCopyIcon className="v-t" />
-              </Grid>
-            </Grid>
-          </Grid>
+    
           {allevents &&
             allevents.length > 1 &&
             allevents[0].EntryWay === "Code" ? (
@@ -278,7 +260,25 @@ export default function AddEventSucess(props) {
             style={{ zIndex: "33333" }}
           >
             <center>
-              {allevents.length == 1 ? (
+         {/*    <Grid
+            item
+            xs={12}
+            className="tac m-b-25px clipboard"
+            onClick={() => {
+              navigator.clipboard.writeText(
+                "https://mobillyinvite.com/MyInvitations/" + maincode
+              );
+            }}
+          >
+            <Grid container spacing={0}>
+              <Grid item xs={10} md={11} className="link p-t-5">
+                {"https://mobillyinvite.com/xxxxx"}
+              </Grid>
+              <Grid item xs={2} md={1} className="p-t-10">
+                <FileCopyIcon className="v-t" />
+              </Grid>
+            </Grid>
+          </Grid> */}
                 <FcShare
                   onClick={handleOnSubmit}
                   className="share-button"
@@ -287,11 +287,9 @@ export default function AddEventSucess(props) {
                   size={25}
                   style={{ marginRight: "10px" }}
                 />
-              ) : (
-                ""
-              )}
+             
 
-              <WhatsappShareButton
+           {/*    <WhatsappShareButton
                 url={" "}
                 title={
                   pwd !== "" && pwd !== null
@@ -306,7 +304,7 @@ export default function AddEventSucess(props) {
                   className=""
                   style={{ height: "30px", width: "30px" }}
                 />
-              </WhatsappShareButton>
+              </WhatsappShareButton> */}
             </center>
           </Grid>
           <Grid item xs={12} className="tac" style={{ fontSize: 10 }}>

@@ -72,7 +72,7 @@
 .fullimagemain {
   height: 60vh;
   object-fit: cover;
-  width: 100%;
+
 }
 .go-chat {
   color: grey;
@@ -229,6 +229,6 @@
 
 @media (max-width: 320px) {
   .fullimagemain {
-    height: 50vh !important;
+    max-height: 47vh !important;
   }
 }

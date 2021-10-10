@@ -37,9 +37,9 @@ const GiftBanner = () => {
       <SwiperSlide>
         <img src={BannerTwo} />
       </SwiperSlide>
-      <SwiperSlide>
+     {/*  <SwiperSlide>
         <img src={BannerThree} />
-      </SwiperSlide>
+      </SwiperSlide> */}
     </Swiper>
     </>
   );

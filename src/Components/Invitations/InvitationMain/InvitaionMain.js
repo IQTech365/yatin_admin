@@ -185,8 +185,8 @@ export default function InvitaionMain(props) {
                     autoPlay={true}
                     src={eve.file}
                     preload="none"
-                    className="w-100"
-                    style={{ height: "60vh", objectFit: "cover" }}
+                    className="w-100 fullimagemain"
+                  
                   />
                 )}
                 <Container
