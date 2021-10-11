@@ -49,7 +49,7 @@ export default function Footer() {
           <div className="col-md-3 text-center">
 
             <a href="#" className="text-white">
-              Version:1.0.8
+              Version:1.0.9
             </a>
           </div>
         </div>
