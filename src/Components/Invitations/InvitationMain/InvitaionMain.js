@@ -129,7 +129,8 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-      <Carousel interval={5500} controls={true}>
+   
+      <Carousel interval={8000} controls={true} slide={true} style={{height:'93vh'}}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -372,9 +373,9 @@ export default function InvitaionMain(props) {
                       </center>
                     </Col>
                   </Row>
-                  <br />
+                 
 
-                  <h2 className="event-date">{eve.Name}</h2>
+                  <h2 className="event-date" style={{marginTop:'5px'}}>{eve.Name}</h2>
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
@@ -384,6 +385,7 @@ export default function InvitaionMain(props) {
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
                   </p>
+                 
                   {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"

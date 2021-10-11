@@ -252,7 +252,7 @@ export default function NewAddParticipants(props) {
                 </p>
             </Grid>
             <Grid container spacing={0}>
-                <Grid item xs={12} sm={12}>
+    {/*             <Grid item xs={12} sm={12}>
                     <Button variant="secondary"
                         className=" btn custom-file-upload t-white l-blue mt-5px"
                         style={{ display: isMobile === true ? "block" : "none" }}
@@ -268,7 +268,7 @@ export default function NewAddParticipants(props) {
                     >
                         PhoneBook
                     </Button>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                     <AddCode
                         Events={props.Events}

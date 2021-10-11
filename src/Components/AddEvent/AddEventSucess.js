@@ -42,20 +42,20 @@ export default function AddEventSucess(props) {
 
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await getImage(res.data.Events[0].file);
           await getfiletype(res.data.Events[0].filetype);
@@ -64,18 +64,18 @@ export default function AddEventSucess(props) {
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode
           );
           await setpwd(res.data.Events[0].InvId.PassWord);
         }
@@ -86,7 +86,7 @@ export default function AddEventSucess(props) {
   }, []);
 
   const handleOnSubmit = async () => {
-    debugger
+    debugger;
     var filesArray = [];
     let file = "";
     const response = await fetch(image);
@@ -96,18 +96,28 @@ export default function AddEventSucess(props) {
       filesArray = [file];
     } else {
       file = await new File([blob], "video." + filetype, { type: blob.type });
-      filesArray = [file]
-
+      filesArray = [file];
     }
 
     // console.log(file);
     if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-      navigator
+      await navigator
         .share({
           title: "Hello👋",
           text:
-            type +
-            " \n Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! ",
+            "Hi👋 You Have Been Invited By " +
+            " " +
+            Auth.Name +
+            " " +
+            "to" +
+            " " +
+            allevents[0].Name +
+            " " +
+            "on" +
+            " " +
+            allevents[0].Date +
+            " " +
+            "Please RSVP and Bless Them🎉 by Clicking the Link Below",
 
           url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: filesArray,
@@ -132,14 +142,14 @@ export default function AddEventSucess(props) {
     );
     await setWatsapp(
       "Hi there ! You have been invited by " +
-      Auth.Name +
-      " to " +
-      allevents[0].Name +
-      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobillyinvite.com/MyInvitations/" +
-      maincode +
-      "/" +
-      allevents[0].code
+        Auth.Name +
+        " to " +
+        allevents[0].Name +
+        ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+        " https://mobillyinvite.com/MyInvitations/" +
+        maincode +
+        "/" +
+        allevents[0].code
     );
     setAnchorEl(null);
   };
@@ -160,7 +170,7 @@ export default function AddEventSucess(props) {
       <Grid item xs={false} sm={3} md={3} />
       <Grid item xs={12} sm={6} md={6}>
         <Grid container spacing={0} className="p-10px">
-          <Grid item xs={12} style={{marginTop: '10vh'}}>
+          <Grid item xs={12} style={{ marginTop: "10vh" }}>
             <center>
               <img src={check} className="p-10px " />
             </center>
@@ -183,10 +193,9 @@ export default function AddEventSucess(props) {
             </p>
           </Grid>
 
-    
           {allevents &&
-            allevents.length > 1 &&
-            allevents[0].EntryWay === "Code" ? (
+          allevents.length > 1 &&
+          allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
                 <FormControl
@@ -260,7 +269,7 @@ export default function AddEventSucess(props) {
             style={{ zIndex: "33333" }}
           >
             <center>
-         {/*    <Grid
+              {/*    <Grid
             item
             xs={12}
             className="tac m-b-25px clipboard"
@@ -279,17 +288,16 @@ export default function AddEventSucess(props) {
               </Grid>
             </Grid>
           </Grid> */}
-                <FcShare
-                  onClick={handleOnSubmit}
-                  className="share-button"
-                  type="button"
-                  title="Share this article"
-                  size={25}
-                  style={{ marginRight: "10px" }}
-                />
-             
+              <FcShare
+                onClick={handleOnSubmit}
+                className="share-button"
+                type="button"
+                title="Share this article"
+                size={25}
+                style={{ marginRight: "10px" }}
+              />
 
-           {/*    <WhatsappShareButton
+              {/*    <WhatsappShareButton
                 url={" "}
                 title={
                   pwd !== "" && pwd !== null
