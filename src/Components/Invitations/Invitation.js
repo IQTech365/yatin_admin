@@ -81,12 +81,15 @@ export default function Invitation(props) {
             }}
           />) : (
             <video
-              muted
+              controls={true}
               type="video/mp4"
               autoPlay={true}
+              preload="none"
               src={
                 inv[0].file
               }
+
+
               onClick={() => {
                 console.log(Auth.Name)
                 Auth.Name == "" || Auth.Name == undefined ?
@@ -96,7 +99,6 @@ export default function Invitation(props) {
                   :
                   history.push("/inv/eventpage/" + index);
               }}
-              preload="none"
               className='w-100 inv-img'
             />
           )}

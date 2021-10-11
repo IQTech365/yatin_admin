@@ -97,7 +97,7 @@ export default function Location(props) {
         : "none",
   };
   console.log(Eventdata);
-  Geocode.setApiKey("AIzaSyDGvvMy7XFQMmNOKRraAjoFcjHcVElEblo");
+  // Geocode.setApiKey("AIzaSyDGvvMy7XFQMmNOKRraAjoFcjHcVElEblo");
 
   Geocode.setLanguage("en");
 
@@ -138,20 +138,20 @@ export default function Location(props) {
           Location
         </p>
       </Col>
-      <Lottie 
-	    options={defaultOptions}
+      <Lottie
+        options={defaultOptions}
         height={200}
         width={200}
         style={{
-          marginBottom:'20vh',
+          marginBottom: '20vh',
           display:
-          Eventdata.VenueType === "Online" ||
-            Eventdata.VenueType === "Online-Inapp"
-            ? "block"
-            : "none",
+            Eventdata.VenueType === "Online" ||
+              Eventdata.VenueType === "Online-Inapp"
+              ? "block"
+              : "none",
         }}
       />
-     {/*  <img
+      {/*  <img
         src={vcimage}
         style={{
           width: "100vw",
@@ -288,7 +288,7 @@ export default function Location(props) {
             ></Card.Body>
           </Accordion.Collapse>
         </Card>
-     
+
       </Accordion>
     </div>
   );
