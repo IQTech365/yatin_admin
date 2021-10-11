@@ -129,8 +129,7 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-   
-      <Carousel interval={8000} controls={true} slide={true} style={{height:'93vh'}}>
+      <Carousel interval={8000} controls={true} slide={true} style={{height:'92vh', overflow:'scroll'}}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
