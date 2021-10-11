@@ -28,13 +28,14 @@ import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import HelpIcon from "@material-ui/icons/Help";
+import { CircularProgress } from "@material-ui/core";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
   const [likeCount, setlikeCount] = useState([]);
   const [MainCode, setmaincode] = useState();
-  const [show, setshow] = useState(false);
+  const [iscommenting, setiscommenting] = useState(false);
   const [commentcountplus, setcommentcountplus] = useState(0);
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
@@ -119,6 +120,9 @@ export default function InvitaionMain(props) {
 
   return (
     <>
+      {iscommenting === true ? <CircularProgress style={{
+        position: 'fixed', left: '45vw', top: '45vh', zIndex: 999, color: 'red'
+      }} /> : <></>}
       <div className="w-100 desktop-only ">
         <Header />
       </div>
@@ -129,7 +133,7 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-      <Carousel interval={8000} controls={true} slide={true} style={{height:'92vh', overflow:'scroll'}}>
+      <Carousel interval={8000} controls={true} slide={true} style={{ height: '92vh', overflow: 'scroll' }}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -164,11 +168,11 @@ export default function InvitaionMain(props) {
                     onClick={() => {
                       history.push(
                         "/" +
-                          props.base +
-                          "/guestlist/" +
-                          props.id +
-                          "/" +
-                          index
+                        props.base +
+                        "/guestlist/" +
+                        props.id +
+                        "/" +
+                        index
                       );
                     }}
                   />
@@ -176,8 +180,8 @@ export default function InvitaionMain(props) {
               </Container>
               <Container className="container-event">
                 {eve.filetype === "png" ||
-                eve.filetype === "jpg" ||
-                eve.filetype === "jpeg" ? (
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
@@ -187,7 +191,7 @@ export default function InvitaionMain(props) {
                     src={eve.file}
                     preload="none"
                     className="w-100 fullimagemain"
-                  
+
                   />
                 )}
                 <Container
@@ -216,7 +220,8 @@ export default function InvitaionMain(props) {
                       }}
                       onClick={async () => {
                         if (comment !== "") {
-                          await dispatch(comment_event(eve._id, comment));
+                          await setiscommenting(true)
+                          await dispatch(comment_event(eve._id, comment, setiscommenting));
                           setcomment("");
 
                           await setcommentcountplus(commentcountplus + 1);
@@ -236,11 +241,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                              props.base +
-                              "/comments/" +
-                              props.id +
-                              "/" +
-                              eve._id
+                            props.base +
+                            "/comments/" +
+                            props.id +
+                            "/" +
+                            eve._id
                           );
                         }}
                       />
@@ -314,11 +319,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/schedule/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/schedule/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
@@ -339,11 +344,11 @@ export default function InvitaionMain(props) {
                               onClick={() => {
                                 history.push(
                                   "/" +
-                                    props.base +
-                                    "/location/" +
-                                    props.id +
-                                    "/" +
-                                    index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                                 );
                               }}
                             />
@@ -354,11 +359,11 @@ export default function InvitaionMain(props) {
                               onClick={() => {
                                 history.push(
                                   "/" +
-                                    props.base +
-                                    "/location/" +
-                                    props.id +
-                                    "/" +
-                                    index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                                 );
                               }}
                             />
@@ -372,9 +377,9 @@ export default function InvitaionMain(props) {
                       </center>
                     </Col>
                   </Row>
-                 
 
-                  <h2 className="event-date" style={{marginTop:'5px'}}>{eve.Name}</h2>
+
+                  <h2 className="event-date" style={{ marginTop: '5px' }}>{eve.Name}</h2>
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
@@ -384,7 +389,7 @@ export default function InvitaionMain(props) {
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
                   </p>
-                 
+
                   {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"

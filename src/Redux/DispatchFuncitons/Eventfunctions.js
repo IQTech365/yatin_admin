@@ -134,7 +134,7 @@ export function like_event(id) {
     });
   };
 }
-export function comment_event(id, comment) {
+export function comment_event(id, comment, setiscommenting) {
   return (dispatch) => {
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -146,7 +146,7 @@ export function comment_event(id, comment) {
 
         await dispatch(GetInvitations());
         await dispatch(GetEvents());
-
+        setiscommenting(false)
         return 1;
       });
   };

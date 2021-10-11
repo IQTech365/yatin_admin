@@ -92,8 +92,6 @@ export function loginuser(Phone) {
           }
         })
         .catch((err) => console.log(err));
-    } else {
-      alert("Auth falied");
     }
   };
 }
