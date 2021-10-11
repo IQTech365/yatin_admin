@@ -129,7 +129,7 @@ export default function InvitaionMain(props) {
         Eventdata={props.Eventdata}
       />
       {/*  <Toggler /> */}
-      <Carousel interval={2000} controls={true}>
+      <Carousel interval={5500} controls={true}>
         {props.Eventdata &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
@@ -183,6 +183,7 @@ export default function InvitaionMain(props) {
                   <video
                     type="video/mp4"
                     autoPlay={true}
+                    controls={true}
                     src={eve.file}
                     preload="none"
                     className="w-100 fullimagemain"

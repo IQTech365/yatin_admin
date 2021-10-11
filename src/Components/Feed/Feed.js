@@ -21,8 +21,11 @@ import {
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Postrender from './Posts'
+import Postrender from "./Posts";
 import AddPost from "./AddPost";
+import Lottie from "react-lottie";
+import animationData from "../Animations/blankfeed.json";
+import blankfeed from "../../Assets/blankfeed.svg";
 
 export default function Feed(props) {
   const Auth = useSelector((state) => state.Auth);
@@ -49,16 +52,27 @@ export default function Feed(props) {
   const [popuptype, setpopuptype] = useState("");
   const [showcommmentforpost, setshowcommmentforpost] = useState(null);
 
+  const defaultOptions = {
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   useEffect(async () => {
-    await getposts()
+    await getposts();
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
     } else {
-      await setfilter('All')
+      await setfilter("All");
       if (
         props.location.pathname ===
-        "/MyEvents/eventpage/feed/" + props.match.params.id + "/" + props.match.params.MainCode &&
+          "/MyEvents/eventpage/feed/" +
+            props.match.params.id +
+            "/" +
+            props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
         await setEventdata(MyEvents[props.match.params.id]);
@@ -66,10 +80,16 @@ export default function Feed(props) {
         await setbase("MyEvents");
         await setadmins(MyEvents[props.match.params.id][0].Host);
 
-        await guestlist([...MyEvents[props.match.params.id][0].Participants, ...MyEvents[props.match.params.id][0].Host]);
+        await guestlist([
+          ...MyEvents[props.match.params.id][0].Participants,
+          ...MyEvents[props.match.params.id][0].Host,
+        ]);
       } else if (
         props.location.pathname ===
-        "/inv/eventpage/feed/" + props.match.params.id + "/" + props.match.params.MainCode &&
+          "/inv/eventpage/feed/" +
+            props.match.params.id +
+            "/" +
+            props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
         await setEventdata(myInvitations[props.match.params.id]);
@@ -77,9 +97,11 @@ export default function Feed(props) {
 
         await setbase("inv");
         await setadmins(myInvitations[props.match.params.id][0].Host);
-        await guestlist([...myInvitations[props.match.params.id][0].Participants, ...myInvitations[props.match.params.id][0].Host]);
+        await guestlist([
+          ...myInvitations[props.match.params.id][0].Participants,
+          ...myInvitations[props.match.params.id][0].Host,
+        ]);
       }
-
     }
   }, [MyEvents, myInvitations]);
 
@@ -94,7 +116,15 @@ export default function Feed(props) {
       newurl = await uploadString(imageurl, url);
     }
     await dispatch(
-      addpost(Eventdata[0].MainCode, Auth.Phone, newurl, type, Tags, caption, setisSubmit)
+      addpost(
+        Eventdata[0].MainCode,
+        Auth.Phone,
+        newurl,
+        type,
+        Tags,
+        caption,
+        setisSubmit
+      )
     );
     await setcaption("");
     await setimageurl("");
@@ -135,9 +165,7 @@ export default function Feed(props) {
           toggleisloaded(true);
 
           await setcurrentPosts(response.data.Posts);
-          await filterposts(response.data.Posts, Eventdata[0].Host)
-
-
+          await filterposts(response.data.Posts, Eventdata[0].Host);
         })
         .catch(function (error) {
           console.log(error);
@@ -154,10 +182,8 @@ export default function Feed(props) {
         Postscpy.push(Posts[i]);
       }
     }
-    await setcurrentfilteredPosts(Postscpy)
+    await setcurrentfilteredPosts(Postscpy);
   };
-
-
 
   const guestlist = async (Participants) => {
     var ParticipantsCPY = [];
@@ -209,13 +235,17 @@ export default function Feed(props) {
   }, [Eventdata]);
 
   useEffect(() => {
-    console.log(admins)
-    console.log(admins.includes('+917447525123'))
-  }, [filter])
+    console.log(admins);
+    console.log(admins.includes("+917447525123"));
+  }, [filter]);
 
   return (
     <>
-      <NavMobile base={base} id={props.match.params.id} MainCode={props.match.params.MainCode} />
+      <NavMobile
+        base={base}
+        id={props.match.params.id}
+        MainCode={props.match.params.MainCode}
+      />
       <Popup
         component={AddTags}
         toggleShowPopup={setShowTagQuery}
@@ -259,8 +289,8 @@ export default function Feed(props) {
         {Eventdata && Eventdata.length > 0 ? (
           <>
             {Eventdata[0].filetype === "png" ||
-              Eventdata[0].filetype === "jpg" ||
-              Eventdata[0].filetype === "jpeg" ? (
+            Eventdata[0].filetype === "jpg" ||
+            Eventdata[0].filetype === "jpeg" ? (
               <Image src={Eventdata[0].file} fluid style={{ height: "30vh" }} />
             ) : (
               <video
@@ -335,25 +365,51 @@ export default function Feed(props) {
           </Row>
         </div>
       </Container>
-      {isSubmit === true ? <center>
-        <CircularProgress style={{ color: "black" }} />
-      </center> :
-        <AddPost settype={settype} setimageurl={setimageurl} setcaption={setcaption}
-          caption={caption} submit={submit} setShowTagQuery={setShowTagQuery} imageurl={imageurl} isSubmit={isSubmit} type={type} />
-      }
+
+      {isSubmit === true ? (
+        <center>
+          <CircularProgress style={{ color: "black" }} />
+        </center>
+      ) : (
+        <AddPost
+          settype={settype}
+          setimageurl={setimageurl}
+          setcaption={setcaption}
+          caption={caption}
+          submit={submit}
+          setShowTagQuery={setShowTagQuery}
+          imageurl={imageurl}
+          isSubmit={isSubmit}
+          type={type}
+        />
+      )}
+      {currentPosts.length <= 0 ? (
+         <>
+         <Lottie options={defaultOptions} height={200} width={400} />
+         <p style={{ textAlign: "center", fontWeight: "600" }}>No Posts!</p>
+       </>
+      ) : (
+       ""
+      )}
       {isloaded === false ? (
         <center>
           <CircularProgress style={{ color: "black" }} />
         </center>
       ) : (
-        <Postrender data={currentPosts} filter={filter} filterdata={currentfilteredPosts} getposts={getposts}
-          Eventdata={Eventdata} showcommmentforpost={showcommmentforpost} showcommment={showcommment} Maincode={props.match.params.Maincode}
+        <Postrender
+          data={currentPosts}
+          filter={filter}
+          filterdata={currentfilteredPosts}
+          getposts={getposts}
+          Eventdata={Eventdata}
+          showcommmentforpost={showcommmentforpost}
+          showcommment={showcommment}
+          Maincode={props.match.params.Maincode}
           setshowcommmentforpost={setshowcommmentforpost}
-          setshowcommment={setshowcommment} admins={admins} />
+          setshowcommment={setshowcommment}
+          admins={admins}
+        />
       )}
-
-
     </>
   );
 }
-

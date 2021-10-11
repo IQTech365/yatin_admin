@@ -1,6 +1,7 @@
 import React from 'react';
 import "../BlankPages/blankpage.css";
-import blankfeed from "../../Assets/blankfeed.svg"
+import blankfeed from "../../Assets/blankfeed.svg";
+
 
 class FeedBlack extends React.Component {
     render() {
