@@ -9,16 +9,16 @@ export default function SingleTemplate(props) {
           class="card template_card"
           style={{
             backgroundImage: `url(${props.image})`,
-            backgroundSize: "contain",
+            backgroundSize: "cover",
             backgroundRepeat:'no-repeat',
             backgroundPosition:'center',
-            width:'fit-content'
+
           }}
         >
           <div class="content">
-            <h2 class="title">{props.name}</h2>
-            <p class="copy">{props.desc}</p>
-            {/* <button class="btn template_btn">Use Template</button> */}
+            <h2 class="title" style={{visibility:'hidden'}}>{props.name}</h2>
+            <p class="copy" style={{visibility:'hidden'}}>{props.desc}</p>
+          
           </div>
         </div>
       </div>

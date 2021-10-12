@@ -8,6 +8,7 @@ import Additionals from "./Additionals";
 import AboutBanner from "./AboutBanner";
 import ChatWidget from "./ChatWidget";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import TemplateSlider from "./TemplateSlider";
 
 
 export default function HomePage() {
@@ -25,6 +26,7 @@ export default function HomePage() {
         <>
           <MainBanner />
           <ChatWidget />
+          <TemplateSlider />
           <Features />
           <AboutBanner />
           <Additionals />

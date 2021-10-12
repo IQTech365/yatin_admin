@@ -1,13 +1,17 @@
 import React from "react";
 import { templates } from "./TempData";
 import SingleTemplate from "./SingleTemplate";
+import "./Templates.scss";
+import Navbar from "../HomePage/Navbar"
 
 
 
 export default function Templates(props) {
+
   return (
     <div className="container">
-      <h1>Choose From a Varierty of Templates</h1>
+      <Navbar />
+      <h2 style={{fontSize:'20px', fontWeight:600, textAlign:'center', marginTop:'15px'}}>Choose From a Variety of Templates</h2>
       <div className="row">
       {templates.map((template) => {
        
@@ -18,9 +22,13 @@ export default function Templates(props) {
           image={template.urlToImage}
           desc={template.shortdesc}
         />
+
         </div>
+       
         )
+        
       })}
+      
       </div>
     </div>
   );

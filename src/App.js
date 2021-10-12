@@ -36,7 +36,9 @@ import Gift from './Components/Gift/Gift';
 import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
 import { gettemplate } from './Redux/DispatchFuncitons/TemplateFunctions'
 import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
-import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions'
+import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions';
+import Templates from "./Components/Templates/Templates"
+
 function App() {
   const dispatch = useDispatch();
   const [loop, setloop] = useState()
@@ -89,7 +91,9 @@ function App() {
             />
 
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/templates" component={Templates} /> 
             <Route exact path="/*" component={Redirector} />
+    
 
           </Switch>
         </div>

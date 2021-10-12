@@ -36,7 +36,7 @@
 }
 .our_features .feature_item > p {
   text-align: center;
-  font: normal normal 600 19px/26px "Nanum Gothic", sans-serif;
+
 }
 .our_features .feature_item > img {
   width: 197px;
@@ -53,11 +53,9 @@
   text-align: center;
   border-radius: 25px;
   background: #3897f1 0% 0% no-repeat padding-box;
-  font: normal normal bold 17px "Nanum Gothic", sans-serif;
+  
 }
-.personal_area h2 {
-  font: normal normal normal 40px/75px Scotch;
-}
+
 .personal_area .owl-dots {
   position: absolute;
   right: 45%;
@@ -69,12 +67,10 @@
   background: #f8f8f8;
   position: relative;
 }
-.additional_part h2 {
-  font: normal normal normal 40px/75px Scotch;
-}
+
 .additional_part .addition_item > p {
   text-align: center;
-  font: normal normal 500 15px/26px "Nanum Gothic", sans-serif;
+
 }
 .additional_part .addition_item > img {
   width: 125px;
@@ -91,7 +87,7 @@
   text-align: center;
   border-radius: 25px;
   background: #3897f1 0% 0% no-repeat padding-box;
-  font: normal normal bold 17px "Nanum Gothic", sans-serif;
+ 
 }
 .Additionals_img img.img-fluid {
   max-width: 100%;
@@ -111,13 +107,7 @@
 .contact_us h2 {
   font: normal normal normal 40px/75px Scotch;
 }
-.contact_us .form .btn {
-  font: normal normal bold 17px/28px "Nanum Gothic", sans-serif;
-}
 
-.testimonials h2 {
-  font: normal normal normal 40px/75px Scotch;
-}
 .testimonials .item img {
   width: 85px;
   height: 85px;
@@ -229,7 +219,6 @@
 }
 
 .header_slogan {
-  font-family: "Nanum Gothic", sans-serif;
   color: #ffffff;
   text-align: center;
   margin: auto;
@@ -337,7 +326,6 @@
 }
 
 .secondslide_heading {
-  font-family: Scotch;
   font-size: 80px;
   font-weight: 900;
   font-stretch: normal;
@@ -346,7 +334,6 @@
   letter-spacing: normal;
 }
 .secondslide_par {
-  font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
   font-weight: normal;
   font-stretch: normal;

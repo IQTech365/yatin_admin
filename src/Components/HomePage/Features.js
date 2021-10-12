@@ -20,7 +20,12 @@ export default function Features() {
       />
       <div className="row">
         <div className="col-md-12 mb-4">
-          <h2 className="font-weight-bold text-color text-center mb-0 our_feature">
+          <h2  style={{
+fontWeight:600,
+            textAlign: "center",
+            marginTop:'20px'
+           
+          }}>
             Our Features
           </h2>
         </div>
