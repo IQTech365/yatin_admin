@@ -15,7 +15,7 @@ SwiperCore.use([Autoplay, Pagination, Navigation, Scrollbar]);
 function TemplateSlider(props) {
   return (
     <>
-      <div className="container">
+      <div className="container"  style={{background:'antiquewhite'}}>
         <h2
           style={{
             fontWeight: 600,

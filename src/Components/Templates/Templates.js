@@ -9,7 +9,7 @@ import Navbar from "../HomePage/Navbar"
 export default function Templates(props) {
 
   return (
-    <div className="container">
+    <div className="container" style={{background:'antiquewhite'}}>
       <Navbar />
       <h2 style={{fontSize:'20px', fontWeight:600, textAlign:'center', marginTop:'15px'}}>Choose From a Variety of Templates</h2>
       <div className="row">

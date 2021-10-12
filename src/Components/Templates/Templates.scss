@@ -12,11 +12,13 @@
   
     &:hover {
       background-color: lighten(rgb(255, 255, 255), 5%);
+      color: black;
     }
   
     &:focus {
       outline: 1px dashed yellow;
       outline-offset: 3px;
+      color: black;
     }
   }
 
