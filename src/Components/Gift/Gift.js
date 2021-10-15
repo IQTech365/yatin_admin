@@ -34,6 +34,8 @@ export default function Gift(props) {
   const [category, setcategory] = useState("");
   const [maincode, setmaincode] = useState("");
   const [base, setbase] = useState("");
+const [name,setName] = useState("");
+
   let MyEvents = useSelector((state) => state.Eventdata.myEvents);
   let myInvitations = useSelector((state) => state.Eventdata.myInvitations);
 
@@ -41,9 +43,11 @@ export default function Gift(props) {
     window.location.href = "https://shop.mobillyinvite.com/";
   };
   useEffect(async () => {
+    let data = [];
     if (MyEvents.length === 0 && myInvitations.length === 0) {
       await dispatch(GetEvents());
       await dispatch(GetInvitations());
+      
     } else {
 
       if (
@@ -54,7 +58,9 @@ export default function Gift(props) {
         props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
+        data = MyEvents[props.match.params.id][0];
         await setEventdata(MyEvents[props.match.params.id][0]);
+        await setName(data.Name);
         await setbase("MyEvents");
         await setcategory(MyEvents[props.match.params.id][0].InvId.Type);
         await getgifts(MyEvents[props.match.params.id][0].InvId.Type);
@@ -109,6 +115,7 @@ export default function Gift(props) {
         <>
           <NavMobile base={base} id={props.match.params.id} MainCode={props.match.params.MainCode} />
           <GiftBanner />
+          {/* <p style={{fontSize: "14px", textAlign: "center", fontWeight: "bold"}}>By Some Gifts for Your Event-{name}</p> */}
           <Grid spacing={0} container>
             <Grid xs={12} item className="back-navigation desktop-only p-10px">
               <div

@@ -99,7 +99,7 @@ export default function ShowStory(props) {
                 <Grid item xs={12} style={{ padding: '5px' }}>
                     {Eventdata.length === 0 ? <>
                     </> : <></>}
-                    <Story Eventdata={Eventdata} uniqurl={uniqurl} maincode={maincode} />
+                    <Story Eventdata={Eventdata} uniqurl={uniqurl} IsAdmin={isadmin} maincode={maincode} />
                 </Grid>
 
 

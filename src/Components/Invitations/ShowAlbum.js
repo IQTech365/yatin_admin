@@ -12,6 +12,7 @@ import {
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import {AiFillCaretRight} from "react-icons/ai"
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { uploadfiletoalbum } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import Addtoalbum from "./Addtoalbum";
@@ -183,6 +184,7 @@ export default function ShowAlbum(props) {
           <Col xs={6}>
             {" "}
             <h3 className="p-5px"> Albums</h3>
+            <p sty> <AiFillCaretRight /> {Name}</p>
           </Col>
           <Col xs={6}>
             {IsAdmin === true ? (

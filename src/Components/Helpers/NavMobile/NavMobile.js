@@ -6,6 +6,7 @@ import {
   BiCalendarEvent,
 } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
+import {FiGift} from "react-icons/fi"
 import "./NavMobile.css";
 import { AiOutlineShopping } from "react-icons/ai";
 import history from "../../../Utils/History";
@@ -106,8 +107,8 @@ export default function NavMobile(props) {
               history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
             }}
           >
-            <AiOutlineShopping size={25} />
-            <p className="mobilebar_text">Shop</p>
+            <FiGift size={23} />
+            <p className="mobilebar_text">Gift</p>
           </Nav.Link>
 
           <Nav.Link

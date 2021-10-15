@@ -151,11 +151,9 @@ export default function LoginSignup() {
             </p>
           </Grid>
           <p style={{ fontSize: 9, color: "#727272" }}>
-            By Continuing ,you agree to Mobillyinvite's{" "}
+          
             <b style={{ color: "black" }}>
-              Terms {"&"} Conditions, Privacy policy
-            </b>{" "}
-            and receving updated through WhatsAPP.
+             Yes, I Want to recieve important information {"&"} updates on my Whatsapp </b>
           </p>
         </Grid>
       </div>
