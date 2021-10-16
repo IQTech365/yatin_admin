@@ -27,6 +27,7 @@ export default function CanvasEditor(props) {
             }
         );
     };
+    
     return (
         <>
             {IsProcessing === true ? (
@@ -67,8 +68,10 @@ export default function CanvasEditor(props) {
                                     fontWeight: txt.Style.fontWeight,
                                     transform: txt.Style.transform,
                                     textAlign: txt.Style.textAlign,
+                                    paddingRight: txt.Style.paddingRight,
+                                    paddingLeft: txt.Style.paddingLeft,
                                     fontFamily: txt.Style.fontFamily,
-                                    zIndex: index + 1,
+                                    zIndex: index + 1
                                 }}
                             >
                                 {txt.editable}

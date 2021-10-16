@@ -410,6 +410,7 @@ function Search(props) {
           value={value}
           onChange={handleInput}
           disabled={!ready}
+          style={{border:'2px solid #3897F1'}}
           Placeholder="Search your location"
           className={"locationSearch"}
         />

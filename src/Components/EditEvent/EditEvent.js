@@ -268,7 +268,7 @@ export default function EditEvent(props) {
           <Grid container spacing={0} style={{ width: "100%" }}>
             <Grid xs={12}>
               <span className="label " style={{ width: "100%" }}>
-                Location {Location}{address}
+                Location
               </span>
             </Grid>
             <Grid xs={12}>
@@ -286,9 +286,9 @@ export default function EditEvent(props) {
               >
                 {Location === ""
                   ? "Please Enter A location"
-                  : Location.length > 25
-                    ? Location.substring(0, 25)
-                    : Location}
+                  : Location.split(":")[3].length > 25
+                    ? Location.split(":")[3].replace(/[^a-zA-Z ]/g, "")
+                    : Location.split(":")[3].replace(/[^a-zA-Z ]/g, "")}
               </div>
             </Grid>
           </Grid>

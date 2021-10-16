@@ -101,11 +101,6 @@ export default function ShowStory(props) {
                     </> : <></>}
                     <Story Eventdata={Eventdata} uniqurl={uniqurl} IsAdmin={isadmin} maincode={maincode} />
                 </Grid>
-
-
-
-
-
             </Grid>
         </>
     );

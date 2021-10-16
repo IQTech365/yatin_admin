@@ -2,12 +2,17 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import Gallery from "../../../Assets/ChooseFromGallery.svg";
-import Tenmplate from "../../../Assets/TemplateNone.svg";
+import Tenmplate from "../../../Assets/ChoosefromTemplate.svg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, {
+  Pagination
+} from 'swiper';
 import axios from "axios";
 import { url } from "../../../Utils/Config";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CanvasEditor from "./CanvasEditor";
 import { useSelector } from "react-redux";
+SwiperCore.use([Pagination]);
 export default function ImageSelectionModal(props) {
   const [Show, setswitch] = useState(false);
   const onDrop = useCallback(async (acceptedFiles) => {
@@ -99,10 +104,10 @@ export function ImageSelectionModalTemplates(props) {
       {isImageSelected === false ? (
         loadedRemoteImgs === false ? <h1>Loading Templates</h1> :
           <div>
-            <div style={{ width: "100%", height: "300px" }}>
+            <div style={{ width: "100%", height: "450px", }}>
               <img
-                src={allimgsforcategory[currentimage].urlToImage[0].src}
-                style={{ width: "100%", height: "299px" }}
+                src={allimgsforcategory[currentimage].Thumbnail}
+                style={{ width: "100%", height: "inherit", objectFit:'contain' }}
               />
               <div
                 style={{
@@ -129,20 +134,23 @@ export function ImageSelectionModalTemplates(props) {
             <div
               style={{
                 width: "100%",
-                height: "60px",
-                overflowX: "scroll",
                 marginTop: "5px",
               }}
             >
-              {allimgsforcategory.map((img, index) => (
-                <img
-                  src={img.urlToImage[0].src}
-                  style={{ width: "50px", height: "50px" }}
-                  onClick={() => {
-                    setcurrentimage(index);
-                  }}
-                />
-              ))}
+               <Swiper slidesPerView={5} className="mySwiper">
+
+ {allimgsforcategory.map((img, index) => (
+ <SwiperSlide><img
+ src={img.Thumbnail}
+ style={{ width: "50px", height: "80px", objectFit:'contain' }}
+ onClick={() => {
+   setcurrentimage(index);
+ }}
+/></SwiperSlide>
+
+))}
+  </Swiper>
+             
             </div>
           </div>
       ) : (

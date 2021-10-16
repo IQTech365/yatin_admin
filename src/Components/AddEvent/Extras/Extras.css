@@ -29,7 +29,7 @@
 }
 .story-image {
   height: 200px;
-  object-fit: contain;
+  object-fit: cover;
 }
 .schedule-l-icon {
   font-size: 40px;

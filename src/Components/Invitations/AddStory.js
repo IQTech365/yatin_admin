@@ -398,12 +398,12 @@ export default function AddStory(props) {
           </Paper>
         ) : (
           <Paper
-            style={{ height: "300x" }}
+        
             elevation={3}
             style={{ display: add === true || edit === true ? "none" : "" }}
           >
             <Grid container spacing={0}>
-              <Grid className="stryimg" item xs={5} sm={3}>
+              <Grid className="stryimg" item xs={5} sm={3} style={{marginBottom:'20px'}}>
                 {eve.filetype === "png" ||
                 eve.filetype === "jpg" ||
                 eve.filetype === "jpeg" ? (
@@ -418,31 +418,33 @@ export default function AddStory(props) {
                   />
                 )}
               </Grid>
-              <Grid className="p-5px" item xs={7} sm={9}>
-                <h2 className="m-0 t-blue">
+              <Grid className="p-5px" item xs={6} sm={6}>
+                <h2 className="m-0" style={{fontSize:'15px', fontWeight: 800}}>
                   {eve.Name !== undefined && eve.Name.length > 0
                     ? eve.Name
                     : ""}
-                </h2>
-                <p className="m-0">
+                </h2><br />
+                <p className="m-0" style={{fontSize:'13px'}}>
                   {" "}
                   {eve.description !== undefined && eve.description.length > 0
                     ? eve.description
                     : ""}
                 </p>
+                <br />
                 {eve.datetime !== undefined && eve.datetime.length > 0 ? (
-                  <Dateformatter
-                    Date={
-                      eve.datetime.split("T")[0] +
-                      " " +
-                      eve.datetime.split("T")[1]
-                    }
-                  />
+                  <p style={{fontSize:'10px'}}>  <Dateformatter
+                  Date={
+                    eve.datetime.split("T")[0] +
+                    " " +
+                    eve.datetime.split("T")[1]
+                  }
+                /></p>
+                
                 ) : (
                   <></>
                 )}
 
-                <Grid item xs={12} md={12}>
+                <Grid item xs={6} md={6}>
                   <IconButton
                     onClick={async () => {
                       setedit(true);
