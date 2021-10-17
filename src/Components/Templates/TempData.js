@@ -155,6 +155,28 @@ export const slidertemplates = [
       "https://www.linkpicture.com/q/Template2_compressed.jpg",
     shortdesc: "Yatin Weds Charu",
   },
-
 ];
 
+
+export const VideoTemplates = [
+
+  {
+    id: "1",
+    url: "https://www.youtube.com/embed/b-1JY-FaNZY?enablejsapi=1"
+  },
+  {
+    id: "2",
+    url: "https://www.youtube.com/embed/qd4BuDRkMrg?enablejsapi=1"
+  },  {
+    id: "3",
+    url:"https://www.youtube.com/embed/KlJxYp5KAls"
+    
+  },
+ {
+   id:"4",
+   url:"https://www.youtube.com/embed/YJU-CRLI7Q4"
+ },{
+   id:"5",
+   url: "https://www.youtube.com/embed/XeL9NAnDROQ?enablejsapi=1"
+ }
+];

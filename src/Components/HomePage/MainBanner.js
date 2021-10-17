@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Button, Form, Image, Col } from "react-bootstrap";
 import Logo from "../../Assets/LightLogo.png";
-
+import Integrate from "../../Assets/Integrate.jpg"
 import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { reactLocalStorage } from "reactjs-localstorage";
@@ -25,6 +25,9 @@ export default function MainBanner() {
   const [showPopup, toggleShowPopup] = useState(false);
   const Auth = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
+  const formCollect = () => {
+    window.open("https://forms.gle/bWjqDXCha7TtDpew7", "_blank");
+  };
   useEffect(() => {
     let ischeck = reactLocalStorage.get("isLoggedIn");
     let Phone = reactLocalStorage.get("Phone");
@@ -51,7 +54,7 @@ export default function MainBanner() {
         dynamicBullets: true,
       }}
     >
-      {/* Slider One */}
+
       <SwiperSlide>
         <Container fluid className="wrapper">
           <Popup
@@ -110,6 +113,8 @@ export default function MainBanner() {
                 Login / Signup
               </Button>
             </Row>
+            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
+           
           </Container>
         </Container>
       </SwiperSlide>
@@ -158,10 +163,11 @@ export default function MainBanner() {
                 Try Now
               </Button>
             </Row>
-
+           
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
+            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"
@@ -196,9 +202,11 @@ export default function MainBanner() {
             </Row>
             <Row>
               <p className="secondslide_par">
-                Invite people to celebrate your occasion online via Zoom or Meet
+                Invite people to celebrate your occasion
               </p>
+             
             </Row>
+            <Row> <Image src={Integrate} alt="Via Zoom and Meet" style={{width:'300px', height:'auto'}} /></Row>
             <Row>
               {" "}
               <p className="thirdslide_extra">
@@ -227,7 +235,7 @@ export default function MainBanner() {
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
-
+            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"

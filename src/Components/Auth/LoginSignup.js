@@ -67,10 +67,7 @@ export default function LoginSignup() {
             <p className="modal-title-description">
               Enter your Mobile Number and Verify to login
             </p>
-            <p className="phno-text" style={{ fontSize: 17, marginTop: 24 }}>
-              {" "}
-              Phone Number
-            </p>
+          
           </Grid>
           <Grid item xs={12} className="modal-title">
             <PhoneInput
@@ -79,7 +76,7 @@ export default function LoginSignup() {
               onChange={(phone) => setnumber(phone)}
             />
             <p className="error">{Auth.Message || error}</p>
-
+        
             <button
               onClick={(e) => {
                 handleClick(e);
@@ -88,6 +85,7 @@ export default function LoginSignup() {
             >
               Request OTP
             </button>
+            <p style={{fontSize: 11, marginTop:'10px'}}>Yes, I want ro recieve important information & updates on my Whatsapp</p>
           </Grid>
         </Grid>
       </div>

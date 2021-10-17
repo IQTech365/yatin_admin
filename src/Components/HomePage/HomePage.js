@@ -27,6 +27,7 @@ export default function HomePage() {
           <MainBanner />
           <ChatWidget />
           <TemplateSlider />
+       
           <Features />
           <AboutBanner />
           <Additionals />

@@ -117,7 +117,7 @@ export default function AddEventSucess(props) {
             " " +
             allevents[0].Date +
             " " +
-            "Please RSVP and Bless Them🎉 by Clicking the Link Below",
+            "Please RSVP🎉 by Clicking the Link Below",
 
           url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: filesArray,
@@ -293,7 +293,7 @@ export default function AddEventSucess(props) {
                 className="share-button"
                 type="button"
                 title="Share this article"
-                size={25}
+                size={40}
                 style={{ marginRight: "10px" }}
               />
 
