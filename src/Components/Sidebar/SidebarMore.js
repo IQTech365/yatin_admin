@@ -7,6 +7,7 @@ import Header from "../Helpers/Header/Header";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
 import DancingImg from "../../Assets/DancingImg.png";
+import {IoIosArrowBack} from "react-icons/io"
 import { GoBook } from "react-icons/go";
 import { IoPowerSharp, IoTrashOutline, IoShareSocialOutline } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
@@ -99,19 +100,17 @@ export default function SidebarMore(props) {
         <Header />
       </div>
       <Container className="guestlist-box" style={{ padding: "25px" }}>
-        <Row>
+        <Row style={{boxShadow:'0px 3px 8px -2px rgb(122 122 122 / 33%)', margin:"0"}}>
           <Col>
             <p
               style={{
                 fontWeight: 600,
                 fontSize: 20,
                 paddingLeft: "10px",
-                marginBottom: 20,
-                marginTop: 20,
-
+                marginTop:'10px'
               }}
             >
-              <IoArrowBackCircleOutline
+              <IoIosArrowBack
                 size={30}
                 onClick={() => {
                   history.goBack();
