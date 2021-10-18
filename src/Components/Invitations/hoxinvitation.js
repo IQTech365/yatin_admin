@@ -131,6 +131,7 @@ export default function Hoxinvitation(props) {
 
   return (
     <>
+
       <div className="w-100 desktop-only ">
         <Header />
       </div>
@@ -140,13 +141,15 @@ export default function Hoxinvitation(props) {
         toggleShowPopup={setshow}
         showPopup={show}
       />
+      <div style={{ position: 'absolute', height: '100vh', width: '100vw', zIndex: 8999, display: show === false ? 'block' : 'none' }} onClick={() => {
+
+        setshow(true);
+      }}></div>
       <Carousel controls={false} interval={99999999999999} className="mb-10 invitation_carousel">
         {Invitations &&
           Invitations.map((eve, index) => (
             <Carousel.Item
-              onClick={() => {
-                setshow(true);
-              }}
+
             >
               <Container className="upper-menu">
                 <Row
@@ -184,10 +187,11 @@ export default function Hoxinvitation(props) {
                   <video
                     className="w-100"
                     style={{ height: '60vh', objectFit: 'cover' }}
-                    autoplay={true}
+
                     type="video/mp4"
                     controls={true}
                     preload="metadata"
+                    loop autoPlay
                   >
                     <source src={eve.file} type="video/mp4"></source>
                   </video>
