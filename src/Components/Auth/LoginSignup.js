@@ -88,6 +88,7 @@ export default function LoginSignup() {
             >
               Request OTP
             </button>
+            <p style={{fontSize: 11, marginTop:'10px'}}>Yes, I want ro recieve important information & updates on my Whatsapp</p>
           </Grid>
         </Grid>
       </div>
