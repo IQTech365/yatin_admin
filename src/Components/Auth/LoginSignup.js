@@ -55,7 +55,28 @@ export default function LoginSignup() {
       }
     }
   }, [Auth.isVerified, Auth.OTPStatus]);
-
+  if ('OTPCredential' in window) {
+    window.addEventListener('DOMContentLoaded', e => {
+      const input = document.querySelector('input[autocomplete="one-time-code"]');
+      if (!input) return;
+      const ac = new AbortController();
+      const form = input.closest('form');
+      if (form) {
+        form.addEventListener('submit', e => {
+          ac.abort();
+        });
+      }
+      navigator.credentials.get({
+        otp: { transport:['sms'] },
+        signal: ac.signal
+      }).then(otp => {
+        input.value = otp.code;
+        if (form) form.submit();
+      }).catch(err => {
+        console.log(err);
+      });
+    });
+  }
   if (step === 0) {
     return (
       <div>
@@ -111,6 +132,7 @@ export default function LoginSignup() {
             <OtpInput
               className="OTP"
               value={OTP}
+              autocomplete="one-time-code"
               onChange={(otp) => SetOPT(otp)}
               numInputs={6}
               separator={<span></span>}
