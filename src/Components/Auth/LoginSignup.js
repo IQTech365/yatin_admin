@@ -23,7 +23,7 @@ export default function LoginSignup() {
   const [OTP, SetOPT] = useState();
   const [Phone, setPhone] = useState("");
   let phone = "";
-  let otp = "";
+
   const handleClick = (e) => {
     phone = "+" + number.toString();
     if (phone.length < 9) {
@@ -46,6 +46,23 @@ export default function LoginSignup() {
 
   useEffect(() => {
     if (Auth.OTPStatus === true) {
+      if ("OTPCredential" in window) {
+        const ac = new AbortController();
+  
+        navigator.credentials
+          .get({
+            OTP: { transport: ["sms"] },
+            signal: ac.signal
+          })
+          .then((OTP) => {
+            this.setState({ OTP: OTP.code });
+            ac.abort();
+          })
+          .catch((err) => {
+            ac.abort();
+            console.log(err);
+          });
+      }
       if (Auth.isVerified === true) {
         dispatch(loginuser(Phone));
       } else if (Auth.isVerified === false) {
@@ -56,25 +73,6 @@ export default function LoginSignup() {
     }
   }, [Auth.isVerified, Auth.OTPStatus]);
  
-  useEffect(() => {
-    if ("OTPCredential" in window) {
-      const ac = new AbortController();
-
-      navigator.credentials
-        .get({
-          OTP: { transport: ["sms"] },
-          signal: ac.signal
-        })
-        .then((OTP) => {
-          this.setState({ otp: OTP.code });
-          ac.abort();
-        })
-        .catch((err) => {
-          ac.abort();
-          console.log(err);
-        });
-    }
-  })
   if (step === 0) {
     return (
       <div>
@@ -130,8 +128,7 @@ export default function LoginSignup() {
             <OtpInput
               className="OTP"
               value={OTP}
-              autocomplete="one-time-code"
-              onChange={(otp) => SetOPT(otp)}
+              onChange={(OTP) => SetOPT(OTP)}
               numInputs={6}
               separator={<span></span>}
               inputStyle="Otp-block"
