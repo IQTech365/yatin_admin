@@ -23,7 +23,7 @@ export default function LoginSignup() {
   const [OTP, SetOPT] = useState();
   const [Phone, setPhone] = useState("");
   let phone = "";
-  let otp = "";
+
   const handleClick = (e) => {
     phone = "+" + number.toString();
     if (phone.length < 9) {
@@ -46,6 +46,23 @@ export default function LoginSignup() {
 
   useEffect(() => {
     if (Auth.OTPStatus === true) {
+      if ("OTPCredential" in window) {
+        const ac = new AbortController();
+  
+        navigator.credentials
+          .get({
+            OTP: { transport: ["sms"] },
+            signal: ac.signal
+          })
+          .then((OTP) => {
+            this.setState({ OTP: OTP.code });
+            ac.abort();
+          })
+          .catch((err) => {
+            ac.abort();
+            console.log(err);
+          });
+      }
       if (Auth.isVerified === true) {
         dispatch(loginuser(Phone));
       } else if (Auth.isVerified === false) {
@@ -56,25 +73,7 @@ export default function LoginSignup() {
     }
   }, [Auth.isVerified, Auth.OTPStatus]);
  
-  useEffect(() => {
-    if ("OTPCredential" in window) {
-      const ac = new AbortController();
-
-      navigator.credentials
-        .get({
-          otp: { transport: ["sms"] },
-          signal: ac.signal
-        })
-        .then((otp) => {
-          this.setState({ otp: otp.code });
-          ac.abort();
-        })
-        .catch((err) => {
-          ac.abort();
-          console.log(err);
-        });
-    }
-  })
+  
   if (step === 0) {
     return (
       <div>
@@ -129,7 +128,7 @@ export default function LoginSignup() {
           <Grid item xs={12} className="modal-title">
             <OtpInput
               className="OTP"
-              value={OTP, this.state.otp}
+              value={OTP}
               autocomplete="one-time-code"
               onChange={(otp) => SetOPT(otp)}
               numInputs={6}
