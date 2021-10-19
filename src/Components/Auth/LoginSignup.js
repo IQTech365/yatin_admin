@@ -19,11 +19,13 @@ export default function LoginSignup() {
   const [todo, settodo] = useState(0);
   const [step, setStep] = useState(0);
   const [number, setnumber] = useState(0);
+
   const [error, setError] = useState("");
   const [OTP, SetOPT] = useState();
   const [Phone, setPhone] = useState("");
+  const [autoOTP, setautoOTP]= useState();
   let phone = "";
-  let otp = "";
+ 
   const handleClick = (e) => {
     phone = "+" + number.toString();
     if (phone.length < 9) {
@@ -46,6 +48,25 @@ export default function LoginSignup() {
 
   useEffect(() => {
     if (Auth.OTPStatus === true) {
+      if ("OTPCredential" in window) {
+        const ac = new AbortController();
+      
+        navigator.credentials
+          .get({
+            setautoOTP: { transport: ["sms"] },
+            signal: ac.signal
+          })
+          .then((setautoOTP) => {
+            this.setState({ setautoOTP: setautoOTP.code });
+            ac.abort();
+          })
+          .catch((err) => {
+            ac.abort();
+            console.log(err);
+          });
+      }
+      
+      
       if (Auth.isVerified === true) {
         dispatch(loginuser(Phone));
       } else if (Auth.isVerified === false) {
@@ -54,27 +75,11 @@ export default function LoginSignup() {
         setError("please check the input");
       }
     }
-  }, [Auth.isVerified, Auth.OTPStatus]);
- 
-  useEffect(() => {
-    if ("OTPCredential" in window) {
-      const ac = new AbortController();
+  }, 
+  [Auth.isVerified, Auth.OTPStatus]);
 
-      navigator.credentials
-        .get({
-          otp: { transport: ["sms"] },
-          signal: ac.signal
-        })
-        .then((otp) => {
-          this.setState({ otp: otp.code });
-          ac.abort();
-        })
-        .catch((err) => {
-          ac.abort();
-          console.log(err);
-        });
-    }
-  })
+ 
+
   if (step === 0) {
     return (
       <div>
@@ -86,7 +91,10 @@ export default function LoginSignup() {
             <p className="modal-title-description">
               Enter your Mobile Number and Verify to login
             </p>
-          
+            <p className="phno-text" style={{ fontSize: 17, marginTop: 24 }}>
+              {" "}
+              Phone Number
+            </p>
           </Grid>
           <Grid item xs={12} className="modal-title">
             <PhoneInput
@@ -95,7 +103,7 @@ export default function LoginSignup() {
               onChange={(phone) => setnumber(phone)}
             />
             <p className="error">{Auth.Message || error}</p>
-        
+
             <button
               onClick={(e) => {
                 handleClick(e);
@@ -129,9 +137,8 @@ export default function LoginSignup() {
           <Grid item xs={12} className="modal-title">
             <OtpInput
               className="OTP"
-              value={OTP}
-              autocomplete="one-time-code"
-              onChange={(otp) => SetOPT(otp, otp)}
+              value={OTP, autoOTP}
+              onChange={(otp) => SetOPT(otp)}
               numInputs={6}
               separator={<span></span>}
               inputStyle="Otp-block"
