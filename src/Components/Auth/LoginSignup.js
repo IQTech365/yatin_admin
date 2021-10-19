@@ -129,9 +129,9 @@ export default function LoginSignup() {
           <Grid item xs={12} className="modal-title">
             <OtpInput
               className="OTP"
-              value={OTP, otp}
+              value={OTP}
               autocomplete="one-time-code"
-              onChange={(otp) => SetOPT(otp)}
+              onChange={(otp) => SetOPT(otp, otp)}
               numInputs={6}
               separator={<span></span>}
               inputStyle="Otp-block"
