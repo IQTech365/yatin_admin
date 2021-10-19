@@ -19,11 +19,11 @@ export default function LoginSignup() {
   const [todo, settodo] = useState(0);
   const [step, setStep] = useState(0);
   const [number, setnumber] = useState(0);
-
   const [error, setError] = useState("");
   const [OTP, SetOPT] = useState();
   const [Phone, setPhone] = useState("");
   let phone = "";
+  let otp = "";
   const handleClick = (e) => {
     phone = "+" + number.toString();
     if (phone.length < 9) {
@@ -55,28 +55,26 @@ export default function LoginSignup() {
       }
     }
   }, [Auth.isVerified, Auth.OTPStatus]);
-  if ('OTPCredential' in window) {
-    window.addEventListener('DOMContentLoaded', e => {
-      const input = document.querySelector('input[autocomplete="one-time-code"]');
-      if (!input) return;
+ 
+  useEffect(() => {
+    if ("OTPCredential" in window) {
       const ac = new AbortController();
-      const form = input.closest('form');
-      if (form) {
-        form.addEventListener('submit', e => {
+
+      navigator.credentials
+        .get({
+          otp: { transport: ["sms"] },
+          signal: ac.signal
+        })
+        .then((otp) => {
+          this.setState({ otp: otp.code });
           ac.abort();
+        })
+        .catch((err) => {
+          ac.abort();
+          console.log(err);
         });
-      }
-      navigator.credentials.get({
-        otp: { transport:['sms'] },
-        signal: ac.signal
-      }).then(otp => {
-        input.value = otp.code;
-        if (form) form.submit();
-      }).catch(err => {
-        console.log(err);
-      });
-    });
-  }
+    }
+  })
   if (step === 0) {
     return (
       <div>
@@ -131,7 +129,7 @@ export default function LoginSignup() {
           <Grid item xs={12} className="modal-title">
             <OtpInput
               className="OTP"
-              value={OTP}
+              value={OTP, this.state.otp}
               autocomplete="one-time-code"
               onChange={(otp) => SetOPT(otp)}
               numInputs={6}
