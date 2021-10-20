@@ -11,8 +11,8 @@ import {
   getopt,
   verifyotp,
 } from "../../Redux/DispatchFuncitons/AuthFunctions";
-import { Row, Col } from "react-bootstrap";
-import history from '../../Utils/History'
+import { Row, Col, Form, Button } from "react-bootstrap";
+import history from "../../Utils/History";
 export default function LoginSignup() {
   const Auth = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
@@ -21,8 +21,13 @@ export default function LoginSignup() {
   const [number, setnumber] = useState(0);
   const [error, setError] = useState("");
   const [OTP, SetOPT] = useState();
+  const [agree, setAgree] = useState(false);
+
   const [Phone, setPhone] = useState("");
   let phone = "";
+  const checkboxHandler = () => {
+    setAgree(!agree);
+  };
 
   const handleClick = (e) => {
     phone = "+" + number.toString();
@@ -42,27 +47,37 @@ export default function LoginSignup() {
     if (Auth.isLoggedIn === true) {
       history.push("/home");
     }
-  }, [Auth.isLoggedIn])
+  }, [Auth.isLoggedIn]);
+
+useEffect(() => {
+  if ('OTPCredential' in window) {
+    window.addEventListener('DOMContentLoaded', e => {
+      const input = document.querySelector('autocomplete');
+      if (!input) return;
+      const ac = new AbortController();
+      const form = input.closest('form');
+      if (form) {
+        form.addEventListener('submit', e => {
+          ac.abort();
+        });
+      }
+      navigator.credentials.get({
+        otp: { transport:['sms'] },
+        signal: ac.signal
+      }).then(otp => {
+        input.value = otp.code;
+        if (form) form.submit();
+      }).catch(err => {
+        console.log(err);
+      });
+    });
+  }
+})
+
 
   useEffect(() => {
     if (Auth.OTPStatus === true) {
-      if ("OTPCredential" in window) {
-        const ac = new AbortController();
-  
-        navigator.credentials
-          .get({
-            OTP: { transport: ["sms"] },
-            signal: ac.signal
-          })
-          .then((OTP) => {
-            this.setState({ OTP: OTP.code });
-            ac.abort();
-          })
-          .catch((err) => {
-            ac.abort();
-            console.log(err);
-          });
-      }
+
       if (Auth.isVerified === true) {
         dispatch(loginuser(Phone));
       } else if (Auth.isVerified === false) {
@@ -72,39 +87,55 @@ export default function LoginSignup() {
       }
     }
   }, [Auth.isVerified, Auth.OTPStatus]);
- 
+
   if (step === 0) {
     return (
       <div>
-        <div id="sign-in-button"></div>
-        <img src={Login} alt="login" className="Auth-image" />
-        <Grid container spacing={0}>
-          <Grid item xs={12} className="modal-title">
-            Login
-            <p className="modal-title-description">
-              Enter your Mobile Number and Verify to login
-            </p>
-          
-          </Grid>
-          <Grid item xs={12} className="modal-title">
-            <PhoneInput
-              country={"in"}
-              value={number}
-              onChange={(phone) => setnumber(phone)}
-            />
-            <p className="error">{Auth.Message || error}</p>
-        
-            <button
-              onClick={(e) => {
-                handleClick(e);
-              }}
-              className="get-otp-button"
-            >
-              Request OTP
-            </button>
-            <p style={{fontSize: 11, marginTop:'10px'}}>Yes, I want ro recieve important information & updates on my Whatsapp</p>
-          </Grid>
-        </Grid>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <div id="sign-in-button"></div>
+            <img src={Login} alt="login" className="Auth-image" />
+            <Grid container spacing={0}>
+              <Grid item xs={12} className="modal-title">
+                Login
+                <p className="modal-title-description">
+                  Enter your Mobile Number and Verify to login
+                </p>
+              </Grid>
+              <Grid item xs={12} className="modal-title">
+                <PhoneInput
+                  country={"in"}
+                  value={number}
+                  onChange={(phone) => setnumber(phone)}
+                />
+                <p className="error">{Auth.Message || error}</p>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  onClick={(e) => {
+                    handleClick(e);
+                  }}
+                  disabled={!agree}
+                  className="get-otp-button"
+                >
+                  Request OTP
+                </Button>
+                <Form.Check
+                  type="checkbox"
+               
+                  label="Yes, I want ro recieve important information & updates on my Whatsapp"
+                  style={{
+                    fontSize: 12,
+                    marginTop: "10px",
+                    fontWeight: 700
+                  }}
+                  required
+                  onChange={checkboxHandler}
+                />
+              </Grid>
+            </Grid>
+          </Form.Group>
+        </Form>
       </div>
     );
   } else if (step === 1) {
@@ -125,8 +156,11 @@ export default function LoginSignup() {
             </span>
           </Grid>
           <Grid item xs={12} className="modal-title">
+        
             <OtpInput
               className="OTP"
+              autocomplete="one-time-code"
+              id="autocomplete"
               value={OTP}
               onChange={(OTP) => SetOPT(OTP)}
               numInputs={6}
@@ -134,6 +168,7 @@ export default function LoginSignup() {
               inputStyle="Otp-block"
               isInputNum={true}
             />
+           
             <p className="error">{Auth.Message}</p>
             <Row style={{ margin: "auto" }}>
               <Col>
@@ -166,9 +201,10 @@ export default function LoginSignup() {
             </p>
           </Grid>
           <p style={{ fontSize: 9, color: "#727272" }}>
-          
             <b style={{ color: "black" }}>
-             Yes, I Want to recieve important information {"&"} updates on my Whatsapp </b>
+              Yes, I Want to recieve important information {"&"} updates on my
+              Whatsapp{" "}
+            </b>
           </p>
         </Grid>
       </div>
