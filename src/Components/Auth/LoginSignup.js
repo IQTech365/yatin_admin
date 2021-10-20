@@ -49,30 +49,7 @@ export default function LoginSignup() {
     }
   }, [Auth.isLoggedIn]);
 
-useEffect(() => {
-  if ('OTPCredential' in window) {
-    window.addEventListener('DOMContentLoaded', e => {
-      const input = document.querySelector('autocomplete');
-      if (!input) return;
-      const ac = new AbortController();
-      const form = input.closest('form');
-      if (form) {
-        form.addEventListener('submit', e => {
-          ac.abort();
-        });
-      }
-      navigator.credentials.get({
-        otp: { transport:['sms'] },
-        signal: ac.signal
-      }).then(otp => {
-        input.value = otp.code;
-        if (form) form.submit();
-      }).catch(err => {
-        console.log(err);
-      });
-    });
-  }
-})
+
 
 
   useEffect(() => {
@@ -91,7 +68,7 @@ useEffect(() => {
   if (step === 0) {
     return (
       <div>
-        <Form>
+       
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <div id="sign-in-button"></div>
             <img src={Login} alt="login" className="Auth-image" />
@@ -135,7 +112,7 @@ useEffect(() => {
               </Grid>
             </Grid>
           </Form.Group>
-        </Form>
+       
       </div>
     );
   } else if (step === 1) {
@@ -160,7 +137,6 @@ useEffect(() => {
             <OtpInput
               className="OTP"
               autocomplete="one-time-code"
-              id="autocomplete"
               value={OTP}
               onChange={(OTP) => SetOPT(OTP)}
               numInputs={6}

@@ -117,7 +117,7 @@ export default function AddEventSucess(props) {
             " " +
             allevents[0].Date +
             " " +
-            "Please RSVP🎉 by Clicking the Link Below",
+            "Please See Your Digital Invite🎉 on the Link Below",
 
           url: "https://mobillyinvite.com/MyInvitations/" + maincode,
           files: filesArray,

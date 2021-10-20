@@ -52,6 +52,9 @@ export default function Hoxinvitation(props) {
     }
 
   }, [Auth.isLoggedIn]);
+
+ 
+
   const replacelinks = (desc) => {
     var sindices = [];
     var eindices = [];
@@ -140,6 +143,7 @@ export default function Hoxinvitation(props) {
         component={LoginSignup}
         toggleShowPopup={setshow}
         showPopup={show}
+     
       />
       <div style={{ position: 'absolute', height: '100vh', width: '100vw', zIndex: 8999, display: show === false ? 'block' : 'none' }} onClick={() => {
 
