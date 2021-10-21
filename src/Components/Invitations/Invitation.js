@@ -81,14 +81,14 @@ export default function Invitation(props) {
             }}
           />) : (
             <video
-              controls={true}
+              // controls={true}
               type="video/mp4"
               autoPlay={true}
               preload="none"
               src={
                 inv[0].file
               }
-
+              muted
 
               onClick={() => {
                 console.log(Auth.Name)
