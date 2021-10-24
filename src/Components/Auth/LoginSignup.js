@@ -21,18 +21,25 @@ export default function LoginSignup() {
   const [number, setnumber] = useState(0);
   const [error, setError] = useState("");
   const [OTP, SetOPT] = useState();
-  const [agree, setAgree] = useState(false);
-
+  const [agree, setAgree] = useState(true);
+  const [term, setterm] = useState(true);
   const [Phone, setPhone] = useState("");
   let phone = "";
   const checkboxHandler = () => {
     setAgree(!agree);
   };
-
+  const checkboxtermHandler = () => {
+    setterm(!term);
+  };
   const handleClick = (e) => {
     phone = "+" + number.toString();
     if (phone.length < 9) {
       setError("Invalid Phone Number");
+    } else if (!agree) {
+      setError("please check the boxes");
+    }
+    else if (!term) {
+      setError("please check the boxes");
     } else {
       dispatch(getopt(phone));
       setPhone(phone);
@@ -68,51 +75,66 @@ export default function LoginSignup() {
   if (step === 0) {
     return (
       <div>
-       
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <div id="sign-in-button"></div>
-            <img src={Login} alt="login" className="Auth-image" />
-            <Grid container spacing={0}>
-              <Grid item xs={12} className="modal-title">
-                Login
-                <p className="modal-title-description">
-                  Enter your Mobile Number and Verify to login
-                </p>
-              </Grid>
-              <Grid item xs={12} className="modal-title">
-                <PhoneInput
-                  country={"in"}
-                  value={number}
-                  onChange={(phone) => setnumber(phone)}
-                />
-                <p className="error">{Auth.Message || error}</p>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={(e) => {
-                    handleClick(e);
-                  }}
-                  disabled={!agree}
-                  className="get-otp-button"
-                >
-                  Request OTP
-                </Button>
-                <Form.Check
-                  type="checkbox"
-               
-                  label="Yes, I want ro recieve important information & updates on my Whatsapp"
-                  style={{
-                    fontSize: 12,
-                    marginTop: "10px",
-                    fontWeight: 700
-                  }}
-                  required
-                  onChange={checkboxHandler}
-                />
-              </Grid>
+
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <div id="sign-in-button"></div>
+          <img src={Login} alt="login" className="Auth-image" />
+          <Grid container spacing={0}>
+            <Grid item xs={12} className="modal-title">
+              Login
+              <p className="modal-title-description">
+                Enter your Mobile Number and Verify to login
+              </p>
             </Grid>
-          </Form.Group>
-       
+            <Grid item xs={12} className="modal-title">
+              <PhoneInput
+                country={"in"}
+                value={number}
+                onChange={(phone) => setnumber(phone)}
+              />
+              <p className="error">{Auth.Message || error}</p>
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={(e) => {
+                  handleClick(e);
+                }}
+                disabled={agree === false || term === false}
+                className="get-otp-button"
+              >
+                Request OTP
+              </Button>
+              <Form.Check
+                type="checkbox"
+
+                label="Yes, I want to recieve important information & updates on my Whatsapp"
+                style={{
+                  fontSize: 12,
+                  marginTop: "10px",
+                  fontWeight: 700,
+                }}
+                required
+                onChange={checkboxHandler}
+                checked={agree}
+              />
+              <Form.Check
+                type="checkbox"
+
+                label=" I agree to the terms and conditions applied."
+                style={{
+                  fontSize: 12,
+                  marginTop: "10px",
+                  fontWeight: 700,
+
+                }}
+                required
+                onChange={checkboxtermHandler}
+                checked={term}
+              />
+            </Grid>
+          </Grid>
+        </Form.Group>
+
       </div>
     );
   } else if (step === 1) {
@@ -133,7 +155,7 @@ export default function LoginSignup() {
             </span>
           </Grid>
           <Grid item xs={12} className="modal-title">
-        
+
             <OtpInput
               className="OTP"
               autocomplete="one-time-code"
@@ -144,7 +166,7 @@ export default function LoginSignup() {
               inputStyle="Otp-block"
               isInputNum={true}
             />
-           
+
             <p className="error">{Auth.Message}</p>
             <Row style={{ margin: "auto" }}>
               <Col>

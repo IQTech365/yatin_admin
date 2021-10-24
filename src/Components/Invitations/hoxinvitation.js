@@ -53,7 +53,15 @@ export default function Hoxinvitation(props) {
 
   }, [Auth.isLoggedIn]);
 
- 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setshow(true)
+
+    }, 5000);
+
+    // clear interval on re-render to avoid memory leaks
+    return () => clearInterval(intervalId);
+  }, [])
 
   const replacelinks = (desc) => {
     var sindices = [];
@@ -143,7 +151,7 @@ export default function Hoxinvitation(props) {
         component={LoginSignup}
         toggleShowPopup={setshow}
         showPopup={show}
-     
+
       />
       <div style={{ position: 'absolute', height: '100vh', width: '100vw', zIndex: 8999, display: show === false ? 'block' : 'none' }} onClick={() => {
 
