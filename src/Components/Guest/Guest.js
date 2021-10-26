@@ -6,6 +6,7 @@ import Header from "../Helpers/Header/Header";
 import { IoMdPersonAdd } from "react-icons/io";
 import history from "../../Utils/History";
 import Userdataurl from "../Helpers/UserData/UserDatajustUrl";
+import { IoIosArrowBack } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import {
   GetEvents,
@@ -115,9 +116,10 @@ export default function Guest(props) {
             width: "100%",
           }}
         >
-          <Col xs={9}>
+          <Col xs={10}>
+            
             <p style={{ fontWeight: "bold", fontSize: 20 }}>
-              <IoArrowBackCircleOutline
+              <IoIosArrowBack
                 size={32}
                 onClick={() => {
 
@@ -174,8 +176,9 @@ export default function Guest(props) {
                       </Grid>
                       <Grid item xs={12} className="m-0 ">
                         <span
+                      style={{fontWeight:'bold'}}
                           className={
-                            "status " + guest.Status === "Accept"
+                            guest.Status === "Accept"
                               ? "user-accept"
                               : guest.Status === "Decline"
                                 ? "user-decline"

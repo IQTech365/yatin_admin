@@ -150,9 +150,10 @@ export default function Postrender(props) {
                             <Col xs={4} className="mt-10px col-4" style={{ display: isAdmin === true ? 'block' : 'none' }} > <center>
                                 <a
                                     style={{ color: "rgb(244 67 54)" }}
-                                    onClick={() => {
-                                        dispatch(deletePost(post._id));
-                                        deletePostUI(index)
+                                    onClick={async () => {
+                                        await deletePostUI(index)
+                                        await dispatch(deletePost(post._id));
+
                                     }}
                                 >
                                     <MdDeleteForever size={25} style={{ marginLeft: 30 }} color="red" />

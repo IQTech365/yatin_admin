@@ -9,7 +9,7 @@ import AboutBanner from "./AboutBanner";
 import ChatWidget from "./ChatWidget";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import TemplateSlider from "./TemplateSlider";
-
+import Testimonials from "./Testimonials";
 
 export default function HomePage() {
   const [Loading, setLoading] = useState(false);
@@ -27,11 +27,12 @@ export default function HomePage() {
           <MainBanner />
           <ChatWidget />
           <TemplateSlider />
+       
           <Features />
           <AboutBanner />
           <Additionals />
-          {/* <Testimonials />
-        <CompanySlide /> */}
+          <Testimonials />
+       {/*  <CompanySlide />  */}
           <Contact />
           <Footer />
 

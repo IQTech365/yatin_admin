@@ -6,6 +6,7 @@ import "./EventAdmin.css";
 import Chart from "react-apexcharts";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
+import {IoIosArrowBack} from "react-icons/io"
 import { url } from "../../Utils/Config";
 import axios from "axios";
 import { GetEvents } from "../../Redux/DispatchFuncitons/Eventfunctions";

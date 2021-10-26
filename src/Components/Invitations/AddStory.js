@@ -6,6 +6,8 @@ import { useDropzone } from "react-dropzone";
 import AlbumsNone from "../../Assets/AlbumsNone.jpg";
 import Gallery from "../../Assets/ChooseFromGallery.svg";
 import CreateIcon from "@material-ui/icons/Create";
+import {FiEdit} from "react-icons/fi";
+import {MdDeleteForever} from "react-icons/md"
 import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { UpdateStory } from "../../Redux/DispatchFuncitons/Eventfunctions";
@@ -419,20 +421,13 @@ export default function AddStory(props) {
                 )}
               </Grid>
               <Grid className="p-5px" item xs={6} sm={6}>
-                <h2 className="m-0" style={{fontSize:'15px', fontWeight: 800}}>
+                <h2 className="m-0" style={{fontSize:'16px', fontWeight: 800}}>
                   {eve.Name !== undefined && eve.Name.length > 0
                     ? eve.Name
                     : ""}
-                </h2><br />
-                <p className="m-0" style={{fontSize:'13px'}}>
-                  {" "}
-                  {eve.description !== undefined && eve.description.length > 0
-                    ? eve.description
-                    : ""}
-                </p>
-                <br />
+                </h2>
                 {eve.datetime !== undefined && eve.datetime.length > 0 ? (
-                  <p style={{fontSize:'10px'}}>  <Dateformatter
+                  <p style={{fontSize:'12px', color:'#3897F1'}}>  <Dateformatter
                   Date={
                     eve.datetime.split("T")[0] +
                     " " +
@@ -442,9 +437,16 @@ export default function AddStory(props) {
                 
                 ) : (
                   <></>
-                )}
-
-                <Grid item xs={6} md={6}>
+                )} <br />
+                <p className="m-0" style={{fontSize:'13px'}}>
+                  {" "}
+                  {eve.description !== undefined && eve.description.length > 0
+                    ? eve.description
+                    : ""}
+                </p>
+               
+               
+               <p>{props.IsAdmin === true ?  <Grid item xs={6} md={6}>
                   <IconButton
                     onClick={async () => {
                       setedit(true);
@@ -455,7 +457,7 @@ export default function AddStory(props) {
                     }}
                     style={{ borderRadius: "100%" }}
                   >
-                    <CreateIcon color="inherit" style={{ color: "green" }} />
+                    <FiEdit  />
                   </IconButton>
 
                   <IconButton
@@ -463,9 +465,10 @@ export default function AddStory(props) {
                       Deletesingle(index);
                     }}
                   >
-                    <DeleteForeverIcon color="error" />
+                    <MdDeleteForever size={25} style={{color:'red'}} />
                   </IconButton>
-                </Grid>
+                </Grid> : <></> }</p>
+               
               </Grid>
             </Grid>
           </Paper>
