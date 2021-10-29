@@ -39,7 +39,7 @@ export default function AddCode(props) {
       <button className=" next btn btn-dark mt-10px" onClick={() => {
         props.save()
       }}>
-        Use Code
+        Generate Code
       </button>
       <Modal
         show={show}

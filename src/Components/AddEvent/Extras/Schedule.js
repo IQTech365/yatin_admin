@@ -1,14 +1,14 @@
 import "./Extras.css";
 import React, { useState, useEffect } from "react";
 import { Grid, IconButton } from "@material-ui/core";
-import { Form, Button } from "react-bootstrap";
+import { Form,Button, Toast } from "react-bootstrap";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import CreateIcon from "@material-ui/icons/Create";
 import { makeStyles } from "@material-ui/core/styles";
 import BlankSchedule from "../../../Assets/BlankSchedule.svg";
 import { UpdateSchedules } from "../../../Redux/DispatchFuncitons/Eventfunctions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function AddSchedule(props) {
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
   const dispatch = useDispatch();
+  const [username, setusername] = useState("");
   const [subEvent, setSubevent] = useState([...props.CurrentEventDetails]);
   const [edit, setedit] = useState(false);
   const [add, setadd] = useState(false);
@@ -31,10 +34,12 @@ export default function AddSchedule(props) {
   const [description, setdescription] = useState("");
   const [link, setlink] = useState("");
   const [isError, setError] = useState(false);
+  const Auth = useSelector((state) => state.Auth);
   const [showfulldescription, setshowfulldescription] = useState(false);
   useEffect(() => {
     setSubevent([...props.CurrentEventDetails]);
   }, [props.CurrentEventDetails]);
+  
   const save = async () => {
     if (subname !== "" && datetime !== "" && description !== "") {
       let data = {
@@ -46,6 +51,7 @@ export default function AddSchedule(props) {
       // console.log([...subEvent, data]);
       let newdata = [...subEvent, data];
       await setSubevent(newdata);
+      
       await dispatch(UpdateSchedules(props.Eid, newdata));
       Delete();
       setadd(false);
@@ -97,6 +103,7 @@ export default function AddSchedule(props) {
     await setSubevent([...subeventcpy]);
     var EventsCopy = [...subeventcpy];
     await dispatch(UpdateSchedules(props.Eid, [...subeventcpy]));
+    
   };
 
   return (
@@ -315,6 +322,29 @@ export default function AddSchedule(props) {
           <center>
             {" "}
             <img src={BlankSchedule} />
+            <div style={{ textAlign: "center", marginTop:20 }}>
+                  <Button
+                    variant="primary"
+                    style={{ borderRadius: "20px" }}
+                    onClick={toggleShowA}
+                  >
+                    Ask For Schedule
+                  </Button>
+                </div>
+                
+                <Toast show={showA} onClose={toggleShowA} position="top-end" delay={4000} autohide style={{marginTop:'20px'}}>
+                  <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded me-2"
+                      alt=""
+                    />
+                    <strong className="me-auto">Informed!</strong>
+                  </Toast.Header>
+                  <Toast.Body style={{textAlign:'left'}}>
+                    Requested Admin to Add Schedule✨
+                  </Toast.Body>
+                </Toast>
           </center>
         )}
       </Grid>

@@ -248,7 +248,7 @@ export default function NewAddParticipants(props) {
                     <b>
                         <u>Note</u>
                     </b>
-                    :{"CSV can only be accessed by using website "}
+                    :{" CSV can only br accessed via desktop"}
                 </p>
             </Grid>
             <Grid container spacing={0}>
@@ -318,9 +318,7 @@ export default function NewAddParticipants(props) {
                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
                 </Grid>
-                <p style={{ fontSize: '12px', width: '90%', margin: 'auto' }}>
-                    <BsFillInfoCircleFill />  Switch to Desktop Version, to Give Access Via Phone Number (through CSV)
-                </p>
+               
             </Grid>
 
             <Grid item xs={participants.length > 0 ? 6 : 12}>

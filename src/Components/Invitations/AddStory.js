@@ -12,9 +12,11 @@ import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { UpdateStory } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import { useDispatch } from "react-redux";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button,Toast, Container } from "react-bootstrap";
 
 export default function AddStory(props) {
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
   const dispatch = useDispatch();
   const [subStory, setsubStory] = useState([]);
   const [subname, setsubname] = useState("");
@@ -279,7 +281,33 @@ export default function AddStory(props) {
           </Grid>
         </Paper>
       ) : add == false && subStory.length === 0 ? (
+        <>
         <img src={AlbumsNone} className="blank-album" />
+        <div style={{ textAlign: "center" }}>
+        <Button
+          variant="primary"
+          style={{ borderRadius: "20px", marginTop:20 }}
+          onClick={toggleShowA}
+        >
+          Ask For Story
+        </Button>
+      </div>
+      <Container>
+      <Toast show={showA} onClose={toggleShowA} position="top-end" delay={4000} autohide style={{marginTop:'20px'}}>
+        <Toast.Header>
+          <img
+            src="holder.js/20x20?text=%20"
+            className="rounded me-2"
+            alt=""
+          />
+          <strong className="me-auto">Informed!</strong>
+        </Toast.Header>
+        <Toast.Body>
+          Requested Admin for to add Stories📸
+        </Toast.Body>
+      </Toast>
+      </Container>
+      </>
       ) : (
         <></>
       )}
