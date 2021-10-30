@@ -80,7 +80,7 @@ export default function ShowAlbum(props) {
         await setEventdata(data.InvId.Album);
         await setbase("MyEvents");
         await setType(data.InvId.Type);
-        await setusername(Auth.Name)
+        await setusername(Auth.Name);
         await setName(data.Name);
         await setMainCode(data.MainCode);
         if (data.Host.includes(Auth.Phone)) {
@@ -97,7 +97,7 @@ export default function ShowAlbum(props) {
         console.log(myInvitations[0]);
         await setEventdata(data.InvId.Album);
         await setbase("inv");
-        await setusername(Auth.Name)
+        await setusername(Auth.Name);
         await setType(data.InvId.Type);
         await setName(data.Name);
         await setMainCode(data.MainCode);
@@ -144,11 +144,11 @@ export default function ShowAlbum(props) {
         .share({
           title: "Hello👋",
           text:
-            "Hi👋 I have added new Images  " +
-            "Please See Your Digital Invite🎉 on the Link Below",
+            "Hi👋 I have added new Images to album for " +
+            Name +
+            " .Please See  on the Link Below ",
 
-          url:
-            "https://mobillyinvite.com/MyInvitations/" + Eventdata[0].MainCode,
+          url: "https://mobillyinvite.com/MyInvitations/" + MainCode,
           files: filesArray,
         })
         .then(() => console.log("Successful share"))
@@ -293,20 +293,23 @@ export default function ShowAlbum(props) {
                   </Button>
                 </div>
                 <Container>
-                <Toast show={showA} onClose={toggleShowA} position="top-end" delay={4000} autohide style={{marginTop:'20px'}}>
-                  <Toast.Header>
-                    <img
-                      src="holder.js/20x20?text=%20"
-                      className="rounded me-2"
-                      alt=""
-                    />
-                    <strong className="me-auto">{username}</strong>
-                  </Toast.Header>
-                  <Toast.Body>
-                    Requested Admin for Photos😎
-                  </Toast.Body>
-                </Toast>
-               </Container>
+                  <Toast
+                    show={showA}
+                    onClose={toggleShowA}
+                    position="top-end"
+                    /*  delay={4000} autohide  */ style={{ marginTop: "20px" }}
+                  >
+                    <Toast.Header>
+                      <img
+                        src="holder.js/20x20?text=%20"
+                        className="rounded me-2"
+                        alt=""
+                      />
+                      <strong className="me-auto">{username}</strong>
+                    </Toast.Header>
+                    <Toast.Body>Requested Admin for Photos😎</Toast.Body>
+                  </Toast>
+                </Container>
               </>
             )}
           </>

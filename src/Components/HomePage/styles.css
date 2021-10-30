@@ -609,3 +609,7 @@ a.blantershow-chat i {
   top: 2px;
   right: 4px;
 }
+.home_tabs {
+  color: rgb(74, 74, 82)!important;
+  background: white!important;
+}

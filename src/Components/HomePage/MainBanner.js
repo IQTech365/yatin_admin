@@ -145,7 +145,7 @@ export default function MainBanner() {
             <Row>
               <Image src={SecondSlide} className="image_secondslide" />
             </Row>
-            <Row style={{ marginTop: 20 }}>
+           {/*  <Row style={{ marginTop: 20 }}>
               <Form.Control
                 type="number"
                 placeholder="Working on it"
@@ -162,12 +162,12 @@ export default function MainBanner() {
               >
                 Try Now
               </Button>
-            </Row>
+            </Row> */}
            
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
-            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
+           {/*  <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"
@@ -214,7 +214,7 @@ export default function MainBanner() {
               </p>
             </Row>
 
-            <Row style={{ marginTop: 20 }}>
+           {/*  <Row style={{ marginTop: 20 }}>
               <Form.Control
                 type="number"
                 placeholder="Working on it"
@@ -231,11 +231,11 @@ export default function MainBanner() {
               >
                 Try Now
               </Button>
-            </Row>
+            </Row> */}
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
-            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
+          {/*   <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"

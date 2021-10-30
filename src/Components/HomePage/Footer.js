@@ -1,7 +1,12 @@
 import React from "react";
 import "./styles.css";
 
-import { FaTwitter, FaFacebookF, FaWhatsapp, FaInstagram } from "react-icons/fa"
+import {
+  FaTwitter,
+  FaFacebookF,
+  FaWhatsapp,
+  FaInstagram,
+} from "react-icons/fa";
 
 
 export default function Footer() {
@@ -32,8 +37,11 @@ export default function Footer() {
 
           <div className="col-md-2 text-right">
             <div className="justify-content-center justify-content-md-end d-flex flex-row">
-              <a href="https://www.facebook.com/Minvitd/" className="ml-3 text-white">
-                <FaFacebookF size='20' />
+              <a
+                href="https://www.facebook.com/Minvitd/"
+                className="ml-3 text-white"
+              >
+                <FaFacebookF size="20" />
               </a>
               {/*            <a href="#" className="ml-3 text-white">
                 <FaTwitter size='20' />
@@ -47,14 +55,12 @@ export default function Footer() {
             </div>
           </div>
           <div className="col-md-3 text-center">
-
             <a href="#" className="text-white">
-              Version:1.9.0
+              Version:2.0.0
             </a>
           </div>
         </div>
       </div>
-
     </footer>
-  )
+  );
 }

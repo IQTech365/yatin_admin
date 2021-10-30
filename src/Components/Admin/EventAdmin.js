@@ -172,7 +172,7 @@ export default function EventAdmin(props) {
           options={options}
           series={series}
           type="donut"
-          width="400"
+          width="320"
           style={{
             margin: "auto",
             display: "flex",
@@ -187,6 +187,7 @@ export default function EventAdmin(props) {
               <Grid
                 item
                 xs={12}
+                style={{marginTop:30}}
                 className="tac m-b-25px clipboard"
                 onClick={() => {
                   navigator.clipboard.writeText(

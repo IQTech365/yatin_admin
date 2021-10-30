@@ -11,8 +11,10 @@ import {
   getopt,
   verifyotp,
 } from "../../Redux/DispatchFuncitons/AuthFunctions";
+import {Link} from 'react-router-dom';
 import { Row, Col, Form, Button } from "react-bootstrap";
 import history from "../../Utils/History";
+
 export default function LoginSignup() {
   const Auth = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
@@ -117,10 +119,13 @@ export default function LoginSignup() {
                 onChange={checkboxHandler}
                 checked={agree}
               />
+
               <Form.Check
                 type="checkbox"
-
-                label=" I agree to the terms and conditions applied."
+                label={(<> I agree to the <Link onClick={() => {
+                  history.push("/terms");
+                }}>terms and conditions</Link> applied.</>)}
+               
                 style={{
                   fontSize: 12,
                   marginTop: "10px",
