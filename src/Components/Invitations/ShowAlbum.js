@@ -216,24 +216,24 @@ export default function ShowAlbum(props) {
 
       <Container style={{ margin: 0, padding: 0, marginTop: 10 }} fluid>
         <Row className="p-0 m-0">
-          <Col xs={6} md={10} className="p-0 m-0">
+          <Col xs={5} md={10} className="p-0 m-0">
             {" "}
             <h3 className="p-5px"> Albums</h3>
           </Col>
-          <Col xs={1} className="p-0 m-0">
+          <Col xs={2} className="p-0 m-0">
             {IsAdmin === true ? (
-              <MdShare onClick={handleOnSubmit} className="share"></MdShare>
+              <MdShare onClick={handleOnSubmit} className="share" style={{float:'right'}}></MdShare>
             ) : (
               <></>
             )}
           </Col>
-          <Col xs={5} md={1} className="p-0 m-0">
+          <Col xs={5} md={2} className="p-0 m-0">
             {IsAdmin === true ? (
               <>
                 <Button
                   variant="secondary"
                   style={{
-                    width: "30% !important",
+                    width: "25% !important",
                     float: "right",
                     borderRadius: "20px",
                   }}
