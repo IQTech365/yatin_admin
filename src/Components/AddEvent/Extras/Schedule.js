@@ -1,7 +1,7 @@
 import "./Extras.css";
 import React, { useState, useEffect } from "react";
 import { Grid, IconButton } from "@material-ui/core";
-import { Form,Button, Toast } from "react-bootstrap";
+import { Form, Button, Toast } from "react-bootstrap";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import AddCircleRoundedIcon from "@material-ui/icons/AddCircleRounded";
 import CreateIcon from "@material-ui/icons/Create";
@@ -39,7 +39,7 @@ export default function AddSchedule(props) {
   useEffect(() => {
     setSubevent([...props.CurrentEventDetails]);
   }, [props.CurrentEventDetails]);
-  
+
   const save = async () => {
     if (subname !== "" && datetime !== "" && description !== "") {
       let data = {
@@ -51,7 +51,7 @@ export default function AddSchedule(props) {
       // console.log([...subEvent, data]);
       let newdata = [...subEvent, data];
       await setSubevent(newdata);
-      
+
       await dispatch(UpdateSchedules(props.Eid, newdata));
       Delete();
       setadd(false);
@@ -103,18 +103,22 @@ export default function AddSchedule(props) {
     await setSubevent([...subeventcpy]);
     var EventsCopy = [...subeventcpy];
     await dispatch(UpdateSchedules(props.Eid, [...subeventcpy]));
-    
   };
 
   return (
     <Grid container spacing={0}>
-      <Grid item xs={12} md={8} style={{ margin: 'auto' }}>
+      <Grid item xs={12} md={8} style={{ margin: "auto" }}>
         {subEvent.length > 0 || add === true ? (
           <>
             {subEvent.map((eve, index) => (
-              <Grid item xs={12} className="card-shadow m-b-10 schedule-details" style={{ display: add === true ? "none" : "" }}>
+              <Grid
+                item
+                xs={12}
+                className="card-shadow m-b-10 schedule-details"
+                style={{ display: add === true ? "none" : "" }}
+              >
                 <Grid container spacing={0}>
-                  <Grid item xs={12} md={12} >
+                  <Grid item xs={12} md={12}>
                     {edit === true && editselected === index ? (
                       <>
                         <Form.Label style={{ fontWeight: 500 }}>
@@ -192,7 +196,6 @@ export default function AddSchedule(props) {
                           container
                           spacing={0}
                           className="padding-left-7 p-10-p "
-
                         >
                           <Grid item xs={12}>
                             <div className="ScheduleName l-blue-t m-0">
@@ -251,7 +254,6 @@ export default function AddSchedule(props) {
                   <Grid
                     item
                     xs={12}
-
                     md={12}
                     style={{
                       display: "flex",
@@ -284,7 +286,6 @@ export default function AddSchedule(props) {
                     ) : props.IsAdmin === true ? (
                       <center>
                         <IconButton
-
                           onClick={() => {
                             setshowfulldescription(false);
                             setsubname(eve.Name);
@@ -299,7 +300,6 @@ export default function AddSchedule(props) {
                           <CreateIcon />
                         </IconButton>
                         <IconButton
-
                           onClick={() => {
                             Deleteone(index);
                             setshowfulldescription(false);
@@ -322,7 +322,12 @@ export default function AddSchedule(props) {
           <center>
             {" "}
             <img src={BlankSchedule} />
-            <div style={{ textAlign: "center", marginTop:20 }}>
+            {props.IsAdmin === true ? (
+              <></>
+            ) : (
+              <>
+                {" "}
+                <div style={{ textAlign: "center", marginTop: 20 }}>
                   <Button
                     variant="primary"
                     style={{ borderRadius: "20px" }}
@@ -331,8 +336,14 @@ export default function AddSchedule(props) {
                     Ask For Schedule
                   </Button>
                 </div>
-                
-                <Toast show={showA} onClose={toggleShowA} position="top-end" delay={4000} autohide style={{marginTop:'20px'}}>
+                <Toast
+                  show={showA}
+                  onClose={toggleShowA}
+                  position="top-end"
+                  delay={4000}
+                  autohide
+                  style={{ marginTop: "20px" }}
+                >
                   <Toast.Header>
                     <img
                       src="holder.js/20x20?text=%20"
@@ -341,15 +352,17 @@ export default function AddSchedule(props) {
                     />
                     <strong className="me-auto">Informed!</strong>
                   </Toast.Header>
-                  <Toast.Body style={{textAlign:'left'}}>
+                  <Toast.Body style={{ textAlign: "left" }}>
                     Requested Admin to Add Schedule✨
                   </Toast.Body>
                 </Toast>
+              </>
+            )}
           </center>
         )}
       </Grid>
       {add == true && props.IsAdmin === true ? (
-        <Grid item xs={12} md={8} style={{ margin: 'auto' }} className="mb-100">
+        <Grid item xs={12} md={8} style={{ margin: "auto" }} className="mb-100">
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
               <Form.Label style={{ fontWeight: 500 }}>Schedule Name</Form.Label>
@@ -364,7 +377,7 @@ export default function AddSchedule(props) {
                   className: "nounder",
                 }}
                 value={subname}
-                style={{ borderRadius: '20px' }}
+                style={{ borderRadius: "20px" }}
               />
 
               <br />
@@ -383,7 +396,7 @@ export default function AddSchedule(props) {
                   onChange={(e) => {
                     setdatetime(e.target.value);
                   }}
-                  style={{ borderRadius: '20px' }}
+                  style={{ borderRadius: "20px" }}
                   value={datetime}
                 />
               </form>
@@ -397,7 +410,7 @@ export default function AddSchedule(props) {
                   setdescription(e.target.value);
                 }}
                 value={description}
-                style={{ borderRadius: '20px' }}
+                style={{ borderRadius: "20px" }}
                 InputProps={{
                   className: "nounder",
                 }}
@@ -449,7 +462,6 @@ export default function AddSchedule(props) {
               >
                 Save
               </Button>
-
             </Grid>
             <Grid item xs={8} md={10}></Grid>
             <Grid item xs={4} md={2}></Grid>

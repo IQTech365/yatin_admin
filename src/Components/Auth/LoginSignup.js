@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Auth.css";
 import { Grid } from "@material-ui/core";
 import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import OtpInput from "react-otp-input";
 import Timer from "../Helpers/timer/timer";
 import {
@@ -93,6 +94,7 @@ export default function LoginSignup() {
                 country={"in"}
                 value={number}
                 onChange={(phone) => setnumber(phone)}
+                
               />
               <p className="error">{Auth.Message || error}</p>
               <Button
