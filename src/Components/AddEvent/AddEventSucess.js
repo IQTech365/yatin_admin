@@ -16,6 +16,7 @@ import WhatsIcon from "../../Assets/WhatsIcon.png";
 import { IconButton, Select, FormControl } from "@material-ui/core";
 import { MdShare } from "react-icons/md";
 export default function AddEventSucess(props) {
+
   const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
@@ -27,6 +28,7 @@ export default function AddEventSucess(props) {
   const [image, getImage] = useState("");
   const [filetype, getfiletype] = useState("");
   const [type, setType] = useState("");
+    const [isShowingAlert, setShowingAlert] = React.useState(false);
 
   useEffect(() => {
     axios
@@ -86,6 +88,7 @@ export default function AddEventSucess(props) {
   }, []);
 
   const handleOnSubmit = async () => {
+    setShowingAlert(true)
     debugger;
     var filesArray = [];
     let file = "";
@@ -288,6 +291,8 @@ export default function AddEventSucess(props) {
               </Grid>
             </Grid>
           </Grid> */}
+        
+          
               <FcShare
                 onClick={handleOnSubmit}
                 className="share-button"
@@ -296,7 +301,15 @@ export default function AddEventSucess(props) {
                 size={40}
                 style={{ marginRight: "10px" }}
               />
-
+   <div>
+        <div
+          className={`alert alert-success ${isShowingAlert ? 'alert-shown' : 'alert-hidden'}`}
+          onTransitionEnd={() => setShowingAlert(false)}
+        >
+          <strong>Wait!</strong> Generating Link
+        </div>
+       
+      </div>
               {/*    <WhatsappShareButton
                 url={" "}
                 title={
