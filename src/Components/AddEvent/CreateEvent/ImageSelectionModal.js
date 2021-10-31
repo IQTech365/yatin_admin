@@ -92,9 +92,16 @@ export function ImageSelectionModalTemplates(props) {
   };
 
   useEffect(async () => {
-    let AllTemplatescpy = await AllTemplates.filter(async (temps, index) => {
-      return temps.Category === props.Type;
-    });
+    debugger;
+    // let AllTemplatescpy = await AllTemplates.filter(async (temps, index) => {
+    //   return temps.Category === props.Type;
+    // });
+    let AllTemplatescpy = [];
+    for (let i = 0; i < AllTemplates.length; i++) {
+      if (AllTemplates[i].Category === props.Type) {
+        AllTemplatescpy.push(AllTemplates[i]);
+      }
+    }
     await setallimgsforcategory(AllTemplatescpy);
     await setloadedRemoteImgs(true)
   }, []);
@@ -103,56 +110,57 @@ export function ImageSelectionModalTemplates(props) {
     <>
       {isImageSelected === false ? (
         loadedRemoteImgs === false ? <h1>Loading Templates</h1> :
-          <div>
-            <div style={{ width: "100%", height: "450px", }}>
-              <img
-                src={allimgsforcategory[currentimage].Thumbnail}
-                style={{ width: "100%", height: "inherit", objectFit:'contain' }}
-              />
+          (allimgsforcategory.length > 0 ?
+            <div>
+              <div style={{ width: "100%", height: "450px", }}>
+                <img
+                  src={allimgsforcategory[currentimage].Thumbnail}
+                  style={{ width: "100%", height: "inherit", objectFit: 'contain' }}
+                />
+                <div
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    position: "relative",
+                    bottom: "40px",
+                    left: "280px",
+                  }}
+                >
+                  <CheckCircleOutlineIcon
+                    style={{
+                      color: "Green",
+                      background: "#fff",
+                      borderRadius: "100%",
+                    }}
+                    onClick={() => {
+                      save(allimgsforcategory[currentimage].urlToImage[0].src);
+                    }}
+                    fontSize="large"
+                  />
+                </div>
+              </div>
               <div
                 style={{
-                  width: "50px",
-                  height: "50px",
-                  position: "relative",
-                  bottom: "40px",
-                  left: "280px",
+                  width: "100%",
+                  marginTop: "5px",
                 }}
               >
-                <CheckCircleOutlineIcon
-                  style={{
-                    color: "Green",
-                    background: "#fff",
-                    borderRadius: "100%",
-                  }}
-                  onClick={() => {
-                    save(allimgsforcategory[currentimage].urlToImage[0].src);
-                  }}
-                  fontSize="large"
-                />
+                <Swiper slidesPerView={5} className="mySwiper">
+
+                  {allimgsforcategory.map((img, index) => (
+                    <SwiperSlide><img
+                      src={img.Thumbnail}
+                      style={{ width: "50px", height: "80px", objectFit: 'contain' }}
+                      onClick={() => {
+                        setcurrentimage(index);
+                      }}
+                    /></SwiperSlide>
+
+                  ))}
+                </Swiper>
+
               </div>
-            </div>
-            <div
-              style={{
-                width: "100%",
-                marginTop: "5px",
-              }}
-            >
-               <Swiper slidesPerView={5} className="mySwiper">
-
- {allimgsforcategory.map((img, index) => (
- <SwiperSlide><img
- src={img.Thumbnail}
- style={{ width: "50px", height: "80px", objectFit:'contain' }}
- onClick={() => {
-   setcurrentimage(index);
- }}
-/></SwiperSlide>
-
-))}
-  </Swiper>
-             
-            </div>
-          </div>
+            </div> : <h1>No images found for this Category</h1>)
       ) : (
         <CanvasEditor
           SelectedImage={SelectedImage}

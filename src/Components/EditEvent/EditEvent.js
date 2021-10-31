@@ -164,11 +164,14 @@ export default function EditEvent(props) {
 
       </Grid>
       <Grid item xs={12}> <span className="label">Type</span>
-        <Select
+        <select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           className="w-100-p selectboxblue pob0"
           value={VenueType}
+          onChange={(e) => {
+            setVenueType(e.target.value);
+          }}
           variant="outlined"
           InputProps={{
             classes: {
@@ -177,44 +180,36 @@ export default function EditEvent(props) {
           }}
           size="small"
         >
-          <MenuItem
+          <option
             className="w-100-p"
-            onClick={(e) => {
-              setVenueType("Online-Inapp");
-            }}
+
             value="Online-Inapp"
           >
             Online-Inapp
-          </MenuItem>
-          <MenuItem
+          </option>
+          <option
             className="w-100-p"
-            onClick={(e) => {
-              setVenueType("Online");
-            }}
+
             value="Online"
           >
             Online
-          </MenuItem>
+          </option>
 
-          <MenuItem
+          <option
             className="w-100-p"
-            onClick={(e) => {
-              setVenueType("Offline");
-            }}
+
             value="Offline"
           >
             Offline
-          </MenuItem>
-          <MenuItem
+          </option>
+          <option
             className="w-100-p"
-            onClick={(e) => {
-              setVenueType("Both");
-            }}
+
             value="Both"
           >
             Both
-          </MenuItem>
-        </Select>
+          </option>
+        </select>
       </Grid>
       <Grid item xs={12} style={{
         display:
