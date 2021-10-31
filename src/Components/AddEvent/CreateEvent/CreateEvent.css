@@ -20,11 +20,16 @@
 .selectboxblue {
   /* border: solid 3px lightgrey !important; */
   outline: none !important;
+  background-color: white;
   border-radius: 500px !important;
-  margin: 0 !important;
+  margin: 0;
   position: relative;
   bottom: 7px;
-  height: 32px;
+  height: 40px;
+  width: 100% !important;
+  padding: 4px;
+  margin-bottom: 10px !important;
+  border: solid #3897f1 2px;
 }
 /* .selectboxblue > .MuiSelect-outlined:hover {
    border: solid 3px #3897f1 !important; 

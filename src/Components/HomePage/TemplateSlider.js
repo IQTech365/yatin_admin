@@ -10,6 +10,7 @@ import SingleTemplate from "../Templates/SingleTemplate";
 import { slidertemplates, VideoTemplates } from "../Templates/TempData";
 import history from "../../Utils/History";
 import { Tabs, Tab, Button } from "react-bootstrap";
+import "./styles.css"
 SwiperCore.use([Autoplay, Pagination, Navigation, Scrollbar]);
 
 const redirect = () => {
@@ -27,13 +28,15 @@ function TemplateSlider(props) {
         <Tabs
           defaultActiveKey="home"
           id="uncontrolled-tab-example"
+         
           style={{
             display: "flex",
             justifyContent: "center",
             marginTop: "20px",
+
           }}
         >
-          <Tab eventKey="home" title="Image Templates">
+          <Tab eventKey="home" title="Image Templates" className="home_tabs">
             <h2
               style={{
                 fontWeight: 600,

@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "swiper/swiper-bundle.min.css";
 import "react-modal-video/css/modal-video.min.css";
 import React, { useState, useEffect } from "react";
-import ReactGa from "react-ga"
+import ReactGa from "react-ga";
 import { Router, Switch, Route } from "react-router-dom";
 import Redirector from "./Utils/Routing";
 import history from "./Utils/History";
@@ -30,53 +30,49 @@ import EventAdmin from "./Components/Admin/EventAdmin";
 import ManageGuest from "./Components/Guest/ManageGuest";
 import EditEvent from "./Components/EditEvent/EditEvent";
 import HomePage from "./Components/HomePage/HomePage";
-import ShowStory from './Components/Invitations/ShowStory';
-import ShowAlbum from './Components/Invitations/ShowAlbum';
-import Gift from './Components/Gift/Gift';
-import { GetEvents, GetInvitations } from './Redux/DispatchFuncitons/Eventfunctions';
-import { gettemplate } from './Redux/DispatchFuncitons/TemplateFunctions'
-import CreateOrUpdate from './Components/EventCreateAndUpdate/CreateOrUpdate';
-import { getlist } from './Redux/DispatchFuncitons/GuestListFunctions';
-import Templates from "./Components/Templates/Templates"
+import ShowStory from "./Components/Invitations/ShowStory";
+import ShowAlbum from "./Components/Invitations/ShowAlbum";
+import Gift from "./Components/Gift/Gift";
+import {
+  GetEvents,
+  GetInvitations,
+} from "./Redux/DispatchFuncitons/Eventfunctions";
+import { gettemplate } from "./Redux/DispatchFuncitons/TemplateFunctions";
+import CreateOrUpdate from "./Components/EventCreateAndUpdate/CreateOrUpdate";
+import { getlist } from "./Redux/DispatchFuncitons/GuestListFunctions";
+import Templates from "./Components/Templates/Templates";
+import Terms from "./Components/HomePage/Terms";
 
 function App() {
   const dispatch = useDispatch();
-  const [loop, setloop] = useState()
-
+  const [loop, setloop] = useState();
 
   const Auth = useSelector((state) => state.Auth);
   useEffect(() => {
-
-    ReactGa.initialize('UA-201872924-1')
-    ReactGa.pageview(window.location.pathname + window.location.search)
+    ReactGa.initialize("UA-201872924-1");
+    ReactGa.pageview(window.location.pathname + window.location.search);
   }, []);
   let interval;
   useEffect(async () => {
-    dispatch(gettemplate())
+    dispatch(gettemplate());
     if (Auth.isLoggedIn === true) {
-      dispatch(gettemplate())
+      dispatch(gettemplate());
       interval = setInterval(() => {
-
         dispatch(GetEvents());
         dispatch(GetInvitations());
-        dispatch(getlist())
+        dispatch(getlist());
       }, 10000);
-      await setloop(interval)
+      await setloop(interval);
     } else {
-
       await clearInterval(loop);
-      await setloop()
+      await setloop();
     }
-
-
   }, [Auth.isLoggedIn]);
-
 
   if (Auth.isLoggedIn === false) {
     return (
       <Router history={history}>
         <div className="App">
-
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route
@@ -91,10 +87,9 @@ function App() {
             />
 
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/templates" component={Templates} /> 
+            <Route exact path="/templates" component={Templates} />
+            <Route exact path="/terms" component={Terms} />
             <Route exact path="/*" component={Redirector} />
-    
-
           </Switch>
         </div>
       </Router>
@@ -143,7 +138,11 @@ function App() {
 
             <Route exact path="/MyEvents/admin/:id" component={AdminSidebar} />
             <Route exact path="/MyEvents/More/:id" component={SidebarMore} />
-            <Route exact path="/MyEvents/admin/edit/:id/:eid" component={<div>edit</div>} />
+            <Route
+              exact
+              path="/MyEvents/admin/edit/:id/:eid"
+              component={<div>edit</div>}
+            />
             <Route
               exact
               path="/MyEvents/Location/:id/:event"
@@ -161,39 +160,31 @@ function App() {
               component={InvitaionviewToggler}
             />
 
-            <Route exact path="/MyEvents/eventpage/gift/:id/:MainCode" component={Gift} />
-            <Route exact path="/MyEvents/eventpage/feed/:id/:MainCode" component={Feed} />
-            <Route exact path="/MyEvents/comments/:id/:_id" component={Comment} />
             <Route
               exact
-              path="/MyEvents/albums/:id"
-              component={ShowAlbum}
+              path="/MyEvents/eventpage/gift/:id/:MainCode"
+              component={Gift}
             />
             <Route
               exact
-              path="/MyEvents/story/:id"
-              component={ShowStory}
+              path="/MyEvents/eventpage/feed/:id/:MainCode"
+              component={Feed}
             />
             <Route
               exact
-              path="/inv/albums/:id"
-              component={ShowAlbum}
+              path="/MyEvents/comments/:id/:_id"
+              component={Comment}
             />
-            <Route
-              exact
-              path="/inv/story/:id"
-              component={ShowStory}
-            />
+            <Route exact path="/MyEvents/albums/:id" component={ShowAlbum} />
+            <Route exact path="/MyEvents/story/:id" component={ShowStory} />
+            <Route exact path="/inv/albums/:id" component={ShowAlbum} />
+            <Route exact path="/inv/story/:id" component={ShowStory} />
             <Route
               exact
               path="/inv/Manage-Event/:id/:invno"
               component={EditEvent}
             />
-            <Route
-              exact
-              path="/inv/Admin/:id/:eid"
-              component={EventAdmin}
-            />
+            <Route exact path="/inv/Admin/:id/:eid" component={EventAdmin} />
             {/* <Route
               exact
               path="/inv/Admin/:id/"
@@ -201,8 +192,16 @@ function App() {
             /> */}
             <Route exact path="/inv/More/:id" component={SidebarMore} />
             <Route exact path="/inv/comments/:id/:_id" component={Comment} />
-            <Route exact path="/inv/eventpage/gift/:id/:MainCode" component={Gift} />
-            <Route exact path="/inv/eventpage/feed/:id/:MainCode" component={Feed} />
+            <Route
+              exact
+              path="/inv/eventpage/gift/:id/:MainCode"
+              component={Gift}
+            />
+            <Route
+              exact
+              path="/inv/eventpage/feed/:id/:MainCode"
+              component={Feed}
+            />
             <Route exact path="/inv/videoconf/:id/" component={Jitsi} />
             <Route exact path="/inv/eventpage/chat/:id" component={Chat} />
             <Route

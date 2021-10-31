@@ -10,7 +10,7 @@
   height: 33vh;
   display: block;
   margin: auto;
-  margin-top: 10vh !important;
+
 }
 
 .addalbums_btn {
@@ -19,9 +19,7 @@
   background-color: #3897f1;
   margin-top: 15px;
 }
-.albumedit_btn {
-  width: 100% !important;
-}
+
 .share {
   margin-top: 6px;
   border: solid;
@@ -34,7 +32,7 @@
     width: 50vw;
   }
   .albumedit_btn {
-    width: 100% !important;
+    width: 80% !important;
   }
   .mySwiper2 {
     height: 65vh !important;

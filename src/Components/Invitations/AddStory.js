@@ -6,15 +6,17 @@ import { useDropzone } from "react-dropzone";
 import AlbumsNone from "../../Assets/AlbumsNone.jpg";
 import Gallery from "../../Assets/ChooseFromGallery.svg";
 import CreateIcon from "@material-ui/icons/Create";
-import {FiEdit} from "react-icons/fi";
-import {MdDeleteForever} from "react-icons/md"
+import { FiEdit } from "react-icons/fi";
+import { MdDeleteForever } from "react-icons/md";
 import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { UpdateStory } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import { useDispatch } from "react-redux";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Toast, Container } from "react-bootstrap";
 
 export default function AddStory(props) {
+  const [showA, setShowA] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
   const dispatch = useDispatch();
   const [subStory, setsubStory] = useState([]);
   const [subname, setsubname] = useState("");
@@ -279,7 +281,45 @@ export default function AddStory(props) {
           </Grid>
         </Paper>
       ) : add == false && subStory.length === 0 ? (
-        <img src={AlbumsNone} className="blank-album" />
+        <>
+          <img src={AlbumsNone} className="blank-album" />
+          {props.IsAdmin === true ? (
+            <></>
+          ) : (
+            <>
+              {" "}
+              <div style={{ textAlign: "center" }}>
+                <Button
+                  variant="primary"
+                  style={{ borderRadius: "20px", marginTop: 20 }}
+                  onClick={toggleShowA}
+                >
+                  Ask For Story
+                </Button>
+              </div>
+              <Container>
+                <Toast
+                  show={showA}
+                  onClose={toggleShowA}
+                  position="top-end"
+                  delay={4000}
+                  autohide
+                  style={{ marginTop: "20px" }}
+                >
+                  <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded me-2"
+                      alt=""
+                    />
+                    <strong className="me-auto">Informed!</strong>
+                  </Toast.Header>
+                  <Toast.Body>Requested Admin for to add Stories📸</Toast.Body>
+                </Toast>
+              </Container>
+            </>
+          )}
+        </>
       ) : (
         <></>
       )}
@@ -400,12 +440,17 @@ export default function AddStory(props) {
           </Paper>
         ) : (
           <Paper
-        
             elevation={3}
             style={{ display: add === true || edit === true ? "none" : "" }}
           >
             <Grid container spacing={0}>
-              <Grid className="stryimg" item xs={5} sm={3} style={{marginBottom:'20px'}}>
+              <Grid
+                className="stryimg"
+                item
+                xs={5}
+                sm={3}
+                style={{ marginBottom: "20px" }}
+              >
                 {eve.filetype === "png" ||
                 eve.filetype === "jpg" ||
                 eve.filetype === "jpeg" ? (
@@ -421,54 +466,63 @@ export default function AddStory(props) {
                 )}
               </Grid>
               <Grid className="p-5px" item xs={6} sm={6}>
-                <h2 className="m-0" style={{fontSize:'16px', fontWeight: 800}}>
+                <h2
+                  className="m-0"
+                  style={{ fontSize: "16px", fontWeight: 800 }}
+                >
                   {eve.Name !== undefined && eve.Name.length > 0
                     ? eve.Name
                     : ""}
                 </h2>
                 {eve.datetime !== undefined && eve.datetime.length > 0 ? (
-                  <p style={{fontSize:'12px', color:'#3897F1'}}>  <Dateformatter
-                  Date={
-                    eve.datetime.split("T")[0] +
-                    " " +
-                    eve.datetime.split("T")[1]
-                  }
-                /></p>
-                
+                  <p style={{ fontSize: "12px", color: "#3897F1" }}>
+                    {" "}
+                    <Dateformatter
+                      Date={
+                        eve.datetime.split("T")[0] +
+                        " " +
+                        eve.datetime.split("T")[1]
+                      }
+                    />
+                  </p>
                 ) : (
                   <></>
-                )} <br />
-                <p className="m-0" style={{fontSize:'13px'}}>
+                )}{" "}
+                <br />
+                <p className="m-0" style={{ fontSize: "13px" }}>
                   {" "}
                   {eve.description !== undefined && eve.description.length > 0
                     ? eve.description
                     : ""}
                 </p>
-               
-               
-               <p>{props.IsAdmin === true ?  <Grid item xs={6} md={6}>
-                  <IconButton
-                    onClick={async () => {
-                      setedit(true);
-                      setadd(false);
-                      Delete();
-                      await setcurrentedited(index);
-                      await settoedit(index);
-                    }}
-                    style={{ borderRadius: "100%" }}
-                  >
-                    <FiEdit  />
-                  </IconButton>
+                <p>
+                  {props.IsAdmin === true ? (
+                    <Grid item xs={6} md={6}>
+                      <IconButton
+                        onClick={async () => {
+                          setedit(true);
+                          setadd(false);
+                          Delete();
+                          await setcurrentedited(index);
+                          await settoedit(index);
+                        }}
+                        style={{ borderRadius: "100%" }}
+                      >
+                        <FiEdit />
+                      </IconButton>
 
-                  <IconButton
-                    onClick={() => {
-                      Deletesingle(index);
-                    }}
-                  >
-                    <MdDeleteForever size={25} style={{color:'red'}} />
-                  </IconButton>
-                </Grid> : <></> }</p>
-               
+                      <IconButton
+                        onClick={() => {
+                          Deletesingle(index);
+                        }}
+                      >
+                        <MdDeleteForever size={25} style={{ color: "red" }} />
+                      </IconButton>
+                    </Grid>
+                  ) : (
+                    <></>
+                  )}
+                </p>
               </Grid>
             </Grid>
           </Paper>

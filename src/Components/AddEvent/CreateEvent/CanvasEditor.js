@@ -27,7 +27,7 @@ export default function CanvasEditor(props) {
             }
         );
     };
-    
+
     return (
         <>
             {IsProcessing === true ? (

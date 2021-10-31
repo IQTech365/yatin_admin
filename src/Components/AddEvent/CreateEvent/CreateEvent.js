@@ -59,7 +59,7 @@ export default function CreateEvent(props) {
     <>
       <Grid container spacing={0} className="m-0  p-15px pt-0 pb-0">
         <Grid item xs={12} sm={6}>
-          <FormControl
+          {/* <FormControl
             variant="outlined"
             className="w-100-p  m-b-10 "
             size="small"
@@ -67,19 +67,23 @@ export default function CreateEvent(props) {
           >
             <Select
               native
-              value={props.Type}
-              onChange={props.handleChange}
-              error={erroring}
-              className="selectboxblue"
+             
               displayEmpty
             >
-              <option value="Wedding">Wedding</option>
-              <option value="Birthday">Birthday</option>
-              <option value="Wedding Anniversary">Wedding Anniversary</option>
-              <option value="Get Together">Get Together</option>
-              <option value="Formal Event">Formal Event</option>
+             
             </Select>
-          </FormControl>
+          </FormControl> */}
+          <select className="w-100-p  m-b-10 " value={props.Type}
+            onChange={props.handleChange}
+            error={erroring}
+            className="selectboxblue" >
+            <option value="Wedding">Wedding</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Wedding Anniversary">Wedding Anniversary</option>
+            <option value="Get Together">Get Together</option>
+            <option value="Formal Event">Formal Event</option>
+          </select>
+
         </Grid>
         <Grid item xs={12} sm={6}>
           <div className="noe">

@@ -89,14 +89,14 @@ export default function EventDetails(props) {
   var SCOPES = "https://www.googleapis.com/auth/calendar.events";
 
   const save = async () => {
+
+    debugger;
     let eventscpy = props.Events;
     let currentEvent = props.SelectedEvent;
-    // console.log(CurrentEventDetails);
+    console.log(CurrentEventDetails);
     eventscpy[props.SelectedEvent] = CurrentEventDetails;
-
     await props.setEvents(eventscpy);
     // await props.SelectEvent(0);
-
     let result = await props.checkIfEventEmpty(
       eventscpy,
       props.Type,
@@ -171,7 +171,7 @@ export default function EventDetails(props) {
             <video
 
               type="video/mp4"
-              style={{height:'300px'}}
+              style={{ height: '300px' }}
               autoPlay={true}
               src={
                 CurrentEventDetails !== undefined
@@ -334,8 +334,88 @@ export default function EventDetails(props) {
           style={{ fontSize: "12px" }}
         />
       </Grid>
-      <Grid item xs={5}>
-        <FormControl
+      <Grid item xs={6}>
+        <span className="label">Type</span>
+        <select
+          className="w-100-p selectboxblue"
+          value={CurrentEventDetails.VenueType}
+          onChange={(e) => {
+            changevenue();
+            SetCurrentEventDetails({
+              ...CurrentEventDetails,
+              VenueType: e.target.value,
+            });
+          }}
+          error={
+            IsSubmitted === true && CurrentEventDetails.VenueType === ""
+              ? true
+              : false
+          }
+          variant="outlined"
+          InputProps={{
+            classes: {
+              notchedOutline: classes.notchedOutline,
+            },
+          }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        >
+          <option value="Online-Inapp">OnlineInApp</option>
+          <option value="Online">Online</option>
+          <option value="Offline">Offline</option>
+          <option value="Both">Both</option>
+          {/* <MenuItem
+            className="w-100-p"
+            onClick={(e) => {
+
+            }}
+
+          >
+            OnlineInApp
+          </MenuItem>
+          <MenuItem
+            className="w-100-p"
+            onClick={(e) => {
+              changevenue();
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                VenueType: "Online",
+              });
+            }}
+            value="Online"
+          >
+            Online
+          </MenuItem>
+
+          <MenuItem
+            className="w-100-p"
+            onClick={(e) => {
+              changevenue();
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                VenueType: "Offline",
+              });
+            }}
+            value="Offline"
+          >
+            Offline
+          </MenuItem>
+          <MenuItem
+            className="w-100-p"
+            onClick={(e) => {
+              changevenue();
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                VenueType: "Both",
+              });
+            }}
+            value="Both"
+          >
+            Both
+          </MenuItem> */}
+        </select>
+        {/* <FormControl
           variant="outlined"
           className="w-100-p "
           size="small"
@@ -349,7 +429,7 @@ export default function EventDetails(props) {
             shrink: true,
           }}
         >
-          <span className="label">Type</span>
+         
           <Select
             className="w-100-p selectboxblue"
             value={CurrentEventDetails.VenueType}
@@ -422,7 +502,7 @@ export default function EventDetails(props) {
               Both
             </MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
       </Grid>
 
       <>
@@ -473,8 +553,8 @@ export default function EventDetails(props) {
         </Grid>
         <Grid
           item
-          xs={CurrentEventDetails.VenueType === "Offline" ? 7 : 12}
-          sm={CurrentEventDetails.VenueType === "Offline" ? 7 : 12}
+          xs={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
+          sm={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
           className={
             CurrentEventDetails.VenueType === "Online" ||
               CurrentEventDetails.VenueType === "Online-Inapp"
@@ -519,7 +599,7 @@ export default function EventDetails(props) {
                   }}
                 >
                   {Location === ""
-                    ? "Please Enter A location"
+                    ? "Please add location"
                     : Location.length > 25
                       ? Location.substring(0, 25)
                       : Location}
@@ -527,7 +607,7 @@ export default function EventDetails(props) {
               </Grid>
             </Grid>
           )}
-          <span
+          {/* <span
             className={
               IsSubmitted === true && CurrentEventDetails.Location === ""
                 ? "error"
@@ -536,9 +616,9 @@ export default function EventDetails(props) {
             style={{ width: "100%" }}
           >
             Please add Location
-          </span>
+          </span> */}
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <p style={{ textAlign: "right", fontSize: "12px" }}>
             <BsInfoCircleFill />
 
@@ -550,34 +630,34 @@ export default function EventDetails(props) {
                   ? " Add Your Location"
                   : " Add Your Location and Meeting Link"}
           </p>
+        </Grid> */}
+
+
+        <Grid item xs={12}>
+          <span className="label">Description</span>
+
+          <TextField
+            id="outlined-basic"
+            // label="Description"
+            size="small"
+            variant="outlined"
+            className="w-100-p   "
+            value={CurrentEventDetails.Description}
+            onChange={(e) => {
+              SetCurrentEventDetails({
+                ...CurrentEventDetails,
+                Description: e.target.value,
+              });
+            }}
+            error={
+              IsSubmitted === true && CurrentEventDetails.Description === ""
+                ? true
+                : false
+            }
+            multiline={true}
+            rows={2}
+          />
         </Grid>
-    
-
-      <Grid item xs={12}>
-        <span className="label">Description</span>
-
-        <TextField
-          id="outlined-basic"
-          // label="Description"
-          size="small"
-          variant="outlined"
-          className="w-100-p   "
-          value={CurrentEventDetails.Description}
-          onChange={(e) => {
-            SetCurrentEventDetails({
-              ...CurrentEventDetails,
-              Description: e.target.value,
-            });
-          }}
-          error={
-            IsSubmitted === true && CurrentEventDetails.Description === ""
-              ? true
-              : false
-          }
-          multiline={true}
-          rows={2}
-        />
-      </Grid>
 
       </>
       {props.SelectedEvent === 0 ? <>

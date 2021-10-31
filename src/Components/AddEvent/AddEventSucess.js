@@ -44,20 +44,20 @@ export default function AddEventSucess(props) {
 
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-              Auth.Name +
-              " to " +
-              res.data.Events[0].Name +
-              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-              " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await getImage(res.data.Events[0].file);
           await getfiletype(res.data.Events[0].filetype);
@@ -66,18 +66,18 @@ export default function AddEventSucess(props) {
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-              maincode +
-              "/" +
-              res.data.Events[0].code
+            maincode +
+            "/" +
+            res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-              Auth.Name +
-              " to " +
-              res.data.Events[0].Name +
-              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-              " https://mobillyinvite.com/MyInvitations/" +
-              maincode
+            Auth.Name +
+            " to " +
+            res.data.Events[0].Name +
+            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+            " https://mobillyinvite.com/MyInvitations/" +
+            maincode
           );
           await setpwd(res.data.Events[0].InvId.PassWord);
         }
@@ -145,14 +145,14 @@ export default function AddEventSucess(props) {
     );
     await setWatsapp(
       "Hi there ! You have been invited by " +
-        Auth.Name +
-        " to " +
-        allevents[0].Name +
-        ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-        " https://mobillyinvite.com/MyInvitations/" +
-        maincode +
-        "/" +
-        allevents[0].code
+      Auth.Name +
+      " to " +
+      allevents[0].Name +
+      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+      " https://mobillyinvite.com/MyInvitations/" +
+      maincode +
+      "/" +
+      allevents[0].code
     );
     setAnchorEl(null);
   };
@@ -197,40 +197,40 @@ export default function AddEventSucess(props) {
           </Grid>
 
           {allevents &&
-          allevents.length > 1 &&
-          allevents[0].EntryWay === "Code" ? (
+            allevents.length > 1 &&
+            allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
-                <FormControl
+                {/* <FormControl
                   variant="outlined"
                   className="w-100-p "
                   size="small"
                   variant="outlined"
+                > */}
+                <select
+                  native
+                  value={SelectedCode}
+                  onChange={handleClose}
+                  style={{
+                    textAlign: "center",
+
+                    marginTop: "5px",
+                  }}
+                  className="selectboxblue"
+                  displayEmpty
                 >
-                  <Select
-                    native
-                    value={SelectedCode}
-                    onChange={handleClose}
-                    style={{
-                      textAlign: "center",
-                      padding: "none",
-                      height: "38px",
-                    }}
-                    // className="selectboxblue"
-                    displayEmpty
-                  >
-                    {" "}
-                    {allevents &&
-                      allevents.map((eve) => (
-                        <option
-                          value={(eve.code, eve.Name + "Code :" + eve.code)}
-                        >
-                          {" "}
-                          {eve.Name + "Code :" + eve.code}
-                        </option>
-                      ))}
-                  </Select>
-                </FormControl>
+                  {" "}
+                  {allevents &&
+                    allevents.map((eve) => (
+                      <option
+                        value={(eve.code, eve.Name + "Code :" + eve.code)}
+                      >
+                        {" "}
+                        {eve.Name + "Code :" + eve.code}
+                      </option>
+                    ))}
+                </select>
+                {/* </FormControl> */}
                 {/* <Grid container spacing={0}>
                   <Grid
                     item

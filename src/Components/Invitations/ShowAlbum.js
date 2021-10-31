@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AlbumStyle.css";
 import AlbumsNone from "../../Assets/AlbumsNone.jpg";
-import { Container, Row, Col, Button, } from "react-bootstrap";
+import { Container, Row, Col, Button, Toast } from "react-bootstrap";
 import Header from "../Helpers/Header/Header";
 import MobileNav from "../Helpers/NavMobile/NavMobile.js";
 import DesktopNav from "../Helpers/DesktopNav/DesktopNav.js";
@@ -13,7 +13,7 @@ import {
   GetInvitations,
 } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import { AiFillCaretRight } from "react-icons/ai"
+import { AiFillCaretRight } from "react-icons/ai";
 import { uploadString } from "../../Utils/FileUpload_Download";
 import { uploadfiletoalbum } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import Addtoalbum from "./Addtoalbum";
@@ -27,7 +27,9 @@ SwiperCore.use([Navigation, Thumbs]);
 // install Swiper modules
 
 export default function ShowAlbum(props) {
-
+  const [showA, setShowA] = useState(false);
+  const [username, setusername] = useState("");
+  const toggleShowA = () => setShowA(!showA);
   const [isUploaded, setisUploaded] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [Eventdata, setEventdata] = useState([]);
@@ -70,7 +72,7 @@ export default function ShowAlbum(props) {
     } else {
       if (
         props.location.pathname ===
-        "/MyEvents/albums/" + props.match.params.id &&
+          "/MyEvents/albums/" + props.match.params.id &&
         MyEvents.length > 0
       ) {
         console.log(MyEvents[0]);
@@ -78,6 +80,7 @@ export default function ShowAlbum(props) {
         await setEventdata(data.InvId.Album);
         await setbase("MyEvents");
         await setType(data.InvId.Type);
+        await setusername(Auth.Name);
         await setName(data.Name);
         await setMainCode(data.MainCode);
         if (data.Host.includes(Auth.Phone)) {
@@ -94,6 +97,7 @@ export default function ShowAlbum(props) {
         console.log(myInvitations[0]);
         await setEventdata(data.InvId.Album);
         await setbase("inv");
+        await setusername(Auth.Name);
         await setType(data.InvId.Type);
         await setName(data.Name);
         await setMainCode(data.MainCode);
@@ -127,7 +131,7 @@ export default function ShowAlbum(props) {
   }, [Eventdata]);
 
   const handleOnSubmit = async () => {
-    debugger
+    debugger;
     var filesArray = [];
     let file = "";
     const response = await fetch(images[0].file);
@@ -140,10 +144,11 @@ export default function ShowAlbum(props) {
         .share({
           title: "Hello👋",
           text:
-            "Hi👋 I have added new Images  " +
-            "Please See Your Digital Invite🎉 on the Link Below",
+            "Hi👋 I have added new Images to album for " +
+            Name +
+            " .Please See  on the Link Below ",
 
-          url: "https://mobillyinvite.com/MyInvitations/" + Eventdata[0].MainCode,
+          url: "https://mobillyinvite.com/MyInvitations/" + MainCode,
           files: filesArray,
         })
         .then(() => console.log("Successful share"))
@@ -211,23 +216,27 @@ export default function ShowAlbum(props) {
 
       <Container style={{ margin: 0, padding: 0, marginTop: 10 }} fluid>
         <Row className="p-0 m-0">
-          <Col xs={6} md={10} className="p-0 m-0">
+          <Col xs={5} md={10} className="p-0 m-0">
             {" "}
             <h3 className="p-5px"> Albums</h3>
-
           </Col>
-          <Col xs={1} className="p-0 m-0">
-            <MdShare onClick={handleOnSubmit} className="share"></MdShare>
+          <Col xs={2} className="p-0 m-0">
+            {IsAdmin === true ? (
+              <MdShare onClick={handleOnSubmit} className="share" style={{float:'right'}}></MdShare>
+            ) : (
+              <></>
+            )}
           </Col>
-          <Col xs={5} md={1} className="p-0 m-0">
+          <Col xs={5} md={2} className="p-0 m-0">
             {IsAdmin === true ? (
               <>
-
-
-
                 <Button
                   variant="secondary"
-                  style={{ width: "30% !important", float: "right", borderRadius: "20px" }}
+                  style={{
+                    width: "25% !important",
+                    float: "right",
+                    borderRadius: "20px",
+                  }}
                   className="albumedit_btn"
                   onClick={() => {
                     setshow(true);
@@ -239,7 +248,11 @@ export default function ShowAlbum(props) {
             ) : (
               <></>
             )}
-          </Col>   <p sty> <AiFillCaretRight /> {Name}</p>
+          </Col>{" "}
+          <p sty>
+            {" "}
+            <AiFillCaretRight /> {Name}
+          </p>
         </Row>
         <br />
         {images.length === 0 ? (
@@ -270,6 +283,33 @@ export default function ShowAlbum(props) {
                 {" "}
                 <img src={AlbumsNone} className="blank-album" /> <br />
                 <h3 className="tac">No Albums😍 Yet!</h3>
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    variant="primary"
+                    style={{ borderRadius: "20px" }}
+                    onClick={toggleShowA}
+                  >
+                    Ask For Album
+                  </Button>
+                </div>
+                <Container>
+                  <Toast
+                    show={showA}
+                    onClose={toggleShowA}
+                    position="top-end"
+                    /*  delay={4000} autohide  */ style={{ marginTop: "20px" }}
+                  >
+                    <Toast.Header>
+                      <img
+                        src="holder.js/20x20?text=%20"
+                        className="rounded me-2"
+                        alt=""
+                      />
+                      <strong className="me-auto">{username}</strong>
+                    </Toast.Header>
+                    <Toast.Body>Requested Admin for Photos😎</Toast.Body>
+                  </Toast>
+                </Container>
               </>
             )}
           </>
@@ -298,14 +338,27 @@ export default function ShowAlbum(props) {
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 className="mySwiper2"
-                style={{ marginTop: 0, position: 'fixed', outline: 'none', left: 0, margin: 0, }}
+                style={{
+                  marginTop: 0,
+                  position: "fixed",
+                  outline: "none",
+                  left: 0,
+                  margin: 0,
+                }}
               >
                 {images.map((post, index) => (
                   <SwiperSlide>
-                    <img src={post.file} key={index} style={{ height: '65vh', objectFit: 'contain', width: '100%' }} />
+                    <img
+                      src={post.file}
+                      key={index}
+                      style={{
+                        height: "60vh",
+                        objectFit: "contain",
+                        width: "100%",
+                      }}
+                    />
                   </SwiperSlide>
                 ))}
-
               </Swiper>
             </Row>
             <Row>
@@ -317,17 +370,33 @@ export default function ShowAlbum(props) {
                 freeMode={true}
                 watchSlidesProgress={true}
                 className="mySwiper"
-                style={{ bottom: '5vh', width: '100vw', height: "110px", objectFit: 'contain', position: 'fixed' }}
+                style={{
+                  bottom: "7vh",
+                  width: "100vw",
+                  height: "80px",
+                  objectFit: "contain",
+                  position: "fixed",
+                }}
               >
-                {images.map((post, index) => (
-                  post.fileurl !== "" ?
+                {images.map((post, index) =>
+                  post.fileurl !== "" ? (
                     <SwiperSlide>
-                      <img src={post.file} key={index} style={{ objectFit: 'cover', width: '100%', height: 'inherit', border: '2px solid lightgrey', borderRadius: '8px' }} />
+                      <img
+                        src={post.file}
+                        key={index}
+                        style={{
+                          objectFit: "cover",
+                          width: "100%",
+                          height: "inherit",
+                          border: "2px solid lightgrey",
+                          borderRadius: "8px",
+                        }}
+                      />
                     </SwiperSlide>
-
-                    : <></>)
+                  ) : (
+                    <></>
+                  )
                 )}
-
               </Swiper>
             </Row>
             {/* <Row  {...handlers} style={{ marginTop: 0, position: 'fixed', top: '10vh', outline: 'none', left: 0, margin: 0, height: '65vh' }}>
@@ -353,5 +422,3 @@ export default function ShowAlbum(props) {
     </div>
   );
 }
-
-

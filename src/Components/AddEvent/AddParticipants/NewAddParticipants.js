@@ -162,7 +162,7 @@ export default function NewAddParticipants(props) {
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
         for (let i = 0; i < EventCpy.length; i++) {
-            let jointname = EventCpy[i].Name.includes(" ") ? EventCpy[i].Name.replaceAll(" ", "") : EventCpy[i].Name;
+            let jointname = EventCpy[i].Name.split(' ').join('')
             let furl =
                 uniqueurl + "Event_image/" + i + jointname;
 
@@ -248,11 +248,11 @@ export default function NewAddParticipants(props) {
                     <b>
                         <u>Note</u>
                     </b>
-                    :{"CSV can only be accessed by using website "}
+                    :{" CSV can only br accessed via desktop"}
                 </p>
             </Grid>
             <Grid container spacing={0}>
-    {/*             <Grid item xs={12} sm={12}>
+                {/*             <Grid item xs={12} sm={12}>
                     <Button variant="secondary"
                         className=" btn custom-file-upload t-white l-blue mt-5px"
                         style={{ display: isMobile === true ? "block" : "none" }}
@@ -318,9 +318,7 @@ export default function NewAddParticipants(props) {
                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     />
                 </Grid>
-                <p style={{ fontSize: '12px', width: '90%', margin: 'auto' }}>
-                    <BsFillInfoCircleFill />  Switch to Desktop Version, to Give Access Via Phone Number (through CSV)
-                </p>
+
             </Grid>
 
             <Grid item xs={participants.length > 0 ? 6 : 12}>

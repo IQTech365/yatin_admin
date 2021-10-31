@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Auth.css";
 import { Grid } from "@material-ui/core";
 import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import OtpInput from "react-otp-input";
 import Timer from "../Helpers/timer/timer";
 import {
@@ -11,8 +12,10 @@ import {
   getopt,
   verifyotp,
 } from "../../Redux/DispatchFuncitons/AuthFunctions";
+import {Link} from 'react-router-dom';
 import { Row, Col, Form, Button } from "react-bootstrap";
 import history from "../../Utils/History";
+
 export default function LoginSignup() {
   const Auth = useSelector((state) => state.Auth);
   const dispatch = useDispatch();
@@ -91,6 +94,7 @@ export default function LoginSignup() {
                 country={"in"}
                 value={number}
                 onChange={(phone) => setnumber(phone)}
+                
               />
               <p className="error">{Auth.Message || error}</p>
               <Button
@@ -109,7 +113,7 @@ export default function LoginSignup() {
 
                 label="Yes, I want to recieve important information & updates on my Whatsapp"
                 style={{
-                  fontSize: 12,
+                  fontSize: 9,
                   marginTop: "10px",
                   fontWeight: 700,
                 }}
@@ -117,13 +121,16 @@ export default function LoginSignup() {
                 onChange={checkboxHandler}
                 checked={agree}
               />
+
               <Form.Check
                 type="checkbox"
-
-                label=" I agree to the terms and conditions applied."
+                label={(<> I agree to the <Link onClick={() => {
+                  history.push("/terms");
+                }}>terms and conditions</Link> applied.</>)}
+               
                 style={{
-                  fontSize: 12,
-                  marginTop: "10px",
+                  fontSize: 9,
+                  marginTop: "3px",
                   fontWeight: 700,
 
                 }}
@@ -198,12 +205,7 @@ export default function LoginSignup() {
               <Timer setStep={setStep} settodo={settodo} />
             </p>
           </Grid>
-          <p style={{ fontSize: 9, color: "#727272" }}>
-            <b style={{ color: "black" }}>
-              Yes, I Want to recieve important information {"&"} updates on my
-              Whatsapp{" "}
-            </b>
-          </p>
+         
         </Grid>
       </div>
     );
