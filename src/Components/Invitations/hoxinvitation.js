@@ -54,10 +54,9 @@ export default function Hoxinvitation(props) {
   }, [Auth.isLoggedIn]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const intervalId = setTimeout(() => {
       setshow(true)
-
-    }, 5000);
+    }, 8000);
 
     // clear interval on re-render to avoid memory leaks
     return () => clearInterval(intervalId);
