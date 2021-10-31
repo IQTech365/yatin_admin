@@ -20,11 +20,12 @@
 .selectboxblue {
   /* border: solid 3px lightgrey !important; */
   outline: none !important;
+  background-color: white;
   border-radius: 500px !important;
   margin: 0;
   position: relative;
   bottom: 7px;
-  height: 45px;
+  height: 40px;
   width: 100% !important;
   padding: 4px;
   margin-bottom: 10px !important;

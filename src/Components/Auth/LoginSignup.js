@@ -113,7 +113,7 @@ export default function LoginSignup() {
 
                 label="Yes, I want to recieve important information & updates on my Whatsapp"
                 style={{
-                  fontSize: 12,
+                  fontSize: 9,
                   marginTop: "10px",
                   fontWeight: 700,
                 }}
@@ -129,8 +129,8 @@ export default function LoginSignup() {
                 }}>terms and conditions</Link> applied.</>)}
                
                 style={{
-                  fontSize: 12,
-                  marginTop: "10px",
+                  fontSize: 9,
+                  marginTop: "3px",
                   fontWeight: 700,
 
                 }}
@@ -205,12 +205,7 @@ export default function LoginSignup() {
               <Timer setStep={setStep} settodo={settodo} />
             </p>
           </Grid>
-          <p style={{ fontSize: 9, color: "#727272" }}>
-            <b style={{ color: "black" }}>
-              Yes, I Want to recieve important information {"&"} updates on my
-              Whatsapp{" "}
-            </b>
-          </p>
+         
         </Grid>
       </div>
     );

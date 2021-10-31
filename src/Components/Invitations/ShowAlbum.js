@@ -79,7 +79,6 @@ export default function ShowAlbum(props) {
         data = MyEvents[props.match.params.id][0];
         await setEventdata(data.InvId.Album);
         await setbase("MyEvents");
-        await setType(data.InvId.Type);
         await setusername(Auth.Name);
         await setName(data.Name);
         await setMainCode(data.MainCode);
@@ -98,7 +97,6 @@ export default function ShowAlbum(props) {
         await setEventdata(data.InvId.Album);
         await setbase("inv");
         await setusername(Auth.Name);
-        await setType(data.InvId.Type);
         await setName(data.Name);
         await setMainCode(data.MainCode);
         if (data.Host.includes(Auth.Phone)) {
@@ -157,7 +155,15 @@ export default function ShowAlbum(props) {
       console.log(`system does not support sharing files.`);
     }
   };
-
+  useEffect(() => {
+    if (navigator.share === undefined) {
+      if (window.location.protocol === "http:") {
+        window.location.replace(
+          window.location.href.replace(/^http:/, "https:")
+        );
+      }
+    }
+  }, []);
   const save = async () => {
     let Album = [];
     let uniqueurl =
