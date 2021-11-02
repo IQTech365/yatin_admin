@@ -206,7 +206,7 @@ export default function MainBanner() {
               </p>
              
             </Row>
-            <Row> <Image src={Integrate} alt="Via Zoom and Meet" style={{width:'300px', height:'auto'}} /></Row>
+           
             <Row>
               {" "}
               <p className="thirdslide_extra">
