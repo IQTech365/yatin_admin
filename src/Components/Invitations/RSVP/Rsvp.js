@@ -73,11 +73,23 @@ export default function Rsvp(props) {
           ? Eventdata1 &&
           Eventdata1.map((eve, index) => (
             <Carousel.Item>
-              <img
-                className="d-block rsvpimage"
-                src={eve.file}
-                alt="First slide"
-              />
+              {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (
+                <img
+                  className="d-block rsvpimage"
+                  src={eve.file}
+                  alt="First slide"
+                />) : (
+                <video
+                  muted
+                  type="video/mp4"
+                  autoPlay={true}
+                  src={
+                    eve.file
+                  }
+                  preload="none"
+                  className="d-block rsvpimage"
+                />
+              )}
               <div className="rsvp-buttons">
                 <center>
                   <Button

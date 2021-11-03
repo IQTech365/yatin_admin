@@ -248,7 +248,7 @@ export default function NewAddParticipants(props) {
                     <b>
                         <u>Note</u>
                     </b>
-                    :{" CSV can only br accessed via desktop"}
+                    :{" CSV can only by accessed via desktop"}
                 </p>
             </Grid>
             <Grid container spacing={0}>
