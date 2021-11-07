@@ -27,7 +27,7 @@ export default function EventAdmin2() {
     );
 
     useEffect(async () => {
-        debugger
+
         if (MyEvents && MyEvents.length > 0) {
 
             let Rsvplistcpy = []

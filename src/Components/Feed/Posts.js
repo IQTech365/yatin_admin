@@ -30,7 +30,7 @@ export default function Postrender(props) {
         // console.log(props.admins)
     }, [props.data, props.filter, props.filterdata])
     async function deletePostUI(index) {
-        debugger
+
         let postcpy = [...Posts]
         postcpy.filter((post, i) => i !== index);
         await setPosts(postcpy)

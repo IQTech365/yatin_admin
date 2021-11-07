@@ -90,7 +90,6 @@ export default function EventDetails(props) {
 
   const save = async () => {
 
-    debugger;
     let eventscpy = props.Events;
     let currentEvent = props.SelectedEvent;
     console.log(CurrentEventDetails);

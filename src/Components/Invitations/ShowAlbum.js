@@ -72,7 +72,7 @@ export default function ShowAlbum(props) {
     } else {
       if (
         props.location.pathname ===
-          "/MyEvents/albums/" + props.match.params.id &&
+        "/MyEvents/albums/" + props.match.params.id &&
         MyEvents.length > 0
       ) {
         console.log(MyEvents[0]);
@@ -131,7 +131,7 @@ export default function ShowAlbum(props) {
   }, [Eventdata]);
 
   const handleOnSubmit = async () => {
-    debugger;
+
     var filesArray = [];
     let file = "";
     const response = await fetch(images[0].file);
@@ -222,7 +222,7 @@ export default function ShowAlbum(props) {
           </Col>
           <Col xs={2} className="p-0 m-0">
             {IsAdmin === true ? (
-              <MdShare onClick={handleOnSubmit} className="share" style={{float:'right'}}></MdShare>
+              <MdShare onClick={handleOnSubmit} className="share" style={{ float: 'right' }}></MdShare>
             ) : (
               <></>
             )}

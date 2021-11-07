@@ -5,7 +5,7 @@ import "./Feed.css";
 export default function Media(props) {
     const [currentmedia, setcurrentmedia] = useState(0);
     useEffect(async () => {
-        debugger;
+
         let isselected = false;
         for (let i = 0; i < props.currentPosts.length; i++) {
             if (isselected === false) {

@@ -71,7 +71,6 @@ export function authInv(id, index) {
     axios.post(url + "event/AuthInvite", { _id: id }).then(async (res) => {
       console.log("res", res)
       if (res.data.status === 'success') {
-        debugger
         await dispatch(deleteEvent());
         await dispatch(GetEvents());
         await dispatch(GetInvitations());

@@ -29,6 +29,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import HelpIcon from "@material-ui/icons/Help";
 import { CircularProgress } from "@material-ui/core";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
@@ -275,40 +276,81 @@ export default function InvitaionMain(props) {
                   <Row style={{ marginTop: 10 }}>
                     <Col>
                       <center>
-                        <span className="Like-count">
-                          {likeCount[index] != undefined
-                            ? likeCount[index].count
-                            : 0}
-                        </span>
-                        <AiOutlineLike
-                          size="25"
-                          className="info-icon"
-                          style={{ color: "#4e4e4e" }}
-                          onClick={() => {
-                            checkiflike(index);
-                            dispatch(like_event(eve._id));
-                          }}
-                        />
+                        {eve.Host.includes(Auth.Phone) ?
+                          <FaUserFriends
+                            size={30}
+                            style={{
+                              backgroundColor: "white",
+                              color: "black",
+                              borderRadius: 20,
+                              padding: "0.1em 0.4em",
+                            }}
+                            onClick={() => {
+                              history.push(
+                                "/" +
+                                props.base +
+                                "/guestlist/" +
+                                props.id +
+                                "/" +
+                                index
+                              );
+                            }}
+                          /> : <>
+                            <span className="Like-count">
+                              {likeCount[index] != undefined
+                                ? likeCount[index].count
+                                : 0}
+                            </span>
+                            <AiOutlineLike
+                              size="25"
+                              className="info-icon"
+                              style={{ color: "#4e4e4e" }}
+                              onClick={() => {
+                                checkiflike(index);
+                                dispatch(like_event(eve._id));
+                              }}
+                            /></>}
+
                       </center>
                     </Col>
                     <Col
-                      onClick={() => {
-                        history.push("/" + props.base + "/rsvp/" + props.id);
-                      }}
+
                     >
                       <center>
-                        <div>
-                          <IsRsvp RSVPList={eve.RSVPList} />
-                          <AiOutlineSync
-                            size="25"
-                            style={{ color: "#4e4e4e" }}
+                        {eve.Host.includes(Auth.Phone) ? <>
+                          <IoShareSocialOutline
+                            size={30}
+                            style={{
+                              backgroundColor: "white",
+                              color: "black",
+                              borderRadius: 20,
+                              padding: "0.1em 0.4em",
+                            }}
+                            onClick={() => {
+                              history.push(
+                                "/" +
+                                props.base +
+                                "/event-create-success/" +
+                                eve.MainCode +
+                                '/Share'
+                              );
+                            }}
                           />
-                          {/* <Image
+                        </> :
+                          <div onClick={() => {
+                            history.push("/" + props.base + "/rsvp/" + props.id);
+                          }}>
+                            <IsRsvp RSVPList={eve.RSVPList} />
+                            <AiOutlineSync
+                              size="25"
+                              style={{ color: "#4e4e4e" }}
+                            />
+                            {/* <Image
                             src={RSVP}
 
                             className="info-icon"
                           /> */}
-                        </div>
+                          </div>}
                       </center>
                     </Col>
                     <Col>

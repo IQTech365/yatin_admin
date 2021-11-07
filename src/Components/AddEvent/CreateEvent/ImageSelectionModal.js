@@ -91,7 +91,6 @@ export function ImageSelectionModalTemplates(props) {
   };
 
   useEffect(async () => {
-    debugger;
     // let AllTemplatescpy = await AllTemplates.filter(async (temps, index) => {
     //   return temps.Category === props.Type;
     // });
@@ -122,19 +121,19 @@ export function ImageSelectionModalTemplates(props) {
                 }}
               />
             </div>
-            <div style={{textAlign:'center'}}>
-            <Button
-              className="btn-primary"
-              onClick={() => {
-                save(allimgsforcategory[currentimage].urlToImage[0].src);
-              }}
-              className="template_btn"
-              style={{marginTop:2}}
-            >
-              Edit
-            </Button>
+            <div style={{ textAlign: 'center' }}>
+              <Button
+                className="btn-primary"
+                onClick={() => {
+                  save(allimgsforcategory[currentimage].urlToImage[0].src);
+                }}
+                className="template_btn"
+                style={{ marginTop: 2 }}
+              >
+                Edit
+              </Button>
             </div>
-           
+
 
             <div
               style={{

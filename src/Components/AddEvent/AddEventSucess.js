@@ -21,6 +21,7 @@ export default function AddEventSucess(props) {
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
   const [pwd, setpwd] = useState("");
+  const [currentcode, setCurrentCode] = useState("")
   const [mode, setmode] = useState();
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
@@ -28,8 +29,11 @@ export default function AddEventSucess(props) {
   const [image, getImage] = useState("");
   const [filetype, getfiletype] = useState("");
   const [type, setType] = useState("");
-    const [isShowingAlert, setShowingAlert] = React.useState(false);
-
+  const [isShowingAlert, setShowingAlert] = React.useState(false);
+  const [selectedindex, setselectedindex] = useState(null);
+  useEffect(() => {
+    console.log('changed')
+  }, [currentcode])
   useEffect(() => {
     axios
       .post(url + "event/viewinvitation", {
@@ -38,10 +42,11 @@ export default function AddEventSucess(props) {
       .then(async (res) => {
         await setallevents(res.data.Events);
         if (res.data.Events[0].EntryWay === "Code") {
+          setCurrentCode(res.data.Events[0].Name + " code: " + res.data.Events[0].code)
           setSelectedCode(
             res.data.Events[0].Name + " code: " + res.data.Events[0].code
           );
-
+          await setselectedindex(res.data.Events[0].code)
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
             maincode +
@@ -70,6 +75,7 @@ export default function AddEventSucess(props) {
             "/" +
             res.data.Events[0].code
           );
+          await setselectedindex(res.data.Events[0].code)
           await setWatsapp(
             "Hi there ! You have been invited by " +
             Auth.Name +
@@ -87,9 +93,9 @@ export default function AddEventSucess(props) {
     // console.log(allevents);
   }, []);
 
-  const handleOnSubmit = async () => {
+  const handleOnSubmit = async (all) => {
     setShowingAlert(true)
-    debugger;
+
     var filesArray = [];
     let file = "";
     const response = await fetch(image);
@@ -104,6 +110,13 @@ export default function AddEventSucess(props) {
 
     // console.log(file);
     if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+      let url = ''
+      if (all === true) {
+        url = "https://mobillyinvite.com/MyInvitations/" + maincode;
+      } else {
+        url = "https://mobillyinvite.com/MyInvitations/" + maincode + '/' + selectedindex;
+      }
+
       await navigator
         .share({
           title: "Hello👋",
@@ -122,7 +135,7 @@ export default function AddEventSucess(props) {
             " " +
             "Please See Your Digital Invite🎉 on the Link Below",
 
-          url: "https://mobillyinvite.com/MyInvitations/" + maincode,
+          url: url,
           files: filesArray,
         })
         .then(() => console.log("Successful share"))
@@ -138,23 +151,26 @@ export default function AddEventSucess(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = async (data, Name) => {
-    await setSelectedCode(Name);
-    await setcodesharelink(
-      " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
-    );
-    await setWatsapp(
-      "Hi there ! You have been invited by " +
-      Auth.Name +
-      " to " +
-      allevents[0].Name +
-      ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-      " https://mobillyinvite.com/MyInvitations/" +
-      maincode +
-      "/" +
-      allevents[0].code
-    );
-    setAnchorEl(null);
+  const handleClose = async (e) => {
+    console.log(e.target.value.split(":")[1])
+    await setselectedindex(e.target.value.split(":")[1]);
+    await setCurrentCode(e.target.value)
+    await setSelectedCode(e.target.value)
+    // await setcodesharelink(
+    //   " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
+    // );
+    // await setWatsapp(
+    //   "Hi there ! You have been invited by " +
+    //   Auth.Name +
+    //   " to " +
+    //   allevents[0].Name +
+    //   ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+    //   " https://mobillyinvite.com/MyInvitations/" +
+    //   maincode +
+    //   "/" +
+    //   allevents[0].code
+    // );
+    // setAnchorEl(null);
   };
   useEffect(() => {
     if (navigator.share === undefined) {
@@ -201,16 +217,10 @@ export default function AddEventSucess(props) {
             allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
-                {/* <FormControl
-                  variant="outlined"
-                  className="w-100-p "
-                  size="small"
-                  variant="outlined"
-                > */}
+
                 <select
-                  native
-                  value={SelectedCode}
-                  onChange={handleClose}
+                  value={currentcode}
+                  onChange={(e) => { setselectedindex(e.target.value.split(":")[1]); setCurrentCode(e.target.value) }}
                   style={{
                     textAlign: "center",
 
@@ -223,39 +233,20 @@ export default function AddEventSucess(props) {
                   {allevents &&
                     allevents.map((eve) => (
                       <option
-                        value={(eve.code, eve.Name + "Code :" + eve.code)}
+                        value={eve.Name + "Code :" + eve.code}
                       >
                         {" "}
                         {eve.Name + "Code :" + eve.code}
                       </option>
                     ))}
                 </select>
-                {/* </FormControl> */}
-                {/* <Grid container spacing={0}>
-                  <Grid
-                    item
-                    xs={10}
-                    md={11}
-                    className="link p-t-5"
-                    onClick={(e) => {
-                      handleClick(e);
-                    }}
-                  >
-                    {SelectedCode}
-                  </Grid>
-                  <Grid item xs={2} md={1} className="p-t-10">
-                    <FileCopyIcon
-                      className="v-t"
-                      onClick={() => {
-                        navigator.clipboard.writeText(sharelink);
-                      }}
-                    />
-                  </Grid>
-                </Grid> */}
+
               </Grid>
               <Grid item xs={2}>
                 <IconButton style={{ backgroundColor: "antiquewhite" }}>
-                  <MdShare onClick={handleOnSubmit}></MdShare>
+                  <MdShare onClick={async () => {
+                    await handleOnSubmit(false);
+                  }}></MdShare>
                 </IconButton>
               </Grid>
             </>
@@ -291,25 +282,28 @@ export default function AddEventSucess(props) {
               </Grid>
             </Grid>
           </Grid> */}
-        
-          
+
+
               <FcShare
-                onClick={handleOnSubmit}
+                onClick={async () => {
+                  await handleOnSubmit(true);
+                }
+                }
                 className="share-button"
                 type="button"
                 title="Share this article"
                 size={40}
                 style={{ marginRight: "10px" }}
               />
-   <div>
-        <div
-          className={`alert alert-success ${isShowingAlert ? 'alert-shown' : 'alert-hidden'}`}
-          onTransitionEnd={() => setShowingAlert(false)}
-        >
-          <strong>Wait!</strong> Generating Link
-        </div>
-       
-      </div>
+              <div>
+                <div
+                  className={`alert alert-success ${isShowingAlert ? 'alert-shown' : 'alert-hidden'}`}
+                  onTransitionEnd={() => setShowingAlert(false)}
+                >
+                  <strong>Wait!</strong> Generating Link
+                </div>
+
+              </div>
               {/*    <WhatsappShareButton
                 url={" "}
                 title={
@@ -348,7 +342,7 @@ export default function AddEventSucess(props) {
           </Grid>
         </Grid>
       </Grid>
-      <Menu
+      {/* <Menu
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -364,7 +358,7 @@ export default function AddEventSucess(props) {
               {eve.Name + "Code :" + eve.code}
             </MenuItem>
           ))}
-      </Menu>
+      </Menu> */}
     </Grid>
   );
 }

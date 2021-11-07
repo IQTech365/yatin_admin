@@ -6,7 +6,7 @@ import "./EventAdmin.css";
 import Chart from "react-apexcharts";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../Utils/History";
-import {IoIosArrowBack} from "react-icons/io"
+import { IoIosArrowBack } from "react-icons/io"
 import { url } from "../../Utils/Config";
 import axios from "axios";
 import { GetEvents } from "../../Redux/DispatchFuncitons/Eventfunctions";
@@ -30,7 +30,7 @@ export default function EventAdmin(props) {
 
   useEffect(async () => {
     if (MyEvents && MyEvents.length > 0) {
-      debugger
+
       let Rsvplistcpy = []
       let accept = [];
       let decline = [];
@@ -187,7 +187,7 @@ export default function EventAdmin(props) {
               <Grid
                 item
                 xs={12}
-                style={{marginTop:30}}
+                style={{ marginTop: 30 }}
                 className="tac m-b-25px clipboard"
                 onClick={() => {
                   navigator.clipboard.writeText(

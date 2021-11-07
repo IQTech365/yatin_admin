@@ -15,7 +15,7 @@ export default function AddPost(props) {
     const Auth = useSelector((state) => state.Auth);
 
     const onDrop = useCallback(async (acceptedFiles) => {
-        debugger
+
         if (acceptedFiles[0].size > 80259265) {
             alert("Max file size 5mb");
             return false;

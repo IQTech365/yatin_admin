@@ -41,7 +41,7 @@ export default function UserProfile(props) {
     accept: "image/jpeg, image/png, image/jpg",
   });
   const save = async () => {
-    debugger
+
     if (Name === "" || DOB === "" || Gender === "") {
       setshowerror(true);
     } else {
