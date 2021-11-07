@@ -60,10 +60,10 @@ export default function EventList(props) {
             <Grid container spacing={0}>
               <Grid item xs={12}>
                 <Grid container spacing={0} className="event-info">
-                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '23px' }}>
+                  <Grid item xs={12} className="fs-bold t-white" style={{ fontSize: '18px' }}>
                     {inv[0].Name}
                   </Grid>
-                  <Grid item xs={6} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '5px', fontWeight: '700' }}>
+                  <Grid item xs={7} className="animated-list" style={{ color: 'black', fontSize: '15px', borderRadius: '5px', fontWeight: '700' }}>
                     <Dateformatter Date={inv[0].Date + " " + inv[0].Time} />
 
                   </Grid>

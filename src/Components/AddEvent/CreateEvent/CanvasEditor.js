@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
-import { BsFillInfoCircleFill } from "react-icons/bs";
 import "./CanvasEditor.scss";
 import { toPng } from "html-to-image";
 import { Grid } from "@material-ui/core";
+import {FcInfo} from "react-icons/fc";
 import CircularProgress from "@material-ui/core/CircularProgress";
 export default function CanvasEditor(props) {
     const [version, setversion] = useState(0);
@@ -15,6 +15,7 @@ export default function CanvasEditor(props) {
             await setIsProcessing(false);
         }, 5000);
     };
+
     const download = async () => {
         let file = await toPng(document.getElementById("image")).then(
             async function (blob) {
@@ -35,6 +36,10 @@ export default function CanvasEditor(props) {
                     <CircularProgress style={{ position: "relative", top: "200px" }} />
                 </center>
             ) : (
+                <>
+                <p style={{marginLeft:10, fontSize:'15px'}}>
+                    <FcInfo size={23} /> Click on the text to edit
+                </p>
                 <div
                     id="image"
                     style={{
@@ -79,13 +84,19 @@ export default function CanvasEditor(props) {
                         )
                     )}
                 </div>
+                </>
             )}
             {IsSaving === false ? (
                 <Grid container spacing={0}>
+                    
                     <Grid item xs={6} justify="center">
-                        <center style={{ paddingTop: "10px" }}>
+                    
+                        <center style={{ paddingTop: "10px"}}>
+                    {/*     <p style={{margin:'auto', textAlign:'left', marginLeft:'15px' }}>Colors</p> */}
                             {props.allimgsforcategory[props.currentimage].urlToImage.map(
                                 (options, index) => (
+                                    <>
+                                    
                                     <Button
                                         className="color-blocks"
                                         style={{ backgroundColor: options.color }}
@@ -94,6 +105,7 @@ export default function CanvasEditor(props) {
                                             loadIamge();
                                         }}
                                     ></Button>
+                                    </>
                                 )
                             )}
                         </center>
@@ -113,6 +125,7 @@ export default function CanvasEditor(props) {
                         </button>
                     </Grid>
                 </Grid>
+               
             ) : (
                 <>
                     <center>
