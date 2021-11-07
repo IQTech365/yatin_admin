@@ -93,9 +93,10 @@ export default function Hoxinvitation(props) {
     }
   }
   useEffect(async () => {
+    debugger;
     let islogeding = reactLocalStorage.get("isLoggedIn");
     let phone = reactLocalStorage.get("Phone");
-    if (props.match.params.Name === undefined) {
+    if (props.match.params.Code === undefined) {
       console.log(props.match.params.maincode);
       await axios
         .post(url + "event/viewinvite", {
@@ -143,7 +144,9 @@ export default function Hoxinvitation(props) {
             for (let i = 0; i < EVENTCPY.length; i++) {
               EVENTCPY[i].Description = await replacelinks(EVENTCPY[i].Description)
             }
-
+            await EVENTCPY.filter(eve => {
+              return eve.code !== props.match.params.Code;
+            })
             await setInvitations(EVENTCPY);
           }
         })
