@@ -97,7 +97,9 @@ export default function Guest(props) {
       found = false;
     }
     await setshouldchange(true);
+    all = [...new Set(all)];
     await setguestList(all);
+
     await setguestListaccept(accept);
     await setguestListdecline(decline);
     await setguestListmaybe(maybe);
@@ -117,7 +119,7 @@ export default function Guest(props) {
           }}
         >
           <Col xs={10}>
-            
+
             <p style={{ fontWeight: "bold", fontSize: 20 }}>
               <IoIosArrowBack
                 size={32}
@@ -176,7 +178,7 @@ export default function Guest(props) {
                       </Grid>
                       <Grid item xs={12} className="m-0 ">
                         <span
-                      style={{fontWeight:'bold'}}
+                          style={{ fontWeight: 'bold' }}
                           className={
                             guest.Status === "Accept"
                               ? "user-accept"

@@ -23,6 +23,7 @@ import { IoSendSharp } from "react-icons/io5";
 import './Invitations.css'
 import './InvitationMain/InvitaionMain.css'
 import { addEvent } from '../../Redux/DispatchFuncitons/CodeFunctions'
+import { reactLocalStorage } from "reactjs-localstorage";
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
   const [show, setshow] = useState(false);
@@ -92,15 +93,25 @@ export default function Hoxinvitation(props) {
     }
   }
   useEffect(async () => {
-    if (props.match.params.Name === undefined) {
+    debugger;
+    let islogeding = reactLocalStorage.get("isLoggedIn");
+    let phone = reactLocalStorage.get("Phone");
+    if (props.match.params.Code === undefined) {
       console.log(props.match.params.maincode);
       await axios
         .post(url + "event/viewinvite", {
           MainCode: props.match.params.maincode,
         })
         .then(async (res) => {
+
           console.log(res);
           if (res.data.Status === "success") {
+            if (islogeding && phone) {
+              if (res.data.Events[0].Participants.includes(phone) || res.data.Events[0].Host.includes(phone)) {
+                history.push('/home')
+              }
+            }
+
             let EVENTCPY = [...res.data.Events]
             //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             for (let i = 0; i < EVENTCPY.length; i++) {
@@ -122,12 +133,20 @@ export default function Hoxinvitation(props) {
         })
         .then(async (res) => {
           if (res.data.Status === "success") {
+            if (islogeding && phone) {
+              if (res.data.Events[0].Participants.includes(phone) || res.data.Events[0].Host.includes(phone)) {
+                history.push('/home');
+
+              }
+            }
             let EVENTCPY = [...res.data.Events]
             //  await dispatch(addEvent(res.data.Events[0].code, res.data.Events[0].maincode))
             for (let i = 0; i < EVENTCPY.length; i++) {
               EVENTCPY[i].Description = await replacelinks(EVENTCPY[i].Description)
             }
-
+            await EVENTCPY.filter(eve => {
+              return eve.code !== props.match.params.Code;
+            })
             await setInvitations(EVENTCPY);
           }
         })

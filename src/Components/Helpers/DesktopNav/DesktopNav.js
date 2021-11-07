@@ -92,7 +92,7 @@ export default function DesktopNav(props) {
           <BiNews size={30} />
           Feed
         </Col>
-        <Col
+        {/* <Col
           md={2}
           className="tac"
           onClick={() => {
@@ -101,7 +101,7 @@ export default function DesktopNav(props) {
         >
           <AiOutlineBell size={30} />
           Notifications
-        </Col>
+        </Col> */}
         <Col md={2} className="tac">
           <DropdownButton id="dropdown-item-button" title="More">
             <Dropdown.Item

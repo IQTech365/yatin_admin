@@ -28,7 +28,7 @@ export default function Invitation(props) {
     return <img src={NoInv} className="nodata" />;
   }
   const checkifauth = async (index) => {
-    debugger
+
     await setselected(index)
     if (data[index][0].InvId.HasAuth === undefined || data[index][0].InvId.HasAuth === false) {
       history.push("/inv/eventpage/" + index)
@@ -152,7 +152,7 @@ export function Password(props) {
   const dispatch = useDispatch()
   const [PWD, setPWD] = useState();
   const verify = async () => {
-    debugger
+
     if (PWD === props.MainCode[props.showall][0].InvId.PassWord) {
       await dispatch(authInv(props.MainCode[props.showall][0].InvId._id, props.showall))
     }

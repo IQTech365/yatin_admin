@@ -63,7 +63,6 @@ export default function EditEvent(props) {
 
   };
   useEffect(async () => {
-    debugger
     if (typeof Description === "object") {
       await setDescription(MyEvents[props.match.params.invno].Description.props.children)
     }
