@@ -118,7 +118,49 @@ export default function InvitaionMain(props) {
     }
     setcommentcountplus(0);
   }, [props.Eventdata]);
+  const share = async (image, filetype, url, Name, Date) => {
 
+    var filesArray = [];
+    let file = "";
+    const response = await fetch(image);
+    const blob = await response.blob();
+    if (filetype === "jpeg" || filetype === "png" || filetype === "jpg") {
+      file = new File([blob], "image.jpg", { type: blob.type });
+      filesArray = [file];
+    } else {
+      file = await new File([blob], "video." + filetype, { type: blob.type });
+      filesArray = [file];
+    }
+    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+
+
+      await navigator
+        .share({
+          title: "Hello👋",
+          text:
+            "Hi👋 You Have Been Invited By " +
+            " " +
+            Auth.Name +
+            " " +
+            "to" +
+            " " +
+            Name +
+            " " +
+            "on" +
+            " " +
+            Date +
+            " " +
+            "Please See Your Digital Invite🎉 on the Link Below",
+
+          url: url,
+          files: filesArray,
+        })
+        .then(() => console.log("Successful share"))
+        .catch((error) => console.log("Error in sharing", error));
+    } else {
+      console.log(`system does not support sharing files.`);
+    }
+  }
   return (
     <>
       {iscommenting === true ? <CircularProgress style={{
@@ -327,13 +369,15 @@ export default function InvitaionMain(props) {
                               padding: "0.1em 0.4em",
                             }}
                             onClick={() => {
-                              history.push(
-                                "/" +
-                                props.base +
-                                "/event-create-success/" +
-                                eve.MainCode +
-                                '/Share'
-                              );
+                              share(eve.file, eve.filetype,
+                                "https://mobillyinvite.com/MyInvitations/" + eve.MainCode + '/' + eve.code, eve.Name, eve.Date)
+                              // history.push(
+                              //   "/" +
+                              //   props.base +
+                              //   "/event-create-success/" +
+                              //   eve.MainCode +
+                              //   '/Share'
+                              // );
                             }}
                           />
                         </> :
