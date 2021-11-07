@@ -6,6 +6,7 @@ import Icon from "../../../Assets/comment.png";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import ShareVideo from "../../../Assets/ShareVideo.mp4"
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { HiHome } from "react-icons/hi";
@@ -23,7 +24,9 @@ import {
 import history from "../../../Utils/History";
 import NavMobile from "../../Helpers/NavMobile/NavMobile";
 import DesktopNav from "../../Helpers/DesktopNav/DesktopNav";
+import {FiShare2} from "react-icons/fi"
 import { FaUserFriends } from "react-icons/fa";
+import {FiUsers} from "react-icons/fi"
 import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -118,20 +121,13 @@ export default function InvitaionMain(props) {
     }
     setcommentcountplus(0);
   }, [props.Eventdata]);
+  
   const share = async (image, filetype, url, Name, Date) => {
 
-    var filesArray = [];
-    let file = "";
-    const response = await fetch(image);
+    const response = await fetch(ShareVideo);
     const blob = await response.blob();
-    if (filetype === "jpeg" || filetype === "png" || filetype === "jpg") {
-      file = new File([blob], "image.jpg", { type: blob.type });
-      filesArray = [file];
-    } else {
-      file = await new File([blob], "video." + filetype, { type: blob.type });
-      filesArray = [file];
-    }
-    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+    const file = new File([blob], "share.mp4", { type: blob.type });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
 
 
       await navigator
@@ -153,7 +149,7 @@ export default function InvitaionMain(props) {
             "Please See Your Digital Invite🎉 on the Link Below",
 
           url: url,
-          files: filesArray,
+          files: [file],
         })
         .then(() => console.log("Successful share"))
         .catch((error) => console.log("Error in sharing", error));
@@ -191,6 +187,7 @@ export default function InvitaionMain(props) {
                   }}
                 >
                   <p style={{ color: "black" }}>
+                    
                     <HiHome
                       style={{ backgroundColor: "white", borderRadius: "50px" }}
                       size={30}
@@ -200,7 +197,7 @@ export default function InvitaionMain(props) {
                     />
                   </p>
                   <Col></Col>
-                  <FaUserFriends
+                  {eve.Host.includes(Auth.Phone) ? <></> : <>  <FaUserFriends
                     size={30}
                     style={{
                       backgroundColor: "white",
@@ -218,7 +215,8 @@ export default function InvitaionMain(props) {
                         index
                       );
                     }}
-                  />
+                  /></>}
+                
                 </Row>
               </Container>
               <Container className="container-event">
@@ -319,14 +317,9 @@ export default function InvitaionMain(props) {
                     <Col>
                       <center>
                         {eve.Host.includes(Auth.Phone) ?
-                          <FaUserFriends
-                            size={30}
-                            style={{
-                              backgroundColor: "white",
-                              color: "black",
-                              borderRadius: 20,
-                              padding: "0.1em 0.4em",
-                            }}
+                          <FiUsers
+                            size={22}
+                           
                             onClick={() => {
                               history.push(
                                 "/" +
@@ -360,14 +353,9 @@ export default function InvitaionMain(props) {
                     >
                       <center>
                         {eve.Host.includes(Auth.Phone) ? <>
-                          <IoShareSocialOutline
-                            size={30}
-                            style={{
-                              backgroundColor: "white",
-                              color: "black",
-                              borderRadius: 20,
-                              padding: "0.1em 0.4em",
-                            }}
+                          <FiShare2
+                            size={23}
+                           
                             onClick={() => {
                               share(eve.file, eve.filetype,
                                 "https://mobillyinvite.com/MyInvitations/" + eve.MainCode + '/' + eve.code, eve.Name, eve.Date)
