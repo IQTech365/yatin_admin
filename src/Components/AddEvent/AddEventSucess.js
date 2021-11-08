@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./AddEvent.css";
 import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
+import ShareVideo from "../../Assets/ShareVideo.mp4"
 import { Grid } from "@material-ui/core";
 import check from "../../Assets/check-circle.1.png";
 import { FcShare } from "react-icons/fc";
@@ -96,20 +97,13 @@ export default function AddEventSucess(props) {
   const handleOnSubmit = async (all) => {
     setShowingAlert(true)
 
-    var filesArray = [];
-    let file = "";
-    const response = await fetch(image);
+    const response = await fetch(ShareVideo);
     const blob = await response.blob();
-    if (filetype === "jpeg" || filetype === "png" || filetype === "jpg") {
-      file = new File([blob], "image.jpg", { type: blob.type });
-      filesArray = [file];
-    } else {
-      file = await new File([blob], "video." + filetype, { type: blob.type });
-      filesArray = [file];
-    }
+    const file = new File([blob], "share.mp4", { type: blob.type });
+   
 
     // console.log(file);
-    if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
       let url = ''
       if (all === true) {
         url = "https://mobillyinvite.com/MyInvitations/" + maincode;
@@ -136,7 +130,7 @@ export default function AddEventSucess(props) {
             "Please See Your Digital Invite🎉 on the Link Below",
 
           url: url,
-          files: filesArray,
+          files: [file],
         })
         .then(() => console.log("Successful share"))
         .catch((error) => console.log("Error in sharing", error));

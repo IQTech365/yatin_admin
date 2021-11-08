@@ -31,7 +31,7 @@ export default function HomePage() {
           <Features />
           <AboutBanner />
           <Additionals />
-          <Testimonials />
+          {/* <Testimonials /> */}
        {/*  <CompanySlide />  */}
           <Contact />
           <Footer />

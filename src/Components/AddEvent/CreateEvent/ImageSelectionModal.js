@@ -15,7 +15,7 @@ SwiperCore.use([Pagination]);
 export default function ImageSelectionModal(props) {
   const [Show, setswitch] = useState(false);
   const onDrop = useCallback(async (acceptedFiles) => {
-    if (acceptedFiles[0].size > 20259265) {
+    if (acceptedFiles[0].size > 620259265) {
       alert("Max file size 10 mb");
       return false;
     }
