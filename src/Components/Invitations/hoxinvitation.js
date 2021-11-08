@@ -175,7 +175,7 @@ export default function Hoxinvitation(props) {
 
         setshow(true);
       }}></div>
-      <Carousel controls={false} interval={99999999999999} className="mb-10 invitation_carousel">
+      <Carousel controls={true} slide={true} interval={7000} slide={true} className="mb-10 invitation_carousel">
         {Invitations &&
           Invitations.map((eve, index) => (
             <Carousel.Item
