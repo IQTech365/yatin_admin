@@ -232,3 +232,7 @@
     max-height: 47vh !important;
   }
 }
+.read-more-less--more,
+.read-more-less--less {
+  color: #999;
+}
