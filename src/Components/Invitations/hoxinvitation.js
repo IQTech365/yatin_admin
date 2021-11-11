@@ -37,6 +37,7 @@ import online from "../../Assets/online.png";
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
   const [show, setshow] = useState(false);
+  const [showdes, setshowdes] = useState(false);
 
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
@@ -221,7 +222,7 @@ export default function Hoxinvitation(props) {
                   type="video/mp4"
                   preload="metadata"
                   loop
-                  autoPlay
+                  autoplay="autoplay"
                 >
                   <source src={eve.file} type="video/mp4"></source>
                 </video>
@@ -364,7 +365,7 @@ export default function Hoxinvitation(props) {
                   style={{ marginTop: "20px", justifyContent: "center" }}
                 >
                   <Grid item xs={11}>
-                    <p style={{ fontSize: "12px", textOverflow: "ellips" }}>
+                    <p style={{ fontSize: "12px"}}>
                       {eve.Description}
                     </p>
                   </Grid>
