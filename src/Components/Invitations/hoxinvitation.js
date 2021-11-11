@@ -219,10 +219,8 @@ export default function Hoxinvitation(props) {
                 <video
                   className="w-100"
                   style={{ height: "100vh", objectFit: "cover" }}
-                  type="video/mp4"
-                  preload="metadata"
-                  loop
-                  autoplay="autoplay"
+                  type="video/mp4"                 
+                  autoPlay muted
                 >
                   <source src={eve.file} type="video/mp4"></source>
                 </video>
