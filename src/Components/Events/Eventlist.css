@@ -76,3 +76,20 @@
 		background-position: 0% 50%;
 	}
 }
+
+.animated-hox{
+  background: linear-gradient(to right, #40e0d0, #ff8c00, #f0479b);
+	background-size: 400% 400%;
+	animation: gradient 8s ease infinite;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

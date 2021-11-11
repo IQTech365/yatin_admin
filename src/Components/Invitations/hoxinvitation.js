@@ -15,8 +15,9 @@ import { GoCalendar, GoLocation } from "react-icons/go";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import history from "../../Utils/History";
 import LoginSignup from "../Auth/LoginSignup";
+import hoxLogin from "../Auth/hoxLogin";
 import { FaUserFriends } from "react-icons/fa";
-import Popup from "../Helpers/Popups/Popup";
+import Fullsizepopup from "../Helpers/Popups/Fullsizepopup";
 import { useSelector, useDispatch } from "react-redux";
 import { GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
 import hoxInvImg from "../../Assets/hoxInvImg.jpg";
@@ -36,7 +37,6 @@ import online from "../../Assets/online.png";
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
   const [show, setshow] = useState(false);
-  const [setshowfulldescription, showfulldescription] = useState(false);
 
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => {
@@ -75,7 +75,7 @@ export default function Hoxinvitation(props) {
     }
   }, [Auth.isLoggedIn]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     const intervalId = setTimeout(() => {
       setshow(true);
     }, 8000);
@@ -83,7 +83,7 @@ export default function Hoxinvitation(props) {
     // clear interval on re-render to avoid memory leaks
     return () => clearInterval(intervalId);
   }, []);
-
+ */
   const replacelinks = (desc) => {
     var sindices = [];
     var eindices = [];
@@ -187,8 +187,8 @@ export default function Hoxinvitation(props) {
 
   return (
     <>
-      <Popup
-        component={LoginSignup}
+      <Fullsizepopup
+        component={hoxLogin}
         toggleShowPopup={setshow}
         showPopup={show}
       />
@@ -212,14 +212,13 @@ export default function Hoxinvitation(props) {
               eve.filetype === "jpeg" ? (
                 <Image
                   src={eve.file}
-                  style={{ height: "100vh", objectFit: "cover" }}
+                  style={{ height: "100vh", objectFit: "cover", width: "100%" }}
                 />
               ) : (
                 <video
                   className="w-100"
                   style={{ height: "100vh", objectFit: "cover" }}
                   type="video/mp4"
-                  controls={true}
                   preload="metadata"
                   loop
                   autoPlay
@@ -229,17 +228,10 @@ export default function Hoxinvitation(props) {
               )}
               <Container
                 style={{
-                  width: "90%",
-                  height: "70vh",
-                  background: "white",
-                  position: "fixed",
-                  bottom: 0,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  borderTopLeftRadius: "23px",
-                  borderTopRightRadius: "23px",
                   opacity: "0.85",
+                  overflow: "scroll",
                 }}
+                className="hoxInv-container"
               >
                 <Grid
                   container
@@ -337,7 +329,8 @@ export default function Hoxinvitation(props) {
                 ) : (
                   <></>
                 )}
-                {eve.VenueType === "Online" ? (
+                {eve.VenueType === "Online" ||
+                eve.VenueType === "Online-Inapp" ? (
                   <>
                     {" "}
                     <Grid
@@ -371,14 +364,7 @@ export default function Hoxinvitation(props) {
                   style={{ marginTop: "20px", justifyContent: "center" }}
                 >
                   <Grid item xs={11}>
-                    <p style={{ fontSize: "12px" }}>
-                      {/*  {isReadMore ? eve.Description.slice(0, 50): eve.Description }
-      // condition that will render 'read more' only if the text.length is greated than 150 chars
-      {eve.Description.length > 50 &&
-        <span onClick={toggleReadMore}>
-          {isReadMore ? '...read more' : ' ...show less'}
-        </span>
-      } */}
+                    <p style={{ fontSize: "12px", textOverflow: "ellips" }}>
                       {eve.Description}
                     </p>
                   </Grid>
@@ -395,6 +381,7 @@ export default function Hoxinvitation(props) {
                           borderRadius: "12px",
                           borderColor: "#EB304A",
                           padding: "10px",
+                          fontSize: "15px"
                         }}
                         onClick={() => {
                           setshow(true);
