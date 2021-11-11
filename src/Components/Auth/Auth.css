@@ -223,9 +223,10 @@
   font-size: 16px;
 }
 .react-tel-input .form-control {
-  background: #d1d1d1;
+  background: #a5a5a5;
   border: none;
   border-radius: 25px;
+  font-weight: 600;
   height: 50px;
   width: 100% !important;
 }
@@ -264,7 +265,7 @@
   width: 100% !important;
 }
 .react-tel-input .form-control {
-  background: #d1d1d1 !important;
+  background: #ededed !important;
   border: none !important;
   border-radius: 25px !important;
   height: 50px !important;

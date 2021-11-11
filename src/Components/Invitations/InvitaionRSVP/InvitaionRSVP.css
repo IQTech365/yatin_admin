@@ -34,7 +34,7 @@
 }
 .carousel-inner {
   height: 100vh !important;
-  overflow: scroll;
+  overflow: hidden;
 }
 .carousel-indicators {
   /* border-radius: 100% !important;
