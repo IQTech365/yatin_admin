@@ -229,6 +229,7 @@ export default function InvitaionMain(props) {
                     type="video/mp4"
                     autoPlay={true}
                     controls={true}
+                    controlsList="nodownload"
                     src={eve.file}
                     preload="none"
                     className="w-100 fullimagemain"
