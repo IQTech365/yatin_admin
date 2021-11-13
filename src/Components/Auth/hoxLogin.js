@@ -112,7 +112,7 @@ export default function HoxLogin() {
                 disabled={agree === false || term === false}
                 className="get-otp-button"
               >
-                Request OTP
+                Continue
               </Button>
             {/*   <Form.Check
                 type="checkbox"
