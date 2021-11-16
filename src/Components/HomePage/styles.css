@@ -617,3 +617,13 @@ a.blantershow-chat i {
 .list-height{
   margin-top: 5px;
 }
+
+.tabtemp-slider, .nav-link.active{
+  text-decoration: underline;
+  color: #3897f1;
+  text-decoration: underline;
+  font-weight: bolder;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 4px;
+  border: none;
+}
