@@ -21,6 +21,8 @@ import DarkLogo from "../../Assets/DarkLogo.png";
 
 SwiperCore.use([Autoplay, Pagination, Navigation, Scrollbar]);
 
+
+
 export default function MainBanner() {
   const [showPopup, toggleShowPopup] = useState(false);
   const Auth = useSelector((state) => state.Auth);
@@ -83,12 +85,12 @@ export default function MainBanner() {
                 marginTop: 20,
               }}
             >
-              <Form.Control
+           {/*    <Form.Control
                 type="number"
                 placeholder="Working on it"
                 className="phonenumber_text"
                 disabled
-              />
+              /> */}
             </Row>
             <Row style={{ marginTop: 13 }}>
               <Button

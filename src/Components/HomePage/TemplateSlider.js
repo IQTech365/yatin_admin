@@ -28,11 +28,12 @@ function TemplateSlider(props) {
         <Tabs
           defaultActiveKey="home"
           id="uncontrolled-tab-example"
-         
+          className="tabstemp-slider"
           style={{
             display: "flex",
             justifyContent: "center",
             marginTop: "20px",
+            backgroundColor:'white'
 
           }}
         >
