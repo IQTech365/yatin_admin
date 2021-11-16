@@ -8,7 +8,7 @@ import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import { likepost } from "../../Redux/DispatchFuncitons/postfunctions";
 import "react-bootstrap-tagsinput/dist/index.css";
 import { FcLike } from "react-icons/fc";
-import { FaRegCommentDots } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa";
 import { FcLikePlaceholder } from "react-icons/fc";
 import FeedComments from "./FeedComments";
 import { MdDeleteForever } from "react-icons/md";
@@ -40,7 +40,7 @@ export default function Postrender(props) {
             <>
                 {Posts.map((post, index) => (
                     <Container
-                        className="main-feed "
+                        className="main-feed"
                         style={{
                             marginTop: 10,
                             padding: 20,
@@ -52,7 +52,7 @@ export default function Postrender(props) {
                                 <UserData showIcon={true} Phone={post.by} className="fl" />
                             </Col>
                             <Col className="m-0 p-0">
-                                <p className=" m-5px fs-14">
+                                <p className="m-5px fs-14">
                                     <b>
                                         <UserDataUrl Phone={post.by} showName={true} />
                                     </b>
@@ -85,16 +85,16 @@ export default function Postrender(props) {
                                 post.filetype === "jpg" ||
                                 post.filetype === "jpeg" ||
                                 post.filetype === "image" ? (
-                                <Image src={post.fileurl} fluid />
+                                <Image src={post.fileurl} fluid style={{height:'auto', padding:'4px', borderRadius:'10px'}}/>
                             ) : (
                                 <center>
                                     <video
-                                        height="360"
                                         width={window.innerWidth > 500 ? 800 : window.innerWidth}
                                         autoplay={true}
                                         type="video/mp4"
                                         controls={true}
                                         preload="metadata"
+                                        style={{height:'auto'}}
                                     >
                                         <source src={post.fileurl + "#t=0.5"} type="video/mp4"></source>
                                     </video>
@@ -141,7 +141,7 @@ export default function Postrender(props) {
                                             }
                                         }}
                                     >
-                                        <FaRegCommentDots size={25} style={{ marginLeft: 30 }} />
+                                        <FaRegComment size={23} style={{ marginLeft: 30 }} />
 
                                         {post.CommentList.length}
                                     </a>

@@ -97,7 +97,7 @@ export default function MainBanner() {
                   toggleShowPopup(true);
                 }}
               >
-                Try Now
+                Create Event
               </Button>
             </Row>
             <Row className="row_down">
