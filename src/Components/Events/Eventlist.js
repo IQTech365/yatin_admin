@@ -47,6 +47,8 @@ export default function EventList(props) {
               src={
                 inv[0].file
               }
+              onContextMenu={e => e.preventDefault()}
+              controlsList="nodownload"
               onClick={() => {
                 history.push("/MyEvents/eventpage/" + index);
               }}

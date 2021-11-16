@@ -85,6 +85,8 @@ export default function Invitation(props) {
               type="video/mp4"
               autoPlay={true}
               preload="none"
+              onContextMenu={e => e.preventDefault()}
+              controlsList="nodownload"
               src={
                 inv[0].file
               }

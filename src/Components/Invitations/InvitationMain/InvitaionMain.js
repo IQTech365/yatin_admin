@@ -230,6 +230,7 @@ export default function InvitaionMain(props) {
                     autoPlay={true}
                     controls={true}
                     controlsList="nodownload"
+                    onContextMenu={e => e.preventDefault()}
                     src={eve.file}
                     preload="none"
                     className="w-100 fullimagemain"
