@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import Invitation from "../Invitations/Invitation";
 import EventList from "../Events/Eventlist";
 import { useSelector, useDispatch } from "react-redux";
+import Alert from '@material-ui/lab/Alert';
 import {
   GetEvents,
   GetInvitations,
@@ -16,6 +17,7 @@ import { addme } from "../../Redux/DispatchFuncitons/Eventfunctions";
 export default function Home(props) {
   const dispatch = useDispatch();
   const [Menu, setMenu] = useState(0);
+  const [showtoast, setshowtoast] = useState(true);
   const CodeEvent = useSelector(state => state.CodeEvent)
   const EventState = useSelector((state) => state.Eventdata);
   useEffect(async () => {
@@ -50,8 +52,14 @@ export default function Home(props) {
   return (
     <><div className="w-100" >
       <Header url={props.location.pathname} />
+
     </div>
-      {/* <MobileHeader /> */}
+      {showtoast === true ? <Alert severity="error" color="error" className="desktop-only toaster " onClick={() => {
+        setshowtoast(false)
+      }}>
+        Please use Mobile for better Experience
+      </Alert> : <></>
+      }
       <Grid container spacing={0}>
         <Grid item xs={12} sm={12} md={12}>
           {Menu === 0 ? (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+
 import { BiNews } from "react-icons/bi";
 import { AiOutlineBell } from "react-icons/ai";
 import { Container, Row, Col, Dropdown, DropdownButton, Button } from "react-bootstrap";
@@ -35,6 +36,7 @@ export default function DesktopNav(props) {
 
   return (
     <Container className="navigation-box" fluid>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -112,14 +114,14 @@ export default function DesktopNav(props) {
             >
               Our Story
             </Dropdown.Item>
-            <Dropdown.Item
+            {/* <Dropdown.Item
               as="button"
               onClick={() => {
                 history.push("/" + props.base + "/albums/" + props.id);
               }}
             >
               Albums
-            </Dropdown.Item>
+            </Dropdown.Item> */}
             <Dropdown.Item
               as="button"
               onClick={() => {
