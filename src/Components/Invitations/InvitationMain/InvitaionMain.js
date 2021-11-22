@@ -408,13 +408,25 @@ export default function InvitaionMain(props) {
                           <>
                             {platform.name === "Safari" &&
                             platform.version.split(".")[0] >= 13 ? (
-                              <> <WhatsappShareButton
+                              <>  <WhatsappShareButton
                               url={"https://mobillyinvite.com/MyInvitations/" +
                               eve.MainCode +
                               "/" +
                               eve.code}
                               title={
-                                "Hii"
+                                "Hi👋 You Have Been Invited By " +
+                                " " +
+                                Auth.Name +
+                                " " +
+                                "to" +
+                                " " +
+                                eve.Name +
+                                " " +
+                                "on" +
+                                " " +
+                                eve.Date +
+                                " " +
+                                "Please See Your Digital Invite🎉 on the Link Below"
                               }
                               separator=" "
                               className="Demo__some-network__share-button"
@@ -550,6 +562,7 @@ export default function InvitaionMain(props) {
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
                   </p>
+                 
                  {" "}
 
                   {/* {eve.Description.length > 50 ? (
