@@ -6,6 +6,7 @@ import Icon from "../../../Assets/comment.png";
 import Image from "react-bootstrap/Image";
 import Container from "react-bootstrap/Container";
 import platform from "platform";
+import { WhatsappShareButton } from "react-share";
 import Form from "react-bootstrap/Form";
 import ShareVideo from "../../../Assets/ShareVideo.mp4";
 import Row from "react-bootstrap/Row";
@@ -34,6 +35,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import HelpIcon from "@material-ui/icons/Help";
 import { CircularProgress } from "@material-ui/core";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { FcShare } from "react-icons/fc";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
@@ -406,27 +408,19 @@ export default function InvitaionMain(props) {
                           <>
                             {platform.name === "Safari" &&
                             platform.version.split(".")[0] >= 13 ? (
-                              <><FiShare2
-                              size={23}
-                              onClick={() => {
-                                shareios(
-                  
-                                  "https://mobillyinvite.com/MyInvitations/" +
-                                    eve.MainCode +
-                                    "/" +
-                                    eve.code,
-                                  eve.Name,
-                                  eve.Date
-                                );
-                                // history.push(
-                                //   "/" +
-                                //   props.base +
-                                //   "/event-create-success/" +
-                                //   eve.MainCode +
-                                //   '/Share'
-                                // );
-                              }}
-                            /></>
+                              <> <WhatsappShareButton
+                              url={"https://mobillyinvite.com/MyInvitations/" +
+                              eve.MainCode +
+                              "/" +
+                              eve.code}
+                              title={
+                                "Hii"
+                              }
+                              separator=" "
+                              className="Demo__some-network__share-button"
+                            >
+                             <FiShare2 size={23}/>
+                            </WhatsappShareButton></>
                             ) : (
                               <>
                                 {" "}
@@ -556,6 +550,7 @@ export default function InvitaionMain(props) {
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
                   </p>
+                 {" "}
 
                   {/* {eve.Description.length > 50 ? (
                     <a

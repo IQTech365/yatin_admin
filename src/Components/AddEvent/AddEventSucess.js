@@ -298,7 +298,7 @@ export default function AddEventSucess(props) {
                     <img
                       src={WhatsIcon}
                       className=""
-                      style={{ height: "40px", width: "40px" }}
+                      style={{ height: "50px", width: "50px" }}
                     />
                   </WhatsappShareButton>{" "}
                 </>
