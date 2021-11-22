@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./AddEvent.css";
 import Header from "../Helpers/Header/Header";
 import history from "../../Utils/History";
-import ShareVideo from "../../Assets/ShareVideo.mp4"
+import ShareVideo from "../../Assets/ShareVideo.mp4";
 import { Grid } from "@material-ui/core";
 import check from "../../Assets/check-circle.1.png";
 import { FcShare } from "react-icons/fc";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import axios from "axios";
+import platform from "platform";
 import { url } from "../../Utils/Config";
 import { useSelector } from "react-redux";
 import { WhatsappShareButton } from "react-share";
@@ -17,12 +18,11 @@ import WhatsIcon from "../../Assets/WhatsIcon.png";
 import { IconButton, Select, FormControl } from "@material-ui/core";
 import { MdShare } from "react-icons/md";
 export default function AddEventSucess(props) {
-
   const Auth = useSelector((state) => state.Auth);
   const [maincode, setmaincode] = useState(props.match.params.id);
   const [allevents, setallevents] = useState([]);
   const [pwd, setpwd] = useState("");
-  const [currentcode, setCurrentCode] = useState("")
+  const [currentcode, setCurrentCode] = useState("");
   const [mode, setmode] = useState();
   const [sharelink, setcodesharelink] = useState("");
   const [Watsapp, setWatsapp] = useState("");
@@ -33,8 +33,8 @@ export default function AddEventSucess(props) {
   const [isShowingAlert, setShowingAlert] = React.useState(false);
   const [selectedindex, setselectedindex] = useState(null);
   useEffect(() => {
-    console.log('changed')
-  }, [currentcode])
+    console.log("changed");
+  }, [currentcode]);
   useEffect(() => {
     axios
       .post(url + "event/viewinvitation", {
@@ -43,27 +43,29 @@ export default function AddEventSucess(props) {
       .then(async (res) => {
         await setallevents(res.data.Events);
         if (res.data.Events[0].EntryWay === "Code") {
-          setCurrentCode(res.data.Events[0].Name + " code: " + res.data.Events[0].code)
+          setCurrentCode(
+            res.data.Events[0].Name + " code: " + res.data.Events[0].code
+          );
           setSelectedCode(
             res.data.Events[0].Name + " code: " + res.data.Events[0].code
           );
-          await setselectedindex(res.data.Events[0].code)
+          await setselectedindex(res.data.Events[0].code);
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
           await getImage(res.data.Events[0].file);
           await getfiletype(res.data.Events[0].filetype);
@@ -72,19 +74,19 @@ export default function AddEventSucess(props) {
         } else {
           setcodesharelink(
             " https://mobillyinvite.com/MyInvitations/" +
-            maincode +
-            "/" +
-            res.data.Events[0].code
+              maincode +
+              "/" +
+              res.data.Events[0].code
           );
-          await setselectedindex(res.data.Events[0].code)
+          await setselectedindex(res.data.Events[0].code);
           await setWatsapp(
             "Hi there ! You have been invited by " +
-            Auth.Name +
-            " to " +
-            res.data.Events[0].Name +
-            ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
-            " https://mobillyinvite.com/MyInvitations/" +
-            maincode
+              Auth.Name +
+              " to " +
+              res.data.Events[0].Name +
+              ". Share Your Excitement🤩 by Clicking the Below Link. Have Fun🤪! " +
+              " https://mobillyinvite.com/MyInvitations/" +
+              maincode
           );
           await setpwd(res.data.Events[0].InvId.PassWord);
         }
@@ -95,20 +97,22 @@ export default function AddEventSucess(props) {
   }, []);
 
   const handleOnSubmit = async (all) => {
-    setShowingAlert(true)
-
+    setShowingAlert(true);
     const response = await fetch(ShareVideo);
     const blob = await response.blob();
     const file = new File([blob], "share.mp4", { type: blob.type });
-   
 
     // console.log(file);
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      let url = ''
+      let url = "";
       if (all === true) {
         url = "https://mobillyinvite.com/MyInvitations/" + maincode;
       } else {
-        url = "https://mobillyinvite.com/MyInvitations/" + maincode + '/' + selectedindex;
+        url =
+          "https://mobillyinvite.com/MyInvitations/" +
+          maincode +
+          "/" +
+          selectedindex;
       }
 
       await navigator
@@ -146,10 +150,10 @@ export default function AddEventSucess(props) {
   };
 
   const handleClose = async (e) => {
-    console.log(e.target.value.split(":")[1])
+    console.log(e.target.value.split(":")[1]);
     await setselectedindex(e.target.value.split(":")[1]);
-    await setCurrentCode(e.target.value)
-    await setSelectedCode(e.target.value)
+    await setCurrentCode(e.target.value);
+    await setSelectedCode(e.target.value);
     // await setcodesharelink(
     //   " https://mobillyinvite.com/MyInvitations/" + maincode + "/" + data
     // );
@@ -207,14 +211,16 @@ export default function AddEventSucess(props) {
           </Grid>
 
           {allevents &&
-            allevents.length > 1 &&
-            allevents[0].EntryWay === "Code" ? (
+          allevents.length > 1 &&
+          allevents[0].EntryWay === "Code" ? (
             <>
               <Grid item xs={10} className="tac m-b-25px mt-5px">
-
                 <select
                   value={currentcode}
-                  onChange={(e) => { setselectedindex(e.target.value.split(":")[1]); setCurrentCode(e.target.value) }}
+                  onChange={(e) => {
+                    setselectedindex(e.target.value.split(":")[1]);
+                    setCurrentCode(e.target.value);
+                  }}
                   style={{
                     textAlign: "center",
 
@@ -226,21 +232,20 @@ export default function AddEventSucess(props) {
                   {" "}
                   {allevents &&
                     allevents.map((eve) => (
-                      <option
-                        value={eve.Name + "Code :" + eve.code}
-                      >
+                      <option value={eve.Name + "Code :" + eve.code}>
                         {" "}
                         {eve.Name + "Code :" + eve.code}
                       </option>
                     ))}
                 </select>
-
               </Grid>
               <Grid item xs={2}>
                 <IconButton style={{ backgroundColor: "antiquewhite" }}>
-                  <MdShare onClick={async () => {
-                    await handleOnSubmit(false);
-                  }}></MdShare>
+                  <MdShare
+                    onClick={async () => {
+                      await handleOnSubmit(false);
+                    }}
+                  ></MdShare>
                 </IconButton>
               </Grid>
             </>
@@ -276,44 +281,51 @@ export default function AddEventSucess(props) {
               </Grid>
             </Grid>
           </Grid> */}
-
-
-              <FcShare
+ {platform.name === "Safari" &&
+              platform.version.split(".")[0] >= 13 ? (
+                <>
+                  {" "}
+                  <WhatsappShareButton
+                    url={" "}
+                    title={
+                      pwd !== "" && pwd !== null
+                        ? Watsapp + ". Password: " + pwd
+                        : Watsapp
+                    }
+                    separator=" "
+                    className="Demo__some-network__share-button"
+                  >
+                    <img
+                      src={WhatsIcon}
+                      className=""
+                      style={{ height: "50px", width: "50px" }}
+                    />
+                  </WhatsappShareButton>{" "}
+                </>
+              ) : (
+                <> <FcShare
                 onClick={async () => {
                   await handleOnSubmit(true);
-                }
-                }
+                }}
                 className="share-button"
                 type="button"
                 title="Share this article"
                 size={40}
                 style={{ marginRight: "10px" }}
-              />
+              /></>
+              )}
+             
               <div>
                 <div
-                  className={`alert alert-success ${isShowingAlert ? 'alert-shown' : 'alert-hidden'}`}
+                  className={`alert alert-success ${
+                    isShowingAlert ? "alert-shown" : "alert-hidden"
+                  }`}
                   onTransitionEnd={() => setShowingAlert(false)}
                 >
                   <strong>Wait!</strong> Generating Link
                 </div>
-
               </div>
-              {/*    <WhatsappShareButton
-                url={" "}
-                title={
-                  pwd !== "" && pwd !== null
-                    ? Watsapp + ". Password: " + pwd
-                    : Watsapp
-                }
-                separator=" "
-                className="Demo__some-network__share-button"
-              >
-                <img
-                  src={WhatsIcon}
-                  className=""
-                  style={{ height: "30px", width: "30px" }}
-                />
-              </WhatsappShareButton> */}
+             
             </center>
           </Grid>
           <Grid item xs={12} className="tac" style={{ fontSize: 10 }}>
