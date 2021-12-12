@@ -29,7 +29,7 @@ function Plancard(props) {
           </Grid>
         </Grid>
         <Grid item xs={12} className="lowerplan mt-5px">
-          <ul class="a">
+          <ul className="a">
             <li>Multiple Events</li>
             <li>Albums</li>
             <li>Schedule</li>
@@ -51,7 +51,7 @@ export default function Plan(props) {
         <div className="planheadtop"></div>
       </Grid>
       <Grid item xs={12} className="plancardholder">
-     {/*    <Plancard
+        {/*    <Plancard
           plan={"Free"}
           selectplan={selectplan}
           cost={"RS 00 / Month"}
@@ -75,7 +75,7 @@ export default function Plan(props) {
           plani={2}
         /> */}
 
-       {/*  <Plancard
+        {/*  <Plancard
           plan={"Gold"}
           selectplan={selectplan}
           cost={"RS 499 / Month"}
@@ -119,10 +119,10 @@ export default function Plan(props) {
               Coupon Discount
             </Grid>
             <Grid item xs={3} className="plan-float">
-            {selectedplan === 0 ? "₹00" : <></>}
-                  {selectedplan === 1 ? "₹-99" : <></>}
-                  {selectedplan === 2 ? "₹-299" : <></>}
-                  {selectedplan === 3 ? "₹-499" : <></>}
+              {selectedplan === 0 ? "₹00" : <></>}
+              {selectedplan === 1 ? "₹-99" : <></>}
+              {selectedplan === 2 ? "₹-299" : <></>}
+              {selectedplan === 3 ? "₹-499" : <></>}
             </Grid>
           </Grid>
         </Paper>
@@ -136,7 +136,7 @@ export default function Plan(props) {
             <Grid item xs={3} className="plan-float">
               <b>
                 <u>
-                 0
+                  0
                 </u>
               </b>
             </Grid>
@@ -144,7 +144,7 @@ export default function Plan(props) {
         </Paper>
       </Grid>
       <Grid item xs={12} className="m-7px">
-        <p style={{fontWeight:'700', fontSize:'12px', width:'90%', margin:'auto', backgroundColor:'antiquewhite'}}>Hurray! A Special Treat From Us! Enjoy Our Plans for Free🎁🎀 (Limited Time Only)</p>
+        <p style={{ fontWeight: '700', fontSize: '12px', width: '90%', margin: 'auto', backgroundColor: 'antiquewhite' }}>Hurray! A Special Treat From Us! Enjoy Our Plans for Free🎁🎀 (Limited Time Only)</p>
         <button
           className="custom-file-upload"
           style={{ position: "fixed", bottom: "20px" }}

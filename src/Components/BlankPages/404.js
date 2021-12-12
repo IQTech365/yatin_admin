@@ -2,7 +2,7 @@ import React from "react";
 import "../BlankPages/blankpage.css";
 import Error from "../../Assets/error.png";
 
-class NullPage extends React.Component {
+className NullPage extends React.Component {
   render() {
     return (
       <>

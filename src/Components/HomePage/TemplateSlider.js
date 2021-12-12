@@ -33,7 +33,7 @@ function TemplateSlider(props) {
             display: "flex",
             justifyContent: "center",
             marginTop: "20px",
-            backgroundColor:'white'
+            backgroundColor: 'white'
 
           }}
         >
@@ -77,9 +77,9 @@ function TemplateSlider(props) {
                 dynamicBullets: true,
               }}
             >
-              {slidertemplates.map((template) => {
+              {slidertemplates.map((template, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <SingleTemplate
                       name={template.title.slice(0, 10)}
                       image={template.urlToImage}
@@ -92,7 +92,7 @@ function TemplateSlider(props) {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <button
                 type="button"
-                class="btn btn-primary my-4"
+                className="btn btn-primary my-4"
                 style={{ borderRadius: "20px", width: "20vh" }}
                 onClick={() => {
                   history.push("/templates");
@@ -141,9 +141,9 @@ function TemplateSlider(props) {
                       height="315"
                       src={template.url}
                       title="YouTube video player"
-                      frameborder="0"
+                      frameBorder="0"
                       allow="autoplay"
-                      allowfullscreen
+                      allowFullScreen
                       onClick={console.log("Clicked")}
                     ></iframe>
                     <div style={{ textAlign: "center" }}>

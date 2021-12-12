@@ -15,7 +15,7 @@ import "../Comments/Comments.css";
 import CommentAvt from "../../Assets/CommentAvt.png";
 import { FcLike } from "react-icons/fc";
 import { IoMdSend } from "react-icons/io";
-class Comments extends React.Component {
+className Comments extends React.Component {
   render() {
     return (
       <>
@@ -93,7 +93,7 @@ class Comments extends React.Component {
                 as="textarea"
                 rows={6}
                 placeholder="Write a Comment"
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
               />
             </Col>
             <Col>

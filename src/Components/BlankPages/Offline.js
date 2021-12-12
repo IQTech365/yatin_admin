@@ -2,7 +2,7 @@ import React from "react";
 import "../BlankPages/blankpage.css";
 import imgoffline from "../../Assets/imgoffline.svg";
 
-class Offline extends React.Component {
+className Offline extends React.Component {
   render() {
     return (
       <>

@@ -14,7 +14,7 @@ export default function AddEvent(props) {
   const [Type, setType] = useState("Wedding");
   const [activeStep, setActiveStep] = useState(0);
   const [Events, setEvents] = useState([]);
-
+  const [uniqueCode, setUniqueCode] = useState()
   let events = {
     Name: "",
     Participants: [],
@@ -35,6 +35,14 @@ export default function AddEvent(props) {
   const [SelectedEvent, SelectEvent] = useState(0);
   const [Story, setStory] = useState([]);
   const [albumdata, setalbumdata] = useState([]);
+  useEffect(() => {
+    var someDate = new Date();
+    someDate = Date.parse(someDate);
+    let uniqueurl =
+      someDate + props.Type + '/' + Math.floor(100000 + Math.random() * 900000) + "/";
+    setUniqueCode(uniqueurl);
+    console.log(uniqueurl);
+  }, [])
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -185,6 +193,8 @@ export default function AddEvent(props) {
     addAnEvent();
   }, []);
 
+
+
   function StepRender(step) {
     return (
       <>{step.activeStep === 0 ?
@@ -207,6 +217,7 @@ export default function AddEvent(props) {
           Story={Story}
           setStory={setStory}
           template={events}
+          uniqueCode={uniqueCode}
           className="p-15px"
         /> :
         step.activeStep === 1 ? <Plan handleNext={handleNext} handleBack={handleBack} /> :
@@ -246,13 +257,13 @@ export default function AddEvent(props) {
     <>
       <Header url={props.location.pathname} ismobile="desktop-only" />
       <Toggler toggle={console.log("toggle")} locaiton={"eve"} />
-      <BackNavBar
+      {/* <BackNavBar
         logo={<img src={Back} />}
         Name={"Create Event"}
         functionality={() => {
           history.push("/MyEvents");
         }}
-      />
+      /> */}
       <Grid container spacing={0} className=" pt-0">
         <Grid item xs={false} sm={2} md={2} />
 

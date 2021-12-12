@@ -160,44 +160,44 @@ export default function NewAddParticipants(props) {
         let uniqueurl =
             props.Type + Math.floor(100000 + Math.random() * 900000) + "/";
         let EventCpy = [...props.Events];
-        for (let i = 0; i < EventCpy.length; i++) {
-            let jointname = EventCpy[i].Name.split(' ').join('')
-            let furl =
-                uniqueurl + "Event_image/" + i + jointname;
+        // for (let i = 0; i < EventCpy.length; i++) {
+        //     let jointname = EventCpy[i].Name.split(' ').join('')
+        //     let furl =
+        //         uniqueurl + "Event_image/" + i + jointname;
 
-            if (EventCpy[i].file.includes('firebasestorage.googleapis.com')) {
+        //     if (EventCpy[i].file.includes('firebasestorage.googleapis.com')) {
 
-            } else {
-                let url = await uploadString(EventCpy[i].file, furl);
-                EventCpy[i].file = url;
-                EventCpy[i].GuestInvite = false
-            }
-        }
-        await props.setEvents(EventCpy);
-        if (Eventdata && Eventdata.ALBUM && Eventdata.ALBUM.length > 0) {
-            Albumcpy = [];
-            for (let i = 0; i < Eventdata.ALBUM.length; i++) {
-                let shurl = uniqueurl + "Album/" + i + "." + Eventdata.ALBUM[i].type;
+        //     } else {
+        //         let url = await uploadString(EventCpy[i].file, furl);
+        //         EventCpy[i].file = url;
+        //         EventCpy[i].GuestInvite = false
+        //     }
+        // }
+        // await props.setEvents(EventCpy);
+        // if (Eventdata && Eventdata.ALBUM && Eventdata.ALBUM.length > 0) {
+        //     Albumcpy = [];
+        //     for (let i = 0; i < Eventdata.ALBUM.length; i++) {
+        //         let shurl = uniqueurl + "Album/" + i + "." + Eventdata.ALBUM[i].type;
 
-                let url = await uploadString(Eventdata.ALBUM[i].data, shurl);
-                Eventdata.ALBUM[i].file = url;
-                await Albumcpy.push({ file: url, type: Eventdata.ALBUM[i].type });
-            }
-        }
-        if (Eventdata && Eventdata.STORY && Eventdata.STORY.length > 0) {
-            Storycpy = [];
-            for (let i = 0; i < Eventdata.STORY.length; i++) {
-                let shurl = uniqueurl + "Story/" + i + "." + Eventdata.STORY[i].type;
+        //         let url = await uploadString(Eventdata.ALBUM[i].data, shurl);
+        //         Eventdata.ALBUM[i].file = url;
+        //         await Albumcpy.push({ file: url, type: Eventdata.ALBUM[i].type });
+        //     }
+        // }
+        // if (Eventdata && Eventdata.STORY && Eventdata.STORY.length > 0) {
+        //     Storycpy = [];
+        //     for (let i = 0; i < Eventdata.STORY.length; i++) {
+        //         let shurl = uniqueurl + "Story/" + i + "." + Eventdata.STORY[i].type;
 
-                let url = await uploadString(Eventdata.STORY[i].file, shurl);
-                Eventdata.STORY[i].file = url;
-                await Storycpy.push({
-                    ...Eventdata.STORY[i],
-                    file: url,
-                    type: Eventdata.STORY[i].type,
-                });
-            }
-        }
+        //         let url = await uploadString(Eventdata.STORY[i].file, shurl);
+        //         Eventdata.STORY[i].file = url;
+        //         await Storycpy.push({
+        //             ...Eventdata.STORY[i],
+        //             file: url,
+        //             type: Eventdata.STORY[i].type,
+        //         });
+        //     }
+        // }
         await dispatch(
             saveEvent({
                 Type: props.Type,

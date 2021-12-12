@@ -384,7 +384,7 @@ export default function Story(props) {
       </Grid>
       <Grid item xs={12} md={12}>
         <button
-          class="btn save-event m-5px"
+          className="btn save-event m-5px"
           onClick={() => {
             props.SetName("Album");
           }}

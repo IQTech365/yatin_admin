@@ -10,14 +10,14 @@ export default function SingleTemplate(props) {
   const [showPopup, toggleShowPopup] = useState(false);
   const dispatch = useDispatch();
   return (
-    <div class="page-content">
+    <div className="page-content">
       <Popup
         toggleShowPopup={toggleShowPopup}
         showPopup={showPopup}
         component={LoginSignup}
       />
       <div
-        class="card template_card"
+        className="card template_card"
         style={{
           backgroundImage: `url(${props.image})`,
           backgroundSize: "cover",
@@ -25,11 +25,11 @@ export default function SingleTemplate(props) {
           backgroundPosition: "center",
         }}
       >
-        <div class="content">
-          <h2 class="title" style={{ visibility: "hidden" }}>
+        <div className="content">
+          <h2 className="title" style={{ visibility: "hidden" }}>
             {props.name}
           </h2>
-          <p class="copy" style={{ visibility: "hidden" }}>
+          <p className="copy" style={{ visibility: "hidden" }}>
             {props.desc}
           </p>
         </div>

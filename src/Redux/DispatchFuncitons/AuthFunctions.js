@@ -77,8 +77,8 @@ export function loginuser(Phone) {
               type: LOGINSUCCESS,
               payload: res.data,
             });
-            // history.push("/home");
-            return "loggedin";
+            history.push("/home");
+            // return "loggedin";
           } else if (res.data.status === "-1") {
             dispatch({
               type: LOGINFAIL,

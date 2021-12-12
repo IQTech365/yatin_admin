@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap";
 
-class NotifAlert extends React.Component {
+className NotifAlert extends React.Component {
   render() {
     return (
       <div>

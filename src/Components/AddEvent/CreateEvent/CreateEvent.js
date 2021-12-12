@@ -1,8 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import {
   Grid,
-  Select,
-  FormControl,
 } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -34,7 +32,7 @@ export default function CreateEvent(props) {
     multiple: false,
     accept: "image/jpeg, image/png, image/jpg, video/mp4 ",
   });
-
+  const [uniquecode, setuniquecode] = useState('');
   const [url, seturl] = useState(AddImg);
   useEffect(() => {
     if (
@@ -54,6 +52,7 @@ export default function CreateEvent(props) {
       ? props.Events[props.SelectedEvent].file
       : "",
   ]);
+
 
   return (
     <>
@@ -149,6 +148,7 @@ export default function CreateEvent(props) {
           handleNext={props.handleNext}
           Type={props.Type}
           seterroring={seterroring}
+          uniqueCode={props.uniqueCode}
         />
       </Grid>
 

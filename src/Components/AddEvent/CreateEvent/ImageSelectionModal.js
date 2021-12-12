@@ -5,12 +5,10 @@ import Gallery from "../../../Assets/ChooseFromGallery.svg";
 import Tenmplate from "../../../Assets/ChoosefromTemplate.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from "swiper";
-import axios from "axios";
-import { url } from "../../../Utils/Config";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CanvasEditor from "./CanvasEditor";
 import { useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
+import { uploadString } from "../../../Utils/FileUpload_Download";
 SwiperCore.use([Pagination]);
 export default function ImageSelectionModal(props) {
   const [Show, setswitch] = useState(false);
@@ -24,7 +22,8 @@ export default function ImageSelectionModal(props) {
     EventsCpy.filetype = type[1];
     var reader = await new FileReader();
     reader.onload = async function () {
-      EventsCpy.file = reader.result;
+      let url = await uploadString(reader.result, props.uniqueCode);
+      EventsCpy.file = url;
       await props.SetCurrentEventDetails(EventsCpy);
       props.show(false);
     };
@@ -67,6 +66,7 @@ export default function ImageSelectionModal(props) {
       SetCurrentEventDetails={props.SetCurrentEventDetails}
       Type={props.Type}
       show={props.show}
+      uniqueCode={props.uniqueCode}
     />
   );
 }
@@ -77,7 +77,6 @@ export function ImageSelectionModalTemplates(props) {
   ]);
   const [currentimage, setcurrentimage] = useState(0);
   const [SelectedImage, setSelectedImage] = useState("");
-  const [SelectedTemplate, setSelectedTemplate] = useState("");
   const [isImageSelected, setisImageSelected] = useState(false);
   const [loadedRemoteImgs, setloadedRemoteImgs] = useState(false);
   const AllTemplates = useSelector((state) => state.AllTemplates);
@@ -86,14 +85,9 @@ export function ImageSelectionModalTemplates(props) {
     EventsCpy.file = file;
     await setSelectedImage(file);
     await setisImageSelected(true);
-    // await props.SetCurrentEventDetails(EventsCpy);
-    // props.show(false);
   };
 
   useEffect(async () => {
-    // let AllTemplatescpy = await AllTemplates.filter(async (temps, index) => {
-    //   return temps.Category === props.Type;
-    // });
     let AllTemplatescpy = [];
     for (let i = 0; i < AllTemplates.length; i++) {
       if (AllTemplates[i].Category === props.Type) {
@@ -173,6 +167,7 @@ export function ImageSelectionModalTemplates(props) {
           currentimage={currentimage}
           setcurrentimage={setcurrentimage}
           allimgsforcategory={allimgsforcategory}
+          uniqueCode={props.uniqueCode}
         />
       )}
     </>

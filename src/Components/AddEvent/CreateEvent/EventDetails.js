@@ -224,12 +224,13 @@ export default function EventDetails(props) {
                 SetCurrentEventDetails={SetCurrentEventDetails}
                 show={toggleShowPopup}
                 Type={props.Type}
+                uniqueCode={props.uniqueCode}
               />
             </div>
           </Modal>
         </div>
       </Grid>
-      <Grid item xs={12} style={{marginTop:20}}>
+      <Grid item xs={12} style={{ marginTop: 20 }}>
         <span className="label">Enter Event Name</span>
         <TextField
           placeholder="Name"
@@ -257,7 +258,7 @@ export default function EventDetails(props) {
         />
       </Grid>
 
-      <Grid item xs={5} style={{marginTop:10}}>
+      <Grid item xs={5} style={{ marginTop: 10 }}>
         <span className="label">Time</span>
         <TextField
           id="time"
@@ -293,7 +294,7 @@ export default function EventDetails(props) {
           }}
         />
       </Grid>
-      <Grid item xs={7} style={{marginTop:10}}>
+      <Grid item xs={7} style={{ marginTop: 10 }}>
         <span className="label">Date</span>
         <TextField
           id="date"
@@ -333,7 +334,7 @@ export default function EventDetails(props) {
           style={{ fontSize: "12px" }}
         />
       </Grid>
-      <Grid item xs={6} style={{marginTop:10}}>
+      <Grid item xs={6} style={{ marginTop: 10 }}>
         <span className="label">Type</span>
         <select
           className="w-100-p selectboxblue"
@@ -508,7 +509,7 @@ export default function EventDetails(props) {
         <Grid
           item
           xs={6}
-          style={{marginTop:10}}
+          style={{ marginTop: 10 }}
           className={
             CurrentEventDetails.VenueType === "Offline" ? "hide" : "show"
           }
@@ -552,7 +553,7 @@ export default function EventDetails(props) {
           />
         </Grid>
         <Grid
-        style={{marginTop:10}}
+          style={{ marginTop: 10 }}
           item
           xs={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
           sm={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
@@ -606,10 +607,10 @@ export default function EventDetails(props) {
                       : Location}
                 </div>
               </Grid>
-              
+
             </Grid>
           )}
-  
+
           {/* <span
             className={
               IsSubmitted === true && CurrentEventDetails.Location === ""
@@ -620,11 +621,11 @@ export default function EventDetails(props) {
           >
             Please add Location
           </span> */}
-         
+
         </Grid>
-        
+
         <Grid item xs={12}>
-          <p style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px"}}>
+          <p style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px" }}>
             <BsInfoCircleFill />
 
             {CurrentEventDetails.VenueType === "Online"

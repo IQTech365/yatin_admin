@@ -10,7 +10,7 @@ import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 Geocode.setApiKey("AIzaSyDGvvMy7XFQMmNOKRraAjoFcjHcVElEblo");
 Geocode.enableDebug();
-class Map extends React.Component {
+className Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -6,7 +6,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 
 
 
-class EventDone extends React.Component {
+className EventDone extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -21,7 +21,7 @@ class EventDone extends React.Component {
   render() {
     return (
       <div>
-        
+
         <Button variant="primary" onClick={() => this.handleModalShowHide()}>
           Event Done
         </Button>
@@ -53,7 +53,7 @@ class EventDone extends React.Component {
               <br />
               successfully added.
             </h3>
-          
+
           </Modal.Body>
         </Modal>
       </div>

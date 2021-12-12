@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import React from "react";
 import CancelIcon from "@material-ui/icons/Cancel";
-class AlertNotif extends React.Component {
+className AlertNotif extends React.Component {
   constructor() {
     super();
     this.state = {

@@ -2,7 +2,7 @@ import React from "react";
 import "../BlankPages/blankpage.css";
 import chatempty from "../../Assets/chatempty.svg";
 
-class ChatBlank extends React.Component {
+className ChatBlank extends React.Component {
   render() {
     return (
       <section className="blank_page_area">
