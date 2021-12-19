@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { url } from "../../Utils/Config";
 import "./InvitationMain/InvitaionMain.css";
-import { Container, Carousel, Button } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Form } from "react-bootstrap";
+import Header from "../Helpers/Header/Header";
+import Icon from "../../Assets/comment.png";
+import NavMobile from "../Helpers/NavMobile/NavMobile";
+import DesktopNav from "../Helpers/DesktopNav/DesktopNav";
 import axios from "axios";
 import Image from "react-bootstrap/Image";
-import { Grid } from "@material-ui/core";
+import { HiHome } from "react-icons/hi";
+import { AiOutlineLike, AiOutlineSync } from "react-icons/ai";
+import { GoCalendar, GoLocation } from "react-icons/go";
 import UserDataUrl from "../Helpers/UserData/UserDatajustUrl";
 import history from "../../Utils/History";
-import hoxLogin from "../Auth/hoxLogin";
-import Fullsizepopup from "../Helpers/Popups/Fullsizepopup";
+import LoginSignup from "../Auth/LoginSignup";
+import { FaUserFriends } from "react-icons/fa";
+import Popup from "../Helpers/Popups/Popup";
 import { useSelector, useDispatch } from "react-redux";
 import { GetInvitations } from "../../Redux/DispatchFuncitons/Eventfunctions";
-import { BsArrowRightShort } from "react-icons/bs";
+import Dateformatter from "../Helpers/DateFormatter/Dateformatter";
+import { IoSendSharp } from "react-icons/io5";
 import "./Invitations.css";
 import "./InvitationMain/InvitaionMain.css";
 import { addEvent } from "../../Redux/DispatchFuncitons/CodeFunctions";
 import { reactLocalStorage } from "reactjs-localstorage";
-import Star1 from "../../Assets/Star1.png";
-import date from "../../Assets/date.png";
-import offline from "../../Assets/offline.png";
-import online from "../../Assets/online.png";
-
+import { FiUsers } from "react-icons/fi";
+import { FiGift } from "react-icons/fi";
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
   const [show, setshow] = useState(false);
-  const [showdes, setshowdes] = useState(false);
-
-  const [isReadMore, setIsReadMore] = useState(true);
-  const toggleReadMore = () => {
-    setIsReadMore(!isReadMore);
-  };
   const Auth = useSelector((state) => state.Auth);
   const myInvitations = useSelector((state) => state.Eventdata.myInvitations);
 
   const dispatch = useDispatch();
   useEffect(async () => {
+    debugger;
     if (Auth.isLoggedIn === false) {
       if (
         props.match.params.maincode !== "" &&
@@ -63,15 +63,6 @@ export default function Hoxinvitation(props) {
     }
   }, [Auth.isLoggedIn]);
 
-  /*   useEffect(() => {
-    const intervalId = setTimeout(() => {
-      setshow(true);
-    }, 8000);
-
-    // clear interval on re-render to avoid memory leaks
-    return () => clearInterval(intervalId);
-  }, []);
- */
   const replacelinks = (desc) => {
     var sindices = [];
     var eindices = [];
@@ -172,216 +163,157 @@ export default function Hoxinvitation(props) {
         });
     }
   }, []);
-
+  const goDetail = (detail) => {
+    history.push(
+      "/MyInvitationsdetail/" + props.match.params.maincode + "/" + detail
+    );
+  };
   return (
     <>
-      <Fullsizepopup
-        component={hoxLogin}
+      <div className="w-100 desktop-only ">
+        <Header />
+      </div>
+      <DesktopNav />
+      <Popup
+        component={LoginSignup}
         toggleShowPopup={setshow}
         showPopup={show}
       />
-
-      <Carousel
-        controls={true}
-        slide={true}
-        interval={7000}
-        slide={true}
+      {/* <div
         style={{
           position: "absolute",
           height: "100vh",
           width: "100vw",
+          zIndex: 8999,
+          display: show === false ? "block" : "none",
         }}
+        onClick={() => {
+          setshow(true);
+        }}
+      ></div> */}
+      <Carousel
+        controls={false}
+        interval={99999999999999}
+        className="mb-10 invitation_carousel"
       >
         {Invitations &&
           Invitations.map((eve, index) => (
             <Carousel.Item>
-              {eve.filetype === "png" ||
-              eve.filetype === "jpg" ||
-              eve.filetype === "jpeg" ? (
-                <Image
-                  src={eve.file}
-                  style={{ height: "100vh", objectFit: "cover", width: "100%" }}
-                />
-              ) : (
-                <video
-                  className="w-100"
-                  style={{ height: "100vh", objectFit: "cover" }}
-                  type="video/mp4"                 
-                  autoPlay muted
+              <Container className="upper-menu">
+                <Row
+                  style={{
+                    marginTop: 20,
+                    marginRight: 3,
+                    marginLeft: 3,
+                    marginBottom: 10,
+                  }}
                 >
-                  <source src={eve.file} type="video/mp4"></source>
-                </video>
-              )}
-              <Container
-                style={{
-                  opacity: "0.85",
-                  overflow: "scroll",
-                }}
-                className="hoxInv-container"
-              >
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "20px", justifyContent: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <UserDataUrl
-                      Phone={eve.Host[0]}
-                      showIcon={true}
-                      className="m-10px"
+                  <p style={{ color: "black" }}>
+                    <HiHome
+                      style={{ backgroundColor: "white", borderRadius: "50px" }}
+                      size={30}
                     />
-                  </Grid>
-                  <Grid item xs={7} style={{ marginTop: "2px" }}>
-                    <UserDataUrl Phone={eve.Host[0]} showName={true} />
+                  </p>
+                  <Col></Col>
+                  {/* <FaUserFriends
+                    size={30}
+                    style={{
+                      backgroundColor: "white",
+                      color: "black",
+                      borderRadius: 20,
+                      padding: "0.1em 0.4em",
+                    }} /> */}
+                </Row>
+              </Container>
+              <Container className="container-event">
+                {eve.filetype === "png" ||
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
+                  <Image src={eve.file} className="fullimagemain" />
+                ) : (
+                  <video
+                    className="w-100"
+                    style={{ height: "60vh", objectFit: "cover" }}
+                    type="video/mp4"
+                    controls={true}
+                    preload="metadata"
+                    loop
+                    autoPlay
+                  >
+                    <source src={eve.file} type="video/mp4"></source>
+                  </video>
+                )}
+                <Container
+                  className="box-event"
+                  fluid
+                  style={{ marginTop: "5vh" }}
+                >
+                  <span
+                    onClick={() => {
+                      setshow(true);
+                    }}
+                    style={{ width: "100%" }}
+                  >
+                    RSVP
+                    <AiOutlineSync />
+                  </span>
+                </Container>
+                <br></br>
+                <Container>
+                  <Row>
+                    <Col>
+                      <center>
+                        <FiUsers size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('guest-list') }} />
+                      </center>
+                    </Col>
+                    <Col>
+                      <center>
+                        <FiGift size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('gift-list') }} />
+                      </center>
+                    </Col>
+                    <Col>
+                      <center>
+                        <GoCalendar style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('schedule') }} />
+                      </center>
+                    </Col>
+                    <Col>
+                      <center>
+                        <GoLocation style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('location') }} />
+                      </center>
+                    </Col>
+                  </Row>
+                  <br />
 
-                    <p style={{ fontSize: "12px", color: "#858585" }}>
-                      Event Admin
-                    </p>
-                  </Grid>
-                  <Grid item xs={2} style={{ marginTop: "2px" }}>
-                    <img src={Star1} />
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "20px", justifyContent: "center" }}
-                >
-                  <Grid item xs={8}>
-                    <p style={{ fontSize: "25px", fontWeight: "bold" }}>
-                      {eve.Name}
-                    </p>
-                  </Grid>
-                  <Grid item xs={2}></Grid>
-                  <Grid item xs={1}></Grid>
-                </Grid>
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "20px", justifyContent: "center" }}
-                >
-                  <Grid item xs={2}>
-                    <img src={date} />
-                  </Grid>
-                  <Grid item xs={7}>
-                    <p
-                      style={{
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        marginBottom: "0",
+                  <h3 className="event-date">
+                    <Dateformatter Date={eve.Date + " " + eve.Time} />
+                  </h3>
+                  <p className="event-des">
+                    {/* {showfulldescription === false
+                      ? eve.Description.slice(0, 50) + "..."
+                      : eve.Description} */}
+                    {eve.Description}
+                  </p>
+                  {/* {eve.Description.length > 50 ? (
+                    <a
+                      href="#"
+                      className="invitationmain_link"
+                      onClick={() => {
+                        setshowfulldescription(!showfulldescription);
                       }}
                     >
-                      {eve.Date}
-                    </p>
-                    <p style={{ fontSize: "12px", color: "#858585" }}>
-                      {eve.Time}
-                    </p>
-                  </Grid>
-                  <Grid item xs={2}></Grid>
-                </Grid>
-                {eve.VenueType === "Offline" ? (
-                  <>
-                    {" "}
-                    <Grid
-                      container
-                      spacing={1}
-                      style={{ marginTop: "20px", justifyContent: "center" }}
-                    >
-                      <Grid item xs={2}>
-                        <img src={offline} />
-                      </Grid>
-                      <Grid item xs={7}>
-                        <p
-                          style={{
-                            fontWeight: 700,
-                            fontSize: "14px",
-                            marginBottom: "0",
-                          }}
-                        >
-                          {eve.Location.length > 25
-                            ? eve.Location.split(":")[3].replace(
-                                /[^a-zA-Z ]/g,
-                                ""
-                              )
-                            : eve.Location.split(":")[3].replace(
-                                /[^a-zA-Z ]/g,
-                                ""
-                              )}
-                        </p>
-                      </Grid>
-                      <Grid item xs={2}></Grid>
-                    </Grid>
-                  </>
-                ) : (
-                  <></>
-                )}
-                {eve.VenueType === "Online" ||
-                eve.VenueType === "Online-Inapp" ? (
-                  <>
-                    {" "}
-                    <Grid
-                      container
-                      spacing={1}
-                      style={{ marginTop: "20px", justifyContent: "center" }}
-                    >
-                      <Grid item xs={2}>
-                        <img src={online} />
-                      </Grid>
-                      <Grid item xs={7}>
-                        <p
-                          style={{
-                            fontWeight: 700,
-                            fontSize: "14px",
-                            marginBottom: "0",
-                          }}
-                        >
-                          Online
-                        </p>
-                      </Grid>
-                      <Grid item xs={2}></Grid>
-                    </Grid>
-                  </>
-                ) : (
-                  <></>
-                )}
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "20px", justifyContent: "center" }}
-                >
-                  <Grid item xs={11}>
-                    <p style={{ fontSize: "12px"}}>
-                      {eve.Description}
-                    </p>
-                  </Grid>
-                  <Grid
-                    container
-                    spacing={1}
-                    style={{ justifyContent: "center", textAlign: "center" }}
-                  >
-                    <Grid item xs={7}>
-                      <Button
-                        variant="primary"
-                        style={{
-                          backgroundColor: "#EB304A",
-                          borderRadius: "12px",
-                          borderColor: "#EB304A",
-                          padding: "10px",
-                          fontSize: "15px"
-                        }}
-                        onClick={() => {
-                          setshow(true);
-                        }}
-                      >
-                        Join Invite Now! <BsArrowRightShort />
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
+                      {showfulldescription === false
+                        ? "Show More"
+                        : "Show Less"}
+                    </a>
+                  ) : (
+                    <></>
+                  )} */}
+                </Container>
               </Container>
             </Carousel.Item>
           ))}
       </Carousel>
+      <NavMobile />
     </>
   );
 }

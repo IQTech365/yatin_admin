@@ -36,7 +36,7 @@ import HelpIcon from "@material-ui/icons/Help";
 import { CircularProgress } from "@material-ui/core";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FcShare } from "react-icons/fc";
-
+import { FiGift } from "react-icons/fi";
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
@@ -240,7 +240,7 @@ export default function InvitaionMain(props) {
                     />
                   </p>
                   <Col></Col>
-                  {eve.Host.includes(Auth.Phone) ? (
+                  {true ? (
                     <></>
                   ) : (
                     <>
@@ -256,11 +256,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                              props.base +
-                              "/guestlist/" +
-                              props.id +
-                              "/" +
-                              index
+                            props.base +
+                            "/guestlist/" +
+                            props.id +
+                            "/" +
+                            index
                           );
                         }}
                       />
@@ -270,8 +270,8 @@ export default function InvitaionMain(props) {
               </Container>
               <Container className="container-event">
                 {eve.filetype === "png" ||
-                eve.filetype === "jpg" ||
-                eve.filetype === "jpeg" ? (
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />
                 ) : (
                   <video
@@ -290,7 +290,41 @@ export default function InvitaionMain(props) {
                   fluid
                   style={{ marginTop: "5vh" }}
                 >
-                  <div
+                  {eve.Host.includes(Auth.Phone) ? (
+                    <span
+                      onClick={() => {
+                        share(
+                          eve.file,
+                          eve.filetype,
+                          "https://mobillyinvite.com/MyInvitations/" +
+                          eve.MainCode,
+                          eve.Name,
+                          eve.Date
+                        );
+                        // history.push(
+                        //   "/" +
+                        //   props.base +
+                        //   "/event-create-success/" +
+                        //   eve.MainCode +
+                        //   '/Share'
+                        // );
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      Share <FiShare2 />
+                    </span>
+                  ) : (
+                    <span
+                      onClick={() => {
+                        history.push("/" + props.base + "/rsvp/" + props.id);
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      RSVP <IsRsvp RSVPList={eve.RSVPList} />
+                      <AiOutlineSync />
+                    </span>
+                  )}
+                  {/* <div
                     style={{ position: "relative", left: "10px", top: "3px" }}
                   >
                     <UserDataUrl
@@ -362,9 +396,10 @@ export default function InvitaionMain(props) {
                       marginLeft: "60px",
                       boxShadow: "none",
                     }}
-                  />
-
-                  <br />
+                  /> */}
+                </Container>
+                <br />
+                <Container>
                   <Row style={{ marginTop: 10 }}>
                     <Col>
                       <center>
@@ -374,28 +409,27 @@ export default function InvitaionMain(props) {
                             onClick={() => {
                               history.push(
                                 "/" +
-                                  props.base +
-                                  "/guestlist/" +
-                                  props.id +
-                                  "/" +
-                                  index
+                                props.base +
+                                "/guestlist/" +
+                                props.id +
+                                "/" +
+                                index
                               );
                             }}
                           />
                         ) : (
                           <>
-                            <span className="Like-count">
-                              {likeCount[index] != undefined
-                                ? likeCount[index].count
-                                : 0}
-                            </span>
-                            <AiOutlineLike
-                              size="25"
-                              className="info-icon"
-                              style={{ color: "#4e4e4e" }}
+                            <FiUsers
+                              size={22}
                               onClick={() => {
-                                checkiflike(index);
-                                dispatch(like_event(eve._id));
+                                history.push(
+                                  "/" +
+                                  props.base +
+                                  "/guestlist/" +
+                                  props.id +
+                                  "/" +
+                                  index
+                                );
                               }}
                             />
                           </>
@@ -407,35 +441,52 @@ export default function InvitaionMain(props) {
                         {eve.Host.includes(Auth.Phone) ? (
                           <>
                             {platform.name === "Safari" &&
-                            platform.version.split(".")[0] >= 13 ? (
-                              <>  <WhatsappShareButton
-                              url={"https://mobillyinvite.com/MyInvitations/" +
-                              eve.MainCode +
-                              "/" +
-                              eve.code}
-                              title={
-                                "Hi👋 You Have Been Invited By " +
-                                " " +
-                                Auth.Name +
-                                " " +
-                                "to" +
-                                " " +
-                                eve.Name +
-                                " " +
-                                "on" +
-                                " " +
-                                eve.Date +
-                                " " +
-                                "Please See Your Digital Invite🎉 on the Link Below"
-                              }
-                              separator=" "
-                              className="Demo__some-network__share-button"
-                            >
-                             <FiShare2 size={23}/>
-                            </WhatsappShareButton></>
+                              platform.version.split(".")[0] >= 13 ? (
+                              <>
+                                {/* <WhatsappShareButton
+                                url={"https://mobillyinvite.com/MyInvitations/" +
+                                  eve.MainCode +
+                                  "/" +
+                                  eve.code}
+                                title={
+                                  "Hi👋 You Have Been Invited By " +
+                                  " " +
+                                  Auth.Name +
+                                  " " +
+                                  "to" +
+                                  " " +
+                                  eve.Name +
+                                  " " +
+                                  "on" +
+                                  " " +
+                                  eve.Date +
+                                  " " +
+                                  "Please See Your Digital Invite🎉 on the Link Below"
+                                }
+                                separator=" "
+                                className="Demo__some-network__share-button"
+                              > */}
+
+                                <FiGift
+                                  size={23}
+                                  onClick={() => {
+                                    history.push(
+                                      "/" +
+                                      props.base +
+                                      "/eventpage/" +
+                                      "gift/" +
+                                      props.id +
+                                      "/" +
+                                      eve.MainCode
+                                    );
+                                  }}
+                                />
+                              </>
                             ) : (
                               <>
                                 {" "}
+                                <FiGift size={23} />
+                                {/* {" "}
                                 <FiShare2
                                   size={23}
                                   onClick={() => {
@@ -443,9 +494,9 @@ export default function InvitaionMain(props) {
                                       eve.file,
                                       eve.filetype,
                                       "https://mobillyinvite.com/MyInvitations/" +
-                                        eve.MainCode +
-                                        "/" +
-                                        eve.code,
+                                      eve.MainCode +
+                                      "/" +
+                                      eve.code,
                                       eve.Name,
                                       eve.Date
                                     );
@@ -457,23 +508,13 @@ export default function InvitaionMain(props) {
                                     //   '/Share'
                                     // );
                                   }}
-                                />
+                                /> */}
                               </>
                             )}
                           </>
                         ) : (
-                          <div
-                            onClick={() => {
-                              history.push(
-                                "/" + props.base + "/rsvp/" + props.id
-                              );
-                            }}
-                          >
-                            <IsRsvp RSVPList={eve.RSVPList} />
-                            <AiOutlineSync
-                              size="25"
-                              style={{ color: "#4e4e4e" }}
-                            />
+                          <div>
+                            <FiGift size="25" style={{ color: "#4e4e4e" }} />
                             {/* <Image
                             src={RSVP}
 
@@ -491,11 +532,11 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                                props.base +
-                                "/schedule/" +
-                                props.id +
-                                "/" +
-                                index
+                              props.base +
+                              "/schedule/" +
+                              props.id +
+                              "/" +
+                              index
                             );
                           }}
                         />
@@ -516,11 +557,11 @@ export default function InvitaionMain(props) {
                               onClick={() => {
                                 history.push(
                                   "/" +
-                                    props.base +
-                                    "/location/" +
-                                    props.id +
-                                    "/" +
-                                    index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                                 );
                               }}
                             />
@@ -531,11 +572,11 @@ export default function InvitaionMain(props) {
                               onClick={() => {
                                 history.push(
                                   "/" +
-                                    props.base +
-                                    "/location/" +
-                                    props.id +
-                                    "/" +
-                                    index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                                 );
                               }}
                             />
@@ -549,7 +590,6 @@ export default function InvitaionMain(props) {
                       </center>
                     </Col>
                   </Row>
-
                   <h2 className="event-date" style={{ marginTop: "5px" }}>
                     {eve.Name}
                   </h2>
@@ -561,10 +601,7 @@ export default function InvitaionMain(props) {
                     {/* {showfulldescription === false
                       ? eve.Description.slice(0, 50) + "..."
                       : eve.Description} */}
-                  </p>
-                 
-                 {" "}
-
+                  </p>{" "}
                   {/* {eve.Description.length > 50 ? (
                     <a
                       href="#"

@@ -109,7 +109,7 @@ export default function Guest(props) {
       <div className="desktop-only w-100">
         <Header className="desktop-only" />
       </div>
-      <Container className="guest-box">
+      <Container fluid className="guest-box">
         <Row
           style={{
             marginTop: 30,

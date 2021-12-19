@@ -276,7 +276,7 @@ export default function ManageGuest(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Container className="guest-box">
+      <Container fluid className="guest-box">
         <Row style={{ marginTop: 30, marginRight: 3, marginLeft: 3 }}>
           <p style={{ fontWeight: "bold", fontSize: 23 }}>
             <IoArrowBackCircleOutline

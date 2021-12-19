@@ -6,7 +6,7 @@ import {
   BiCalendarEvent,
 } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
-import {FiGift} from "react-icons/fi"
+import { FiGift } from "react-icons/fi"
 import "./NavMobile.css";
 import { AiOutlineShopping } from "react-icons/ai";
 import history from "../../../Utils/History";
@@ -60,7 +60,7 @@ export default function NavMobile(props) {
           <Nav.Link
 
             onClick={() => {
-              history.push("/" + props.base + "/eventpage/" + props.id);
+              if (Auth.isLoggedIn === true) { history.push("/" + props.base + "/eventpage/" + props.id); }
             }}
             style={{ textDecoration: "none" }}
           >
@@ -69,7 +69,7 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              history.push("/" + props.base + "/albums/" + props.id);
+              if (Auth.isLoggedIn === true) { history.push("/" + props.base + "/albums/" + props.id); }
             }}
             style={{ textDecoration: "none" }}
           >
@@ -78,15 +78,17 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              history.push(
-                "/" +
-                props.base +
-                "/eventpage/" +
-                "feed/" +
-                props.id +
-                "/" +
-                props.MainCode
-              );
+              if (Auth.isLoggedIn === true) {
+                history.push(
+                  "/" +
+                  props.base +
+                  "/eventpage/" +
+                  "feed/" +
+                  props.id +
+                  "/" +
+                  props.MainCode
+                );
+              }
             }}
             style={{ textDecoration: "none" }}
           >
@@ -95,7 +97,7 @@ export default function NavMobile(props) {
           </Nav.Link>
           {/*  <Nav.Link
             onClick={() => {
-              history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
+             if(Auth.isLoggedIn===true){ history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
             }}
             style={{ textDecoration: "none" }}
           >
@@ -104,7 +106,9 @@ export default function NavMobile(props) {
           </Nav.Link> */}
           <Nav.Link
             style={{ textDecoration: "none" }} onClick={() => {
-              history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
+              if (Auth.isLoggedIn === true) {
+                history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
+              }
             }}
           >
             <FiGift size={23} />
@@ -113,7 +117,9 @@ export default function NavMobile(props) {
 
           <Nav.Link
             onClick={() => {
-              history.push("/" + props.base + "/more/" + props.id);
+              if (Auth.isLoggedIn === true) {
+                history.push("/" + props.base + "/more/" + props.id);
+              }
             }}
             style={{ textDecoration: "none" }}
           >

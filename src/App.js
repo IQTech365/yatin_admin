@@ -42,6 +42,7 @@ import CreateOrUpdate from "./Components/EventCreateAndUpdate/CreateOrUpdate";
 import { getlist } from "./Redux/DispatchFuncitons/GuestListFunctions";
 import Templates from "./Components/Templates/Templates";
 import Terms from "./Components/HomePage/Terms";
+import Hoxdetails from "./Components/Invitations/hoxdetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,7 +86,16 @@ function App() {
               path="/MyInvitations/:maincode/:Code"
               component={Hoxinvitation}
             />
-
+            <Route
+              exact
+              path="/MyInvitationsdetail/:maincode/:field"
+              component={Hoxdetails}
+            />
+            <Route
+              exact
+              path="/MyInvitations/:maincode/:Code"
+              component={Hoxinvitation}
+            />
             <Route exact path="/" component={HomePage} />
             <Route exact path="/templates" component={Templates} />
             <Route exact path="/terms" component={Terms} />
