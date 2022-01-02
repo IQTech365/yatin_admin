@@ -43,7 +43,7 @@ import { getlist } from "./Redux/DispatchFuncitons/GuestListFunctions";
 import Templates from "./Components/Templates/Templates";
 import Terms from "./Components/HomePage/Terms";
 import Hoxdetails from "./Components/Invitations/hoxdetails";
-
+import AddGift from "./Components/Gift/AddGift"
 function App() {
   const dispatch = useDispatch();
   const [loop, setloop] = useState();
@@ -173,7 +173,7 @@ function App() {
             <Route
               exact
               path="/MyEvents/eventpage/gift/:id/:MainCode"
-              component={Gift}
+              component={AddGift}
             />
             <Route
               exact
@@ -205,7 +205,7 @@ function App() {
             <Route
               exact
               path="/inv/eventpage/gift/:id/:MainCode"
-              component={Gift}
+              component={AddGift}
             />
             <Route
               exact

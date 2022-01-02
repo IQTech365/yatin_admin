@@ -47,10 +47,11 @@ export default function MainBanner() {
       centeredSlides={true}
       slidesPerView={1}
       loop={true}
-      autoplay={{
-        delay: 6500,
-        disableOnInteraction: false,
-      }}
+      autoplay={false}
+      // autoplay={{
+      //   delay: 650000,
+      //   disableOnInteraction: false,
+      // }}
       pagination={{
         clickable: true,
         dynamicBullets: true,
@@ -85,7 +86,7 @@ export default function MainBanner() {
                 marginTop: 20,
               }}
             >
-           {/*    <Form.Control
+              {/*    <Form.Control
                 type="number"
                 placeholder="Working on it"
                 className="phonenumber_text"
@@ -115,8 +116,8 @@ export default function MainBanner() {
                 Login / Signup
               </Button>
             </Row>
-            <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div>
-           
+            <div style={{ textAlign: 'center' }}> <Button variant="dark" className="template_btn" style={{ marginTop: 0 }} onClick={formCollect}>✨Register Your Event</Button></div>
+
           </Container>
         </Container>
       </SwiperSlide>
@@ -147,7 +148,7 @@ export default function MainBanner() {
             <Row>
               <Image src={SecondSlide} className="image_secondslide" />
             </Row>
-           {/*  <Row style={{ marginTop: 20 }}>
+            {/*  <Row style={{ marginTop: 20 }}>
               <Form.Control
                 type="number"
                 placeholder="Working on it"
@@ -165,11 +166,11 @@ export default function MainBanner() {
                 Try Now
               </Button>
             </Row> */}
-           
+
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
-           {/*  <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
+            {/*  <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"
@@ -206,9 +207,9 @@ export default function MainBanner() {
               <p className="secondslide_par">
                 Invite people to celebrate your occasion
               </p>
-             
+
             </Row>
-           
+
             <Row>
               {" "}
               <p className="thirdslide_extra">
@@ -216,7 +217,7 @@ export default function MainBanner() {
               </p>
             </Row>
 
-           {/*  <Row style={{ marginTop: 20 }}>
+            {/*  <Row style={{ marginTop: 20 }}>
               <Form.Control
                 type="number"
                 placeholder="Working on it"
@@ -237,7 +238,7 @@ export default function MainBanner() {
             <Row className="row_down">
               <div className="addthis_inline_share_toolbox"></div>
             </Row>
-          {/*   <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
+            {/*   <div style={{textAlign:'center'}}> <Button variant="dark" className="template_btn" style={{marginTop:0}} onClick={formCollect}>✨Register Your Event</Button></div> */}
             <Row className="alignthat_btnh">
               <Button
                 variant="light mybutton_here"

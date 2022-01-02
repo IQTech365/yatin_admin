@@ -309,7 +309,7 @@ export default function InvitaionMain(props) {
                         //   '/Share'
                         // );
                       }}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", color: 'black' }}
                     >
                       Share <FiShare2 />
                     </span>
@@ -318,7 +318,7 @@ export default function InvitaionMain(props) {
                       onClick={() => {
                         history.push("/" + props.base + "/rsvp/" + props.id);
                       }}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", color: 'black' }}
                     >
                       RSVP <IsRsvp RSVPList={eve.RSVPList} />
                       <AiOutlineSync />
@@ -402,8 +402,8 @@ export default function InvitaionMain(props) {
                 <Container>
                   <Row style={{ marginTop: 10 }}>
                     <Col>
-                      <center>
-                        {eve.Host.includes(Auth.Phone) ? (
+                      <center className="icon-labels">
+                        {eve.Host.includes(Auth.Phone) ? (<>
                           <FiUsers
                             size={22}
                             onClick={() => {
@@ -417,6 +417,8 @@ export default function InvitaionMain(props) {
                               );
                             }}
                           />
+                          <>GuestList</>
+                        </>
                         ) : (
                           <>
                             <FiUsers
@@ -431,13 +433,14 @@ export default function InvitaionMain(props) {
                                   index
                                 );
                               }}
-                            />
+                            /><br />
+                            GuestList
                           </>
                         )}
                       </center>
                     </Col>
                     <Col>
-                      <center>
+                      <center className="icon-labels">
                         {eve.Host.includes(Auth.Phone) ? (
                           <>
                             {platform.name === "Safari" &&
@@ -480,12 +483,14 @@ export default function InvitaionMain(props) {
                                       eve.MainCode
                                     );
                                   }}
-                                />
+                                /><br></br>
+                                Add Gift
                               </>
                             ) : (
                               <>
                                 {" "}
                                 <FiGift size={23} />
+                                <br />Buy Gift
                                 {/* {" "}
                                 <FiShare2
                                   size={23}
@@ -513,19 +518,15 @@ export default function InvitaionMain(props) {
                             )}
                           </>
                         ) : (
-                          <div>
-                            <FiGift size="25" style={{ color: "#4e4e4e" }} />
-                            {/* <Image
-                            src={RSVP}
+                          <>   <FiGift size="25" style={{ color: "#4e4e4e" }} /><br />
+                            <span className="icon-labels">Buy Gift</span> </>
 
-                            className="info-icon"
-                          /> */}
-                          </div>
+
                         )}
                       </center>
                     </Col>
                     <Col>
-                      <center>
+                      <center className="icon-labels">
                         <GoCalendar
                           style={{ color: "#4e4e4e" }}
                           size="25"
@@ -543,50 +544,43 @@ export default function InvitaionMain(props) {
                         {/*  <Image
                           src={CalendarIcon}
                           
-                        /> */}
+                        /> */} Schedule
                       </center>
                     </Col>
                     <Col>
-                      <center>
-                        <p>
-                          {" "}
-                          {eve.VenueType == "Online-Inapp" && "Online" ? (
-                            <BiVideo
-                              style={{ color: "#4e4e4e" }}
-                              size="26"
-                              onClick={() => {
-                                history.push(
-                                  "/" +
-                                  props.base +
-                                  "/location/" +
-                                  props.id +
-                                  "/" +
-                                  index
-                                );
-                              }}
-                            />
-                          ) : (
-                            <GoLocation
-                              style={{ color: "#4e4e4e" }}
-                              size="25"
-                              onClick={() => {
-                                history.push(
-                                  "/" +
-                                  props.base +
-                                  "/location/" +
-                                  props.id +
-                                  "/" +
-                                  index
-                                );
-                              }}
-                            />
-                          )}
-                        </p>
-
-                        {/*  <Image
-                          src={Location}
-                          
-                        /> */}
+                      <center className="icon-labels">
+                        {eve.VenueType == "Online-Inapp" && "Online" ? (
+                          <BiVideo
+                            style={{ color: "#4e4e4e" }}
+                            size="26"
+                            onClick={() => {
+                              history.push(
+                                "/" +
+                                props.base +
+                                "/location/" +
+                                props.id +
+                                "/" +
+                                index
+                              );
+                            }}
+                          />
+                        ) : (
+                          <GoLocation
+                            style={{ color: "#4e4e4e" }}
+                            size="25"
+                            onClick={() => {
+                              history.push(
+                                "/" +
+                                props.base +
+                                "/location/" +
+                                props.id +
+                                "/" +
+                                index
+                              );
+                            }}
+                          />
+                        )}
+                        Location
                       </center>
                     </Col>
                   </Row>
