@@ -252,7 +252,7 @@ export default function Hoxinvitation(props) {
                     onClick={() => {
                       setshow(true);
                     }}
-                    style={{ width: "100%", color: 'black' }}
+                    style={{ width: "100%", }}
                   >
                     RSVP
                     <AiOutlineSync />
@@ -262,23 +262,27 @@ export default function Hoxinvitation(props) {
                 <Container>
                   <Row>
                     <Col>
-                      <center>
-                        <FiUsers size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('guest-list') }} />
+                      <center className="icon-labels">
+                        <FiUsers size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('guest-list') }} /><br />
+                        Guestlist
                       </center>
                     </Col>
                     <Col>
-                      <center>
-                        <FiGift size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('gift-list') }} />
+                      <center className="icon-labels">
+                        <FiGift size="25" style={{ color: "#4e4e4e" }} onClick={() => { goDetail('gift-list') }} /><br />
+                        Gifts
                       </center>
                     </Col>
                     <Col>
-                      <center>
-                        <GoCalendar style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('schedule') }} />
+                      <center className="icon-labels">
+                        <GoCalendar style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('schedule') }} /><br />
+                        Schedule
                       </center>
                     </Col>
                     <Col>
-                      <center>
-                        <GoLocation style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('location') }} />
+                      <center className="icon-labels">
+                        <GoLocation style={{ color: "#4e4e4e" }} size="25" onClick={() => { goDetail('location') }} /><br />
+                        Location
                       </center>
                     </Col>
                   </Row>

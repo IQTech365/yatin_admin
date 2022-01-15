@@ -309,7 +309,7 @@ export default function InvitaionMain(props) {
                         //   '/Share'
                         // );
                       }}
-                      style={{ width: "100%", color: 'black' }}
+                      style={{ width: "100%", }}
                     >
                       Share <FiShare2 />
                     </span>
@@ -318,7 +318,7 @@ export default function InvitaionMain(props) {
                       onClick={() => {
                         history.push("/" + props.base + "/rsvp/" + props.id);
                       }}
-                      style={{ width: "100%", color: 'black' }}
+                      style={{ width: "100%", }}
                     >
                       RSVP <IsRsvp RSVPList={eve.RSVPList} />
                       <AiOutlineSync />
@@ -416,7 +416,7 @@ export default function InvitaionMain(props) {
                                 index
                               );
                             }}
-                          />
+                          /><br />
                           <>GuestList</>
                         </>
                         ) : (
@@ -433,8 +433,8 @@ export default function InvitaionMain(props) {
                                   index
                                 );
                               }}
-                            /><br />
-                            GuestList
+                            /><br />< >
+                              GuestList</>
                           </>
                         )}
                       </center>
@@ -483,14 +483,14 @@ export default function InvitaionMain(props) {
                                       eve.MainCode
                                     );
                                   }}
-                                /><br></br>
-                                Add Gift
+                                /><br />
+                                <>Add Gift</>
                               </>
                             ) : (
                               <>
                                 {" "}
-                                <FiGift size={23} />
-                                <br />Buy Gift
+                                <FiGift size={23} /><br />
+                                <>Buy Gift</>
                                 {/* {" "}
                                 <FiShare2
                                   size={23}
@@ -518,8 +518,8 @@ export default function InvitaionMain(props) {
                             )}
                           </>
                         ) : (
-                          <>   <FiGift size="25" style={{ color: "#4e4e4e" }} /><br />
-                            <span className="icon-labels">Buy Gift</span> </>
+                          <center className="icon-labels">   <FiGift size="25" style={{ color: "#4e4e4e" }} /><br />
+                            < >Buy Gift</> </center>
 
 
                         )}
@@ -544,7 +544,7 @@ export default function InvitaionMain(props) {
                         {/*  <Image
                           src={CalendarIcon}
                           
-                        /> */} Schedule
+                        /> */}<br /><>Schedule</>
                       </center>
                     </Col>
                     <Col>
@@ -552,7 +552,7 @@ export default function InvitaionMain(props) {
                         {eve.VenueType == "Online-Inapp" && "Online" ? (
                           <BiVideo
                             style={{ color: "#4e4e4e" }}
-                            size="26"
+                            size="28"
                             onClick={() => {
                               history.push(
                                 "/" +
@@ -579,8 +579,8 @@ export default function InvitaionMain(props) {
                               );
                             }}
                           />
-                        )}
-                        Location
+                        )}<br />
+                        <>Location</>
                       </center>
                     </Col>
                   </Row>

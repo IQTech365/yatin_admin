@@ -17,6 +17,7 @@
   transition: 0.5s;
   background-size: 200% auto;
   color: white;
+  background-color: #3897f1;
   box-shadow: 0 0 20px grey;
 
   display: block;
