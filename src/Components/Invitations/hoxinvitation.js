@@ -252,7 +252,7 @@ export default function Hoxinvitation(props) {
                     onClick={() => {
                       setshow(true);
                     }}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", color: 'black' }}
                   >
                     RSVP
                     <AiOutlineSync />
