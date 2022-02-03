@@ -1,7 +1,8 @@
 import axios from "axios";
 
 class Client {
-  static BASE_URL = "http://localhost:3334/api/v1";//http://localhost:3334/api/v1/users
+  // static BASE_URL = "http://localhost:3334/api/v1";
+  static BASE_URL = "https://yatinbackoffice.herokuapp.com/";
   static instance = axios.create({ baseURL: this.BASE_URL, timeout: 1000 });
 
   static doGet = async (url, params = null, data = null) => {
