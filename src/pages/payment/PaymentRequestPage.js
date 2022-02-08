@@ -46,6 +46,7 @@ const PaymentRequestPage = (props) => {
 
     cardForm.on("token-success", (resp) => {
         console.log('toekn-success--', JSON.stringify(resp));
+        window.ReactNativeWebView.postMessage(JSON.stringify(resp))
       //   setOpenEdgeResponse({ status: true, resp, flag: 1 });
       //   setTempToken(resp);
       //   setTokenStatus(true);
@@ -53,6 +54,7 @@ const PaymentRequestPage = (props) => {
 
     cardForm.on("token-error", (resp) => {
         console.log('toekn-error--', JSON.stringify(resp));
+        window.ReactNativeWebView.postMessage(JSON.stringify(resp))
       // var name = resp?.error?.detail && getFieldName(resp?.error?.detail[0]?.data_path)
       // if(resp?.error?.message.match(/card\_number/gi)){
       //     name='card_number';
