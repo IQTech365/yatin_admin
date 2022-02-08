@@ -1,6 +1,27 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import styles from "./PaymentStyles.less";
+
+const initialCCDetails = {
+  card_number: "",
+  card: "",
+  card_security_code: "",
+};
+
+function getFieldName(path) {
+  const list = path.split("/");
+  var name = list[list.length - 1];
+  if (["card", "expiry_month", "expiry_year"].includes(name)) {
+    name = "card";
+  }
+  return name;
+}
 
 const PaymentRequestPage = (props) => {
+  const { btnlabel, platform } = useParams();
+  const [ccerrors, setCCErrors] = React.useState(initialCCDetails);
+  const [CVV, setCvv] = React.useState(false);
+
   React.useEffect(() => {
     window.GlobalPayments.configure({
       "X-GP-Api-Key": "QwAnDGYZlLNAl6xo9WTZLLMHACbETHqV",
@@ -26,7 +47,7 @@ const PaymentRequestPage = (props) => {
         },
         submit: {
           target: "#submit",
-          text: `Make Payment`,
+          text: btnlabel,
           button: {
             background: "#173654",
             width: "100%",
@@ -41,47 +62,102 @@ const PaymentRequestPage = (props) => {
           },
         },
       },
-      //   styles: confirmPurchaseAddPlan(),
+      styles: {
+        button: {
+          background: "#173654",
+          width: "100%",
+          "max-width": "349px",
+          height: "48px",
+          "border-radius": "50px",
+          color: "#FFF",
+          border: "0px",
+          padding: "10px 40px",
+          "font-size": "1.125rem",
+          margin: "20px auto 40px auto !important",
+          cursor: "pointer",
+        },
+        input: {
+          border: "1px",
+          width: "100% !important",
+          "max-width": "200px",
+          padding: "15px 20px 0px 20px",
+          position: "relative",
+          bottom: "9px",
+          background: "#FFF",
+        },
+        "input:focus": {
+          border: "0px",
+          outline: "none",
+        },
+      },
     });
 
     cardForm.on("token-success", (resp) => {
-        console.log('toekn-success--', JSON.stringify(resp));
-        window.ReactNativeWebView.postMessage(JSON.stringify(resp))
-      //   setOpenEdgeResponse({ status: true, resp, flag: 1 });
-      //   setTempToken(resp);
-      //   setTokenStatus(true);
+      console.log("toekn-success--", JSON.stringify(resp));
+      // if(platform == 'web'){
+      //   onConfirmPayment();
+      // }else if(plaform == 'mobile'){
+      //   window.ReactNativeWebView.postMessage(JSON.stringify(resp));
+      // }
     });
 
     cardForm.on("token-error", (resp) => {
-        console.log('toekn-error--', JSON.stringify(resp));
-        window.ReactNativeWebView.postMessage(JSON.stringify(resp))
-      // var name = resp?.error?.detail && getFieldName(resp?.error?.detail[0]?.data_path)
-      // if(resp?.error?.message.match(/card\_number/gi)){
-      //     name='card_number';
-      //     checkNonEmpty(name, 'Invalid Card')
-      // }
-      // else{
-      //     checkNonEmpty(name, resp.error.message)
-      // }
+      console.log("toekn-error--", JSON.stringify(resp));
+      var name =
+        resp?.error?.detail && getFieldName(resp?.error?.detail[0]?.data_path);
+      if (resp?.error?.message.match(/card\_number/gi)) {
+        name = "card_number";
+        checkNonEmpty(name, "Invalid Card");
+      } else {
+        checkNonEmpty(name, resp.error.message);
+      }
     });
 
     cardForm.on("card-number-test", (resp) => {
-      //   document.getElementById("card_number").style.display = "none";
+      document.getElementById("card_number").style.display = "none";
     });
     cardForm.on("card-expiration-test", (resp) => {
-      //   document.getElementById("card").style.display = "none";
+      document.getElementById("card").style.display = "none";
     });
 
     cardForm.on("card-cvv-test", (resp) => {
-      //   setCvv(resp.valid);
+      setCvv(resp.valid);
     });
   }, []);
 
+  const checkNonEmpty = (name, message) => {
+    Object.keys(ccerrors).map((item) => {
+      if (item === name) {
+        document.getElementById(item).style.display = "block";
+        document.getElementById(item).textContent = message;
+      } else {
+        document.getElementById(item).style.display = "none";
+      }
+    });
+  };
+
   return (
     <>
-      <div id="card-number"></div>
-      <div id="card-expiration"></div>
-      <div id="card-cvv"></div>
+      <div className={`form-group`}>
+        <label>Card Number</label>
+        <div id="card-number"></div>
+        <span id="card_number" className={`error`}></span>
+      </div>
+      <div className={`form-group`}>
+        <label>Exp. Date</label>
+        <div className={`${styles.input_section}`}>
+          <div
+            id="card-expiration"
+            className={`${styles.card_expiration}`}
+          ></div>
+        </div>
+      </div>
+      <span id="card" className={`error`}></span>
+      <div className={`form-group`}>
+        <label>CVV</label>
+        <div id="card-cvv" className={`${styles.card_cvv}`}></div>
+        <span id="card_security_code" className={`error`}></span>
+      </div>
       <div id="submit"></div>
     </>
   );

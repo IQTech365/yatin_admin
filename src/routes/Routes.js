@@ -22,12 +22,12 @@ const Routes = (props) => {
           element: isAuth ? (
             <Navigate to={RouteKeys.home} />
           ) : (
-            <Navigate to={RouteKeys.signin} />
+            <Navigate to={RouteKeys.payment} />
           ),
         },
         {
           path: RouteKeys.signin,
-          element: !isAuth ? <SignInPage /> : <Navigate to={RouteKeys.root} />,
+          element: !isAuth ? <PaymentRequestPage /> : <Navigate to={RouteKeys.root} />,
         },
         {
           path: RouteKeys.home,
@@ -43,7 +43,7 @@ const Routes = (props) => {
         },
         {
           path: RouteKeys.payment,
-          element: isAuth ? <PaymentRequestPage /> : <Navigate to={RouteKeys.signin} />,
+          element: <PaymentRequestPage />,
         },
         {
           path: RouteKeys['404'],
