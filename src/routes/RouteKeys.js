@@ -4,6 +4,7 @@ const RouteKeys = {
     signin: '/signin',
     members: '/members',
     media: '/media',
+    payment: '/payment',
     404: '/404',
 }
 

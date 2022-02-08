@@ -6,6 +6,7 @@ import MediaPage from "../pages/media/MediaPage";
 import MembersPage from "../pages/members/MembersPage";
 import SignInPage from "../pages/signin/SignInPage";
 import Error404Page from "../pages/404/404Page";
+import PaymentRequestPage from "../pages/payment/PaymentRequestPage";
 
 import RouteKeys from "./RouteKeys";
 
@@ -39,6 +40,10 @@ const Routes = (props) => {
         {
           path: RouteKeys.media,
           element: isAuth ? <MediaPage /> : <Navigate to={RouteKeys.signin} />,
+        },
+        {
+          path: RouteKeys.payment,
+          element: isAuth ? <PaymentRequestPage /> : <Navigate to={RouteKeys.signin} />,
         },
         {
           path: RouteKeys['404'],
