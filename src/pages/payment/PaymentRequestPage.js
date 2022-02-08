@@ -18,6 +18,7 @@ function getFieldName(path) {
 }
 
 const PaymentRequestPage = (props) => {
+  const {} = props;
   const { btnlabel, platform } = useParams();
   const [ccerrors, setCCErrors] = React.useState(initialCCDetails);
   const [CVV, setCvv] = React.useState(false);
@@ -94,11 +95,11 @@ const PaymentRequestPage = (props) => {
 
     cardForm.on("token-success", (resp) => {
       console.log("toekn-success--", JSON.stringify(resp));
-      // if(platform == 'web'){
-      //   onConfirmPayment();
-      // }else if(plaform == 'mobile'){
-      //   window.ReactNativeWebView.postMessage(JSON.stringify(resp));
-      // }
+      if(platform == 'web'){
+        window.postMessage(JSON.stringify(resp));
+      }else if(platform == 'mobile'){
+        window.ReactNativeWebView.postMessage(JSON.stringify(resp));
+      }
     });
 
     cardForm.on("token-error", (resp) => {
