@@ -1,11 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import styles from "./PaymentStyles.less";
+import styles from "./PaymentStyles.css";
 
 const initialCCDetails = {
   card_number: "",
   card: "",
   card_security_code: "",
+  card_holder: "",
 };
 
 function getFieldName(path) {
@@ -20,8 +21,14 @@ function getFieldName(path) {
 const PaymentRequestPage = (props) => {
   const {} = props;
   const { btnlabel, platform } = useParams();
-  const [ccerrors, setCCErrors] = React.useState(initialCCDetails);
+  const [ccerrors] = React.useState(initialCCDetails);
   const [CVV, setCvv] = React.useState(false);
+  const [openEdgeResponse, setOpenEdgeResponse] = React.useState({});
+  const [cardholderName, setCardholderName] = React.useState("");
+
+  const _onChangeCardholderName = (event) => {
+    setCardholderName(event.target.value);
+  };
 
   React.useEffect(() => {
     window.GlobalPayments.configure({
@@ -30,6 +37,24 @@ const PaymentRequestPage = (props) => {
     });
     window.GlobalPayments.on("error", (error) => {});
   }, []);
+
+  React.useEffect(() => {
+    if (openEdgeResponse.status) {
+      if (!CVV) {
+        checkNonEmpty("card_security_code", "Invalid CVV");
+      } else if(!cardholderName){
+        checkNonEmpty("card_holder", "Name Required");
+      }else {
+        const data = { cardholderName, openEdgeResponse };
+        console.log(JSON.stringify(openEdgeResponse));
+        if (platform == "web") {
+          window.postMessage(JSON.stringify(data));
+        } else if (platform == "mobile") {
+          window.ReactNativeWebView.postMessage(JSON.stringify(data));
+        }
+      }
+    }
+  }, [openEdgeResponse]);
 
   React.useEffect(() => {
     const cardForm = window.GlobalPayments.ui.form({
@@ -94,12 +119,7 @@ const PaymentRequestPage = (props) => {
     });
 
     cardForm.on("token-success", (resp) => {
-      console.log("toekn-success--", JSON.stringify(resp));
-      if(platform == 'web'){
-        window.postMessage(JSON.stringify(resp));
-      }else if(platform == 'mobile'){
-        window.ReactNativeWebView.postMessage(JSON.stringify(resp));
-      }
+      setOpenEdgeResponse({ status: true, resp, flag: 1 });
     });
 
     cardForm.on("token-error", (resp) => {
@@ -122,7 +142,10 @@ const PaymentRequestPage = (props) => {
     });
 
     cardForm.on("card-cvv-test", (resp) => {
-      setCvv(resp.valid);
+      if (resp.valid) {
+        checkNonEmpty("card_security_code", "");
+        setCvv(resp.valid);
+      }
     });
   }, []);
 
@@ -139,6 +162,19 @@ const PaymentRequestPage = (props) => {
 
   return (
     <>
+      <div className={`form-group`}>
+        <label>Card Holdername</label>
+        <div>
+          <input
+            id="card-holder-name"
+            name="card-holder-name"
+            placeholder="Card HolderName"
+            onChange={_onChangeCardholderName}
+            value={cardholderName}
+          />
+        </div>
+        <span id="card_holder" className={`error`}></span>
+      </div>
       <div className={`form-group`}>
         <label>Card Number</label>
         <div id="card-number"></div>

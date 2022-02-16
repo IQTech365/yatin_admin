@@ -1,190 +1,188 @@
 import React from "react";
-import {
-  Typography,
-  Form,
-  Input,
-  Button,
-  Select,
-  Radio,
-  Alert,
-  Row,
-  Col,
-} from "antd";
+import { Typography, Input, Button, Row, Col, Divider, Tag } from "antd";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../redux/actions/Action";
 import ReactPlayer from "react-player";
+import { INPUT_OBJECT } from "../../utils/utils";
+import { serialize } from "object-to-formdata";
 
 const MediaPage = (props) => {
   const dispatch = useDispatch();
-  const [form] = Form.useForm();
-  const [numberOfTextInputs, setNumberOfTextInputs] = React.useState(0);
-  const [groups, setGroups] = React.useState([]);
-  const [groupCreated, setGroupCreated] = React.useState(false);
   const [videoFilePath, setVideoFilePath] = React.useState(null);
-  const _onFinish = (values) => {
-    console.log(`Form-Data- ${JSON.stringify(values)}`);
-    const _tempArr = groups;
-    _tempArr.push(values);
-    setGroups(_tempArr);
-    setGroupCreated(true);
-    form.resetFields();
+  const [inputs, setInputs] = React.useState([]);
+  const [groups, setGroups] = React.useState([]);
+  const [interval, setInterval] = React.useState(null);
+
+  const _onCreate = (e) => {
+    e.preventDefault();
+    const newGroups = [...groups];
+    const group = { interval: interval, inputs: inputs };
+    newGroups.push(group);
+    setGroups(newGroups);
   };
 
-  const _onChangeGroup = (value) => {
-    setNumberOfTextInputs(value);
-  };
-
-  const _onAlertClose = () => {
-    setGroupCreated(false);
-  };
-
-  const _saveGroups = () => {
-    const intervals = groups.map((el) => {
-      const item = parseInt(el.interval);
-      return item;
-    });
-    const data = {
-      group_count: groups.length,
-      groups: groups,
-      intervals: intervals,
-    };
-    dispatch(Actions.saveGroups(data));
+  const _saveGroups = (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("video_file", videoFilePath);
+    formData.append("groups", JSON.stringify(groups));
+    // groups.forEach((data,i) =>{
+    //   formData.append(`groups[${i}]`, data)
+    // })
+    // const myObject = {
+    //   video_file: videoFilePath,
+    //   groups: groups,
+    // };
+    // const formData = serialize(myObject);
+    dispatch(Actions.uploadFileRequestAsync(formData));
+    // dispatch(Actions.saveGroups({groups, mediaLink: videoFilePath}));
   };
 
   const _onFileSelect = (e) => {
     setVideoFilePath(e.target.files[0]);
   };
 
-  const input = {
-    name: "input",
-    font_size: "font_size",
-    font_color: "font_color",
-    placeholder: "Enter text",
-    position: "top",
+  const _addInput = (e) => {
+    setInputs([...inputs, Object.assign({}, INPUT_OBJECT)]);
+  };
+
+  const _removeInput = (index) => {
+    const newInputs = [...inputs];
+    newInputs.splice(index, 1);
+    setInputs(newInputs);
+  };
+
+  const _setInputField = (field, value, index = null) => {
+    const newInputs = JSON.parse(JSON.stringify(inputs));
+    newInputs[index][field] = value;
+    setInputs(newInputs);
+  };
+
+  const _setIntervalField = (value) => {
+    setInterval(value);
+  };
+
+  const _removeGroup = (index) => {
+    const newGroups = JSON.parse(JSON.stringify(groups));
+    newGroups.splice(index, 1);
+    setGroups(newGroups);
   };
 
   return (
     <>
-      {videoFilePath && <ReactPlayer
-        url={URL.createObjectURL(videoFilePath)}
-        width="100%"
-        height="100%"
-        controls={true}
-      />}
-      <br></br>
       <Row>
-        <Col><b>Total Groups:</b> {groups.length}</Col>
-      </Row>
-      <Row>
-        <Col>Choose Video File:</Col>
-        <Col>
-          <Input type={"file"} onChange={_onFileSelect} />
+        <Col md={6}>
+          <Typography.Title level={4}>Create New Group</Typography.Title>
+        </Col>
+        <Col md={6}>
+          <Button onClick={_addInput} type="primary">
+            Add Input
+          </Button>
         </Col>
       </Row>
-      <Typography.Title level={4}>Create Group</Typography.Title>
-      {groupCreated && (
-        <Alert
-          message="Group Created"
-          type="success"
-          showIcon
-          closable
-          onClose={_onAlertClose}
-          style={{ width: 200 }}
+      <Row>
+        <Col>
+          <Input
+            type="file"
+            onChange={_onFileSelect}
+            id="video_file"
+            name="video_file"
+            style={{ marginBottom: 5 }}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {groups.map((_, index) => (
+            <Tag closable onClose={() => _removeGroup(index)}>{`Group ${
+              index + 1
+            }`}</Tag>
+          ))}
+        </Col>
+      </Row>
+      {videoFilePath && (
+        <ReactPlayer
+          // url={URL.createObjectURL(videoFilePath)}
+          url="https://storage.googleapis.com/download/storage/v1/b/yatinapp-a7d15.appspot.com/o/%2Fvideos%2F1644673436337-testfile.mp4?generation=1644673437615058&alt=media"
+          width="50%"
+          height="50%"
+          controls={true}
         />
       )}
       <br></br>
-      <Form
-        form={form}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        name="control-hooks"
-        onFinish={_onFinish}
-      >
-        <Form.Item name="numberOfInputs" rules={[{ required: true }]}>
-          <Select
-            placeholder="Number of TextInputs"
-            allowClear
-            onChange={_onChangeGroup}
-          >
-            <Select.Option value="1">1</Select.Option>
-            <Select.Option value="2">2</Select.Option>
-            <Select.Option value="3">3</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item name="interval" rules={[{ required: true }]}>
-          <Input placeholder="Enter interval in seconds" />
-        </Form.Item>
-        {Array(parseInt(numberOfTextInputs))
-          .fill(input)
-          .map((item, index) => {
-            return (
-              <>
-                <Form.Item
-                  name={`${item.name}_${index}`}
-                  rules={[{ required: true }]}
-                  key={index}
-                >
-                  <Input placeholder={item.placeholder} />
-                </Form.Item>
-                <Typography.Text>Text Position</Typography.Text><br />
-                <Form.Item
-                  name={`input_${index}_position`}
-                  rules={[{ required: true }]}
-                >
-                  <Radio.Group>
-                    <Radio value={"top"}>Top</Radio>
-                    <Radio value={"center"}>Center</Radio>
-                    <Radio value={"bottom"}>Bottom</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                <Typography.Text>Font Size</Typography.Text><br />
-                <Form.Item
-                  name={`input_${index}_size`}
-                  rules={[{ required: false }]}
-                >
-                  <Radio.Group>
-                    <Radio value={12}>12</Radio>
-                    <Radio value={14}>14</Radio>
-                    <Radio value={18}>18</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                <Typography.Text>OR- Enter custom font size below:</Typography.Text><br />
-                <Form.Item
-                  name={`${item.font_size}_${index}`}
-                  rules={[{ required: false }]}
-                  key={index}
-                >
-                  <Input placeholder="Enter your font size" />
-                </Form.Item>
-                <Typography.Text>Font Color</Typography.Text><br />
-                <Form.Item
-                  name={`input_${index}_color`}
-                  rules={[{ required: false }]}
-                >
-                  <Radio.Group>
-                    <Radio value={"#FF0000"}>Red</Radio>
-                    <Radio value={"#2E8BC0"}>Blue</Radio>
-                    <Radio value={"#0C2D48"}>Dark Blue</Radio>
-                  </Radio.Group>
-                </Form.Item>
-                <Typography.Text>OR- Enter custom font color below:</Typography.Text><br />
-                <Form.Item
-                  name={`${item.font_color}_${index}`}
-                  rules={[{ required: false }]}
-                  key={index}
-                >
-                  <Input placeholder="#000000" />
-                </Form.Item>
-              </>
-            );
-          })}
-        <Form.Item wrapperCol={{ span: 8, offset: 0 }}>
-          <Button type="primary" htmlType="submit">
+      <Row>
+        <Col md={12}>
+          <Input
+            placeholder="Enter Interval"
+            onChange={(event) => _setIntervalField(event.target.value)}
+            value={interval}
+          />
+          <Divider style={{ borderColor: "black" }} />
+          <Typography.Title level={5}>Inputs</Typography.Title>
+          {inputs.map((input, index) => (
+            <React.Fragment key={`input-${index}`}>
+              <Input
+                value={input.text}
+                placeholder="Enter text"
+                required
+                id={`text-${index}`}
+                name={`text-${index}`}
+                style={{ marginBottom: 5 }}
+                key={index}
+                onChange={(event) =>
+                  _setInputField(`text`, event.target.value, index)
+                }
+              />
+              <Input
+                placeholder="Enter size"
+                value={input.size}
+                required
+                id={`size-${index}`}
+                name={`size-${index}`}
+                style={{ marginBottom: 5 }}
+                onChange={(event) =>
+                  _setInputField(`size`, event.target.value, index)
+                }
+              />
+              <Input
+                placeholder="Enter color"
+                value={input.color}
+                required
+                id={`color-${index}`}
+                name={`color-${index}`}
+                style={{ marginBottom: 5 }}
+                onChange={(event) =>
+                  _setInputField(`color`, event.target.value, index)
+                }
+              />
+              {inputs.length > 0 && (
+                <Row>
+                  <Button
+                    onClick={() => {
+                      _removeInput(index);
+                    }}
+                    type="danger"
+                  >
+                    Remove
+                  </Button>
+                  <Divider dashed plain style={{ borderColor: "green" }} />
+                </Row>
+              )}
+            </React.Fragment>
+          ))}
+          <Button type="primary" onClick={_onCreate}>
             Create
           </Button>
-        </Form.Item>
-      </Form>
-      <Button onClick={_saveGroups}>Save Groups</Button>
+          <Button
+            type="warning"
+            onClick={_saveGroups}
+            style={{ marginLeft: 5 }}
+            disabled={groups.length <= 0}
+          >
+            Save Groups
+          </Button>
+        </Col>
+      </Row>
     </>
   );
 };

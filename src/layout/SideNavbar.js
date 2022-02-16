@@ -31,9 +31,9 @@ const SideNavbar = (props) => {
         <Menu.Item key={"3"} icon={<UploadOutlined />}>
           <Link to="/media">Group</Link>
         </Menu.Item>
-        <Menu.Item key={"4"} icon={<UploadOutlined />}>
+        {/* <Menu.Item key={"4"} icon={<UploadOutlined />}>
           <Link to="/payment/Add Payment Method/web">Payment</Link>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item key={"5"} icon={<UserOutlined />}>
           <Link to="/profile">Logout</Link>
         </Menu.Item>

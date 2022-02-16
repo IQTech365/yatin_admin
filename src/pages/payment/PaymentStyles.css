@@ -1,6 +1,9 @@
 .error {
   color: #ff0000;
 }
+.error_2 {
+  color: green;
+}
 .card_number,
 .card_cvv,
 .card_expiration {

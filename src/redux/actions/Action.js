@@ -1,6 +1,7 @@
 import ActionTypes from "./ActionTypes";
 import { SignInService } from "../../services/sigin.service";
 import * as UserServices from "../../services/user.service";
+import * as GroupServices from "../../services/save.groups.service";
 
 export const saveGroups = (data) => {
   return {
@@ -112,3 +113,59 @@ export const getUsersRequestFailed = (data) => {
     payload: data,
   };
 };
+
+//Upload File
+export const uploadFileRequestAsync = (data) => {
+  return (dispatch) => {
+    dispatch(uploadFileRequest());
+    GroupServices.SaveGroupService(dispatch, data);
+  }
+}
+
+export const uploadFileRequest = () => {
+  return {
+    type: ActionTypes.UPLOAD_FILE_REQUEST_STARTED,
+  }
+}
+
+export const uploadFileRequestSucceeded = (data) => {
+  return {
+    type: ActionTypes.UPLOAD_FILE_REQUEST_SUCCEEDED,
+    payload: data,
+  }
+}
+
+export const uploadFileRequestFailed = (data) => {
+  return {
+    type: ActionTypes.UPLOAD_FILE_REQUEST_FAILED,
+    payload: data,
+  }
+}
+
+//get media by id
+export const getMediaRequestAsync = (data) => {
+  return (dispatch) => {
+    dispatch(getMediaRequest());
+    GroupServices.GetMediaService(dispatch, data);
+  }
+}
+
+export const getMediaRequest = () => {
+  return {
+    type: ActionTypes.GET_MEDIA_REQUEST_STARTED,
+  }
+}
+
+export const getMediaSucceeded = (data) => {
+  return {
+    type: ActionTypes.GET_MEDIA_REQUEST_SUCCEEDED,
+    payload: data,
+  }
+}
+
+export const getMediaFailed = (data) => {
+  return {
+    type: ActionTypes.GET_USERS_REQUEST_FAILED,
+    payload: data,
+  }
+}
