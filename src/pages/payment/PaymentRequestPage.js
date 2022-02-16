@@ -161,8 +161,8 @@ const PaymentRequestPage = (props) => {
   };
 
   return (
-    <>
-      <div className={`form-group`}>
+    <div className="form-contaienr">
+      <div className={`form-group`} style={{textAlign: 'left'}}>
         <label>Card Holdername</label>
         <div>
           <input
@@ -196,7 +196,7 @@ const PaymentRequestPage = (props) => {
         <span id="card_security_code" className={`error`}></span>
       </div>
       <div id="submit"></div>
-    </>
+    </div>
   );
 };
 
