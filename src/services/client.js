@@ -7,7 +7,11 @@ class Client {
 
   static doGet = async (url, params = null, data = null) => {
     try {
-      const response = await this.instance.get(url, { params: params }, data);
+      const response = await this.instance.get(
+        url,
+        { params: { params } },
+        data
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -22,9 +26,9 @@ class Client {
     try {
       const config = {
         headers: {
-          'Content-Type':'multipart/form-data'
-        }
-      }
+          "Content-Type": "multipart/form-data",
+        },
+      };
       const configOptions = isMultipart ? config : null;
       const response = await this.instance.post(url, data, configOptions);
       if (response.status === 200) {

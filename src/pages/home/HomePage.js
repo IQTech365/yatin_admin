@@ -14,26 +14,38 @@ const HomePage = (props) => {
   const [currentGroupIndex, seCurrentGroupIndex] = React.useState(-1);
   const [videoState, setVideoState] = React.useState(null);
   const [currentGroup, setCurrentGroup] = React.useState(null);
-  const [groups, setGroups] = React.useState(data?.groups);
+  const [groups, setGroups] = React.useState(media?.groups);
 
   const _videoControl = () => {
-    if (videoState?.paused) {
-      playerRef.current.play();
-      setIsPlaying(true);
-    } else {
+    // if (videoState?.paused) {
+    //   playerRef.current.play();
+    //   setIsPlaying(true);
+    // } else {
+    //   playerRef.current.pause();
+    //   setIsPlaying(false);
+    // }
+    if(isPlaying){
       playerRef.current.pause();
       setIsPlaying(false);
+    }else {
+      playerRef.current.play();
+      setIsPlaying(true);
     }
   };
 
   const _setGroupInputField = (field, value, index) => {
+    console.log('CurrentIndex - ', index);
     const newGroups = JSON.parse(JSON.stringify(groups));
-    newGroups[currentGroupIndex].inputs[index][field] = value;
+    const newCurrentGroup = Object.assign({}, currentGroup);
+    newCurrentGroup.inputs[index][field] = value;
+    setCurrentGroup(newCurrentGroup);
+    newGroups[currentGroupIndex] = newCurrentGroup;
     setGroups(newGroups);
   };
 
   const _renderCurrentGroup = () => {
     if (currentGroup) {
+      playerRef.current.pause();
       return (
         <Row>
           <Col>
@@ -67,7 +79,7 @@ const HomePage = (props) => {
   const _onSave = () => {};
 
   React.useEffect(() => {
-    if(data?.mediaLink){
+    if(media?.media_link){
       playerRef.current.subscribeToStateChange((state) => {
         setVideoState(state);
         if (videoDuration === 0) {
@@ -103,10 +115,14 @@ const HomePage = (props) => {
     <>
       <Row align="middle" justify="center" typeof="">
         <Col span={24}>
-          {mediaLink && <Player
+          {media?.media_link && <Player
             ref={playerRef}
-            // src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"
-            src={URL.createObjectURL(data?.mediaLink)}
+            // src={media?.media_link}
+            width={300}
+            height={200}
+            // src={URL.createObjectURL(data?.mediaLink)}
+            src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
+            
           />}
           <div
             style={{

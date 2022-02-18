@@ -14,8 +14,9 @@ export const SaveGroupService = async (dispatch, data) => {
 };
 
 export const GetMediaService = async (dispatch, data) => {
+  console.log('2222--', JSON.stringify(data));
   try {
-    const response = await Client.doGet(get_media_URL, null, data);
+    const response = await Client.doGet(get_media_URL, data, null);
     dispatch(Actions.getMediaSucceeded(response));
   } catch (error) {
     dispatch(Actions.getMediaFailed({error: error}));

@@ -144,6 +144,7 @@ export const uploadFileRequestFailed = (data) => {
 
 //get media by id
 export const getMediaRequestAsync = (data) => {
+  console.log('mydata----', JSON.stringify(data));
   return (dispatch) => {
     dispatch(getMediaRequest());
     GroupServices.GetMediaService(dispatch, data);
