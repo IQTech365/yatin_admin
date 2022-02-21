@@ -46,7 +46,7 @@ const HomePage = (props) => {
 
   const _renderCurrentGroup = () => {
     if (currentGroup) {
-      playerRef.current.pause();
+      // playerRef.current.pause();
       return (
         <Row>
           <Col>
@@ -77,7 +77,13 @@ const HomePage = (props) => {
     return null;
   };
 
-  const _onSave = () => {};
+  const _onSave = () => {
+    //Save changes
+  };
+
+  const _onPlayAgain = () => {
+    playerRef.current.play();
+  }
 
   React.useEffect(() => {
     if (media?.media_link) {
@@ -124,7 +130,7 @@ const HomePage = (props) => {
             onChange={(event) => {
               setMediaLink(event.target.value);
             }}
-            placeholder="Enter media link and click on Get Media"
+            placeholder="Enter media ID and click on Get Media"
             id="media-link"
             name="media-link"
             style={{ marginBottom: 5 }}
@@ -177,7 +183,10 @@ const HomePage = (props) => {
           </Button>
         </Col>
         <Col>
-          <Button onClick={_onSave}>Save</Button>
+          <Button onClick={_onPlayAgain}>Play Again</Button>
+        </Col>
+        <Col>
+          <Button onClick={_onSave}>Save Changes</Button>
         </Col>
       </Row>
     </>
