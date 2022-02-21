@@ -144,7 +144,6 @@ export const uploadFileRequestFailed = (data) => {
 
 //get media by id
 export const getMediaRequestAsync = (data) => {
-  console.log('mydata----', JSON.stringify(data));
   return (dispatch) => {
     dispatch(getMediaRequest());
     GroupServices.GetMediaService(dispatch, data);
@@ -167,6 +166,34 @@ export const getMediaSucceeded = (data) => {
 export const getMediaFailed = (data) => {
   return {
     type: ActionTypes.GET_USERS_REQUEST_FAILED,
+    payload: data,
+  }
+}
+
+//get all media
+export const getAllMediaRequestAsync = (data) => {
+  return (dispatch) => {
+    dispatch(getAllMediaRequest());
+    GroupServices.GetALLMediaService(dispatch, data);
+  }
+}
+
+export const getAllMediaRequest = () => {
+  return {
+    type: ActionTypes.GET_ALL_MEDIA_REQUEST_STARTED,
+  }
+}
+
+export const getAllMediaSucceeded = (data) => {
+  return {
+    type: ActionTypes.GET_ALL_MEDIA_REQUEST_SUCCEEDED,
+    payload: data,
+  }
+}
+
+export const getAllMediaFailed = (data) => {
+  return {
+    type: ActionTypes.GET_ALL_MEDIA_REQUEST_FAILED,
     payload: data,
   }
 }

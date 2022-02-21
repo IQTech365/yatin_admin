@@ -6,6 +6,7 @@ const RouteKeys = {
     media: '/media',
     payment: '/payment/:btnlabel/:platform',
     404: '/404',
+    mediaLink: '/media-link',
 }
 
 export default RouteKeys;

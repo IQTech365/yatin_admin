@@ -102,8 +102,8 @@ const MediaPage = (props) => {
       </Row>
       {videoFilePath && (
         <ReactPlayer
-          // url={URL.createObjectURL(videoFilePath)}
-          url="https://storage.googleapis.com/download/storage/v1/b/yatinapp-a7d15.appspot.com/o/%2Fvideos%2F1644673436337-testfile.mp4?generation=1644673437615058&alt=media"
+          url={URL.createObjectURL(videoFilePath)}
+          // url="https://storage.googleapis.com/download/storage/v1/b/yatinapp-a7d15.appspot.com/o/%2Fvideos%2F1644673436337-testfile.mp4?generation=1644673437615058&alt=media"
           width="50%"
           height="50%"
           controls={true}

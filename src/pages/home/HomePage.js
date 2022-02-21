@@ -6,7 +6,7 @@ import * as Actions from "../../redux/actions/Action";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
-  const { data = [], mediaLink, media } = useSelector((state) => state.Groups);
+  const { media } = useSelector((state) => state.Groups);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [videoDuration, setVideoDuration] = React.useState(0);
   const [videoCurrentTime, setVideoCurrentTime] = React.useState(0);
@@ -15,6 +15,7 @@ const HomePage = (props) => {
   const [videoState, setVideoState] = React.useState(null);
   const [currentGroup, setCurrentGroup] = React.useState(null);
   const [groups, setGroups] = React.useState(media?.groups);
+  const [mediaLink, setMediaLink] = React.useState(null);
 
   const _videoControl = () => {
     // if (videoState?.paused) {
@@ -24,17 +25,17 @@ const HomePage = (props) => {
     //   playerRef.current.pause();
     //   setIsPlaying(false);
     // }
-    if(isPlaying){
+    if (isPlaying) {
       playerRef.current.pause();
       setIsPlaying(false);
-    }else {
+    } else {
       playerRef.current.play();
       setIsPlaying(true);
     }
   };
 
   const _setGroupInputField = (field, value, index) => {
-    console.log('CurrentIndex - ', index);
+    console.log("CurrentIndex - ", index);
     const newGroups = JSON.parse(JSON.stringify(groups));
     const newCurrentGroup = Object.assign({}, currentGroup);
     newCurrentGroup.inputs[index][field] = value;
@@ -79,7 +80,7 @@ const HomePage = (props) => {
   const _onSave = () => {};
 
   React.useEffect(() => {
-    if(media?.media_link){
+    if (media?.media_link) {
       playerRef.current.subscribeToStateChange((state) => {
         setVideoState(state);
         if (videoDuration === 0) {
@@ -88,7 +89,11 @@ const HomePage = (props) => {
         setVideoCurrentTime(state.currentTime);
       });
     }
-    dispatch(Actions.getMediaRequestAsync({media_id: "yatinapp-a7d15.appspot.com//videos/1644755224603-testfile.mp4/1644755226205725"}))
+    // dispatch(
+    //   Actions.getMediaRequestAsync({
+    //     id: "yatinapp-a7d15.appspot.com//videos/1645348837613-testfile.mp4/1645348838996621",
+    //   })
+    // );
   }, []);
 
   React.useEffect(() => {
@@ -113,17 +118,42 @@ const HomePage = (props) => {
 
   return (
     <>
+      <Row>
+        <Col span={24}>
+          <Input
+            onChange={(event) => {
+              setMediaLink(event.target.value);
+            }}
+            placeholder="Enter media link and click on Get Media"
+            id="media-link"
+            name="media-link"
+            style={{ marginBottom: 5 }}
+          />
+          <Button
+            onClick={() => {
+              dispatch(
+                Actions.getMediaRequestAsync({
+                  id: mediaLink,
+                })
+              );
+            }}
+          >
+            Get Media
+          </Button>
+        </Col>
+      </Row>
       <Row align="middle" justify="center" typeof="">
         <Col span={24}>
-          {media?.media_link && <Player
-            ref={playerRef}
-            // src={media?.media_link}
-            width={300}
-            height={200}
-            // src={URL.createObjectURL(data?.mediaLink)}
-            src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
-            
-          />}
+          {media?.media_link && (
+            <Player
+              ref={playerRef}
+              src={media?.media_link}
+              width={300}
+              height={200}
+              // src={URL.createObjectURL(data?.mediaLink)}
+              // src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
+            />
+          )}
           <div
             style={{
               position: "absolute",

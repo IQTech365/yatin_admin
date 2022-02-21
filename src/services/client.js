@@ -10,7 +10,7 @@ class Client {
     try {
       const response = await this.instance.get(
         url,
-        { params: { params } },
+        { params: params },
         data
       );
       if (response.status === 200) {
