@@ -149,7 +149,7 @@ const HomePage = (props) => {
         </Col>
       </Row>
       <Row align="middle" justify="center" typeof="">
-        <Col span={24}>
+        <Col span={6}>
           {media?.media_link && (
             <Player
               ref={playerRef}
