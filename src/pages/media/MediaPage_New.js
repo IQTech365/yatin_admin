@@ -17,7 +17,7 @@ import { serialize } from "object-to-formdata";
 import Draggable from "react-draggable";
 import "./Media.less";
 
-const MediaPage = (props) => {
+const MediaPageNew = (props) => {
   const dispatch = useDispatch();
   const [videoFilePath, setVideoFilePath] = React.useState(null);
   const [inputs, setInputs] = React.useState([]);
@@ -263,4 +263,4 @@ const MediaPage = (props) => {
   );
 };
 
-export default MediaPage;
+export default MediaPageNew;

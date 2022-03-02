@@ -197,3 +197,31 @@ export const getAllMediaFailed = (data) => {
     payload: data,
   }
 }
+
+//update media by id
+export const updateMediaRequestAsync = (data) => {
+  return (dispatch) => {
+    dispatch(getAllMediaRequest());
+    GroupServices.UpdateMediaService(dispatch, data);
+  }
+}
+
+export const updateMediaRequest = () => {
+  return {
+    type: ActionTypes.UPDATE_MEDIA_REQUEST_STARTED,
+  }
+}
+
+export const updateMediaSucceeded = (data) => {
+  return {
+    type: ActionTypes.UPDATE_MEDIA_REQUEST_SUCCEEDED,
+    payload: data,
+  }
+}
+
+export const updateMediaFailed = (data) => {
+  return {
+    type: ActionTypes.UPDATE_MEDIA_REQUEST_FAILED,
+    payload: data,
+  }
+}

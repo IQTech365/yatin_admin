@@ -8,6 +8,7 @@ import SignInPage from "../pages/signin/SignInPage";
 import Error404Page from "../pages/404/404Page";
 import PaymentRequestPage from "../pages/payment/PaymentRequestPage";
 import MediaLinkPage from "../pages/media-link/MediaLinkPage";
+import MediaPageNew from "../pages/media/MediaPage_New";
 
 import RouteKeys from "./RouteKeys";
 
@@ -40,7 +41,7 @@ const Routes = (props) => {
         },
         {
           path: RouteKeys.media,
-          element: isAuth ? <MediaPage /> : <Navigate to={RouteKeys.signin} />,
+          element: isAuth ? <MediaPageNew /> : <Navigate to={RouteKeys.signin} />,
         },
         {
           path: RouteKeys.mediaLink,

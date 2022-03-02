@@ -3,6 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Player } from "video-react";
 import { Row, Col, Button, Input } from "antd";
 import * as Actions from "../../redux/actions/Action";
+import Draggable from "react-draggable";
+import "./HomePage.less";
+import ReactPlayer from "react-player";
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
@@ -16,22 +19,12 @@ const HomePage = (props) => {
   const [currentGroup, setCurrentGroup] = React.useState(null);
   const [groups, setGroups] = React.useState(media?.groups);
   const [mediaLink, setMediaLink] = React.useState(null);
+  //New Changes
+  const [playing, setPlaying] = React.useState(false);
+  const [startTimer, setStartTimer] = React.useState(false);
 
   const _videoControl = () => {
-    // if (videoState?.paused) {
-    //   playerRef.current.play();
-    //   setIsPlaying(true);
-    // } else {
-    //   playerRef.current.pause();
-    //   setIsPlaying(false);
-    // }
-    if (isPlaying) {
-      playerRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      playerRef.current.play();
-      setIsPlaying(true);
-    }
+    setPlaying(!playing);
   };
 
   const _setGroupInputField = (field, value, index) => {
@@ -46,14 +39,15 @@ const HomePage = (props) => {
 
   const _renderCurrentGroup = () => {
     if (currentGroup) {
-      // playerRef.current.pause();
+      // setPlaying(false);
       return (
         <Row>
           <Col>
             {currentGroup.inputs.map((input, index) => {
               return (
-                <React.Fragment key={`input-${index}`}>
+                <div key={`input-${index}`}>
                   <Input
+                    className="drag-input"
                     placeholder="enter text"
                     value={input.text}
                     id={`text-${index}`}
@@ -65,62 +59,28 @@ const HomePage = (props) => {
                       backgroundColor: "transparent",
                       color: input.color,
                       fontSize: parseInt(input.size),
+                      width: `${input.text.length}ch`,
+                      padding: 0,
+                      top: input.position_y,
+                      left: input.position_x,
                     }}
                   />
-                </React.Fragment>
+                </div>
               );
             })}
           </Col>
         </Row>
       );
-    }
+    } 
     return null;
   };
 
   const _onSave = () => {
     //Save changes
+    const data = { media_id: mediaLink, groups: groups };
+    console.log("Modified Groups--", JSON.stringify(groups));
+    dispatch(Actions.updateMediaRequestAsync(data));
   };
-
-  const _onPlayAgain = () => {
-    playerRef.current.play();
-  }
-
-  React.useEffect(() => {
-    if (media?.media_link) {
-      playerRef.current.subscribeToStateChange((state) => {
-        setVideoState(state);
-        if (videoDuration === 0) {
-          setVideoDuration(state.duration);
-        }
-        setVideoCurrentTime(state.currentTime);
-      });
-    }
-    // dispatch(
-    //   Actions.getMediaRequestAsync({
-    //     id: "yatinapp-a7d15.appspot.com//videos/1645348837613-testfile.mp4/1645348838996621",
-    //   })
-    // );
-  }, []);
-
-  React.useEffect(() => {
-    const currentTimeInSeconds = Math.floor(videoCurrentTime);
-    if (currentTimeInSeconds !== 0) {
-      if (groups && groups.length > 0) {
-        const index = groups.findIndex((el) => {
-          const groupShowTime = parseInt(el.interval);
-          return groupShowTime === currentTimeInSeconds;
-        });
-        if (index !== -1) {
-          const currentGroupObject = groups[index];
-          seCurrentGroupIndex(index);
-          setCurrentGroup(currentGroupObject);
-        } else {
-          seCurrentGroupIndex(-1);
-          setCurrentGroup(null);
-        }
-      }
-    }
-  }, [videoCurrentTime]);
 
   return (
     <>
@@ -149,20 +109,40 @@ const HomePage = (props) => {
         </Col>
       </Row>
       <Row align="middle" justify="center" typeof="">
-        <Col span={6}>
+        <Col>
           {media?.media_link && (
-            <Player
-              ref={playerRef}
-              src={media?.media_link}
-              width={300}
-              height={200}
-              // src={URL.createObjectURL(data?.mediaLink)}
-              // src={"https://media.w3.org/2010/05/sintel/trailer_hd.mp4"}
+            <ReactPlayer
+              url={media?.media_link}
+              playing={playing}
+              onProgress={(progress) => {
+                const currentTimeInSeconds = Math.floor(
+                  progress?.playedSeconds
+                );
+                if (currentTimeInSeconds !== 0) {
+                  if (groups && groups.length > 0) {
+                    const index = groups.findIndex((el) => {
+                      const groupShowTime = parseInt(el.interval);
+                      return groupShowTime === currentTimeInSeconds;
+                    });
+                    if (index !== -1) {
+                      setPlaying(false)
+                      const currentGroupObject = groups[index];
+                      seCurrentGroupIndex(index);
+                      setCurrentGroup(currentGroupObject);
+                    }
+                     else {
+                      seCurrentGroupIndex(-1);
+                      setCurrentGroup(null);
+                    }
+                  }
+                }
+              }}
             />
           )}
           <div
             style={{
               position: "absolute",
+              flexDirection: "column",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -178,12 +158,7 @@ const HomePage = (props) => {
       </Row>
       <Row>
         <Col>
-          <Button onClick={_videoControl}>
-            {isPlaying ? "Pause" : "Play"}
-          </Button>
-        </Col>
-        <Col>
-          <Button onClick={_onPlayAgain}>Play Again</Button>
+          <Button onClick={_videoControl}>{playing ? "Pause" : "Play"}</Button>
         </Col>
         <Col>
           <Button onClick={_onSave}>Save Changes</Button>

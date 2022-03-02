@@ -1,5 +1,5 @@
 import Client from "./client";
-import { save_groups_URL, get_media_URL, get_all_media_URL } from "./api.endpoints";
+import { save_groups_URL, get_media_URL, get_all_media_URL, update_media_URL } from "./api.endpoints";
 import * as Actions from "../redux/actions/Action";
 
 export const SaveGroupService = async (dispatch, data) => {
@@ -30,6 +30,19 @@ export const GetALLMediaService = async (dispatch, data) => {
     dispatch(Actions.getAllMediaSucceeded(response));
   } catch (error) {
     dispatch(Actions.getAllMediaFailed({error: error}));
+    const alertData = { message: error.toString(), type: "error" };
+    dispatch(Actions.showAlert(alertData));
+  }
+};
+
+export const UpdateMediaService = async (dispatch, data) => {
+  const {media_id, groups} = data;
+  try {
+    // const update_URL = update_media_URL.replace('{media_id}', media_id);
+    const response = await Client.doPost(update_media_URL, data, null);
+    dispatch(Actions.updateMediaSucceeded(response));
+  } catch (error) {
+    dispatch(Actions.updateMediaFailed({error: error}));
     const alertData = { message: error.toString(), type: "error" };
     dispatch(Actions.showAlert(alertData));
   }
