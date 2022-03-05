@@ -8,6 +8,7 @@ import {
   Divider,
   Tag,
   Select,
+  Image
 } from "antd";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../redux/actions/Action";

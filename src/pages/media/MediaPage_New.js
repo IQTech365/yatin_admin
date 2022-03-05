@@ -6,46 +6,70 @@ import {
   Row,
   Col,
   Divider,
-  Tag,
   Select,
+  Image,
+  Modal,
 } from "antd";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../redux/actions/Action";
 import ReactPlayer from "react-player";
-import { INPUT_OBJECT } from "../../utils/utils";
+import { INPUT_OBJECT, GROUP_OBJECT } from "../../utils/utils";
 import { serialize } from "object-to-formdata";
 import Draggable from "react-draggable";
 import "./Media.less";
 
 const MediaPageNew = (props) => {
   const dispatch = useDispatch();
-  const [videoFilePath, setVideoFilePath] = React.useState(null);
+  const [media, setMedia] = React.useState(null);
   const [inputs, setInputs] = React.useState([]);
   const [groups, setGroups] = React.useState([]);
   const [interval, setInterval] = React.useState(null);
   const [playing, setPlaying] = React.useState(false);
-  const [totalDuration, setTotalDuration] = React.useState(0);
-  const [playedSeconds, setPlayedSeconds] = React.useState(0);
+  const [category, setCategory] = React.useState(null);
+  const [mediaType, setMediaType] = React.useState("video");
+  const [numberOfGroups, setNumberOfGroups] = React.useState(1);
+  const [activeGroupIndex, setActiveGroupIndex] = React.useState(0);
+  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
 
   const _onCreate = (e) => {
     e.preventDefault();
     const newGroups = [...groups];
-    const group = { interval: interval, inputs: inputs };
+    const group = {
+      interval: mediaType === "video" ? interval : 0,
+      inputs: inputs,
+      category: category,
+      mediaType: mediaType,
+    };
     newGroups.push(group);
     setGroups(newGroups);
+    _resetForm();
+  };
+
+  const _resetForm = () => {
+    setInputs([]);
+    setInterval(null);
   };
 
   const _saveGroups = (e) => {
-    e.preventDefault();
-    let formData = new FormData();
     console.log("groups----", JSON.stringify(groups));
-    formData.append("video_file", videoFilePath);
-    formData.append("groups", JSON.stringify(groups));
-    dispatch(Actions.uploadFileRequestAsync(formData));
+    if (groups.length < numberOfGroups && mediaType === "video") {
+      setShowConfirmModal(true);
+    } else {
+      let formData = new FormData();
+      formData.append("video_file", media);
+      formData.append("groups", JSON.stringify(groups));
+      dispatch(Actions.uploadFileRequestAsync(formData));
+    }
   };
 
   const _onFileSelect = (e) => {
-    setVideoFilePath(e.target.files[0]);
+    const mediaFile = e.target.files[0];
+    setMedia(e.target.files[0]);
+    if (mediaFile.type.includes("video")) {
+      setMediaType("video");
+    } else if (mediaFile.type.includes("image")) {
+      setMediaType("image");
+    }
   };
 
   const _addInput = (e) => {
@@ -83,60 +107,148 @@ const MediaPageNew = (props) => {
     setGroups(newGroups);
   };
 
-  const _onDuration = (duration) => {
-    console.log("Media-Duration", duration);
-    setTotalDuration(duration);
+  const _renderVideoPlayer = () => {
+    if (!media) return null;
+    return <ReactPlayer url={URL.createObjectURL(media)} playing={playing} />;
   };
 
-  const _onProgress = (progress) => {
-    console.log("Media-Progress", JSON.stringify(progress));
-    setPlayedSeconds(progress?.playedSeconds);
+  const _renderImage = () => {
+    if (!media) return null;
+    return (
+      <Image
+        width={250}
+        src={URL.createObjectURL(media)}
+        height={300}
+        style={{ objectFit: "contain" }}
+      />
+    );
   };
 
-  // React.useEffect(() => {
-  //   //
-  // }, [playedSeconds]);
+  // Add Temp Group
+  const _addTempGroup = () => {
+    if (numberOfGroups < 4) {
+      setNumberOfGroups(numberOfGroups + 1);
+    }
+    // setTempGroups([...tempGroups, Object.assign({}, GROUP_OBJECT)]);
+  };
+
+  const _removeTempGroup = () => {
+    if (numberOfGroups > 1) {
+      setNumberOfGroups(numberOfGroups - 1);
+    }
+  };
+
+  const _handleOk = () => {
+    setShowConfirmModal(false);
+    let formData = new FormData();
+    console.log("groups----", JSON.stringify(groups));
+    formData.append("video_file", media);
+    formData.append("groups", JSON.stringify(groups));
+    dispatch(Actions.uploadFileRequestAsync(formData));
+  };
+
+  const _handleCancel = () => {
+    setShowConfirmModal(false);
+  };
+
+  const _renderAddRemoveGroupButtons = () => {
+    return (
+      <React.Fragment>
+        <Typography.Title level={5} style={{ display: "inline" }}>
+          {`Number of Groups `}
+        </Typography.Title>
+        <Button onClick={_removeTempGroup} type="primary">
+          -
+        </Button>
+        {` ${numberOfGroups} `}
+        <Button onClick={_addTempGroup} type="primary">
+          +
+        </Button>
+      </React.Fragment>
+    );
+  };
 
   return (
     <>
       <Row>
         <Col md={6}>
-          <Typography.Title level={4}>Create New Group</Typography.Title>
+          <Typography.Title level={4}>Create Group</Typography.Title>
         </Col>
-        <Col md={6}>
-          <Button onClick={_addInput} type="primary">
-            Add Input
+      </Row>
+      <Row>
+        <Col md={12}>
+          <Select
+            style={{ marginBottom: 5, width: "100%" }}
+            onChange={(value) => {
+              setCategory(value);
+            }}
+            placeholder="Select Category"
+          >
+            <Select.Option value={"Wedding"}>Wedding</Select.Option>
+            <Select.Option value={"Birthday"}>Birthday</Select.Option>
+            <Select.Option value={"Events"}>Events</Select.Option>
+          </Select>
+        </Col>
+        <Col md={12}>
+          {mediaType === "video" && _renderAddRemoveGroupButtons()}
+          <Button
+            type="warning"
+            onClick={_saveGroups}
+            style={{ marginLeft: 5 }}
+            disabled={groups.length <= 0}
+          >
+            Save Groups
           </Button>
         </Col>
+
+        <Divider dashed plain style={{ borderColor: "green" }} />
       </Row>
       <Row>
         <Col>
-          <Input
-            type="file"
-            onChange={_onFileSelect}
-            id="video_file"
-            name="video_file"
-            style={{ marginBottom: 5 }}
-          />
+          {mediaType === "video" &&
+            Array.from(Array(numberOfGroups).keys()).map((groupObj, index) => {
+              const isActive = activeGroupIndex === index;
+              return (
+                <div
+                  style={{ marginRight: 10, display: "inline" }}
+                  key={`group-${index}`}
+                >
+                  <Button
+                    onClick={() => {
+                      setActiveGroupIndex(index);
+                    }}
+                    type={isActive ? "primary" : "default"}
+                  >
+                    {`Group: ${index + 1}`}
+                  </Button>
+                </div>
+              );
+            })}
         </Col>
+        <Divider dashed plain style={{ borderColor: "green" }} />
       </Row>
+      {!media && (
+        <Row>
+          <Col md={12}>
+            <div
+              style={{ width: "100%", height: 250, backgroundColor: "#F6F6F6" }}
+            >
+              <img src="AddImage.svg" style={{ width: "100%", height: 250 }} />
+              <Input
+                type="file"
+                onChange={_onFileSelect}
+                id="video_file"
+                name="video_file"
+                style={{ marginBottom: 5 }}
+                className="input-select"
+              />
+            </div>
+          </Col>
+        </Row>
+      )}
       <Row>
         <Col>
-          {groups.map((_, index) => (
-            <Tag closable onClose={() => _removeGroup(index)}>{`Group ${
-              index + 1
-            }`}</Tag>
-          ))}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {videoFilePath && (
-            <ReactPlayer
-              url={URL.createObjectURL(videoFilePath)}
-              playing={playing}
-            />
-          )}
+          {mediaType === "video" ? _renderVideoPlayer() : _renderImage()}
           <div
             style={{
               position: "absolute",
@@ -174,23 +286,34 @@ const MediaPageNew = (props) => {
           </div>
         </Col>
       </Row>
-      <Button
-        onClick={() => {
-          setPlaying(!playing);
-        }}
-      >
-        {playing ? "Pause" : "Play"}
-      </Button>
+      {media && mediaType === "video" && (
+        <Button
+          onClick={() => {
+            setPlaying(!playing);
+          }}
+        >
+          {playing ? "Pause" : "Play"}
+        </Button>
+      )}
       <br></br>
       <Row>
         <Col md={12}>
-          <Input
-            placeholder="Enter Interval"
-            onChange={(event) => _setIntervalField(event.target.value)}
-            value={interval}
-          />
+          {mediaType === "video" && (
+            <Input
+              placeholder="Enter Interval"
+              onChange={(event) => _setIntervalField(event.target.value)}
+              value={interval}
+            />
+          )}
           <Divider style={{ borderColor: "black" }} />
           <Typography.Title level={5}>Inputs</Typography.Title>
+          <Button
+            onClick={_addInput}
+            type="primary"
+            style={{ marginBottom: 10, marginRight: 10 }}
+          >
+            Add Input
+          </Button>
           {inputs.map((input, index) => (
             <React.Fragment key={`input-${index}`}>
               <Input
@@ -249,16 +372,16 @@ const MediaPageNew = (props) => {
           <Button type="primary" onClick={_onCreate}>
             Create
           </Button>
-          <Button
-            type="warning"
-            onClick={_saveGroups}
-            style={{ marginLeft: 5 }}
-            disabled={groups.length <= 0}
-          >
-            Save Groups
-          </Button>
         </Col>
       </Row>
+      <Modal
+        title="Alert"
+        visible={showConfirmModal}
+        onOk={_handleOk}
+        onCancel={_handleCancel}
+      >
+        <p>Number of Groups Created is less then the Groups Count.</p>
+      </Modal>
     </>
   );
 };

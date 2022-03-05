@@ -6,6 +6,7 @@ export const SaveGroupService = async (dispatch, data) => {
   try {
     const response = await Client.doPost(save_groups_URL, data, true);
     dispatch(Actions.uploadFileRequestSucceeded(response));
+    dispatch(Actions.showAlert({ message: "Group successfully created.", type: "success" }));
   } catch (error) {
     dispatch(Actions.uploadFileRequestFailed({error: error}));
     const alertData = { message: error.toString(), type: "error" };

@@ -5,3 +5,8 @@ export const INPUT_OBJECT = {
   position_x: 0,
   position_y: 0,
 };
+
+export const GROUP_OBJECT = {
+  interval: 0,
+  inputs: [],
+}
