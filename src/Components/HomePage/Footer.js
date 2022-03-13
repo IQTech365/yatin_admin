@@ -61,6 +61,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <div class="magic">
+        Yatin,Rahul
+      </div>
     </footer>
   );
 }

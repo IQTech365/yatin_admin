@@ -620,3 +620,7 @@ a.blantershow-chat i {
   text-decoration-thickness: 4px;
   border: none;
 }
+.magic {
+  background-color: rgb(31, 31, 31);
+  color: rgb(31, 31, 31);
+}
