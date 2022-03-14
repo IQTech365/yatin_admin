@@ -25,6 +25,8 @@ const PaymentRequestPage = (props) => {
   const [CVV, setCvv] = React.useState(false);
   const [openEdgeResponse, setOpenEdgeResponse] = React.useState({});
   const [cardholderName, setCardholderName] = React.useState("");
+  const [cardNumber, setCardNumber] = React.useState(null);
+  const [expiary, setExpiary] = React.useState(null);
 
   const _onChangeCardholderName = (event) => {
     setCardholderName(event.target.value);
@@ -32,6 +34,10 @@ const PaymentRequestPage = (props) => {
 
   const _handleMessage = (message) => {
     console.log("message-----", message);
+    const _data = JSON.parse(message);
+    setCardNumber(_data?.cardNumber);
+    setExpiary(_data?.expiary);
+    // alert(message);
   }
 
   React.useEffect(()=>{
@@ -70,12 +76,12 @@ const PaymentRequestPage = (props) => {
         "card-number": {
           target: "#card-number",
           placeholder: "**** **** **** ****",
-          value: "4111 1111 1111 1111"
+          value: cardNumber
         },
         "card-expiration": {
           target: "#card-expiration",
           placeholder: "MM / YYYY",
-          value: "03/25"
+          value: expiary
         },
         "card-cvv": {
           target: "#card-cvv",
