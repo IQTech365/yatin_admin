@@ -34,6 +34,7 @@ const PaymentRequestPage = (props) => {
 
   const _handleMessage = (message) => {
     console.log("message-----", message);
+    alert(message);
     const _data = JSON.parse(message);
     setCardNumber(_data?.cardNumber);
     setExpiary(_data?.expiary);
