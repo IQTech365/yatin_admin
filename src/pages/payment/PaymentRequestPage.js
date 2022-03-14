@@ -30,6 +30,14 @@ const PaymentRequestPage = (props) => {
     setCardholderName(event.target.value);
   };
 
+  const _handleMessage = (message) => {
+    console.log("message-----", message);
+  }
+
+  React.useEffect(()=>{
+    document.addEventListener("message", _handleMessage);
+  },[]);
+
   React.useEffect(() => {
     window.GlobalPayments.configure({
       "X-GP-Api-Key": "QwAnDGYZlLNAl6xo9WTZLLMHACbETHqV",
@@ -62,10 +70,12 @@ const PaymentRequestPage = (props) => {
         "card-number": {
           target: "#card-number",
           placeholder: "**** **** **** ****",
+          value: "4111 1111 1111 1111"
         },
         "card-expiration": {
           target: "#card-expiration",
           placeholder: "MM / YYYY",
+          value: "03/25"
         },
         "card-cvv": {
           target: "#card-cvv",
