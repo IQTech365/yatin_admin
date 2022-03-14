@@ -44,7 +44,7 @@ const PaymentRequestPage = (props) => {
   React.useEffect(()=>{
     window.addEventListener("message", message => {
       console.log(message.data) // Wayne is coming!!!
-      alert(JSON.stringify(message));
+      alert(JSON.stringify(message.data, ["message", "arguments", "type", "name"]));
     });
   },[]);
 
