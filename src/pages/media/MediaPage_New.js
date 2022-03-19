@@ -58,6 +58,7 @@ const MediaPageNew = (props) => {
       let formData = new FormData();
       formData.append("video_file", media);
       formData.append("groups", JSON.stringify(groups));
+      formData.append("mediaType", mediaType);
       dispatch(Actions.uploadFileRequestAsync(formData));
     }
   };

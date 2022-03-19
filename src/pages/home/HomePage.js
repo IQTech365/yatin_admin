@@ -1,9 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Player } from "video-react";
 import { Row, Col, Button, Input, Image } from "antd";
 import * as Actions from "../../redux/actions/Action";
-import Draggable from "react-draggable";
 import "./HomePage.less";
 import ReactPlayer from "react-player";
 
@@ -28,46 +26,6 @@ const HomePage = (props) => {
     setCurrentGroup(newCurrentGroup);
     newGroups[currentGroupIndex] = newCurrentGroup;
     setGroups(newGroups);
-  };
-
-  const _renderCurrentGroup = () => {
-    if (currentGroup) {
-      return (
-        <>
-        <Row>
-          <Col md={6}>
-            <div style={{backgroundColor: 'gray'}}>
-            {currentGroup.inputs.map((input, index) => {
-              return (
-                <Input
-                  key={index}
-                  className="drag-input"
-                  placeholder="enter text"
-                  value={input.text}
-                  id={`text-${index}`}
-                  name={`text-${index}`}
-                  onChange={(event) => {
-                    _setGroupInputField("text", event.target.value, index);
-                  }}
-                  style={{
-                    backgroundColor: "transparent",
-                    color: input.color,
-                    fontSize: parseInt(input.size),
-                    width: `${input.text.length}ch`,
-                    padding: 0,
-                    top: input.position_y,
-                    left: input.position_x,
-                  }}
-                />
-              );
-            })}
-            </div>
-          </Col>
-        </Row>
-        </>
-      );
-    }
-    return null;
   };
 
   const _renderImage = () => {
@@ -120,7 +78,7 @@ const HomePage = (props) => {
   React.useEffect(() => {
     if (media) {
       console.log("mmmmm---", media);
-      if (media.groups[0].mediaType === "image") {
+      if (media.media_type === "image") {
         seCurrentGroupIndex(0);
         setCurrentGroup(media.groups[0]);
       }
@@ -157,7 +115,7 @@ const HomePage = (props) => {
       <Row align="middle" justify="center" typeof="">
         <Col>
           <div style={{ position: "relative" }}>
-            {media?.groups[0].mediaType === "image"
+            {media?.media_type === "image"
               ? _renderImage()
               : _renderPlayer()}
             <div
