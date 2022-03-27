@@ -5,6 +5,7 @@ import "./Eventlist.css";
 import history from "../../Utils/History";
 import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 import SingleEvent from '../../Assets/singleevent.png'
+import Media from '../RenderMedia/Media'
 export default function EventList(props) {
   const [show, setshow] = useState(false);
   const [MainCode, setmaincode] = useState("");
@@ -33,29 +34,37 @@ export default function EventList(props) {
 
         >
 
-          {inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
-            src={inv[0].file}
-            className="inv-img"
-            onClick={() => {
-              history.push("/MyEvents/eventpage/" + index);
-            }}
-          />) : (
-            <video
-              muted
-              type="video/mp4"
-              autoPlay={true}
-              src={
-                inv[0].file
-              }
-              onContextMenu={e => e.preventDefault()}
-              controlsList="nodownload"
+          {inv[0].filetype.includes('media') ?
+            <Media
+              CurrentEventDetails={inv[0]}
+              isEditable={false}
               onClick={() => {
                 history.push("/MyEvents/eventpage/" + index);
               }}
-              preload="none"
-              className='w-100 inv-img'
-            />
-          )}
+            /> :
+            inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
+              src={inv[0].file}
+              className="inv-img"
+              onClick={() => {
+                history.push("/MyEvents/eventpage/" + index);
+              }}
+            />) : (
+              <video
+                muted
+                type="video/mp4"
+                autoPlay={true}
+                src={
+                  inv[0].file
+                }
+                onContextMenu={e => e.preventDefault()}
+                controlsList="nodownload"
+                onClick={() => {
+                  history.push("/MyEvents/eventpage/" + index);
+                }}
+                preload="none"
+                className='w-100 inv-img'
+              />
+            )}
 
 
           <div className="bottom-bar">

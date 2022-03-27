@@ -5,7 +5,8 @@ import {
   Select,
   MenuItem,
   FormControl,
-  Modal, Switch
+  Modal,
+  Switch,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
@@ -15,6 +16,8 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
 import { BsInfoCircleFill } from "react-icons/bs";
+import ReactPlayer from "react-player";
+
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
@@ -89,7 +92,6 @@ export default function EventDetails(props) {
   var SCOPES = "https://www.googleapis.com/auth/calendar.events";
 
   const save = async () => {
-
     let eventscpy = props.Events;
     let currentEvent = props.SelectedEvent;
     console.log(CurrentEventDetails);
@@ -148,7 +150,41 @@ export default function EventDetails(props) {
           </center>
         ) : CurrentEventDetails !== undefined &&
           CurrentEventDetails.filetype !== undefined ? (
-          CurrentEventDetails.filetype === "png" ||
+          CurrentEventDetails.filetype.includes("media") ? (
+            <>{CurrentEventDetails.filetype}
+              {CurrentEventDetails.filetype === "media:image" ? (
+                <img
+                  src={CurrentEventDetails.file.media_link}
+                  onClick={() => {
+                    toggleShowPopup(true);
+                  }}
+                  className={
+                    processing === true
+                      ? "transparent uploaded-file w-100 "
+                      : "notTransparent uploaded-file w-100 "
+                  }
+                />
+              ) : (
+                <>
+                  <ReactPlayer
+                    url={CurrentEventDetails.file.media_link}
+                    type="video/mp4"
+                    style={{ height: "300px" }}
+                    autoPlay={true}
+                    onClick={() => {
+                      toggleShowPopup(true);
+                    }}
+                    preload="none"
+                    className={
+                      processing === true
+                        ? " transparent w-100 "
+                        : "notTransparent w-100 "
+                    }
+                  />
+                </>
+              )}
+            </>
+          ) : CurrentEventDetails.filetype === "png" ||
             CurrentEventDetails.filetype === "jpg" ||
             CurrentEventDetails.filetype === "jpeg" ? (
             <img
@@ -168,15 +204,14 @@ export default function EventDetails(props) {
             />
           ) : (
             <video
-
-              type="video/mp4"
-              style={{ height: '300px' }}
-              autoPlay={true}
               src={
                 CurrentEventDetails !== undefined
                   ? CurrentEventDetails.file
                   : " "
               }
+              type="video/mp4"
+              style={{ height: "300px" }}
+              autoPlay={true}
               onClick={() => {
                 toggleShowPopup(true);
               }}
@@ -327,9 +362,6 @@ export default function EventDetails(props) {
             classes: {
               notchedOutline: classes.notchedOutline,
             },
-          }}
-          InputLabelProps={{
-            shrink: true,
           }}
           style={{ fontSize: "12px" }}
         />
@@ -564,7 +596,6 @@ export default function EventDetails(props) {
               : "show"
           }
         >
-
           {isEditLocation === true ? (
             <>
               <Map
@@ -607,7 +638,6 @@ export default function EventDetails(props) {
                       : Location}
                 </div>
               </Grid>
-
             </Grid>
           )}
 
@@ -621,11 +651,12 @@ export default function EventDetails(props) {
           >
             Please add Location
           </span> */}
-
         </Grid>
 
         <Grid item xs={12}>
-          <p style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px" }}>
+          <p
+            style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px" }}
+          >
             <BsInfoCircleFill />
 
             {CurrentEventDetails.VenueType === "Online"
@@ -637,7 +668,6 @@ export default function EventDetails(props) {
                   : " Add Your Location and Meeting Link"}
           </p>
         </Grid>
-
 
         <Grid item xs={12}>
           <span className="label">Description</span>
@@ -664,27 +694,36 @@ export default function EventDetails(props) {
             rows={2}
           />
         </Grid>
-
       </>
-      {props.SelectedEvent === 0 ? <>
-        <Grid item xs={8} className="talc fs-bold  label" style={{ paddingTop: '15px' }}>
-          Add Password
-        </Grid>
-        <Grid item xs={4}>
-          <Switch
-            checked={CurrentEventDetails.IsPassword}
-            color="primary"
-            name="checkedB"
-            inputProps={{ "aria-label": "primary checkbox" }}
-            className="fr"
-            onChange={(e) => {
-              SetCurrentEventDetails({
-                ...CurrentEventDetails,
-                IsPassword: !CurrentEventDetails.IsPassword,
-              });
-            }}
-          />
-        </Grid></> : <></>}
+      {props.SelectedEvent === 0 ? (
+        <>
+          <Grid
+            item
+            xs={8}
+            className="talc fs-bold  label"
+            style={{ paddingTop: "15px" }}
+          >
+            Add Password
+          </Grid>
+          <Grid item xs={4}>
+            <Switch
+              checked={CurrentEventDetails.IsPassword}
+              color="primary"
+              name="checkedB"
+              inputProps={{ "aria-label": "primary checkbox" }}
+              className="fr"
+              onChange={(e) => {
+                SetCurrentEventDetails({
+                  ...CurrentEventDetails,
+                  IsPassword: !CurrentEventDetails.IsPassword,
+                });
+              }}
+            />
+          </Grid>
+        </>
+      ) : (
+        <></>
+      )}
       {/* Album, Schdedule and Story Commented Below */}
 
       {/*      <Grid

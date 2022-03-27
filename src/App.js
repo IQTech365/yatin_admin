@@ -33,11 +33,14 @@ import HomePage from "./Components/HomePage/HomePage";
 import ShowStory from "./Components/Invitations/ShowStory";
 import ShowAlbum from "./Components/Invitations/ShowAlbum";
 import Gift from "./Components/Gift/Gift";
+import AdminUI from "./Components/Admin/AdminUI"
 import {
   GetEvents,
   GetInvitations,
 } from "./Redux/DispatchFuncitons/Eventfunctions";
 import { gettemplate } from "./Redux/DispatchFuncitons/TemplateFunctions";
+import { getVideotemplate } from "./Redux/DispatchFuncitons/VideoTemplate";
+
 import CreateOrUpdate from "./Components/EventCreateAndUpdate/CreateOrUpdate";
 import { getlist } from "./Redux/DispatchFuncitons/GuestListFunctions";
 import Templates from "./Components/Templates/Templates";
@@ -56,8 +59,9 @@ function App() {
   let interval;
   useEffect(async () => {
     dispatch(gettemplate());
+    dispatch(getVideotemplate());
     if (Auth.isLoggedIn === true) {
-      dispatch(gettemplate());
+
       interval = setInterval(() => {
         dispatch(GetEvents());
         dispatch(GetInvitations());
@@ -99,7 +103,10 @@ function App() {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/templates" component={Templates} />
             <Route exact path="/terms" component={Terms} />
+            <Route exact
+              path="/admin" component={AdminUI} />
             <Route exact path="/*" component={Redirector} />
+
           </Switch>
         </div>
       </Router>
@@ -109,11 +116,7 @@ function App() {
       <Router history={history}>
         <div className="App">
           <Switch>
-            {/* <Route
-              exact
-              path="/Profile"
-              component={UserProfile}
-            /> */}
+
             <Route
               exact
               path="/MyInvitations/:maincode"
