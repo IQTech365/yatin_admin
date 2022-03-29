@@ -37,6 +37,7 @@ import { CircularProgress } from "@material-ui/core";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FcShare } from "react-icons/fc";
 import { FiGift } from "react-icons/fi";
+import Media from '../../RenderMedia/Media'
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
@@ -269,22 +270,26 @@ export default function InvitaionMain(props) {
                 </Row>
               </Container>
               <Container className="container-event">
-                {eve.filetype === "png" ||
-                  eve.filetype === "jpg" ||
-                  eve.filetype === "jpeg" ? (
-                  <Image src={eve.file} className="fullimagemain" />
-                ) : (
-                  <video
-                    type="video/mp4"
-                    autoPlay={true}
-                    controls={true}
-                    controlsList="nodownload"
-                    onContextMenu={(e) => e.preventDefault()}
-                    src={eve.file}
-                    preload="none"
-                    className="w-100 fullimagemain"
-                  />
-                )}
+                {eve.filetype.includes('media') ?
+                  <Media
+                    CurrentEventDetails={eve}
+                    isEditable={false}
+                  /> : eve.filetype === "png" ||
+                    eve.filetype === "jpg" ||
+                    eve.filetype === "jpeg" ? (
+                    <Image src={eve.file} className="fullimagemain" />
+                  ) : (
+                    <video
+                      type="video/mp4"
+                      autoPlay={true}
+                      controls={true}
+                      controlsList="nodownload"
+                      onContextMenu={(e) => e.preventDefault()}
+                      src={eve.file}
+                      preload="none"
+                      className="w-100 fullimagemain"
+                    />
+                  )}
                 <Container
                   className="box-event"
                   fluid

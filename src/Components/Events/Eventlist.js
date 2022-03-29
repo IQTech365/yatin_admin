@@ -31,7 +31,9 @@ export default function EventList(props) {
           className="InvitationCard"
           key={"invContainer" + index}
 
-
+          onClick={() => {
+            history.push("/MyEvents/eventpage/" + index);
+          }}
         >
 
           {inv[0].filetype.includes('media') ?
@@ -45,9 +47,7 @@ export default function EventList(props) {
             inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
               src={inv[0].file}
               className="inv-img"
-              onClick={() => {
-                history.push("/MyEvents/eventpage/" + index);
-              }}
+
             />) : (
               <video
                 muted

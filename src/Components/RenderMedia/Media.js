@@ -32,7 +32,7 @@ export default function Media(props) {
 
     const _onSave = async () => {
         let EventsCpy = await { ...props.CurrentEventDetails };
-        EventsCpy.file = { media_link: mediaLink, groups }; debugger
+        EventsCpy.file = { media_link: mediaLink, groups };
         await props.SetCurrentEventDetails(EventsCpy);
         props.show(false);
         // console.log("Modified Groups--", JSON.stringify(groups));
@@ -66,7 +66,6 @@ export default function Media(props) {
                         width={'100%'}
                         src={media?.media_link}
                         height={450}
-                        style={{ objectFit: "contain" }}
                     /> :
                     <ReactPlayer
                         url={media?.media_link}

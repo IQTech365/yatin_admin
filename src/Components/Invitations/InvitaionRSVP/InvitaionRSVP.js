@@ -7,6 +7,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ErrorIcon from "@material-ui/icons/Error";
 import { rsvp_event, GetInvitations, GetEvents } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import { getNotification } from '../../../Redux/DispatchFuncitons/NotificationFunctions'
+import Media from '../../RenderMedia/Media'
 export default function InvitaionRSVP(props) {
   const dispatch = useDispatch();
   const Auth = useSelector((state) => state.Auth);
@@ -51,23 +52,27 @@ export default function InvitaionRSVP(props) {
         {props.Eventdata && props.Eventdata.length > 0 &&
           props.Eventdata.map((eve, index) => (
             <Carousel.Item>
-              {eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (
-                <img
-                  className="d-block rsvpimage"
-                  src={eve.file}
-                  alt="First slide"
-                />) : (
-                <video
-                  muted
-                  type="video/mp4"
-                  autoPlay={true}
-                  src={
-                    eve.file
-                  }
-                  preload="none"
-                  className="d-block rsvpimage"
-                />
-              )}
+              {eve.filetype.includes('media') ?
+                <Media
+                  CurrentEventDetails={eve}
+                  isEditable={false}
+                /> : eve.filetype === "png" || eve.filetype === "jpg" || eve.filetype === "jpeg" ? (
+                  <img
+                    className="d-block rsvpimage"
+                    src={eve.file}
+                    alt="First slide"
+                  />) : (
+                  <video
+                    muted
+                    type="video/mp4"
+                    autoPlay={true}
+                    src={
+                      eve.file
+                    }
+                    preload="none"
+                    className="d-block rsvpimage"
+                  />
+                )}
               <div className="rsvp-buttons">
                 <center>
                   <Button

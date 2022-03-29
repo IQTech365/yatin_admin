@@ -16,7 +16,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
 import { BsInfoCircleFill } from "react-icons/bs";
-import ReactPlayer from "react-player";
+import Media from '../../RenderMedia/Media'
 
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
@@ -148,84 +148,28 @@ export default function EventDetails(props) {
               }}
             />
           </center>
-        ) : CurrentEventDetails !== undefined &&
-          CurrentEventDetails.filetype !== undefined ? (
-          CurrentEventDetails.filetype.includes("media") ? (
-            <>{CurrentEventDetails.filetype}
-              {CurrentEventDetails.filetype === "media:image" ? (
-                <img
-                  src={CurrentEventDetails.file.media_link}
-                  onClick={() => {
-                    toggleShowPopup(true);
-                  }}
-                  className={
-                    processing === true
-                      ? "transparent uploaded-file w-100 "
-                      : "notTransparent uploaded-file w-100 "
-                  }
-                />
-              ) : (
-                <>
-                  <ReactPlayer
-                    url={CurrentEventDetails.file.media_link}
-                    type="video/mp4"
-                    style={{ height: "300px" }}
-                    autoPlay={true}
-                    onClick={() => {
-                      toggleShowPopup(true);
-                    }}
-                    preload="none"
-                    className={
-                      processing === true
-                        ? " transparent w-100 "
-                        : "notTransparent w-100 "
-                    }
-                  />
-                </>
-              )}
-            </>
-          ) : CurrentEventDetails.filetype === "png" ||
+        ) : <center onClick={() => {
+          toggleShowPopup(true);
+        }}> {CurrentEventDetails.filetype.includes('media') ?
+          <Media
+            CurrentEventDetails={CurrentEventDetails}
+            isEditable={false}
+          /> : CurrentEventDetails.filetype === "png" ||
             CurrentEventDetails.filetype === "jpg" ||
             CurrentEventDetails.filetype === "jpeg" ? (
-            <img
-              src={
-                CurrentEventDetails !== undefined
-                  ? CurrentEventDetails.file
-                  : " "
-              }
-              onClick={() => {
-                toggleShowPopup(true);
-              }}
-              className={
-                processing === true
-                  ? "transparent uploaded-file w-100 "
-                  : "notTransparent uploaded-file w-100 "
-              }
-            />
+            <img src={CurrentEventDetails.file} className="fullimagemain" />
           ) : (
             <video
-              src={
-                CurrentEventDetails !== undefined
-                  ? CurrentEventDetails.file
-                  : " "
-              }
               type="video/mp4"
-              style={{ height: "300px" }}
               autoPlay={true}
-              onClick={() => {
-                toggleShowPopup(true);
-              }}
+              controls={true}
+              controlsList="nodownload"
+              onContextMenu={(e) => e.preventDefault()}
+              src={CurrentEventDetails.file}
               preload="none"
-              className={
-                processing === true
-                  ? " transparent w-100 "
-                  : "notTransparent w-100 "
-              }
+              className="w-100 fullimagemain"
             />
-          )
-        ) : (
-          <></>
-        )}
+          )}</center>}
         <div>
           <Modal
             aria-labelledby="transition-modal-title"
