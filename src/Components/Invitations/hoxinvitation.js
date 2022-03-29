@@ -26,6 +26,7 @@ import { addEvent } from "../../Redux/DispatchFuncitons/CodeFunctions";
 import { reactLocalStorage } from "reactjs-localstorage";
 import { FiUsers } from "react-icons/fi";
 import { FiGift } from "react-icons/fi";
+import Media from '../RenderMedia/Media'
 export default function Hoxinvitation(props) {
   const [Invitations, setInvitations] = useState([]);
   const [show, setshow] = useState(false);
@@ -34,7 +35,6 @@ export default function Hoxinvitation(props) {
 
   const dispatch = useDispatch();
   useEffect(async () => {
-    debugger;
     if (Auth.isLoggedIn === false) {
       if (
         props.match.params.maincode !== "" &&
@@ -92,7 +92,6 @@ export default function Hoxinvitation(props) {
     }
   };
   useEffect(async () => {
-    debugger;
     let islogeding = reactLocalStorage.get("isLoggedIn");
     let phone = reactLocalStorage.get("Phone");
     if (props.match.params.Code === undefined) {
@@ -226,7 +225,11 @@ export default function Hoxinvitation(props) {
                 </Row>
               </Container>
               <Container className="container-event">
-                {eve.filetype === "png" ||
+
+                {eve.filetype.includes('media') ? <Media
+                  CurrentEventDetails={eve}
+                  isEditable={false}
+                /> : eve.filetype === "png" ||
                   eve.filetype === "jpg" ||
                   eve.filetype === "jpeg" ? (
                   <Image src={eve.file} className="fullimagemain" />

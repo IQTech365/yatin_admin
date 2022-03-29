@@ -184,3 +184,7 @@
     margin-bottom: 2vh;
   }
 }
+.selected-bar {
+  text-align: center;
+  border-bottom: solid 1px #3897f1;
+}

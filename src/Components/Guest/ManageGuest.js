@@ -243,7 +243,6 @@ export default function ManageGuest(props) {
     setguestList(guestList);
     setlist(guestList);
     setDisabled(true);
-    debugger
     dispatch(update_participants(_id, listdata));
   }
   function cancelchanges() {
