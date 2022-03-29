@@ -7,7 +7,6 @@ import Notifications from "./NotificatonReducer";
 import CodeEvent from './CodeEventReducer'
 import GuestList from './GuestListReducer'
 import Templates from './TemplatesReducer'
-import VideoTemplates from './VideoTemplatesReducer'
 const allreducers = combineReducers({
   Auth: Auth,
   Eventdata: Eventdata,
@@ -17,6 +16,5 @@ const allreducers = combineReducers({
   GuestList: GuestList,
   CodeEvent: CodeEvent,
   AllTemplates: Templates,
-  VideoTemplates: VideoTemplates
 });
 export default allreducers;

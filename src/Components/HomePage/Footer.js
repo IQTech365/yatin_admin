@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import history from "./../../Utils/History"
+
 import {
   FaTwitter,
   FaFacebookF,
@@ -61,9 +61,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div class="magic" onClick={() => {
-        history.push('/admin')
-      }}>
+      <div class="magic">
         Yatin,Rahul
       </div>
     </footer>

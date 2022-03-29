@@ -10,7 +10,6 @@ import Dateformatter from '../Helpers/DateFormatter/Dateformatter'
 import SingleEvent from '../../Assets/singleevent.png';
 import OtpInput from "react-otp-input";
 import { authInv } from '../../Redux/DispatchFuncitons/Eventfunctions'
-import Media from '../RenderMedia/Media'
 export default function Invitation(props) {
   const [data, setData] = useState(props.data);
   const [show, setshow] = useState(false);
@@ -68,21 +67,31 @@ export default function Invitation(props) {
           key={"InvitationCard" + index}
 
         >
-          {inv[0].filetype.includes('media') ? <Media
-            CurrentEventDetails={inv[0]}
-            isEditable={false}
+          {inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
+            src={inv[0].file}
+            className="inv-img"
             onClick={() => {
               console.log(Auth.Name)
               Auth.Name == "" || Auth.Name == undefined ?
                 HasSkipped === false ?
                   setuserInfopopup(true) :
-                  history.push("/inv/eventpage/" + index)
+                  checkifauth(index)
                 :
-                history.push("/inv/eventpage/" + index);
-            }} /> :
-            inv[0].filetype === "png" || inv[0].filetype === "jpg" || inv[0].filetype === "jpeg" ? (<img
-              src={inv[0].file}
-              className="inv-img"
+                checkifauth(index)
+            }}
+          />) : (
+            <video
+              // controls={true}
+              type="video/mp4"
+              autoPlay={true}
+              preload="none"
+              onContextMenu={e => e.preventDefault()}
+              controlsList="nodownload"
+              src={
+                inv[0].file
+              }
+              muted
+
               onClick={() => {
                 console.log(Auth.Name)
                 Auth.Name == "" || Auth.Name == undefined ?
@@ -92,31 +101,9 @@ export default function Invitation(props) {
                   :
                   history.push("/inv/eventpage/" + index);
               }}
-            />) : (
-              <video
-                // controls={true}
-                type="video/mp4"
-                autoPlay={true}
-                preload="none"
-                onContextMenu={e => e.preventDefault()}
-                controlsList="nodownload"
-                src={
-                  inv[0].file
-                }
-                muted
-
-                onClick={() => {
-                  console.log(Auth.Name)
-                  Auth.Name == "" || Auth.Name == undefined ?
-                    HasSkipped === false ?
-                      setuserInfopopup(true) :
-                      history.push("/inv/eventpage/" + index)
-                    :
-                    history.push("/inv/eventpage/" + index);
-                }}
-                className='w-100 inv-img'
-              />
-            )}
+              className='w-100 inv-img'
+            />
+          )}
 
 
           <div className="bottom-bar">
