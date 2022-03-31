@@ -20,7 +20,6 @@ function getFieldName(path) {
 
 const PaymentRequestPage = (props) => {
   const {} = props;
-  const { btnlabel, platform } = useParams();
   const [ccerrors] = React.useState(initialCCDetails);
   const [CVV, setCvv] = React.useState(false);
   const [openEdgeResponse, setOpenEdgeResponse] = React.useState({});
@@ -34,7 +33,7 @@ const PaymentRequestPage = (props) => {
 
   const _handleMessage = (message) => {
     console.log("message-----", message);
-    alert(JSON.stringify(message));
+    // alert(JSON.stringify(message));
     // const _data = JSON.parse(message);
     setCardNumber(message?.cardNumber);
     setExpiary(message?.expiary);
@@ -52,6 +51,7 @@ const PaymentRequestPage = (props) => {
     window.GlobalPayments.configure({
       "X-GP-Api-Key": "QwAnDGYZlLNAl6xo9WTZLLMHACbETHqV",
       "X-GP-Environment": "test",
+      "enableAutocomplete": true
     });
     window.GlobalPayments.on("error", (error) => {});
   }, []);
@@ -65,11 +65,7 @@ const PaymentRequestPage = (props) => {
       }else {
         const data = { cardholderName, openEdgeResponse };
         console.log(JSON.stringify(openEdgeResponse));
-        if (platform == "web") {
-          window.postMessage(JSON.stringify(data));
-        } else if (platform == "mobile") {
-          window.ReactNativeWebView.postMessage(JSON.stringify(data));
-        }
+        window.ReactNativeWebView.postMessage(JSON.stringify(data));
       }
     }
   }, [openEdgeResponse]);
@@ -93,7 +89,7 @@ const PaymentRequestPage = (props) => {
         },
         submit: {
           target: "#submit",
-          text: btnlabel,
+          text: "Save",
           button: {
             background: "#173654",
             width: "100%",
