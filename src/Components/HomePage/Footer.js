@@ -61,11 +61,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div class="magic" onClick={() => {
-        history.push('/admin')
-      }}>
+      <a class="magic" href="https://yatin-admin.vercel.app">
+
         Yatin,Rahul
-      </div>
-    </footer>
+
+      </a>
+    </footer >
   );
 }

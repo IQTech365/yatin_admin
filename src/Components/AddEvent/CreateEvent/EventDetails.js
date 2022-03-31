@@ -150,7 +150,7 @@ export default function EventDetails(props) {
           </center>
         ) : <center onClick={() => {
           toggleShowPopup(true);
-        }}> {CurrentEventDetails.filetype.includes('media') ?
+        }}> {CurrentEventDetails?.filetype?.includes('media') ?
           <Media
             CurrentEventDetails={CurrentEventDetails}
             isEditable={false}
