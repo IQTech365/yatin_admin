@@ -85,18 +85,43 @@ const PaymentRequestPage2 = () => {
           cursor: "pointer",
         },
         input: {
-          border: "1px",
-          width: "100% !important",
-          "max-width": "200px",
-          padding: "15px 20px 0px 20px",
-          position: "relative",
-          bottom: "9px",
-          background: "#FFF",
+          // "font-family": fontFamilyType,
+          "color": "#173654",
+          "border-radius": "10px",
+          // "border": borderStyle,
+          "padding": "10px 15px",
+          "background": "#FFF",
+          "width": "100%",
+          "height": "24px"
         },
         "input:focus": {
-          border: "0px",
-          outline: "none",
+          // "font-family": fontFamilyType,
+          "color": "#173654",
+          "border-radius": "10px",
+          // "border": borderStyle,
+          "padding": "10px 15px",
+          "background": "#FFF",
+          "width": "100%",
+          "height": "24px"
         },
+        "input:focus-within": {
+        "color": "#173654",
+        "border-radius": "10px",
+        // "border": borderStyle,
+        "padding": "10px 15px",
+        "background": "#FFF",
+        "width": "100%",
+        "height": "24px"
+      },
+      "input:placeholder": {
+        "color": "#173654",
+        "border-radius": "10px",
+        // "border": borderStyle,
+        "padding": "10px 15px",
+        "background": "#FFF",
+        "width": "100%",
+        "height": "24px"
+      }
       },
     });
 
