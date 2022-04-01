@@ -35,14 +35,15 @@ const PaymentRequestPage = (props) => {
     console.log("message-----", message);
     // alert(JSON.stringify(message));
     // const _data = JSON.parse(message);
-    setCardNumber(message?.cardNumber);
-    setExpiary(message?.expiary);
+    // setCardNumber(message?.cardNumber);
+    // setExpiary(message?.expiary);
     // alert(message);
   }
 
   React.useEffect(()=>{
     window.addEventListener("message", message => {
       console.log(message.data) // Wayne is coming!!!
+      alert(JSON.stringify(message.data));
       // alert(JSON.stringify(message.data, ["message", "arguments", "type", "name"]));
     });
   },[]);
