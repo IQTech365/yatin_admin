@@ -77,7 +77,8 @@ const PaymentRequestPage = (props) => {
         "card-number": {
           target: "#card-number",
           placeholder: "**** **** **** ****",
-          value: cardNumber
+          // value: cardNumber,
+          value: "1234123412341234"
         },
         "card-expiration": {
           target: "#card-expiration",
