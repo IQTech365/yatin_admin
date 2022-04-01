@@ -9,6 +9,8 @@ import Error404Page from "../pages/404/404Page";
 import PaymentRequestPage from "../pages/payment/PaymentRequestPage";
 import MediaLinkPage from "../pages/media-link/MediaLinkPage";
 import MediaPageNew from "../pages/media/MediaPage_New";
+import PaymentRequestPage2 from "../pages/payment/PaymentRequestPage2";
+
 
 import RouteKeys from "./RouteKeys";
 
@@ -49,7 +51,7 @@ const Routes = (props) => {
         },
         {
           path: RouteKeys.payment,
-          element: <PaymentRequestPage />,
+          element: <PaymentRequestPage2 />,
         },
         {
           path: RouteKeys['404'],

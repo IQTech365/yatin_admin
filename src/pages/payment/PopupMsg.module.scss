@@ -1,0 +1,108 @@
+
+/* account management -popup */
+.billing_info_add_popup .billing_info_add_content, 
+.edit_creditcard_popup .edit_creditcard_content, 
+// .edit_ach_popup .edit_ach_content {border-radius: 8px;box-shadow: 2px 4px 15px 0 rgb(0 0 0 / 30%);background-color: #fff;border: 0px;padding: 48px;}
+.billing_info_add_popup .billing_add_info_header, 
+.edit_creditcard_popup .edit_creditcard_header, 
+.edit_ach_popup .edit_ach_header {padding: 0px 0px 24px !important;}
+.billing_info_add_popup .billing_add_info_body, 
+.edit_creditcard_popup .edit_creditcard_body, 
+.edit_ach_popup .edit_ach_body {padding-top: 29px;padding-bottom: 0px;}
+.billing_info_add_popup .billing_add_info_body h5, 
+.edit_creditcard_popup .edit_creditcard_body h5, 
+.edit_ach_popup .edit_ach_body h5 {font-family: 'SolitaireMVBPro-Medium';font-size: 40px;font-weight: 500;font-stretch: normal;font-style: normal;line-height: 1.35;letter-spacing: normal;text-align: center;color: #173654;margin-bottom: 5px;margin-top: 0px;}
+.billing_info_add_popup .billing_add_info_body p, 
+.edit_creditcard_popup .edit_creditcard_body p, 
+.edit_ach_popup .edit_ach_body p {font-family: SolitaireMVBPro;font-size: 22px;font-weight: normal;font-stretch: normal;font-style: normal;line-height: 1.5;letter-spacing: normal;text-align: center;color: #4b4f54;}
+.account_management_form.form_submission_field button {margin-top: 54px;}
+.billing_info_add_popup .dark_btn, .edit_creditcard_popup .dark_btn, .edit_ach_popup .dark_btn  {border-radius: 100px;background-color: #173654;width: 161px;height: 48px;font-size: 17px;font-stretch: normal;font-style: normal;line-height: 1.29;letter-spacing: 0.57px;text-align: center;color: #fff;font-family: 'SolitaireMVBPro-bold',sans-serif;border: 0px;}
+.billing_info_add_popup .overlay_dark_btn, .edit_creditcard_popup .overlay_dark_btn, .edit_ach_popup .overlay_dark_btn {font-family: 'SolitaireMVBPro-bold',sans-serif;border-radius: 100px;border: solid 2px #173654;width: 146px;height: 48px;font-size: 17px;font-weight: bold;font-stretch: normal;font-style: normal;line-height: 1.29;letter-spacing: 0.57px;text-align: center;color: #173654;background: transparent;margin-right: 23px;cursor: pointer;}
+.billing_info_add_popup button, .edit_creditcard_popup button, .edit_ach_popup button {box-shadow: 0 0 0 transparent !important;}
+.modal-backdrop {opacity: .5 !important;}
+.error_message{font-family: SolitaireMVBPro;font-size: 14px;font-weight: normal;font-stretch: normal;font-style: italic;line-height: normal;letter-spacing: normal;color: #f00;}
+
+.remove_payment_method_contain p {font-size: 18px !important;width: 100%;}
+.remove_payment_method_contain p {font-family: SolitaireMVBPro;font-size: 22px !important;width: 571px;font-weight: normal !important;font-stretch: normal;font-style: normal;line-height: 1.18 !important;letter-spacing: normal;text-align: center;color: #4b4f54 !important;margin: 1px auto 13px;}
+.remove_payment_method_contain .acc_management_payment_pop_link {margin-top: 0px !important;margin-bottom: 33px !important;background: none !important;}
+.remove_payment_method_contain table tbody tr td {width: 50%;text-align: center;padding: 11px 0px 14px;}
+.remove_payment_method_contain table tbody tr .remove_payment_method_plans_plan {font-family: 'SolitaireMVBPro-Bold';font-size: 16px;font-stretch: normal;font-style: normal;line-height: normal;letter-spacing: 0.4px;color: #4b4f54;}
+.remove_payment_method_contain table tbody tr .remove_payment_method_plans_exp {font-family: SolitaireMVBPro;font-size: 14px;font-weight: normal;font-stretch: normal;font-style: normal;line-height: normal;letter-spacing: normal;text-align: center;color: #4b4f54;}
+.remove_payment_method_dv .confirm_msg_p {font-family: SolitaireMVBPro;font-size: 14px;font-weight: normal;font-stretch: normal;font-style: normal;line-height: normal;letter-spacing: normal;text-align: center;color: #4c4c4c;}
+.remove_payment_method_dv .account_management_form button {margin-top: 22px;}
+
+.account_management_form input, .account_management_form input[type=tel], .account_management_form select, .account_management_form textarea {font-family: SolitaireMVBPro;color: #173654;border-radius: 10px;border: 2px solid #173654;padding: 10px 15px;background: #FFF;width: 100%;}
+.account_management_form input::placeholder {color: #b1b1b1;}
+.account_management_form ul {padding-left: 0px;}
+.account_management_form li {list-style-type: none;}
+.account_management_form .m-form {padding-top: 5px;padding-bottom: 5px;}
+.account_management_form label {font-family: SolitaireMVBPro;position: relative;top: 12px;left: 17px;background: #FFF;padding: 0px 10px;font-size: 14px;font-weight: normal;font-stretch: normal;font-style: normal;line-height: normal;letter-spacing: normal;text-align: center;color: #4b4f54;}
+.acc_management_billing_card_remove .acc_management_payment_pop_link {float: none;margin-top: 17px;margin-bottom: 0px;background: none;}
+.acc_management_payment_pop_link {font-family: SolitaireMVBPro;border: 0px;padding: 0px;font-size: 14px;font-weight: normal;font-stretch: normal;font-style: normal;line-height: normal;letter-spacing: normal;color: #4c4c4c;text-decoration: underline;cursor: pointer;margin-bottom: 23px;float: right;margin-top: 12px;}
+.account_management_form .overlay_dark_btn {font-family: 'SolitaireMVBPro-bold',sans-serif;border-radius: 100px;border: solid 2px #173654;width: 146px;height: 48px;font-size: 17px;font-weight: bold;font-stretch: normal;font-style: normal;line-height: 1.29;letter-spacing: 0.57px;text-align: center;color: #173654;background: transparent;margin-right: 23px;cursor: pointer;}
+.account_management_form .dark_btn {border-radius: 100px;background-color: #173654;width: 161px;height: 48px;font-size: 17px;font-stretch: normal;font-style: normal;line-height: 1.29;letter-spacing: 0.57px;text-align: center;color: #fff;font-family: 'SolitaireMVBPro-bold',sans-serif;border: 0px;}
+.account_management_form .form_submission_field {margin-top: 40px;}
+.remove_acc_management_billing_card .dropdown_sec {position: relative;right: 14px;bottom: 33px;float: right;clear: both;width: 27px;background: #fff;}
+.remove_acc_management_billing_card ul li {position: relative;}
+.dropdown_sec .dropdown_sec_img {position: absolute;right: 5px;bottom: 27px;float: right;width: 17px;top: 7px;background: #fff;}
+.remove_acc_management_billing_card .acc_management_payment_pop_link {float: none;margin: 32px 0 37px !important;}
+.remove_acc_management_billing_card .form_submission_field {margin-top: 0px !important;}
+.remove_acc_management_billing_card ul {margin-bottom: 0px;}
+.addpayment_method_screen {margin-top: 15px;}
+
+.addpayment_method_screen .nav_tabs, .addpayment_method_screen .nav-tabs {
+    border-bottom: 0px solid #dee2e6;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.addpayment_method_screen .nav_tabs .nav_item, .addpayment_method_screen .nav-tabs .nav-item {
+    width: 50%;
+    text-align: center;
+}
+.addpayment_method_screen .nav_tabs .nav_link.active,
+.addpayment_method_screen .nav-tabs .nav-link.active {
+    background: transparent;
+    font-size: 16px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4b4f54;
+    border: 0px;
+    border-bottom: 3px solid #0078a9;
+}
+.addpayment_method_screen .nav_tabs .nav_link,
+.addpayment_method_screen .nav-tabs .nav-link {
+    font-family: 'SolitaireMVBPro-Semibold';
+    width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #4b4f54;
+}
+
+.card_number,.card_cvv,.card_expiration{min-width:100%;max-width:100%;}
+.card_number iframe,.card_cvv iframe,.card_expiration iframe {width: 100%;min-height: 50px !important;}
+.ot_button iframe {width: 146px;min-height: 50px !important;}
+.acc_addpayment_popup {display: flex;justify-content: center;}
+
+@media (max-width: 767px) {
+    .billing_info_add_popup .billing_info_add_content, .edit_creditcard_popup .edit_creditcard_content, .edit_ach_popup .edit_ach_content {padding: 38px 17px 53px;}
+    .addpayment_method_screen ul li {background: transparent;list-style: none;margin: 0px auto;font-weight: 600;font-size: 1rem;color: #173654;min-width: unset;}
+    .billing_info_add_popup .billing_add_info_body, .edit_creditcard_popup .edit_creditcard_body, .edit_ach_popup .edit_ach_body {padding-top: 29px !important;padding-bottom: 0px !important;padding: 0px;}
+
+    .billing_info_add_popup .billing_add_info_body h5 {font-size: 32px;font-weight: 600;line-height: 1.09;}
+    .billing_info_add_popup .billing_add_info_body p {font-size: 18px !important;font-weight: normal !important;font-stretch: normal !important;font-style: normal;line-height: 1.17 !important;letter-spacing: normal;text-align: center;color: #4b4f54 !important;margin-bottom: 21px;width: fit-content;margin: 0 auto;}
+    .remove_payment_method_dv .confirm_msg_p {margin-top: 28px;}
+}
+@media (max-width: 980px) {
+    .remove_acc_management_billing_card .form_submission_field{display: flex;}
+    .remove_payment_method_dv .account_management_form button,.remove_acc_management_billing_card .form_submission_field button {margin: 22px 5px auto 5px;}
+}

@@ -1,0 +1,53 @@
+
+.mobile_form_add_card {
+    padding: 0px 20px;
+    margin: 20px auto
+  }
+  
+  
+  
+  
+  
+  .error {
+      color: #ff0000;
+    }
+    .error_2 {
+      color: green;
+    }
+    .margin_holder_name{
+      margin-right: 16px !important;
+    }
+    .card_number,
+    .card_cvv,
+    .card_expiration {
+      bottom: 12px !important;
+      min-width: 100%;
+      overflow: hidden;
+      border-width: 1px;
+      border-color: #173654;
+    }
+    .card_number iframe,
+    .card_cvv iframe,
+    .card_expiration iframe {
+      height: 32px !important;
+    }
+    
+    #card-cvv-input input {
+      min-width: 64px !important;
+    }
+    
+    .my_card_test {
+      border-width: 1px;
+      border-color: red;
+      border-radius: 10px;
+      width: 100px;
+      height: 50px;
+    }
+    
+    .form-contaienr {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+    
