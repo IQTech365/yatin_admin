@@ -23,6 +23,7 @@ export default function CanvasEditor(props) {
                 let EventsCpy = await { ...props.CurrentEventDetails };
                 let url = await uploadString(blob, props.uniqueCode);
                 // EventsCpy.filetype = "media video";
+                EventsCpy.filetype = 'png';
                 EventsCpy.file = url;
                 await props.SetCurrentEventDetails(EventsCpy);
                 props.show(false);

@@ -16,7 +16,7 @@ import ReactPlayer from "react-player";
 SwiperCore.use([Pagination]);
 export default function ImageSelectionModal(props) {
   const [Show, setswitch] = useState(false);
-  const [imgSwitch, setimgSwitch] = useState('video');
+  const [imgSwitch, setimgSwitch] = useState('img');
   const onDrop = useCallback(async (acceptedFiles) => {
     if (acceptedFiles[0].size > 620259265) {
       alert("Max file size 10 mb");
@@ -66,14 +66,14 @@ export default function ImageSelectionModal(props) {
       </Grid>
     </Grid>
   ) : (<div>
-    {/* <Grid container spacing={2}>
+    <Grid container spacing={2}>
       <Grid item xs={6} className={imgSwitch === 'img' ? "selected-bar" : "tac"} onClick={() => {
         setimgSwitch('img');
       }}>Image</Grid>
       <Grid item xs={6} className={imgSwitch !== 'img' ? "selected-bar" : "tac"} onClick={() => {
         setimgSwitch('video');
       }}>Video</Grid>
-    </Grid><br /> */}
+    </Grid><br />
     {imgSwitch === 'img' ?
       <div ><ImageSelectionModalTemplates
         CurrentEventDetails={props.CurrentEventDetails}
@@ -140,7 +140,7 @@ export function ImageSelectionModalTemplates(props) {
               <Button
                 className="btn-primary template_btn"
                 onClick={() => {
-                  save(allimgsforcategory[currentimage].urlToImage[0].src,);
+                  save(allimgsforcategory[currentimage].urlToImage[0].src);
                 }}
                 style={{ marginTop: 2 }}
               >
@@ -204,8 +204,7 @@ export function VidoeSelectionModal(props) {
   const [isVideoSelected, setisVideoSelected] = useState(false);
   const [loadedRemoteVids, setloadedRemoteVids] = useState(false);
   const AllTemplates = useSelector((state) => state.VideoTemplates);
-  const save = async (file, type) => {
-    // debugger
+  const savevid = async (file, type) => {
     let EventsCpy = await { ...props.CurrentEventDetails };
     EventsCpy.file = file;
     EventsCpy.filetype = 'media:' + type;
@@ -254,7 +253,7 @@ export function VidoeSelectionModal(props) {
               <Button
                 className="btn-primary template_btn"
                 onClick={() => {
-                  save(allVidsforcategory[currentvideo], allVidsforcategory[currentvideo].groups[0].mediaType);
+                  savevid(allVidsforcategory[currentvideo], allVidsforcategory[currentvideo].groups[0].mediaType);
                 }}
                 style={{ marginTop: 2 }}
               >

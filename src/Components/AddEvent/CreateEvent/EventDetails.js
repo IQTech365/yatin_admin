@@ -157,7 +157,7 @@ export default function EventDetails(props) {
           /> : CurrentEventDetails.filetype === "png" ||
             CurrentEventDetails.filetype === "jpg" ||
             CurrentEventDetails.filetype === "jpeg" ? (
-            <img src={CurrentEventDetails.file} className="fullimagemain" />
+            <img src={CurrentEventDetails.file} style={{ width: '80vw' }} />
           ) : (
             <video
               type="video/mp4"
