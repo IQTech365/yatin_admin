@@ -37,7 +37,11 @@ import { CircularProgress } from "@material-ui/core";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FcShare } from "react-icons/fc";
 import { FiGift } from "react-icons/fi";
-import Media from '../../RenderMedia/Media'
+import { AiOutlineEdit } from "react-icons/ai";
+
+import Media from "../../RenderMedia/Media";
+import OptionModal from "../../OptionModal/OptionModal";
+
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
   const [comment, setcomment] = useState("");
@@ -45,6 +49,13 @@ export default function InvitaionMain(props) {
   const [MainCode, setmaincode] = useState();
   const [iscommenting, setiscommenting] = useState(false);
   const [commentcountplus, setcommentcountplus] = useState(0);
+  const [openOptionModal, setOpenOptionModal] = useState(false);
+  const [selectedOptionModal, setSelectedOptionModal] = useState({
+    title: "Like",
+    id: 1,
+    icon: <AiOutlineLike size={22} />,
+  });
+
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
     let likeCountCopy = [...likeCount];
@@ -187,6 +198,11 @@ export default function InvitaionMain(props) {
       console.log(`system does not support sharing files.`);
     }
   };
+
+  const _onCloseOptionModal = (value) => {
+    setSelectedOptionModal(value);
+    setOpenOptionModal(false);
+  };
   return (
     <>
       {iscommenting === true ? (
@@ -257,11 +273,11 @@ export default function InvitaionMain(props) {
                         onClick={() => {
                           history.push(
                             "/" +
-                            props.base +
-                            "/guestlist/" +
-                            props.id +
-                            "/" +
-                            index
+                              props.base +
+                              "/guestlist/" +
+                              props.id +
+                              "/" +
+                              index
                           );
                         }}
                       />
@@ -270,26 +286,24 @@ export default function InvitaionMain(props) {
                 </Row>
               </Container>
               <Container className="container-event">
-                {eve.filetype.includes('media') ?
-                  <Media
-                    CurrentEventDetails={eve}
-                    isEditable={false}
-                  /> : eve.filetype === "png" ||
-                    eve.filetype === "jpg" ||
-                    eve.filetype === "jpeg" ? (
-                    <Image src={eve.file} className="fullimagemain" />
-                  ) : (
-                    <video
-                      type="video/mp4"
-                      autoPlay={true}
-                      controls={true}
-                      controlsList="nodownload"
-                      onContextMenu={(e) => e.preventDefault()}
-                      src={eve.file}
-                      preload="none"
-                      className="w-100 fullimagemain"
-                    />
-                  )}
+                {eve.filetype.includes("media") ? (
+                  <Media CurrentEventDetails={eve} isEditable={false} />
+                ) : eve.filetype === "png" ||
+                  eve.filetype === "jpg" ||
+                  eve.filetype === "jpeg" ? (
+                  <Image src={eve.file} className="fullimagemain" />
+                ) : (
+                  <video
+                    type="video/mp4"
+                    autoPlay={true}
+                    controls={true}
+                    controlsList="nodownload"
+                    onContextMenu={(e) => e.preventDefault()}
+                    src={eve.file}
+                    preload="none"
+                    className="w-100 fullimagemain"
+                  />
+                )}
                 <Container
                   className="box-event"
                   fluid
@@ -302,7 +316,7 @@ export default function InvitaionMain(props) {
                           eve.file,
                           eve.filetype,
                           "https://mobillyinvite.com/MyInvitations/" +
-                          eve.MainCode,
+                            eve.MainCode,
                           eve.Name,
                           eve.Date
                         );
@@ -314,7 +328,7 @@ export default function InvitaionMain(props) {
                         //   '/Share'
                         // );
                       }}
-                      style={{ width: "100%", }}
+                      style={{ width: "100%" }}
                     >
                       Share <FiShare2 />
                     </span>
@@ -323,7 +337,7 @@ export default function InvitaionMain(props) {
                       onClick={() => {
                         history.push("/" + props.base + "/rsvp/" + props.id);
                       }}
-                      style={{ width: "100%", }}
+                      style={{ width: "100%" }}
                     >
                       RSVP <IsRsvp RSVPList={eve.RSVPList} />
                       <AiOutlineSync />
@@ -408,22 +422,24 @@ export default function InvitaionMain(props) {
                   <Row style={{ marginTop: 10 }}>
                     <Col>
                       <center className="icon-labels">
-                        {eve.Host.includes(Auth.Phone) ? (<>
-                          <FiUsers
-                            size={22}
-                            onClick={() => {
-                              history.push(
-                                "/" +
-                                props.base +
-                                "/guestlist/" +
-                                props.id +
-                                "/" +
-                                index
-                              );
-                            }}
-                          /><br />
-                          <>GuestList</>
-                        </>
+                        {eve.Host.includes(Auth.Phone) ? (
+                          <>
+                            <FiUsers
+                              size={22}
+                              onClick={() => {
+                                history.push(
+                                  "/" +
+                                    props.base +
+                                    "/guestlist/" +
+                                    props.id +
+                                    "/" +
+                                    index
+                                );
+                              }}
+                            />
+                            <br />
+                            <>GuestList</>
+                          </>
                         ) : (
                           <>
                             <FiUsers
@@ -431,15 +447,16 @@ export default function InvitaionMain(props) {
                               onClick={() => {
                                 history.push(
                                   "/" +
-                                  props.base +
-                                  "/guestlist/" +
-                                  props.id +
-                                  "/" +
-                                  index
+                                    props.base +
+                                    "/guestlist/" +
+                                    props.id +
+                                    "/" +
+                                    index
                                 );
                               }}
-                            /><br />< >
-                              GuestList</>
+                            />
+                            <br />
+                            <>GuestList</>
                           </>
                         )}
                       </center>
@@ -449,7 +466,7 @@ export default function InvitaionMain(props) {
                         {eve.Host.includes(Auth.Phone) ? (
                           <>
                             {platform.name === "Safari" &&
-                              platform.version.split(".")[0] >= 13 ? (
+                            platform.version.split(".")[0] >= 13 ? (
                               <>
                                 {/* <WhatsappShareButton
                                 url={"https://mobillyinvite.com/MyInvitations/" +
@@ -480,22 +497,31 @@ export default function InvitaionMain(props) {
                                   onClick={() => {
                                     history.push(
                                       "/" +
-                                      props.base +
-                                      "/eventpage/" +
-                                      "gift/" +
-                                      props.id +
-                                      "/" +
-                                      eve.MainCode
+                                        props.base +
+                                        "/eventpage/" +
+                                        "gift/" +
+                                        props.id +
+                                        "/" +
+                                        eve.MainCode
                                     );
                                   }}
-                                /><br />
+                                />
+                                <br />
                                 <>Add Gift</>
                               </>
                             ) : (
                               <>
                                 {" "}
-                                <FiGift size={23} /><br />
-                                <>Buy Gift</>
+                                {/* <FiGift size={23} /> */}
+                                {selectedOptionModal.icon}
+                                <AiOutlineEdit
+                                  size="25"
+                                  style={{ color: "#4e4e4e" }}
+                                  onClick={() => setOpenOptionModal(true)}
+                                />
+                                <br />
+                                {/* <>Buy Gift</> */}
+                                {selectedOptionModal.title}
                                 {/* {" "}
                                 <FiShare2
                                   size={23}
@@ -523,10 +549,12 @@ export default function InvitaionMain(props) {
                             )}
                           </>
                         ) : (
-                          <center className="icon-labels">   <FiGift size="25" style={{ color: "#4e4e4e" }} /><br />
-                            < >Buy Gift</> </center>
-
-
+                          <center className="icon-labels">
+                            {" "}
+                            <FiGift size="25" style={{ color: "#4e4e4e" }} />
+                            <br />
+                            <>Buy Gift</>{" "}
+                          </center>
                         )}
                       </center>
                     </Col>
@@ -538,18 +566,20 @@ export default function InvitaionMain(props) {
                           onClick={() => {
                             history.push(
                               "/" +
-                              props.base +
-                              "/schedule/" +
-                              props.id +
-                              "/" +
-                              index
+                                props.base +
+                                "/schedule/" +
+                                props.id +
+                                "/" +
+                                index
                             );
                           }}
                         />
                         {/*  <Image
                           src={CalendarIcon}
                           
-                        /> */}<br /><>Schedule</>
+                        /> */}
+                        <br />
+                        <>Schedule</>
                       </center>
                     </Col>
                     <Col>
@@ -561,11 +591,11 @@ export default function InvitaionMain(props) {
                             onClick={() => {
                               history.push(
                                 "/" +
-                                props.base +
-                                "/location/" +
-                                props.id +
-                                "/" +
-                                index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                               );
                             }}
                           />
@@ -576,15 +606,16 @@ export default function InvitaionMain(props) {
                             onClick={() => {
                               history.push(
                                 "/" +
-                                props.base +
-                                "/location/" +
-                                props.id +
-                                "/" +
-                                index
+                                  props.base +
+                                  "/location/" +
+                                  props.id +
+                                  "/" +
+                                  index
                               );
                             }}
                           />
-                        )}<br />
+                        )}
+                        <br />
                         <>Location</>
                       </center>
                     </Col>
@@ -627,6 +658,11 @@ export default function InvitaionMain(props) {
         MainCode={MainCode}
         base={props.base}
         Eventdata={props.Eventdata}
+      />
+      <OptionModal
+        onClose={_onCloseOptionModal}
+        open={openOptionModal}
+        selectedValue={""}
       />
     </>
   );
