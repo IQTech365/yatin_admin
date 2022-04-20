@@ -510,7 +510,7 @@ export default function EventDetails(props) {
                   style={{
                     width: "100%",
                     border: "Solid 2px #3897f1",
-                    borderRadius: "150px",
+                    borderRadius: "8px",
                     padding: "8px",
                     position: "relative",
                     bottom: "6px",
@@ -528,7 +528,7 @@ export default function EventDetails(props) {
         </Grid>
         <Grid item xs={12}>
           <p
-            style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px" }}
+            style={{ textAlign: "left", fontSize: "12px", marginTop: "-5px" }}
           >
             <BsInfoCircleFill />
 

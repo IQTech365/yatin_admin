@@ -14,7 +14,7 @@ export default function AddEvent(props) {
   const [Type, setType] = useState("Wedding");
   const [activeStep, setActiveStep] = useState(0);
   const [Events, setEvents] = useState([]);
-  const [uniqueCode, setUniqueCode] = useState()
+  const [uniqueCode, setUniqueCode] = useState();
   let events = {
     Name: "",
     Participants: [],
@@ -30,7 +30,7 @@ export default function AddEvent(props) {
     Host: "",
     Co_Host: [],
     Schedule: [],
-    IsPassword: false
+    IsPassword: false,
   };
   const [SelectedEvent, SelectEvent] = useState(0);
   const [Story, setStory] = useState([]);
@@ -39,10 +39,14 @@ export default function AddEvent(props) {
     var someDate = new Date();
     someDate = Date.parse(someDate);
     let uniqueurl =
-      someDate + props.Type + '/' + Math.floor(100000 + Math.random() * 900000) + "/";
+      someDate +
+      props.Type +
+      "/" +
+      Math.floor(100000 + Math.random() * 900000) +
+      "/";
     setUniqueCode(uniqueurl);
     console.log(uniqueurl);
-  }, [])
+  }, []);
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -193,35 +197,34 @@ export default function AddEvent(props) {
     addAnEvent();
   }, []);
 
-
-
   function StepRender(step) {
     return (
-      <>{step.activeStep === 0 ?
-        <CreateEvent
-          setType={setType}
-          Type={Type}
-          Events={Events}
-          setEvents={setEvents}
-          addAnEvent={addAnEvent}
-          checkIfEventEmpty={checkIfEventEmpty}
-          handleChange={handleChange}
-          removeAnEvent={removeAnEvent}
-          SelectEvent={SelectEvent}
-          SelectedEvent={SelectedEvent}
-          handleNext={handleNext}
-          handleBack={handleBack}
-          addfinalDetails={addfinalDetails}
-          albumdata={albumdata}
-          setalbumdata={setalbumdata}
-          Story={Story}
-          setStory={setStory}
-          template={events}
-          uniqueCode={uniqueCode}
-          className="p-15px"
-        /> :
-        step.activeStep === 1 ? <Plan handleNext={handleNext} handleBack={handleBack} /> :
-          step.activeStep === 2 ? <AddParticipants
+      <>
+        {step.activeStep === 0 ? (
+          <CreateEvent
+            setType={setType}
+            Type={Type}
+            Events={Events}
+            setEvents={setEvents}
+            addAnEvent={addAnEvent}
+            checkIfEventEmpty={checkIfEventEmpty}
+            handleChange={handleChange}
+            removeAnEvent={removeAnEvent}
+            SelectEvent={SelectEvent}
+            SelectedEvent={SelectedEvent}
+            handleNext={handleNext}
+            handleBack={handleBack}
+            addfinalDetails={addfinalDetails}
+            albumdata={albumdata}
+            setalbumdata={setalbumdata}
+            Story={Story}
+            setStory={setStory}
+            template={events}
+            uniqueCode={uniqueCode}
+            className="p-15px"
+          />
+        ) : (
+          <AddParticipants
             handleNext={handleNext}
             handleBack={handleBack}
             Events={Events}
@@ -233,8 +236,10 @@ export default function AddEvent(props) {
             addfinalDetails={addfinalDetails}
             Type={Type}
             Story={Story}
-          /> : <></>}</>
-    )
+          />
+        )}
+      </>
+    );
     // switch (step.activeStep) {
     //   case 0:
     //     return (
@@ -281,4 +286,3 @@ export default function AddEvent(props) {
     </>
   );
 }
-

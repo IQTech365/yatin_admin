@@ -19,18 +19,13 @@ const options = [
     icon: <AiOutlineLike size={22} />,
   },
   {
-    title: "GuestList",
-    id: 2,
-    icon: <FiUsers size={22} />,
-  },
-  {
     title: "Gift",
-    id: 3,
+    id: 2,
     icon: <FiGift size={22} />,
   },
   {
     title: "Host Connect",
-    id: 4,
+    id: 3,
     icon: <AiOutlineDisconnect size={22} />,
   },
 ];
@@ -48,7 +43,7 @@ const OptionModal = (props) => {
 
   return (
     <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Set Options</DialogTitle>
+      <DialogTitle>Options</DialogTitle>
       <List sx={{ pt: 0 }}>
         {options.map((option) => (
           <ListItem

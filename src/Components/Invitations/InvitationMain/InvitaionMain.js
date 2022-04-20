@@ -38,9 +38,11 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { FcShare } from "react-icons/fc";
 import { FiGift } from "react-icons/fi";
 import { AiOutlineEdit } from "react-icons/ai";
+import { RiEditCircleFill } from "react-icons/ri";
 
 import Media from "../../RenderMedia/Media";
 import OptionModal from "../../OptionModal/OptionModal";
+import ConnectGuestModal from "../../ConnectGuestModal/ConnectGuestModal";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
@@ -50,6 +52,7 @@ export default function InvitaionMain(props) {
   const [iscommenting, setiscommenting] = useState(false);
   const [commentcountplus, setcommentcountplus] = useState(0);
   const [openOptionModal, setOpenOptionModal] = useState(false);
+  const [openConnectGuestModal, setConnectGuestModal] = useState(false);
   const [selectedOptionModal, setSelectedOptionModal] = useState({
     title: "Like",
     id: 1,
@@ -203,6 +206,19 @@ export default function InvitaionMain(props) {
     setSelectedOptionModal(value);
     setOpenOptionModal(false);
   };
+
+  const _onCloseConnectGuestModal = () => {
+    //
+  };
+
+  React.useEffect(() => {
+    if (selectedOptionModal.id === 3) {
+      setConnectGuestModal(true);
+    } else {
+      setConnectGuestModal(false);
+    }
+  }, [selectedOptionModal]);
+
   return (
     <>
       {iscommenting === true ? (
@@ -514,9 +530,9 @@ export default function InvitaionMain(props) {
                                 {" "}
                                 {/* <FiGift size={23} /> */}
                                 {selectedOptionModal.icon}
-                                <AiOutlineEdit
-                                  size="25"
-                                  style={{ color: "#4e4e4e" }}
+                                <RiEditCircleFill
+                                  size="15"
+                                  style={{ color: "#3897f1", marginTop: -15 }}
                                   onClick={() => setOpenOptionModal(true)}
                                 />
                                 <br />
@@ -553,7 +569,8 @@ export default function InvitaionMain(props) {
                             {" "}
                             <FiGift size="25" style={{ color: "#4e4e4e" }} />
                             <br />
-                            <>Buy Gift</>{" "}
+                            {/* <>Buy Gift</>{" "} */}
+                            {selectedOptionModal.title}
                           </center>
                         )}
                       </center>
@@ -662,7 +679,11 @@ export default function InvitaionMain(props) {
       <OptionModal
         onClose={_onCloseOptionModal}
         open={openOptionModal}
-        selectedValue={""}
+        selectedValue={selectedOptionModal}
+      />
+      <ConnectGuestModal
+        onClose={_onCloseConnectGuestModal}
+        open={openConnectGuestModal}
       />
     </>
   );

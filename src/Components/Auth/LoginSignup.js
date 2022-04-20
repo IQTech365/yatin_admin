@@ -64,9 +64,7 @@ export default function LoginSignup() {
       const appVerifier = window.recaptchaVerifier;
       firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
         .then((confirmationResult) => {
-
           window.confirmationResult = confirmationResult; setStep(1);
-          // ...
         }).catch((error) => {
           console.log(error)
         });
