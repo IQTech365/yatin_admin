@@ -22,6 +22,7 @@ import Dateformatter from "../../Helpers/DateFormatter/Dateformatter";
 import {
   like_event,
   comment_event,
+  UpdateHostSelectedMenu,
 } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import history from "../../../Utils/History";
 import NavMobile from "../../Helpers/NavMobile/NavMobile";
@@ -42,7 +43,7 @@ import { RiEditCircleFill } from "react-icons/ri";
 
 import Media from "../../RenderMedia/Media";
 import OptionModal from "../../OptionModal/OptionModal";
-import ConnectGuestModal from "../../ConnectGuestModal/ConnectGuestModal";
+import ConnectGusetModal from "../../ConnectGuestModal/ConnectGuestModal";
 
 export default function InvitaionMain(props) {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ export default function InvitaionMain(props) {
     id: 1,
     icon: <AiOutlineLike size={22} />,
   });
+
+  console.log("props.Eventdata----", props.Eventdata)
 
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
@@ -114,7 +117,7 @@ export default function InvitaionMain(props) {
       props.Eventdata[0].Description = await replacelinks(
         props.Eventdata[0].Description
       );
-      await setmaincode(props.Eventdata[0].MainCode);
+      setmaincode(props.Eventdata[0].MainCode);
       let countarray = [];
       let liked = false;
       for (let i = 0; i < props.Eventdata.length; i++) {
@@ -203,12 +206,13 @@ export default function InvitaionMain(props) {
   };
 
   const _onCloseOptionModal = (value) => {
+    dispatch(UpdateHostSelectedMenu(props.Eventdata[0]._id, value.title));
     setSelectedOptionModal(value);
     setOpenOptionModal(false);
   };
 
   const _onCloseConnectGuestModal = () => {
-    //
+    setConnectGuestModal(false);
   };
 
   React.useEffect(() => {
@@ -217,6 +221,7 @@ export default function InvitaionMain(props) {
     } else {
       setConnectGuestModal(false);
     }
+    //Update Event modal here
   }, [selectedOptionModal]);
 
   return (
@@ -270,6 +275,7 @@ export default function InvitaionMain(props) {
                       onClick={() => {
                         history.push("/" + props.base);
                       }}
+                      className="mobhide-home"
                     />
                   </p>
                   <Col></Col>
@@ -484,30 +490,6 @@ export default function InvitaionMain(props) {
                             {platform.name === "Safari" &&
                             platform.version.split(".")[0] >= 13 ? (
                               <>
-                                {/* <WhatsappShareButton
-                                url={"https://mobillyinvite.com/MyInvitations/" +
-                                  eve.MainCode +
-                                  "/" +
-                                  eve.code}
-                                title={
-                                  "Hi👋 You Have Been Invited By " +
-                                  " " +
-                                  Auth.Name +
-                                  " " +
-                                  "to" +
-                                  " " +
-                                  eve.Name +
-                                  " " +
-                                  "on" +
-                                  " " +
-                                  eve.Date +
-                                  " " +
-                                  "Please See Your Digital Invite🎉 on the Link Below"
-                                }
-                                separator=" "
-                                className="Demo__some-network__share-button"
-                              > */}
-
                                 <FiGift
                                   size={23}
                                   onClick={() => {
@@ -533,7 +515,9 @@ export default function InvitaionMain(props) {
                                 <RiEditCircleFill
                                   size="15"
                                   style={{ color: "#3897f1", marginTop: -15 }}
-                                  onClick={() => setOpenOptionModal(true)}
+                                  onClick={() => {
+                                    setOpenOptionModal(true)
+                                  }}
                                 />
                                 <br />
                                 {/* <>Buy Gift</> */}
@@ -681,7 +665,7 @@ export default function InvitaionMain(props) {
         open={openOptionModal}
         selectedValue={selectedOptionModal}
       />
-      <ConnectGuestModal
+      <ConnectGusetModal
         onClose={_onCloseConnectGuestModal}
         open={openConnectGuestModal}
       />

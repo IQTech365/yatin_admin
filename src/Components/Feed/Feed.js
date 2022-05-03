@@ -61,12 +61,12 @@ export default function Feed(props) {
   };
 
   useEffect(async () => {
-    await getposts();
+    getposts();
     if (MyEvents.length === 0 && myInvitations.length === 0) {
-      await dispatch(GetEvents());
-      await dispatch(GetInvitations());
+      dispatch(GetEvents());
+      dispatch(GetInvitations());
     } else {
-      await setfilter("All");
+      setfilter("All");
       if (
         props.location.pathname ===
           "/MyEvents/eventpage/feed/" +
@@ -75,12 +75,12 @@ export default function Feed(props) {
             props.match.params.MainCode &&
         MyEvents.length > 0
       ) {
-        await setEventdata(MyEvents[props.match.params.id]);
+        setEventdata(MyEvents[props.match.params.id]);
 
-        await setbase("MyEvents");
-        await setadmins(MyEvents[props.match.params.id][0].Host);
+        setbase("MyEvents");
+        setadmins(MyEvents[props.match.params.id][0].Host);
 
-        await guestlist([
+        guestlist([
           ...MyEvents[props.match.params.id][0].Participants,
           ...MyEvents[props.match.params.id][0].Host,
         ]);
@@ -92,12 +92,12 @@ export default function Feed(props) {
             props.match.params.MainCode &&
         myInvitations.length > 0
       ) {
-        await setEventdata(myInvitations[props.match.params.id]);
+        setEventdata(myInvitations[props.match.params.id]);
         // await setisAdmin(true)
 
-        await setbase("inv");
-        await setadmins(myInvitations[props.match.params.id][0].Host);
-        await guestlist([
+        setbase("inv");
+        setadmins(myInvitations[props.match.params.id][0].Host);
+        guestlist([
           ...myInvitations[props.match.params.id][0].Participants,
           ...myInvitations[props.match.params.id][0].Host,
         ]);
@@ -106,7 +106,7 @@ export default function Feed(props) {
   }, [MyEvents, myInvitations]);
 
   const submit = async () => {
-    await setisSubmit(true);
+    setisSubmit(true);
     var d = new Date();
     let unique = d.getTime();
     let url = Eventdata[0].MainCode + unique + "." + type;
@@ -115,7 +115,7 @@ export default function Feed(props) {
     if (imageurl !== "") {
       newurl = await uploadString(imageurl, url);
     }
-    await dispatch(
+    dispatch(
       addpost(
         Eventdata[0].MainCode,
         Auth.Phone,
@@ -126,10 +126,10 @@ export default function Feed(props) {
         setisSubmit
       )
     );
-    await setcaption("");
-    await setimageurl("");
-    await settype("");
-    await setTags([]);
+    setcaption("");
+    setimageurl("");
+    settype("");
+    setTags([]);
     //await setisSubmit(false);
   };
 
@@ -141,7 +141,7 @@ export default function Feed(props) {
     let url = "";
     let ftype = acceptedFiles[0].type.split("/");
     settype(ftype[0]);
-    var reader = await new FileReader();
+    var reader = new FileReader();
     reader.onload = async function () {
       url = reader.result;
       setimageurl(url);
@@ -149,7 +149,7 @@ export default function Feed(props) {
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
-    await reader.readAsDataURL(acceptedFiles[0]);
+    reader.readAsDataURL(acceptedFiles[0]);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -164,8 +164,8 @@ export default function Feed(props) {
         .then(async function (response) {
           toggleisloaded(true);
 
-          await setcurrentPosts(response.data.Posts);
-          await filterposts(response.data.Posts, Eventdata[0].Host);
+          setcurrentPosts(response.data.Posts);
+          filterposts(response.data.Posts, Eventdata[0].Host);
         })
         .catch(function (error) {
           console.log(error);
@@ -224,7 +224,7 @@ export default function Feed(props) {
       }
     }
     console.log(Participants);
-    await setparticipant(Participants);
+    setparticipant(Participants);
   };
 
   useEffect(() => {

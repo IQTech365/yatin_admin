@@ -130,28 +130,28 @@ export default function NewAddParticipants(props) {
   }
 
   const save = async () => {
-    await setEntryWay("Code");
+    setEntryWay("Code");
 
     for (var i = 0; i < props.Events.length; i++) {
-      await codescpy.push(
-        await randomString(
+      codescpy.push(
+        randomString(
           8,
           "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         )
       );
     }
-    await setCodes(codescpy);
-    await setisSaving(true);
+    setCodes(codescpy);
+    setisSaving(true);
     let EventCpy = [...props.Events];
     if (participants.length === 0 && EntryWay === "Contacts") {
-      await setisSaving(false);
+      setisSaving(false);
       return false;
     }
     let particpantsCpy = [...participants];
     particpantsCpy.map(async (listdata, index) => {
       if (listdata.length === 0) {
         alert("Please Add Guests to Event no " + (index + 1));
-        await setisSaving(false);
+        setisSaving(false);
         return false;
       } else {
         EventCpy[index].Participants = listdata;
@@ -201,7 +201,7 @@ export default function NewAddParticipants(props) {
     //         });
     //     }
     // }
-    await dispatch(
+    dispatch(
       saveEvent({
         Type: props.Type,
         Events: EventCpy,
@@ -209,6 +209,7 @@ export default function NewAddParticipants(props) {
         Story: Storycpy,
         code: codescpy,
         EntryWay: EntryWay,
+        HostSelectedMenu: props.HostSelectedMenu
       })
     );
     //  setisSaving(false);

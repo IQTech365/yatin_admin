@@ -33,6 +33,9 @@ export default function LoginSignup() {
     setAgree(!agree);
   };
   useEffect(() => {
+    
+  },[]);
+  useEffect(() => {
     configcaptcha();
   }, [])
   const configcaptcha = () => {

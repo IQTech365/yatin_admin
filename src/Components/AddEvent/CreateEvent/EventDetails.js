@@ -9,6 +9,7 @@ import {
   Switch,
   Button,
   FormControlLabel,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
@@ -120,7 +121,7 @@ export default function EventDetails(props) {
       props.seterroring,
       props.SelectedEvent
     );
-    await setSubmit(true);
+    setSubmit(true);
     if (result.status === true && props.Type !== "") {
       let EventsCopy = [...props.Events];
       await props.setDisablesave(true);
@@ -379,21 +380,29 @@ export default function EventDetails(props) {
           })}
         </Grid>
       </Grid>
-      {eventTypeIndex !== 1 && <Grid item xs={12}>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={isOnlineInApp}
-              onChange={() => {
-                setIsOnlineInApp(!isOnlineInApp);
-              }}
-              name="online_in_app"
-              color="primary"
-            />
-          }
-          label="InApp-Online"
-        />
-      </Grid>}
+      {eventTypeIndex !== 1 && (
+        <Grid
+          item
+          xs={12}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          className="talc fs-bold  label"
+        >
+          Inapp-Online
+          <Switch
+            checked={isOnlineInApp}
+            onChange={() => {
+              setIsOnlineInApp(!isOnlineInApp);
+            }}
+            name="online_in_app"
+            color="primary"
+          />
+        </Grid>
+      )}
       {/* <Grid item xs={6} style={{ marginTop: 10 }}>
         <span className="label">Type</span>
         <select
@@ -431,7 +440,7 @@ export default function EventDetails(props) {
         <Grid
           item
           xs={12}
-          style={{ marginTop: 10 }}
+          style={{ marginTop: 5 }}
           className={
             CurrentEventDetails.VenueType === "Offline" ? "hide" : "show"
           }
@@ -514,6 +523,7 @@ export default function EventDetails(props) {
                     padding: "8px",
                     position: "relative",
                     bottom: "6px",
+                    color: "#999",
                   }}
                 >
                   {Location === ""
@@ -527,9 +537,7 @@ export default function EventDetails(props) {
           )}
         </Grid>
         <Grid item xs={12}>
-          <p
-            style={{ textAlign: "left", fontSize: "12px", marginTop: "-5px" }}
-          >
+          <p style={{ textAlign: "left", fontSize: "12px", marginTop: "-5px" }}>
             <BsInfoCircleFill />
 
             {CurrentEventDetails.VenueType === "Online"
