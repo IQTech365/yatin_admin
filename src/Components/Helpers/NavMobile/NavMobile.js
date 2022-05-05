@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import {
-  BiNews,
-  BiPhotoAlbum,
-  BiCalendarEvent,
-} from "react-icons/bi";
+import { BiNews, BiPhotoAlbum, BiCalendarEvent } from "react-icons/bi";
 import { BsThreeDots } from "react-icons/bs";
-import { FiGift } from "react-icons/fi"
+import { FiGift } from "react-icons/fi";
 import "./NavMobile.css";
 import { AiOutlineShopping } from "react-icons/ai";
 import history from "../../../Utils/History";
-import { useSelector, } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Popup from "../Popups/Popup";
 import Notifications from "../../Notifications/Notification";
+import { HiHome } from "react-icons/hi";
 export default function NavMobile(props) {
-
   const [show, setshow] = useState(false);
   const [eventcode, seteventcode] = useState("");
   const Auth = useSelector((state) => state.Auth);
@@ -55,12 +51,12 @@ export default function NavMobile(props) {
             width: "100vw",
             height: "4.5vh",
           }}
-
         >
           <Nav.Link
-
             onClick={() => {
-              if (Auth.isLoggedIn === true) { history.push("/" + props.base + "/eventpage/" + props.id); }
+              if (Auth.isLoggedIn === true) {
+                history.push("/" + props.base + "/eventpage/" + props.id);
+              }
             }}
             style={{ textDecoration: "none" }}
           >
@@ -69,32 +65,16 @@ export default function NavMobile(props) {
           </Nav.Link>
           <Nav.Link
             onClick={() => {
-              if (Auth.isLoggedIn === true) { history.push("/" + props.base + "/albums/" + props.id); }
+              if (Auth.isLoggedIn === true) {
+                history.push("/" + props.base + "/albums/" + props.id);
+              }
             }}
             style={{ textDecoration: "none" }}
           >
             <BiPhotoAlbum size={25} />
             <p className="mobilebar_text">Albums</p>
           </Nav.Link>
-          <Nav.Link
-            onClick={() => {
-              if (Auth.isLoggedIn === true) {
-                history.push(
-                  "/" +
-                  props.base +
-                  "/eventpage/" +
-                  "feed/" +
-                  props.id +
-                  "/" +
-                  props.MainCode
-                );
-              }
-            }}
-            style={{ textDecoration: "none" }}
-          >
-            <BiNews size={25} />
-            <p className="mobilebar_text">Feed</p>
-          </Nav.Link>
+
           {/*  <Nav.Link
             onClick={() => {
              if(Auth.isLoggedIn===true){ history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
@@ -105,16 +85,33 @@ export default function NavMobile(props) {
             <p className="mobilebar_text_notif">Notifications</p>
           </Nav.Link> */}
           <Nav.Link
-            style={{ textDecoration: "none" }} onClick={() => {
-              if (Auth.isLoggedIn === true) {
-                history.push("/" + props.base + '/eventpage/' + "gift/" + props.id + "/" + props.MainCode);
-              }
+            style={{ textDecoration: "none" }}
+            onClick={() => {
+              history.push("/" + props.base);
             }}
           >
-            <FiGift size={23} />
-            <p className="mobilebar_text">Gift</p>
+            <HiHome size={30} />
+            <p className="mobilebar_text">Home</p>
           </Nav.Link>
-
+          <Nav.Link
+            onClick={() => {
+              if (Auth.isLoggedIn === true) {
+                history.push(
+                  "/" +
+                    props.base +
+                    "/eventpage/" +
+                    "feed/" +
+                    props.id +
+                    "/" +
+                    props.MainCode
+                );
+              }
+            }}
+            style={{ textDecoration: "none" }}
+          >
+            <BiNews size={25} />
+            <p className="mobilebar_text">Feed</p>
+          </Nav.Link>
           <Nav.Link
             onClick={() => {
               if (Auth.isLoggedIn === true) {

@@ -34,12 +34,12 @@ export default function Album(props) {
         let type = acceptedFiles[i].type.split("/");
         type = type[1];
         await getBase64(acceptedFiles[i]).then(async (data) => {
-          await bkpalbum.push({ data: data, type: type });
-          await filetype.push(type);
+          bkpalbum.push({ data: data, type: type });
+          filetype.push(type);
         });
       }
     }
-    await setAlbum(bkpalbum);
+    setAlbum(bkpalbum);
     return true;
   }, []);
 

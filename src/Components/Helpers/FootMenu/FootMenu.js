@@ -80,7 +80,7 @@ export default function FootMenu(props) {
               history.push("/inv");
             }}
           >
-            &nbsp;&nbsp;Invitations&nbsp;&nbsp;
+            &nbsp;&nbsp;Guests&nbsp;&nbsp;
           </Grid>
           <Grid xs={2}></Grid>
           <Grid
@@ -92,7 +92,7 @@ export default function FootMenu(props) {
               history.push("/MyEvents");
             }}
           >
-            &nbsp;&nbsp;My Events&nbsp;&nbsp;
+            &nbsp;&nbsp;Host&nbsp;&nbsp;
           </Grid>
         </Grid>
       </Toolbar>

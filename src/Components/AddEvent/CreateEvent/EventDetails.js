@@ -7,6 +7,9 @@ import {
   FormControl,
   Modal,
   Switch,
+  Button,
+  FormControlLabel,
+  Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
@@ -16,16 +19,27 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
 import { BsInfoCircleFill } from "react-icons/bs";
-import Media from '../../RenderMedia/Media'
+import AppText from "../../../Utils/Constants";
+import Utils from "../../../Utils/Utils";
 
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
       borderWidth: "3px",
       // borderColor: "#3897f1 !important",
-      borderRadius: "150px",
+      borderRadius: "8px",
       color: "#3897f1 !important",
       fontSize: "12px !important",
+    },
+    activeTabButton: {
+      width: "100%",
+      justifyContent: "center",
+      backgroundColor: "#3897f1",
+    },
+    inactiveTabButton: {
+      width: "100%",
+      justifyContent: "center",
+      backgroundColor: "#00000014",
     },
   }));
 
@@ -44,6 +58,9 @@ export default function EventDetails(props) {
   const [Location, setLocation] = useState("");
   const [isEditLocation, setisEditLocation] = useState(false);
   const [address, setaddress] = useState("");
+  const [eventTypeIndex, setEventTypeIndex] = useState(0);
+  const [isOnlineInApp, setIsOnlineInApp] = useState(false);
+
   useEffect(() => {
     if (props.Events[props.SelectedEvent] !== undefined) {
       SetCurrentEventDetails(props.Events[props.SelectedEvent]);
@@ -104,7 +121,7 @@ export default function EventDetails(props) {
       props.seterroring,
       props.SelectedEvent
     );
-    await setSubmit(true);
+    setSubmit(true);
     if (result.status === true && props.Type !== "") {
       let EventsCopy = [...props.Events];
       await props.setDisablesave(true);
@@ -136,7 +153,7 @@ export default function EventDetails(props) {
     <Grid container spacing={1} className="p-15px pt-0">
       <Grid item xs={12} sm={12}>
         {CurrentEventDetails !== undefined &&
-          CurrentEventDetails.file === "" ? (
+        CurrentEventDetails.file === "" ? (
           <center>
             <img
               src={AddImg}
@@ -148,28 +165,50 @@ export default function EventDetails(props) {
               }}
             />
           </center>
-        ) : <center onClick={() => {
-          toggleShowPopup(true);
-        }}> {CurrentEventDetails?.filetype?.includes('media') ?
-          <Media
-            CurrentEventDetails={CurrentEventDetails}
-            isEditable={false}
-          /> : CurrentEventDetails.filetype === "png" ||
-            CurrentEventDetails.filetype === "jpg" ||
-            CurrentEventDetails.filetype === "jpeg" ? (
-            <img src={CurrentEventDetails.file} style={{ width: '80vw' }} />
+        ) : CurrentEventDetails !== undefined &&
+          CurrentEventDetails.filetype !== undefined ? (
+          CurrentEventDetails.filetype === "png" ||
+          CurrentEventDetails.filetype === "jpg" ||
+          CurrentEventDetails.filetype === "jpeg" ? (
+            <img
+              src={
+                CurrentEventDetails !== undefined
+                  ? CurrentEventDetails.file
+                  : " "
+              }
+              onClick={() => {
+                toggleShowPopup(true);
+              }}
+              className={
+                processing === true
+                  ? "transparent uploaded-file w-100 "
+                  : "notTransparent uploaded-file w-100 "
+              }
+            />
           ) : (
             <video
               type="video/mp4"
+              style={{ height: "300px" }}
               autoPlay={true}
-              controls={true}
-              controlsList="nodownload"
-              onContextMenu={(e) => e.preventDefault()}
-              src={CurrentEventDetails.file}
+              src={
+                CurrentEventDetails !== undefined
+                  ? CurrentEventDetails.file
+                  : " "
+              }
+              onClick={() => {
+                toggleShowPopup(true);
+              }}
               preload="none"
-              className="w-100 fullimagemain"
+              className={
+                processing === true
+                  ? " transparent w-100 "
+                  : "notTransparent w-100 "
+              }
             />
-          )}</center>}
+          )
+        ) : (
+          <></>
+        )}
         <div>
           <Modal
             aria-labelledby="transition-modal-title"
@@ -307,10 +346,64 @@ export default function EventDetails(props) {
               notchedOutline: classes.notchedOutline,
             },
           }}
+          InputLabelProps={{
+            shrink: true,
+          }}
           style={{ fontSize: "12px" }}
         />
       </Grid>
-      <Grid item xs={6} style={{ marginTop: 10 }}>
+      <Grid item lg={12} xs={12} sm={12} md={12} style={{ marginTop: 10 }}>
+        <Grid container spacing={2}>
+          {Utils.EventTypes.map((eventType, i) => {
+            const selected = eventTypeIndex === i;
+            return (
+              <Grid item lg={4} xs={4} sm={4} md={4} key={i}>
+                <Button
+                  className={
+                    selected
+                      ? classes.activeTabButton
+                      : classes.inactiveTabButton
+                  }
+                  onClick={() => {
+                    setEventTypeIndex(i);
+                    changevenue();
+                    SetCurrentEventDetails({
+                      ...CurrentEventDetails,
+                      VenueType: eventType,
+                    });
+                  }}
+                >
+                  {eventType}
+                </Button>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Grid>
+      {eventTypeIndex !== 1 && (
+        <Grid
+          item
+          xs={12}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          className="talc fs-bold  label"
+        >
+          Inapp-Online
+          <Switch
+            checked={isOnlineInApp}
+            onChange={() => {
+              setIsOnlineInApp(!isOnlineInApp);
+            }}
+            name="online_in_app"
+            color="primary"
+          />
+        </Grid>
+      )}
+      {/* <Grid item xs={6} style={{ marginTop: 10 }}>
         <span className="label">Type</span>
         <select
           className="w-100-p selectboxblue"
@@ -341,151 +434,13 @@ export default function EventDetails(props) {
           <option value="Online">Online</option>
           <option value="Offline">Offline</option>
           <option value="Both">Both</option>
-          {/* <MenuItem
-            className="w-100-p"
-            onClick={(e) => {
-
-            }}
-
-          >
-            OnlineInApp
-          </MenuItem>
-          <MenuItem
-            className="w-100-p"
-            onClick={(e) => {
-              changevenue();
-              SetCurrentEventDetails({
-                ...CurrentEventDetails,
-                VenueType: "Online",
-              });
-            }}
-            value="Online"
-          >
-            Online
-          </MenuItem>
-
-          <MenuItem
-            className="w-100-p"
-            onClick={(e) => {
-              changevenue();
-              SetCurrentEventDetails({
-                ...CurrentEventDetails,
-                VenueType: "Offline",
-              });
-            }}
-            value="Offline"
-          >
-            Offline
-          </MenuItem>
-          <MenuItem
-            className="w-100-p"
-            onClick={(e) => {
-              changevenue();
-              SetCurrentEventDetails({
-                ...CurrentEventDetails,
-                VenueType: "Both",
-              });
-            }}
-            value="Both"
-          >
-            Both
-          </MenuItem> */}
         </select>
-        {/* <FormControl
-          variant="outlined"
-          className="w-100-p "
-          size="small"
-          variant="outlined"
-          InputProps={{
-            classes: {
-              notchedOutline: classes.notchedOutline,
-            },
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        >
-         
-          <Select
-            className="w-100-p selectboxblue"
-            value={CurrentEventDetails.VenueType}
-            error={
-              IsSubmitted === true && CurrentEventDetails.VenueType === ""
-                ? true
-                : false
-            }
-            variant="outlined"
-            InputProps={{
-              classes: {
-                notchedOutline: classes.notchedOutline,
-              },
-            }}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          >
-            <MenuItem
-              className="w-100-p"
-              onClick={(e) => {
-                changevenue();
-                SetCurrentEventDetails({
-                  ...CurrentEventDetails,
-                  VenueType: "Online-Inapp",
-                });
-              }}
-              value="Online-Inapp"
-            >
-              OnlineInApp
-            </MenuItem>
-            <MenuItem
-              className="w-100-p"
-              onClick={(e) => {
-                changevenue();
-                SetCurrentEventDetails({
-                  ...CurrentEventDetails,
-                  VenueType: "Online",
-                });
-              }}
-              value="Online"
-            >
-              Online
-            </MenuItem>
-
-            <MenuItem
-              className="w-100-p"
-              onClick={(e) => {
-                changevenue();
-                SetCurrentEventDetails({
-                  ...CurrentEventDetails,
-                  VenueType: "Offline",
-                });
-              }}
-              value="Offline"
-            >
-              Offline
-            </MenuItem>
-            <MenuItem
-              className="w-100-p"
-              onClick={(e) => {
-                changevenue();
-                SetCurrentEventDetails({
-                  ...CurrentEventDetails,
-                  VenueType: "Both",
-                });
-              }}
-              value="Both"
-            >
-              Both
-            </MenuItem>
-          </Select>
-        </FormControl> */}
-      </Grid>
-
+      </Grid> */}
       <>
         <Grid
           item
-          xs={6}
-          style={{ marginTop: 10 }}
+          xs={12}
+          style={{ marginTop: 5 }}
           className={
             CurrentEventDetails.VenueType === "Offline" ? "hide" : "show"
           }
@@ -499,16 +454,11 @@ export default function EventDetails(props) {
             placeholder="Add Link Below"
             value={
               CurrentEventDetails.VenueType === "Online" ||
-                CurrentEventDetails.VenueType === "Both"
+              CurrentEventDetails.VenueType === "Hybrid"
                 ? CurrentEventDetails.Link
                 : "Meeting Created"
             }
-            disabled={
-              CurrentEventDetails.VenueType === "Online" ||
-                CurrentEventDetails.VenueType === "Both"
-                ? false
-                : true
-            }
+            disabled={isOnlineInApp}
             onChange={(e) => {
               SetCurrentEventDetails({
                 ...CurrentEventDetails,
@@ -531,11 +481,11 @@ export default function EventDetails(props) {
         <Grid
           style={{ marginTop: 10 }}
           item
-          xs={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
-          sm={CurrentEventDetails.VenueType === "Offline" ? 6 : 12}
+          xs={12}
+          sm={12}
           className={
             CurrentEventDetails.VenueType === "Online" ||
-              CurrentEventDetails.VenueType === "Online-Inapp"
+            CurrentEventDetails.VenueType === "Online-Inapp"
               ? "hide"
               : "show"
           }
@@ -569,47 +519,34 @@ export default function EventDetails(props) {
                   style={{
                     width: "100%",
                     border: "Solid 2px #3897f1",
-                    borderRadius: "150px",
+                    borderRadius: "8px",
                     padding: "8px",
                     position: "relative",
                     bottom: "6px",
+                    color: "#999",
                   }}
                 >
                   {Location === ""
                     ? "Please add location"
                     : Location.length > 25
-                      ? Location.substring(0, 25)
-                      : Location}
+                    ? Location.substring(0, 25)
+                    : Location}
                 </div>
               </Grid>
             </Grid>
           )}
-
-          {/* <span
-            className={
-              IsSubmitted === true && CurrentEventDetails.Location === ""
-                ? "error"
-                : "hide"
-            }
-            style={{ width: "100%" }}
-          >
-            Please add Location
-          </span> */}
         </Grid>
-
         <Grid item xs={12}>
-          <p
-            style={{ textAlign: "right", fontSize: "12px", marginTop: "-10px" }}
-          >
+          <p style={{ textAlign: "left", fontSize: "12px", marginTop: "-5px" }}>
             <BsInfoCircleFill />
 
             {CurrentEventDetails.VenueType === "Online"
               ? " Add Your Zoom Other Links"
               : CurrentEventDetails.VenueType === "Online-Inapp"
-                ? " No Further Action Required"
-                : CurrentEventDetails.VenueType === "Offline"
-                  ? " Add Your Location"
-                  : " Add Your Location and Meeting Link"}
+              ? " No Further Action Required"
+              : CurrentEventDetails.VenueType === "Offline"
+              ? " Add Your Location"
+              : " Add Your Location and Meeting Link"}
           </p>
         </Grid>
 
@@ -636,6 +573,11 @@ export default function EventDetails(props) {
             }
             multiline={true}
             rows={2}
+            InputProps={{
+              classes: {
+                notchedOutline: classes.notchedOutline,
+              },
+            }}
           />
         </Grid>
       </>

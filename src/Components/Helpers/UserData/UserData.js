@@ -15,9 +15,9 @@ export default function UserData(props) {
       } else {
         let i = _.findLastIndex(GuestList, function (o) { return o.Phone == props.Phone; });
         if (i !== -1) {
-          await setUser(GuestList[i])
+        await setUser(GuestList[i])
         } else {
-          await setUser({ Name: Auth.Phone, Pic: "" })
+          setUser({ Name: Auth.Phone, Pic: "" })
         }
       }
     }

@@ -253,7 +253,9 @@ export default function AddEventSucess(props) {
             <></>
           )}
           <Grid item xs={12} className="w-100 tac">
-            Share With 1-Click
+            <p onClick={() => {
+              history.push("/MyEvents" );
+            }}>View Events</p>
           </Grid>
           <Grid
             item
@@ -281,7 +283,7 @@ export default function AddEventSucess(props) {
               </Grid>
             </Grid>
           </Grid> */}
- {platform.name === "Safari" &&
+              {/* {platform.name === "Safari" &&
               platform.version.split(".")[0] >= 13 ? (
                 <>
                   {" "}
@@ -303,18 +305,21 @@ export default function AddEventSucess(props) {
                   </WhatsappShareButton>{" "}
                 </>
               ) : (
-                <> <FcShare
-                onClick={async () => {
-                  await handleOnSubmit(true);
-                }}
-                className="share-button"
-                type="button"
-                title="Share this article"
-                size={40}
-                style={{ marginRight: "10px" }}
-              /></>
-              )}
-             
+                <>
+                  {" "}
+                  <FcShare
+                    onClick={async () => {
+                      await handleOnSubmit(true);
+                    }}
+                    className="share-button"
+                    type="button"
+                    title="Share this article"
+                    size={40}
+                    style={{ marginRight: "10px" }}
+                  />
+                </>
+              )} */}
+
               <div>
                 <div
                   className={`alert alert-success ${
@@ -325,7 +330,6 @@ export default function AddEventSucess(props) {
                   <strong>Wait!</strong> Generating Link
                 </div>
               </div>
-             
             </center>
           </Grid>
           <Grid item xs={12} className="tac" style={{ fontSize: 10 }}>

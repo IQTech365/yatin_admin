@@ -24,7 +24,7 @@ export default function AddPost(props) {
         let ftype = acceptedFiles[0].type.split("/");
         //   console.log(ftype)
         props.settype(ftype[1]);
-        var reader = await new FileReader();
+        var reader = new FileReader();
         reader.onload = async function () {
             url = reader.result;
             props.setimageurl(url);
@@ -32,7 +32,7 @@ export default function AddPost(props) {
         reader.onerror = function (error) {
             console.log("Error: ", error);
         };
-        await reader.readAsDataURL(acceptedFiles[0]);
+        reader.readAsDataURL(acceptedFiles[0]);
     }, []);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
