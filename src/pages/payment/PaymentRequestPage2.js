@@ -213,7 +213,7 @@ const PaymentRequestPage2 = () => {
       <form action="" className={`${styles.account_management_form}`}>
         <div className="form-group">
           <ul className="row">
-            <li className={`${styles.m_form} col-lg-6 col-md-6 col-12`}>
+            <li className={`${styles.m_form} col-12`}>
               <label>HOLDER NAME</label>
               <div className={`${styles.card_number} ${css.margin_holder_name}`}>
                 <input
@@ -225,17 +225,17 @@ const PaymentRequestPage2 = () => {
               </div>
               <div id="card-holder-name" className={`${styles.error_message}`}>{ccerrors.cardHolderName}</div>
             </li>
-            <li className={`${styles.m_form} col-lg-6 col-md-6 col-12`}>
+            <li className={`${styles.m_form} col-12`}>
               <label>CARD NUMBER</label>
               <div id="card-number" className={`${styles.card_number}`}></div>
               <div id="card_number" className={`${styles.error_message}`}></div>
             </li>
-            <li className={`${styles.m_form} col-lg-6 col-md-6 col-12`}>
+            <li className={`${styles.m_form} col-12`}>
               <label>EXP DATE</label>
               <div id="card-expiration" className={`${styles.card_expiration}`}></div>
               <div id="card" className={`${styles.error_message}`}></div>
             </li>
-            <li className={`${styles.m_form} col-lg-6 col-md-6 col-12`}>
+            <li className={`${styles.m_form} col-12`}>
               <label>CVV</label>
               <div id="card-cvv" className={`${styles.card_cvv}`}></div>
               <div id="card_security_code" className={`${styles.error_message}`}></div>

@@ -34,7 +34,13 @@ const SideNavbar = (props) => {
         <Menu.Item key={"4"} icon={<UploadOutlined />}>
           <Link to="/media-link">Media Link</Link>
         </Menu.Item>
-        <Menu.Item key={"5"} icon={<UserOutlined />}>
+        <Menu.Item key={"5"} icon={<UploadOutlined />}>
+          <Link to="/manage-gift-category">Gift Categories</Link>
+        </Menu.Item>
+        <Menu.Item key={"6"} icon={<UploadOutlined />}>
+          <Link to="/manage-add-gift">Add Gift</Link>
+        </Menu.Item>
+        <Menu.Item key={"7"} icon={<UserOutlined />}>
           <Link to="/profile">Logout</Link>
         </Menu.Item>
       </Menu>
