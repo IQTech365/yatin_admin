@@ -3,7 +3,8 @@ import axios from "axios";
 class Client {
   // static BASE_URL = "http://localhost:3334/api/v1";
   // static BASE_URL = "https://yatin-backend.herokuapp.com/api/v1";
-  static BASE_URL = "http://34.228.60.30:3334/api/v1";
+  // static BASE_URL = "http://34.228.60.30:3334/api/v1";
+  static BASE_URL = "https://mobility-be.herokuapp.com/api/v1";
   
   static instance = axios.create({ baseURL: this.BASE_URL});
 
