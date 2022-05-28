@@ -61,7 +61,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <a class="magic" href="https://yatin-admin.vercel.app">
+      <a className="magic" href="https://yatin-admin.vercel.app">
 
         Yatin,Rahul
 

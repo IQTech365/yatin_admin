@@ -41,16 +41,15 @@ export default function EditEvent(props) {
     (state) => state.Eventdata.myEvents[props.match.params.id]
   );
 
-  useEffect(async () => {
-
-    await setName(MyEvents[props.match.params.invno].Name)
-    await setDate(MyEvents[props.match.params.invno].Date)
-    await setTime(MyEvents[props.match.params.invno].Time)
-    await setVenueType(MyEvents[props.match.params.invno].VenueType)
-    await setLink(MyEvents[props.match.params.invno].Link)
-    await setLocation(MyEvents[props.match.params.invno].Location || "")
-    await setaddress(MyEvents[props.match.params.invno].Location.address !== null ? MyEvents[props.match.params.invno].Location.address : "")
-    await setDescription(MyEvents[props.match.params.invno].Description || "")
+  useEffect(() => {
+    setName(MyEvents[props.match.params.invno].Name)
+    setDate(MyEvents[props.match.params.invno].Date)
+    setTime(MyEvents[props.match.params.invno].Time)
+    setVenueType(MyEvents[props.match.params.invno].VenueType)
+    setLink(MyEvents[props.match.params.invno].Link)
+    setLocation(MyEvents[props.match.params.invno].Location || "")
+    setaddress(MyEvents[props.match.params.invno].Location.address !== null ? MyEvents[props.match.params.invno].Location.address : "")
+    setDescription(MyEvents[props.match.params.invno].Description || "")
   }, [])
   const save = async () => {
     let data = {
@@ -62,9 +61,9 @@ export default function EditEvent(props) {
       MyEvents[props.match.params.invno]._id, setIsSubmitted));
 
   };
-  useEffect(async () => {
+  useEffect(() => {
     if (typeof Description === "object") {
-      await setDescription(MyEvents[props.match.params.invno].Description.props.children)
+      setDescription(MyEvents[props.match.params.invno].Description.props.children)
     }
   }, [Description])
 
@@ -121,7 +120,7 @@ export default function EditEvent(props) {
           inputProps={{
             step: 300, // 5 min
           }}
-          ampm={false}
+          ampm={"false"}
           value={Time}
           onChange={(e) => {
             setTime(e.target.value);

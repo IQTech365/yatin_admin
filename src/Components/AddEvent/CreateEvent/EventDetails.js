@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   TextField,
-  Select,
-  MenuItem,
-  FormControl,
   Modal,
   Switch,
   Button,
-  FormControlLabel,
-  Typography,
+  Input,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./CreateEvent.css";
@@ -19,14 +15,13 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import ImageSelectionModal from "./ImageSelectionModal";
 import { useDispatch } from "react-redux";
 import { BsInfoCircleFill } from "react-icons/bs";
-import AppText from "../../../Utils/Constants";
 import Utils from "../../../Utils/Utils";
+import ReactPlayer from "react-player";
 
 export default function EventDetails(props) {
   const useStyles = makeStyles((theme) => ({
     notchedOutline: {
       borderWidth: "3px",
-      // borderColor: "#3897f1 !important",
       borderRadius: "8px",
       color: "#3897f1 !important",
       fontSize: "12px !important",
@@ -60,6 +55,9 @@ export default function EventDetails(props) {
   const [address, setaddress] = useState("");
   const [eventTypeIndex, setEventTypeIndex] = useState(0);
   const [isOnlineInApp, setIsOnlineInApp] = useState(false);
+  const [currentGroupIndex, seCurrentGroupIndex] = React.useState(-1);
+  const [currentGroup, setCurrentGroup] = React.useState(null);
+  const [playing, setPlaying] = React.useState(false);
 
   useEffect(() => {
     if (props.Events[props.SelectedEvent] !== undefined) {
@@ -114,7 +112,6 @@ export default function EventDetails(props) {
     console.log(CurrentEventDetails);
     eventscpy[props.SelectedEvent] = CurrentEventDetails;
     await props.setEvents(eventscpy);
-    // await props.SelectEvent(0);
     let result = await props.checkIfEventEmpty(
       eventscpy,
       props.Type,
@@ -125,13 +122,9 @@ export default function EventDetails(props) {
     if (result.status === true && props.Type !== "") {
       let EventsCopy = [...props.Events];
       await props.setDisablesave(true);
-
       props.handleNext();
     } else {
-      // console.log("result false");
-      // console.log(IsSubmitted);
       await props.SelectEvent(result.index);
-      // console.log(result.index);
     }
   };
 
@@ -148,6 +141,19 @@ export default function EventDetails(props) {
     }
   };
   const dispatch = useDispatch();
+
+  const _playPauseVideo = () => {
+    setPlaying(!playing);
+  };
+
+  const _handleEventType = (eventType, i) => {
+    setEventTypeIndex(i);
+    changevenue();
+    SetCurrentEventDetails({
+      ...CurrentEventDetails,
+      VenueType: eventType,
+    });
+  };
 
   return (
     <Grid container spacing={1} className="p-15px pt-0">
@@ -171,11 +177,7 @@ export default function EventDetails(props) {
           CurrentEventDetails.filetype === "jpg" ||
           CurrentEventDetails.filetype === "jpeg" ? (
             <img
-              src={
-                CurrentEventDetails !== undefined
-                  ? CurrentEventDetails.file
-                  : " "
-              }
+              src={CurrentEventDetails?.file}
               onClick={() => {
                 toggleShowPopup(true);
               }}
@@ -186,25 +188,78 @@ export default function EventDetails(props) {
               }
             />
           ) : (
-            <video
-              type="video/mp4"
-              style={{ height: "300px" }}
-              autoPlay={true}
-              src={
-                CurrentEventDetails !== undefined
-                  ? CurrentEventDetails.file
-                  : " "
-              }
-              onClick={() => {
-                toggleShowPopup(true);
-              }}
-              preload="none"
-              className={
-                processing === true
-                  ? " transparent w-100 "
-                  : "notTransparent w-100 "
-              }
-            />
+            <>
+              <div style={{position: 'relative'}}>
+                <ReactPlayer
+                  url={CurrentEventDetails.file?.media_link}
+                  playing={playing}
+                  onProgress={(progress) => {
+                    const currentTimeInSeconds = Math.floor(
+                      progress?.playedSeconds
+                    );
+                    if (currentTimeInSeconds !== 0) {
+                      if (
+                        CurrentEventDetails?.file.groups &&
+                        CurrentEventDetails.file?.groups.length > 0
+                      ) {
+                        const index =
+                          CurrentEventDetails.file?.groups.findIndex((el) => {
+                            const groupShowTime = parseInt(el.interval);
+                            return groupShowTime === currentTimeInSeconds;
+                          });
+                        if (index !== -1) {
+                          const currentGroupObject =
+                            CurrentEventDetails.file?.groups[index];
+                          seCurrentGroupIndex(index);
+                          setCurrentGroup(currentGroupObject);
+                        } else {
+                          seCurrentGroupIndex(-1);
+                          setCurrentGroup(null);
+                        }
+                      }
+                    }
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    flexDirection: "column",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    alignContent: "center",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  {currentGroup &&
+                    currentGroup.inputs.map((input, index) => {
+                      console.log("position-x", input.position_x);
+                      console.log("position-y", input.position_y);
+                      return (
+                        <p
+                          key={index}
+                          style={{
+                            position: "relative",
+                            color: input.color,
+                            fontSize: parseInt(input.size),
+                            width: `${input.text.length}ch`,
+                            top: input.position_y,
+                            left: input.position_x,
+                          }}
+                        >
+                          {input.text}
+                        </p>
+                      );
+                    })}
+                </div>
+              </div>
+              <button onClick={_playPauseVideo}>
+                {playing ? "Pause" : "Play"}
+              </button>
+            </>
           )
         ) : (
           <></>
@@ -291,7 +346,7 @@ export default function EventDetails(props) {
           inputProps={{
             step: 300, // 5 min
           }}
-          ampm={false}
+          ampm={"false"}
           value={CurrentEventDetails.Time}
           onChange={(e) => {
             // console.log(e.target.value);
@@ -355,22 +410,17 @@ export default function EventDetails(props) {
       <Grid item lg={12} xs={12} sm={12} md={12} style={{ marginTop: 10 }}>
         <Grid container spacing={2}>
           {Utils.EventTypes.map((eventType, i) => {
-            const selected = eventTypeIndex === i;
+            console.log("selected-TabIndex-", i);
             return (
               <Grid item lg={4} xs={4} sm={4} md={4} key={i}>
                 <Button
                   className={
-                    selected
-                      ? classes.activeTabButton
-                      : classes.inactiveTabButton
+                    eventTypeIndex === i
+                      ? `${classes.activeTabButton}`
+                      : `${classes.inactiveTabButton}`
                   }
                   onClick={() => {
-                    setEventTypeIndex(i);
-                    changevenue();
-                    SetCurrentEventDetails({
-                      ...CurrentEventDetails,
-                      VenueType: eventType,
-                    });
+                    _handleEventType(eventType, i);
                   }}
                 >
                   {eventType}
@@ -403,39 +453,6 @@ export default function EventDetails(props) {
           />
         </Grid>
       )}
-      {/* <Grid item xs={6} style={{ marginTop: 10 }}>
-        <span className="label">Type</span>
-        <select
-          className="w-100-p selectboxblue"
-          value={CurrentEventDetails.VenueType}
-          onChange={(e) => {
-            changevenue();
-            SetCurrentEventDetails({
-              ...CurrentEventDetails,
-              VenueType: e.target.value,
-            });
-          }}
-          error={
-            IsSubmitted === true && CurrentEventDetails.VenueType === ""
-              ? true
-              : false
-          }
-          variant="outlined"
-          InputProps={{
-            classes: {
-              notchedOutline: classes.notchedOutline,
-            },
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        >
-          <option value="Online-Inapp">OnlineInApp</option>
-          <option value="Online">Online</option>
-          <option value="Offline">Offline</option>
-          <option value="Both">Both</option>
-        </select>
-      </Grid> */}
       <>
         <Grid
           item
@@ -507,12 +524,12 @@ export default function EventDetails(props) {
             </>
           ) : (
             <Grid container spacing={0} style={{ width: "100%" }}>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <span className="label " style={{ width: "100%" }}>
                   Location
                 </span>
               </Grid>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <div
                   className="fs-14"
                   onClick={() => setisEditLocation(true)}

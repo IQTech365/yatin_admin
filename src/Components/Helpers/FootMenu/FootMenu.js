@@ -82,7 +82,7 @@ export default function FootMenu(props) {
           >
             &nbsp;&nbsp;Guests&nbsp;&nbsp;
           </Grid>
-          <Grid xs={2}></Grid>
+          <Grid item xs={2}></Grid>
           <Grid
             item
             xs={5}

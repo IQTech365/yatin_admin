@@ -1,7 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
-import {
-  Grid,
-} from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@material-ui/icons/RemoveCircleOutline";
@@ -32,7 +30,7 @@ export default function CreateEvent(props) {
     multiple: false,
     accept: "image/jpeg, image/png, image/jpg, video/mp4 ",
   });
-  const [uniquecode, setuniquecode] = useState('');
+  const [uniquecode, setuniquecode] = useState("");
   const [url, seturl] = useState(AddImg);
   useEffect(() => {
     if (
@@ -53,7 +51,6 @@ export default function CreateEvent(props) {
       : "",
   ]);
 
-
   return (
     <>
       <Grid container spacing={0} className="m-0  p-15px pt-0 pb-0">
@@ -66,23 +63,23 @@ export default function CreateEvent(props) {
           >
             <Select
               native
-             
               displayEmpty
             >
-             
             </Select>
           </FormControl> */}
-          <select className="w-100-p  m-b-10 " value={props.Type}
+          <select
+            className="w-100-p  m-b-10 "
+            value={props.Type}
             onChange={props.handleChange}
-            error={erroring}
-            className="selectboxblue" >
+            error={`${erroring}`}
+            className="selectboxblue"
+          >
             <option value="Wedding">Wedding</option>
             <option value="Birthday">Birthday</option>
             <option value="Wedding Anniversary">Wedding Anniversary</option>
             <option value="Get Together">Get Together</option>
             <option value="Formal Event">Formal Event</option>
           </select>
-
         </Grid>
         <Grid item xs={12} sm={6}>
           <div className="noe">
@@ -105,7 +102,6 @@ export default function CreateEvent(props) {
                     </div>
                     <div className="white box  fl">{props.Events.length}</div>
                     <div className="Cirlce tal  fl">
-
                       <AddCircleOutlineIcon
                         className="l-blue-t"
                         fontSize="large"
@@ -154,11 +150,9 @@ export default function CreateEvent(props) {
 
       <Grid item xs={12}>
         <button
-          className={
-            disablesave === false ? "save-events disabled" : "save-events "
-          }
+          className={disablesave ? "save-events disabled" : "save-events "}
           onClick={() => {
-            if (disablesave === true) {
+            if (disablesave) {
               props.handleNext();
             }
           }}

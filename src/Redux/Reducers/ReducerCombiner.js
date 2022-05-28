@@ -4,10 +4,12 @@ import Eventdata from "./EventReducer";
 import CreateEventForm from "./CreateEventFormReducer";
 import Chatdata from "./ChatReducer";
 import Notifications from "./NotificatonReducer";
-import CodeEvent from './CodeEventReducer'
-import GuestList from './GuestListReducer'
-import Templates from './TemplatesReducer'
-import VideoTemplates from './VideoTemplatesReducer'
+import CodeEvent from "./CodeEventReducer";
+import GuestList from "./GuestListReducer";
+import Templates from "./TemplatesReducer";
+import VideoTemplates from "./VideoTemplatesReducer";
+import GiftReducer from "./GiftReducer";
+
 const allreducers = combineReducers({
   Auth: Auth,
   Eventdata: Eventdata,
@@ -17,6 +19,7 @@ const allreducers = combineReducers({
   GuestList: GuestList,
   CodeEvent: CodeEvent,
   AllTemplates: Templates,
-  VideoTemplates: VideoTemplates
+  VideoTemplates: VideoTemplates,
+  Gift: GiftReducer,
 });
 export default allreducers;

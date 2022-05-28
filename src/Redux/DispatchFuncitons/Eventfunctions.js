@@ -416,3 +416,32 @@ export function UpdateHostSelectedMenu(eid, MenuOption) {
       });
   };
 }
+
+export function UpdateHostConnectInfo(eid, HostConnectInfo) {
+  return (dispatch) => {
+    axios
+      .post(url + "event/updateHostConnectInfo", {
+        id: eid,
+        HostConnectInfo: HostConnectInfo,
+      })
+      .then(async (res) => {
+        // await dispatch(GetInvitations());
+        // await dispatch(GetEvents());
+      });
+  };
+}
+
+export function UpdateRecommendedGifts(eid, RecommendedGifts) {
+  return (dispatch) => {
+    console.log("RecommendedGifts--", RecommendedGifts);
+    axios
+      .post(url + "event/updateRecommendedGifts", {
+        id: eid,
+        RecommendedGifts: RecommendedGifts,
+      })
+      .then(async (res) => {
+        // await dispatch(GetInvitations());
+        // await dispatch(GetEvents());
+      });
+  };
+}

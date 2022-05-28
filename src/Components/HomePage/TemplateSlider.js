@@ -133,9 +133,9 @@ function TemplateSlider(props) {
                 dynamicBullets: true,
               }}
             >
-              {VideoTemplates.map((template) => {
+              {VideoTemplates.map((template, index) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={index}>
                     <iframe
                       width="560"
                       height="315"

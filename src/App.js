@@ -47,6 +47,7 @@ import Templates from "./Components/Templates/Templates";
 import Terms from "./Components/HomePage/Terms";
 import Hoxdetails from "./Components/Invitations/hoxdetails";
 import AddGift from "./Components/Gift/AddGift"
+import BuyGift from "./Components/BuyGift/BuyGift";
 function App() {
   const dispatch = useDispatch();
   const [loop, setloop] = useState();
@@ -232,6 +233,7 @@ function App() {
               path="/inv/GuestList/:id/:invno"
               component={GuestList}
             />
+            <Route exact path="/buygift" component={BuyGift}/>
 
             {/* <Route exact path="/inv/info/:id" component={Invitationlist} /> */}
             <Route exact path="/inv/rsvp/:id" component={Rsvp} />

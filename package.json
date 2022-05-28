@@ -123,7 +123,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/",
+  "proxy": "http://localhost:3334/",
   "devDependencies": {
     "react-video-thumbnail": "^0.1.3"
   }

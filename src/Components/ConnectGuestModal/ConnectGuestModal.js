@@ -24,8 +24,9 @@ export default function ConnectGusetModal({ open, onClose }) {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
       //TODO: Save this data to database
+      onClose(values);
     },
   });
 

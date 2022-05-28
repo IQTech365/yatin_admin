@@ -23,6 +23,7 @@ import {
   like_event,
   comment_event,
   UpdateHostSelectedMenu,
+  UpdateHostConnectInfo,
 } from "../../../Redux/DispatchFuncitons/Eventfunctions";
 import history from "../../../Utils/History";
 import NavMobile from "../../Helpers/NavMobile/NavMobile";
@@ -55,12 +56,12 @@ export default function InvitaionMain(props) {
   const [openOptionModal, setOpenOptionModal] = useState(false);
   const [openConnectGuestModal, setConnectGuestModal] = useState(false);
   const [selectedOptionModal, setSelectedOptionModal] = useState({
-    title: "Like",
-    id: 1,
-    icon: <AiOutlineLike size={22} />,
+    title: "Gift",
+    id: 2,
+    icon: <FiGift size={22} />,
   });
 
-  console.log("props.Eventdata----", props.Eventdata)
+  console.log("props.Eventdata----", props.Eventdata);
 
   const Auth = useSelector((state) => state.Auth);
   const checkiflike = (index) => {
@@ -211,7 +212,13 @@ export default function InvitaionMain(props) {
     setOpenOptionModal(false);
   };
 
-  const _onCloseConnectGuestModal = () => {
+  const _onCloseConnectGuestModal = (values) => {
+    if (values) {
+      console.log("values-----", values);
+      dispatch(
+        UpdateHostConnectInfo(props.Eventdata[0]._id, JSON.stringify(values))
+      );
+    }
     setConnectGuestModal(false);
   };
 
@@ -221,8 +228,15 @@ export default function InvitaionMain(props) {
     } else {
       setConnectGuestModal(false);
     }
-    //Update Event modal here
   }, [selectedOptionModal]);
+
+  const _handleGuestAction = (selectedOption, isHost) => {
+    if (selectedOptionModal.title === "Gift") {
+      history.push({pathname: "/buygift", state: {isHost, eventID: props.Eventdata[0]._id}});
+    } else if (selectedOptionModal.title === "Like") {
+      //TODO: call like api here
+    }
+  };
 
   return (
     <>
@@ -487,74 +501,38 @@ export default function InvitaionMain(props) {
                       <center className="icon-labels">
                         {eve.Host.includes(Auth.Phone) ? (
                           <>
-                            {platform.name === "Safari" &&
-                            platform.version.split(".")[0] >= 13 ? (
-                              <>
-                                <FiGift
-                                  size={23}
-                                  onClick={() => {
-                                    history.push(
-                                      "/" +
-                                        props.base +
-                                        "/eventpage/" +
-                                        "gift/" +
-                                        props.id +
-                                        "/" +
-                                        eve.MainCode
-                                    );
-                                  }}
-                                />
-                                <br />
-                                <>Add Gift</>
-                              </>
-                            ) : (
-                              <>
-                                {" "}
-                                {/* <FiGift size={23} /> */}
-                                {selectedOptionModal.icon}
-                                <RiEditCircleFill
-                                  size="15"
-                                  style={{ color: "#3897f1", marginTop: -15 }}
-                                  onClick={() => {
-                                    setOpenOptionModal(true)
-                                  }}
-                                />
-                                <br />
-                                {/* <>Buy Gift</> */}
-                                {selectedOptionModal.title}
-                                {/* {" "}
-                                <FiShare2
-                                  size={23}
-                                  onClick={() => {
-                                    share(
-                                      eve.file,
-                                      eve.filetype,
-                                      "https://mobillyinvite.com/MyInvitations/" +
-                                      eve.MainCode +
-                                      "/" +
-                                      eve.code,
-                                      eve.Name,
-                                      eve.Date
-                                    );
-                                    // history.push(
-                                    //   "/" +
-                                    //   props.base +
-                                    //   "/event-create-success/" +
-                                    //   eve.MainCode +
-                                    //   '/Share'
-                                    // );
-                                  }}
-                                /> */}
-                              </>
-                            )}
+                            {" "}
+                            <a
+                              onClick={() => {
+                                _handleGuestAction(selectedOptionModal, true);
+                              }}
+                            >
+                              {selectedOptionModal.icon}
+                            </a>
+                            <RiEditCircleFill
+                              size="15"
+                              style={{ color: "#3897f1", marginTop: -15 }}
+                              onClick={() => {
+                                setOpenOptionModal(true);
+                              }}
+                            />
+                            <br />
+                            {selectedOptionModal.title}
                           </>
                         ) : (
                           <center className="icon-labels">
                             {" "}
-                            <FiGift size="25" style={{ color: "#4e4e4e" }} />
+                            <FiGift
+                              size="25"
+                              style={{ color: "#4e4e4e" }}
+                              onClick={() => {
+                                _handleGuestAction(selectedOptionModal, false);
+                              }}
+                            />
                             <br />
-                            {/* <>Buy Gift</>{" "} */}
-                            {selectedOptionModal.title}
+                            {selectedOptionModal.title === "Gift"
+                              ? "Buy Gift"
+                              : selectedOptionModal.title}
                           </center>
                         )}
                       </center>
@@ -575,10 +553,6 @@ export default function InvitaionMain(props) {
                             );
                           }}
                         />
-                        {/*  <Image
-                          src={CalendarIcon}
-                          
-                        /> */}
                         <br />
                         <>Schedule</>
                       </center>
@@ -627,27 +601,7 @@ export default function InvitaionMain(props) {
                   <h3 className="event-date">
                     <Dateformatter Date={eve.Date + " " + eve.Time} />
                   </h3>
-                  <p className="event-des">
-                    {eve.Description}
-                    {/* {showfulldescription === false
-                      ? eve.Description.slice(0, 50) + "..."
-                      : eve.Description} */}
-                  </p>{" "}
-                  {/* {eve.Description.length > 50 ? (
-                    <a
-                      href="#"
-                      className="invitationmain_link"
-                      onClick={() => {
-                        setshowfulldescription(!showfulldescription);
-                      }}
-                    >
-                      {showfulldescription === false
-                        ? "Show More"
-                        : "Show Less"}
-                    </a>
-                  ) : (
-                    <></>
-                  )} */}
+                  <p className="event-des">{eve.Description}</p>{" "}
                 </Container>
               </Container>
             </Carousel.Item>

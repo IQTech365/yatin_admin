@@ -10,10 +10,10 @@ export default function Toggler(props) {
     history.push("/inv");
   };
   return (
-    <Grid container spacing="0" className="toggler">
+    <Grid container spacing={0} className="toggler">
       <Grid item md={1}></Grid>
       <Grid item md={5}>
-        <Grid container spacing="0">
+        <Grid container spacing={0}>
           <Grid
             item
             md={3}

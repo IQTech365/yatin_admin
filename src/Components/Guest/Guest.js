@@ -53,21 +53,21 @@ export default function Guest(props) {
       MyEvents.length > 0
     ) {
       data = MyEvents[props.match.params.id][props.match.params.invno];
-      await setbase("MyEvents");
+      setbase("MyEvents");
     } else {
       data = myInvitations[props.match.params.id][props.match.params.invno];
-      await setbase("inv");
+      setbase("inv");
     }
 
     RSVPList = _.orderBy(data.RSVPList, "By", "asc");
     Participants = [...data.Participants, ...data.Host].sort();
-    await setguestList(Participants);
-    await setHosts(data.Host);
-    await seteid(data._id);
+    setguestList(Participants);
+    setHosts(data.Host);
+    seteid(data._id);
     if (data.Host.includes(Auth.Phone)) {
-      await setisAdmin(true);
+      setisAdmin(true);
     } else {
-      await setisAdmin(false);
+      setisAdmin(false);
     }
     RSVPList.map((rsvp) => {
       if (Participants.includes(rsvp.By)) {
@@ -96,13 +96,12 @@ export default function Guest(props) {
       all.push({ By: Participants[i], Status: Status });
       found = false;
     }
-    await setshouldchange(true);
+    setshouldchange(true);
     all = [...new Set(all)];
-    await setguestList(all);
-
-    await setguestListaccept(accept);
-    await setguestListdecline(decline);
-    await setguestListmaybe(maybe);
+    setguestList(all);
+    setguestListaccept(accept);
+    setguestListdecline(decline);
+    setguestListmaybe(maybe);
   }, [myInvitations, MyEvents]);
   return (
     <div>
