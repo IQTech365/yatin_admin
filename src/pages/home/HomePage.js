@@ -56,9 +56,10 @@ const HomePage = (props) => {
           if (currentTimeInSeconds !== 0) {
             if (groups && groups.length > 0) {
               const index = groups.findIndex((el) => {
-                const groupShowTime = parseInt(el.interval);
-                return groupShowTime === currentTimeInSeconds;
+                // const groupShowTime = parseInt(el.interval);
+                return el.interval === currentTimeInSeconds;
               });
+              console.log("line-59-index-", index);
               if (index !== -1) {
                 setPlaying(false);
                 const currentGroupObject = groups[index];
@@ -81,6 +82,8 @@ const HomePage = (props) => {
       if (media.media_type === "image") {
         seCurrentGroupIndex(0);
         setCurrentGroup(media.groups[0]);
+      }else if(media.media_type === 'video'){
+        setGroups(media.groups);
       }
     }
   }, [media]);
